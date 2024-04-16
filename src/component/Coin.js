@@ -23,6 +23,12 @@ import twitter from "../assets/x.png";
 import snap from "../assets/snap.png";
 import telegram from "../assets/telegram.png";
 import youtube from "../assets/yt.png";
+import aboutgif from "../assets/about-gif.gif";
+import supplygif from "../assets/supply-gif.gif";
+import supplygif1 from "../assets/supply-gif1.gif";
+import socialimg from "../assets/social-gif.gif";
+import aboutimg from "../assets/Rope.png";
+
 
 const Coin = () => {
   const [showVideo, setShowVideo] = useState(false);
@@ -347,7 +353,11 @@ const Coin = () => {
 
                 {showAbout && (
                   <div id="glitch-background">
-                    <div className="trasition-1">
+                    <div className="about-trasition-1">
+                      <div className="rope-img">
+                      <img src={aboutimg} />
+                        </div>
+                     
                       <h2 id="textcolorabout" className="header-line">
                         About HippiePepeMemeTV
                       </h2>
@@ -359,7 +369,7 @@ const Coin = () => {
                         </p>
                         <p id="textcolorabout" className="about-para">
                           The world seems to have forgotten this and taken
-                          itself too seriously.{" "}
+                          itself too seriously.
                         </p>
                         <p id="textcolorabout" className="about-para">
                           HippiePepeMemeTv is here- to spread joy, to spread
@@ -369,32 +379,37 @@ const Coin = () => {
                         <p id="textcolorabout" className="about-para">
                           So, you also watch HippiPepeMemeTv and doNothing. Okay
                         </p>
+                        <div className="about-gif-part">
+                        <img src={aboutgif} /> </div>
+
+                        
                       </div>
                     </div>
                   </div>
                 )}
                 {showToken && (
                   <div id="glitch-background">
-                    <div className="trasition-1">
-                      <h2 id="textcolorabout" className="header-line">
+                    <div className="trasition-2">
+                      <div className="supply-part">
+                        <h2 id="textcolorabout">
                         Total Supply
                       </h2>
+                      <img src={supplygif} /> </div>
+                      
+                      
                       {/*<span className='shadow'>About HippiePepeMemeTV</span>  */}
                       <div className="text-head">
                         <h3 id="textcolorsocial" className="supply-p">
-                          <a
-                            href="https://www.youtube.com/@HippiePepe"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                          >
                             999,999,999,999,999 HPTV{" "}
-                          </a>
                         </h3>
                         <p id="textcolorsocial">
                           5%- Build (We can’t jus’ doNothing. Memes need to win)
                           5% - Team(We need to win. We want to doNothing) Rest-
                           You decide while you doNothing
                         </p>
+                        <div className="supply-ocb">
+                          <img src={supplygif1} />
+                        </div>
                         <p id="textcolorsocial">
                           Small Presale(Obvio) L.P Burnt(Obvio more). Contract
                           Revoked(obvio most)
@@ -430,6 +445,7 @@ const Coin = () => {
                 {showSocial && (
                   <div id="glitch-background">
                     <div className="trasition-1">
+                    <img src={socialimg} />
                       <h3>Tune into CMemeTv and doNothing</h3>
 
                       <div className="text-head">

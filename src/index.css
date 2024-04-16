@@ -5,7 +5,7 @@
 /* In your global stylesheet, e.g., styles.css */
 @font-face {
   font-family: "VCR OSD Mono";
-  src: url("/Users/murali/Desktop/Hippe_Pepe_Final/MemeTv/public/fonts/VCR_OSD_MONO_1.001.ttf")
+  src: url("C:\Users\sadham\Hippie_Pepe\public\fonts\VCR_OSD_MONO_1.001.ttf")
     format("truetype");
 }
 
