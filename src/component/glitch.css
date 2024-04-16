@@ -1,0 +1,54 @@
+/* glitch.css */
+@keyframes glitch {
+    0%, 100% {
+      background-position: 0 0;
+    }
+    10% {
+      background-position: -5px 0;
+    }
+    20% {
+      background-position: 5px 0;
+    }
+    30% {
+      background-position: -10px 0;
+    }
+    40% {
+      background-position: 10px 0;
+    }
+    50% {
+      background-position: 0 0;
+    }
+    60% {
+      background-position: 10px 0;
+    }
+    70% {
+      background-position: -15px 0;
+    }
+    80% {
+      background-position: 15px 0;
+    }
+    90% {
+      background-position: -5px 0;
+    }
+  }
+  
+  .glitch-background {
+    height: 100vh;
+    width: 100vw;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-image:
+      repeating-linear-gradient(90deg, 
+        #ff6347 0%, #ff6347 2%, transparent 2%, transparent 10%),
+      repeating-linear-gradient(90deg, 
+        #4682b4 0%, #4682b4 2%, transparent 2%, transparent 10%),
+      repeating-linear-gradient(90deg, 
+        #32cd32 0%, #32cd32 2%, transparent 2%, transparent 10%),
+      repeating-linear-gradient(90deg, 
+        #ff1493 0%, #ff1493 2%, transparent 2%, transparent 10%);
+    background-size: 20px 100%; /* Adjust to control thickness of lines */
+    animation: glitch 1s infinite linear;
+    overflow: hidden;
+  }
+  
