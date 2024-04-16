@@ -29,9 +29,10 @@ import supplygif1 from "../assets/supply-gif1.gif";
 import socialimg from "../assets/social-gif.gif";
 import aboutimg from "../assets/Rope.png";
 
+import clickSound from "../assets/clicksound.mp3";
 
 const Coin = () => {
-  const [showVideo, setShowVideo] = useState(false);
+  const [showVideo, setShowVideo] = useState(true);
   const [showAbout, setShowAbout] = useState(false);
   const [showToken, setShowToken] = useState(false);
   const [showSocial, setShowSocial] = useState(false);
@@ -48,6 +49,11 @@ const Coin = () => {
 
   const [isVideoPlaying, setIsVideoPlaying] = useState(false);
   const videoRef = useRef(null);
+
+  const playClickSound = () => {
+    const sound = new Audio(clickSound);
+    sound.play();
+  };
 
   function useTypingEffect(text, speed = 100) {
     const [displayedText, setDisplayedText] = useState("");
@@ -75,7 +81,7 @@ const Coin = () => {
     setTimeout(() => {
       setShowGlitchGif(false);
       setShowVideo(true); // Show the video component
-      setIsVideoPlaying(true); // Automatically start playing the video
+      setIsVideoPlaying(false); // Automatically start playing the video
       // if (videoRef.current) {
       //   videoRef.current.play(); // Ensure video plays if it's loaded
       // }
@@ -100,20 +106,6 @@ const Coin = () => {
       .join(":");
   };
 
-  // const getButtonStyle = (buttonName) => {
-  //   return buttonName === activeButton
-  //     ? {
-  //         color: "yellow",
-  //         background:
-  //           "var(--Gradient, linear-gradient(180deg, #FD8D23 -1.34%, #FAE61C 10.31%, #EEF73B 20.95%, #4CF038 42.23%, #33C6F6 65.04%, #559CFB 73.14%, #7475FF 80.74%, #D457FF 100%))",
-  //         backgroundClip: "text",
-  //         WebkitBackgroundClip: "text",
-  //         WebkitTextFillColor: "transparent",
-  //         boxShadow: "0 5px #141414",
-  //       }
-  //     : {};
-  // };
-
   const getButtonDetails = (buttonName) => {
     if (buttonName === activeButton) {
       return {
@@ -136,8 +128,39 @@ const Coin = () => {
     }
   };
 
+  const handleVideoLoadAndPlay = (videoIndex) => {
+    if (videoRef.current) {
+      videoRef.current.src = videos[videoIndex];
+      videoRef.current.load();
+      videoRef.current.play().catch((error) => {
+        console.error("Error attempting to play the video: ", error);
+      });
+      videoRef.current.muted = false; // Ensure the video is not muted
+    }
+  };
+
+  const togglePlayPause = () => {
+    if (videoRef.current) {
+      if (videoRef.current.paused) {
+        videoRef.current.play();
+      } else {
+        videoRef.current.pause();
+      }
+    }
+  };
+
+  useEffect(() => {
+    setShowGlitchGif(true);
+    setTimeout(() => {
+      setShowGlitchGif(false);
+      setShowVideo(true);
+      setIsVideoPlaying(true);
+      handleVideoLoadAndPlay(0); // Start with the first video
+    }, 1000);
+  }, []);
   const handlePlayClick = () => {
     // console.log('Play clicked');
+    playClickSound();
     setActiveButton("play");
     setShowAbout(false);
     setShowVideo(true);
@@ -155,6 +178,7 @@ const Coin = () => {
   };
 
   const handleAboutClick = () => {
+    playClickSound();
     setActiveButton("about");
     // Immediately hide the content and start the glitch effect
     setShowAbout(false);
@@ -174,6 +198,7 @@ const Coin = () => {
   };
 
   const handleTokenClick = () => {
+    playClickSound();
     setActiveButton("token");
     // Hide all content and trigger the glitch effect
     setShowAbout(false);
@@ -192,6 +217,7 @@ const Coin = () => {
   };
 
   const handleSocialClick = () => {
+    playClickSound();
     setActiveButton("social");
     setShowAbout(false);
     setShowVideo(false);
@@ -209,6 +235,7 @@ const Coin = () => {
   };
 
   const handleRoadmapClick = () => {
+    playClickSound();
     setActiveButton("roadmap");
     setShowAbout(false);
     setShowVideo(false);
@@ -226,6 +253,7 @@ const Coin = () => {
   };
 
   const handleNextClick = () => {
+    playClickSound();
     setShowGlitchGif(true); // Display the glitch effect
     setTimeout(() => {
       setShowGlitchGif(false); // Hide the glitch effect
@@ -239,16 +267,11 @@ const Coin = () => {
       let nextIndex = (currentIndex + 1) % videos.length; // Get the next index
       setCurrentIndex(nextIndex); // Update the current index
       // Update the video source and ensure it plays
-      if (videoRef.current) {
-        videoRef.current.src = videos[nextIndex];
-        videoRef.current.load();
-        videoRef.current
-          .play()
-          .catch((error) => console.error("Error playing the video:", error));
-      }
+      handleVideoLoadAndPlay(nextIndex);
     }, 1000);
   };
   const handleBackClick = () => {
+    playClickSound();
     setShowGlitchGif(true); // Display the glitch effect
     setTimeout(() => {
       setShowGlitchGif(false); // Hide the glitch effect
@@ -262,23 +285,29 @@ const Coin = () => {
       let prevIndex =
         currentIndex - 1 < 0 ? images.length - 1 : currentIndex - 1; // Calculate the previous index
       setCurrentIndex(prevIndex); // Update the current index
+      handleVideoLoadAndPlay(prevIndex);
     }, 1000);
   };
   useEffect(() => {
-    if (videoRef.current) {
-      videoRef.current.load(); // Load the new video
-      videoRef.current
-        .play() // Attempt to play
-        .then(() => {
-          setShowContent(false); // Hide text content when video plays successfully
-        })
-        .catch((error) => {
-          console.error("Error attempting to play the video: ", error);
-          setShowContent(true); // Show text content if video doesn't play
-        });
+    // Check if videoRef.current is available and only then add the event listener
+    const videoElement = videoRef.current;
+    if (videoElement) {
+      videoElement.addEventListener("click", togglePlayPause);
+
+      // Return a cleanup function that removes the event listener
+      return () => {
+        if (videoElement) {
+          // Check again if the element is still there
+          videoElement.removeEventListener("click", togglePlayPause);
+        }
+      };
     }
-    console.log(currentIndex + "curret");
-  }, [currentIndex]); // Run effect when currentIndex changes
+  }, [videoRef.current]); // Depend on videoRef.current to re-attach the listener if the ref changes
+
+  // The useEffect for updating video based on currentIndex remains the same.
+  useEffect(() => {
+    handleVideoLoadAndPlay(currentIndex);
+  }, [currentIndex]);
 
   return (
     <div>
@@ -344,12 +373,12 @@ const Coin = () => {
                     }}
                   />
                 )}
-                {/* {showVideo && (
+                {showVideo && (
                   <video ref={videoRef} width="850" height="740" controls>
                     <source src={frogvideo} type="video/mp4" />
                     Your browser does not support the video tag.
                   </video>
-                )} */}
+                )}
 
                 {showAbout && (
                   <div id="glitch-background">
