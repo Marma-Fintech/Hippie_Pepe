@@ -56,8 +56,8 @@ const Coin = () => {
     sound.play();
   };
   function ButtonTextChange() {
-    if (button == "pause") {
-      setButton("play");
+    if (button == "play") {
+      setButton("pause");
 
      
       
@@ -65,8 +65,8 @@ const Coin = () => {
       // setIsVideoPlaying(false);
       setShowVideo(false);
     }
-    else if(button == "play") {
-      setButton("pause");
+    else if(button == "pause") {
+      setButton("play");
       // setShowVideo(false);
       // setIsVideoPlaying(true);
       setShowVideo(true);
