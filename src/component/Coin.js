@@ -46,7 +46,7 @@ const Coin = () => {
   const videos = [ frogvideo, shibuvideo];
   const [showGlitchGif, setShowGlitchGif] = useState(true);
   const [activeButton, setActiveButton] = useState("");
-  const [button, setButton] = useState("play");
+  const [button, setButton] = useState("Play");
 
   const [isVideoPlaying, setIsVideoPlaying] = useState(false);
   const videoRef = useRef(null);
@@ -56,8 +56,8 @@ const Coin = () => {
     sound.play();
   };
   function ButtonTextChange() {
-    if (button == "play") {
-      setButton("pause");
+    if (button == "Play") {
+      setButton("Pause");
 
      
       
@@ -65,8 +65,8 @@ const Coin = () => {
       // setIsVideoPlaying(false);
       setShowVideo(false);
     }
-    else if(button == "pause") {
-      setButton("play");
+    else if(button == "Pause") {
+      setButton("Play");
       // setShowVideo(false);
       // setIsVideoPlaying(true);
       setShowVideo(true);
