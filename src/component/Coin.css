@@ -6,7 +6,7 @@
 body {
   background: #453522;
   font-family: myFirstFont !important;
-  overflow: hidden;
+  /* overflow: hidden; */
 }
 .meme-img img {
   background-position: center;
@@ -237,7 +237,7 @@ h2 {
   border-left: none;
 }
 #speaker {
-  background-image: url("../assets/dot.png");
+  background-image: url("../assets/wallet.png");
   background-repeat: round;
   opacity: 0.8;
   /*  border-radius: 0px;
