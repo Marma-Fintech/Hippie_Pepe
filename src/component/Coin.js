@@ -17,8 +17,8 @@ import roadmap2 from "../assets/c.png";
 import roadmap3 from "../assets/W.png";
 import sociallinks from "../assets/social-links.png";
 import glitch from "../assets/757Y.gif";
-import leftarrow from "../assets/Group 2059.png";
-import rightarrow from "../assets/Group 2060.png";
+import leftarrow from "../assets/Group 20591.png";
+import rightarrow from "../assets/Group 2060s.png";
 import twitter from "../assets/x.png";
 import snap from "../assets/snap.png";
 import telegram from "../assets/telegram.png";
@@ -385,7 +385,7 @@ const Coin = () => {
               </li>
               <li>
                 <a
-                  href="https://t.me/+918124877707"
+                  href="https://t.me/+u7CFxzbYbUk1MWQ1"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
