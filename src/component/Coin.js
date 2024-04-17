@@ -82,9 +82,6 @@ const Coin = () => {
       setShowGlitchGif(false);
       setShowVideo(true); // Show the video component
       setIsVideoPlaying(false); // Automatically start playing the video
-      // if (videoRef.current) {
-      //   videoRef.current.play(); // Ensure video plays if it's loaded
-      // }
     }, 1000); // Glitch GIF displays for 1 second
   }, []);
 
@@ -131,20 +128,44 @@ const Coin = () => {
   const handleVideoLoadAndPlay = (videoIndex) => {
     if (videoRef.current) {
       videoRef.current.src = videos[videoIndex];
-      videoRef.current.load();
-      videoRef.current.play().catch((error) => {
-        console.error("Error attempting to play the video: ", error);
-      });
-      videoRef.current.muted = false; // Ensure the video is not muted
+      videoRef.current.load(); // Load the video after changing the source
+      videoRef.current
+        .play() // Attempt to play the video
+        .then(() => {
+          setIsVideoPlaying(true); // Update state to reflect that video is playing
+        })
+        .catch((error) => {
+          console.error("Error attempting to play the video: ", error);
+          setIsVideoPlaying(false); // Update state to reflect that video is not playing
+        });
     }
   };
+  useEffect(() => {
+    if (videoRef.current) {
+      videoRef.current.muted = true; // Mute the video initially
+      videoRef.current
+        .play() // Attempt to autoplay the video when component mounts
+        .then(() => {
+          // Video is playing muted
+          setIsVideoPlaying(true);
+        })
+        .catch((error) => {
+          console.error("Error attempting to autoplay the video: ", error);
+          setIsVideoPlaying(false);
+        });
+    }
+  }, []);
 
   const togglePlayPause = () => {
     if (videoRef.current) {
       if (videoRef.current.paused) {
-        videoRef.current.play();
+        videoRef.current
+          .play()
+          .then(() => setIsVideoPlaying(true))
+          .catch((error) => console.log("Error playing the video:", error));
       } else {
         videoRef.current.pause();
+        setIsVideoPlaying(false);
       }
     }
   };
@@ -158,6 +179,7 @@ const Coin = () => {
       handleVideoLoadAndPlay(0); // Start with the first video
     }, 1000);
   }, []);
+
   const handlePlayClick = () => {
     // console.log('Play clicked');
     playClickSound();
@@ -171,9 +193,24 @@ const Coin = () => {
     // setShowDoNothing(false);
     setShowGlitchGif(true);
 
+    // setTimeout(() => {
+    //   setShowGlitchGif(true);
+    //   setShowVideo((prevShowVideo) => !prevShowVideo); // Toggle the video visibility based on previous state
+    // }, 1000);
     setTimeout(() => {
-      setShowGlitchGif(false);
-      setShowVideo((prevShowVideo) => !prevShowVideo); // Toggle the video visibility based on previous state
+      // setShowGlitchGif(false);
+      // if (videoRef.current) {
+      //   videoRef.current
+      //     .play() // Attempt to play the video when user clicks
+      //     .then(() => {
+      //       setShowVideo(true);
+      //       setIsVideoPlaying(true);
+      //     })
+      //     .catch((error) => {
+      //       console.error("Error playing the video:", error);
+      //       setIsVideoPlaying(false);
+      //     });
+      // }
     }, 1000);
   };
 
@@ -288,26 +325,39 @@ const Coin = () => {
       handleVideoLoadAndPlay(prevIndex);
     }, 1000);
   };
+  // Add event listener for play/pause toggle
   useEffect(() => {
-    // Check if videoRef.current is available and only then add the event listener
     const videoElement = videoRef.current;
     if (videoElement) {
       videoElement.addEventListener("click", togglePlayPause);
 
-      // Return a cleanup function that removes the event listener
+      // Cleanup
       return () => {
-        if (videoElement) {
-          // Check again if the element is still there
-          videoElement.removeEventListener("click", togglePlayPause);
-        }
+        videoElement.removeEventListener("click", togglePlayPause);
       };
     }
-  }, [videoRef.current]); // Depend on videoRef.current to re-attach the listener if the ref changes
+  }, [videoRef.current]); // Ensure re-attachment if the ref updates
 
-  // The useEffect for updating video based on currentIndex remains the same.
+  // useEffect hook to manage changes in currentIndex or video source
   useEffect(() => {
-    handleVideoLoadAndPlay(currentIndex);
+    if (currentIndex !== undefined && videos[currentIndex]) {
+      handleVideoLoadAndPlay(currentIndex);
+    }
   }, [currentIndex]);
+
+  const startVideo = () => {
+    if (videoRef.current) {
+      videoRef.current
+        .play()
+        .then(() => {
+          setIsVideoPlaying(true); // Set the state that video is playing
+        })
+        .catch((error) => {
+          console.error("Error playing the video: ", error);
+          // Handle the error, for example by showing an error message to the user
+        });
+    }
+  };
 
   return (
     <div>
@@ -373,20 +423,36 @@ const Coin = () => {
                     }}
                   />
                 )}
-                {showVideo && (
+                {/* {showVideo && (
                   <video ref={videoRef} width="850" height="740" controls>
                     <source src={frogvideo} type="video/mp4" />
                     Your browser does not support the video tag.
                   </video>
+                )} */}
+                {showVideo && (
+                  <div>
+                    <video ref={videoRef} width="850" height="740" controls>
+                      <source src={videos[currentIndex]} type="video/mp4" />
+                      Your browser does not support the video tag.
+                    </video>
+                    {/* {!isVideoPlaying && (
+                      <button
+                        className="play-video-button"
+                        onClick={startVideo}
+                      >
+                        Play Video
+                      </button>
+                    )} */}
+                  </div>
                 )}
 
                 {showAbout && (
                   <div id="glitch-background">
                     <div className="about-trasition-1">
                       <div className="rope-img">
-                      <img src={aboutimg} />
-                        </div>
-                     
+                        <img src={aboutimg} />
+                      </div>
+
                       <h2 id="textcolorabout" className="header-line">
                         About HippiePepeMemeTV
                       </h2>
@@ -409,9 +475,8 @@ const Coin = () => {
                           So, you also watch HippiPepeMemeTv and doNothing. Okay
                         </p>
                         <div className="about-gif-part">
-                        <img src={aboutgif} /> </div>
-
-                        
+                          <img src={aboutgif} />{" "}
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -420,16 +485,14 @@ const Coin = () => {
                   <div id="glitch-background">
                     <div className="trasition-2">
                       <div className="supply-part">
-                        <h2 id="textcolorabout">
-                        Total Supply
-                      </h2>
-                      <img src={supplygif} /> </div>
-                      
-                      
+                        <h2 id="textcolorabout">Total Supply</h2>
+                        <img src={supplygif} />{" "}
+                      </div>
+
                       {/*<span className='shadow'>About HippiePepeMemeTV</span>  */}
                       <div className="text-head">
                         <h3 id="textcolorsocial" className="supply-p">
-                            999,999,999,999,999 HPTV{" "}
+                          999,999,999,999,999 HPTV{" "}
                         </h3>
                         <p id="textcolorsocial">
                           5%- Build (We can’t jus’ doNothing. Memes need to win)
@@ -445,36 +508,13 @@ const Coin = () => {
                         </p>
                       </div>
                     </div>
-
-                    {/*   <div className="trasition-2">
-                    <h2 className="header-line ">How to Get HPTV</h2>
-                    <div className="text-head">
-                      <div className="img-res">
-                        <img className="hpmt-img" src={pepe} />
-                      </div>
-                      <p>Connect your wallet, watch the HippiePepeMemeTV </p>
-                    </div>
-<div className='row btn-do'>
-  <div className='do-nothing-button'>
-  <div className='col-md-3'>
-                      <button className='btn-primary'>Buy Now</button>
-                    </div>
-                    <div className='col-md-3'>
-                      <button className='btn-primary'>doNothing</button>
-                    </div>
-                     </div>
-
-   </div>
-
-                  
-                  </div> */}
                   </div>
                 )}
 
                 {showSocial && (
                   <div id="glitch-background">
                     <div className="trasition-1">
-                    <img src={socialimg} />
+                      <img src={socialimg} />
                       <h3>Tune into CMemeTv and doNothing</h3>
 
                       <div className="text-head">
@@ -625,6 +665,8 @@ const Coin = () => {
                   <img src={getButtonDetails("play").icon} alt="Play Icon" />
                   <span>&nbsp;&nbsp;Play</span>
                 </li>
+                {/* <button onClick={startVideo}>Play Video</button> */}
+
                 <li
                   style={getButtonDetails("about").style}
                   onClick={handleAboutClick}
