@@ -43,9 +43,10 @@ const Coin = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const imageTexts = ["Doge", "Pepe", "Shibu"];
   const [showContent, setShowContent] = useState(true);
-  const videos = [dogevideo, frogvideo, shibuvideo];
+  const videos = [ frogvideo, shibuvideo];
   const [showGlitchGif, setShowGlitchGif] = useState(true);
   const [activeButton, setActiveButton] = useState("");
+  const [button, setButton] = useState("pause");
 
   const [isVideoPlaying, setIsVideoPlaying] = useState(false);
   const videoRef = useRef(null);
@@ -54,33 +55,58 @@ const Coin = () => {
     const sound = new Audio(clickSound);
     sound.play();
   };
+  function ButtonTextChange() {
+    if (button == "pause") {
+      setButton("play");
 
-  function useTypingEffect(text, speed = 100) {
-    const [displayedText, setDisplayedText] = useState("");
+     
+      
+      // setShowVideo(true);
+      // setIsVideoPlaying(false);
+      setShowVideo(false);
+    }
+    else if(button == "play") {
+      setButton("pause");
+      // setShowVideo(false);
+      // setIsVideoPlaying(true);
+      setShowVideo(true);
 
-    useEffect(() => {
-      setDisplayedText(""); // Reset text on text change
-      let index = 0;
-      const interval = setInterval(() => {
-        if (index < text.length) {
-          setDisplayedText((prev) => prev + text.charAt(index));
-          index++;
-        } else {
-          clearInterval(interval);
-        }
-      }, speed);
-
-      return () => clearInterval(interval);
-    }, [text, speed]);
-
-    return displayedText;
+    }
   }
+  useEffect(()=>{
+    togglePlayPause();
+  
+  },[button])
+  // }
+  // useEffect(()=>{
+  //   ButtonTextChange();
+  // },[button])
+  // function useTypingEffect(text, speed = 100) {
+  //   const [displayedText, setDisplayedText] = useState("");
+
+  //   useEffect(() => {
+  //     setDisplayedText(""); // Reset text on text change
+  //     let index = 0;
+  //     const interval = setInterval(() => {
+  //       if (index < text.length) {
+  //         setDisplayedText((prev) => prev + text.charAt(index));
+  //         index++;
+  //       } else {
+  //         clearInterval(interval);
+  //       }
+  //     }, speed);
+
+  //     return () => clearInterval(interval);
+  //   }, [text, speed]);
+
+  //   return displayedText;
+  // }
 
   useEffect(() => {
     setShowGlitchGif(true); // Initially show the glitch GIF
     setTimeout(() => {
       setShowGlitchGif(false);
-      setShowVideo(true); // Show the video component
+      // setShowVideo(true); // Show the video component
       setIsVideoPlaying(false); // Automatically start playing the video
     }, 1000); // Glitch GIF displays for 1 second
   }, []);
@@ -142,7 +168,7 @@ const Coin = () => {
   };
   useEffect(() => {
     if (videoRef.current) {
-      videoRef.current.muted = true; // Mute the video initially
+      videoRef.current.muted = false; // Mute the video initially
       videoRef.current
         .play() // Attempt to autoplay the video when component mounts
         .then(() => {
@@ -159,39 +185,41 @@ const Coin = () => {
   const togglePlayPause = () => {
     if (videoRef.current) {
       if (videoRef.current.paused) {
-        videoRef.current
-          .play()
-          .then(() => setIsVideoPlaying(true))
-          .catch((error) => console.log("Error playing the video:", error));
+        videoRef.current.play().then(() => {
+          setIsVideoPlaying(true);
+          setButton("pause");
+        }).catch((error) => console.log("Error playing the video:", error));
       } else {
         videoRef.current.pause();
         setIsVideoPlaying(false);
+        setButton("play");
       }
     }
   };
-
-  useEffect(() => {
-    setShowGlitchGif(true);
-    setTimeout(() => {
-      setShowGlitchGif(false);
-      setShowVideo(true);
-      setIsVideoPlaying(true);
-      handleVideoLoadAndPlay(0); // Start with the first video
-    }, 1000);
-  }, []);
+  // useEffect(() => {
+  //   setShowGlitchGif(true);
+  //   setTimeout(() => {
+  //     setShowGlitchGif(false);
+  //     setShowVideo(true);
+  //     setIsVideoPlaying(true);
+  //     handleVideoLoadAndPlay(0); // Start with the first video
+  //   }, 1000);
+  // }, []);
 
   const handlePlayClick = () => {
     // console.log('Play clicked');
     playClickSound();
+    // alert("all")
     setActiveButton("play");
     setShowAbout(false);
-    setShowVideo(true);
-    setIsVideoPlaying(false);
+    ButtonTextChange();
+    // setShowVideo(true);
+    // setIsVideoPlaying(false);
     setShowToken(false);
     setShowSocial(false);
     setShowRoadmap(false);
     // setShowDoNothing(false);
-    setShowGlitchGif(true);
+    // setShowGlitchGif(true);
 
     // setTimeout(() => {
     //   setShowGlitchGif(true);
@@ -314,7 +342,7 @@ const Coin = () => {
       setShowGlitchGif(false); // Hide the glitch effect
       setIsVideoPlaying(true);
       setshowDoNothing(false);
-      setShowVideo(true);
+      // setShowVideo(true);
       setShowAbout(false);
       setShowToken(false);
       setShowSocial(false);
@@ -345,19 +373,7 @@ const Coin = () => {
     }
   }, [currentIndex]);
 
-  const startVideo = () => {
-    if (videoRef.current) {
-      videoRef.current
-        .play()
-        .then(() => {
-          setIsVideoPlaying(true); // Set the state that video is playing
-        })
-        .catch((error) => {
-          console.error("Error playing the video: ", error);
-          // Handle the error, for example by showing an error message to the user
-        });
-    }
-  };
+
 
   return (
     <div>
@@ -431,18 +447,12 @@ const Coin = () => {
                 )} */}
                 {showVideo && (
                   <div>
+                    
                     <video ref={videoRef} width="850" height="740" controls>
                       <source src={videos[currentIndex]} type="video/mp4" />
                       Your browser does not support the video tag.
                     </video>
-                    {/* {!isVideoPlaying && (
-                      <button
-                        className="play-video-button"
-                        onClick={startVideo}
-                      >
-                        Play Video
-                      </button>
-                    )} */}
+                   
                   </div>
                 )}
 
@@ -638,15 +648,7 @@ const Coin = () => {
                   </div>
                 )} */}
 
-                {isVideoPlaying && (
-                  <div>
-                    <video ref={videoRef} width="850" height="480" controls>
-                      <source src={videos[currentIndex]} type="video/mp4" />
-                      Your browser does not support the video tag.
-                    </video>
-                    {/* <button>{videoRef.current && videoRef.current.muted ? '' : ''}</button> */}
-                  </div>
-                )}
+               
               </div>
             </div>
           </div>
@@ -663,7 +665,7 @@ const Coin = () => {
                   onClick={handlePlayClick}
                 >
                   <img src={getButtonDetails("play").icon} alt="Play Icon" />
-                  <span>&nbsp;&nbsp;Play</span>
+                  <span onClick={ButtonTextChange}>&nbsp;&nbsp;{button}</span>
                 </li>
                 {/* <button onClick={startVideo}>Play Video</button> */}
 
@@ -720,13 +722,14 @@ const Coin = () => {
                     flexDirection: "column",
                     alignItems: "center",
                     border: "2px solid #0e7616",
-                    padding: "12px",
+                    padding: "100px",
                     gap: 10,
                     justifyContent: "center",
+                    
                   }}
                 >
-                  <h1 id="imagetext">{imageTexts[currentIndex]}</h1>
-                  <img
+                  {/* <h1 id="imagetext">{imageTexts[currentIndex]}</h1> */}
+                  {/* <img
                     id="imagetext"
                     src={images[currentIndex]}
                     alt="Display"
@@ -736,9 +739,9 @@ const Coin = () => {
                       width: "auto",
                       height: "auto",
                     }}
-                  />
+                  /> */}
 
-                  <div
+                  {/* <div
                     id="imagetext"
                     style={{
                       display: "flex",
@@ -747,11 +750,9 @@ const Coin = () => {
                       marginTop: "2px",
                     }}
                   >
-                    {/* <button onClick={handleBackClick}>Back</button>
-                  <button onClick={handleNextClick} >Next</button> */}
-                    <img onClick={handleBackClick} src={leftarrow}></img>
-                    <img onClick={handleNextClick} src={rightarrow}></img>
-                  </div>
+                    
+                   
+                  </div> */}
                 </div>
               </div>
 
