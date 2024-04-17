@@ -46,7 +46,7 @@ const Coin = () => {
   const videos = [ frogvideo, shibuvideo];
   const [showGlitchGif, setShowGlitchGif] = useState(true);
   const [activeButton, setActiveButton] = useState("");
-  const [button, setButton] = useState("pause");
+  const [button, setButton] = useState("play");
 
   const [isVideoPlaying, setIsVideoPlaying] = useState(false);
   const videoRef = useRef(null);
