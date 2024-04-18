@@ -4,9 +4,9 @@ import videoSource from "../assets/video.mp4";
 import dogevideo from "../assets/doge.mp4";
 import frogvideo from "../assets/frog.mp4";
 import shibuvideo from "../assets/shibu.mp4";
-import doge from "../assets/Rectangle.png";
-import frog from "../assets/Frame 15.png";
-import shibu from "../assets/image 10.png";
+import doge from "../assets/Rectangle1.png";
+import frog from "../assets/frogs.png";
+import shibu from "../assets/image 101.png";
 import icon from "../assets/asset-hob.png";
 import buttonbefore from "../assets/button-before.png";
 import pepe from "../assets/PEPE.png";
@@ -28,6 +28,7 @@ import supplygif from "../assets/supply-gif.gif";
 import supplygif1 from "../assets/supply-gif1.gif";
 import socialimg from "../assets/social-gif.gif";
 import aboutimg from "../assets/Rope.png";
+
 import clickSound from "../assets/clicksound.mp3";
 
 const Coin = () => {
@@ -38,7 +39,7 @@ const Coin = () => {
   const [showRoadmap, setShowRoadmap] = useState(false);
   const [isActive, setIsActive] = useState(false);
   const [seconds, setSeconds] = useState(0);
-
+  const [isOpen, setIsOpen] = useState(false);
   const images = [doge, frog, shibu]; // Array of image imports
   const [currentIndex, setCurrentIndex] = useState(0);
   const imageTexts = ["Doge", "Pepe", "Shibu"];
@@ -315,52 +316,139 @@ const Coin = () => {
     }
   }, [currentIndex]);
 
+  const toggleMenu = () => {
+    setIsOpen(!isOpen);
+  };
+
   return (
     <div>
       <div id="tv" className="memetv">
         <div className="tv">
-          <div className="social-links">
-            <ul>
-              <li>
-                <a
-                  href="https://twitter.com/hippie_pepe"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <img src={twitter} alt="Twitter" />
-                </a>
-              </li>
-              <li>
-                <a
-                  href="https://www.snapchat.com/add/hippie_pepe?share_id=UB9twgjgo2w&locale=en-US"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <img src={snap} alt="snap" />
-                </a>
-              </li>
-              <li>
-                <a
-                  href="https://t.me/+u7CFxzbYbUk1MWQ1"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <img src={telegram} alt="telegram" />
-                </a>{" "}
-              </li>
-              <li>
-                <a
-                  href="https://www.youtube.com/@HippiePepe"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <img src={youtube} alt="youtube" />
-                </a>
-              </li>
-            </ul>
+          <div className="row">
+            <div className="col-10 col-xl-12">
+              <div className="social-links">
+                <ul>
+                  <li>
+                    <a
+                      href="https://twitter.com/hippie_pepe"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <img src={twitter} alt="Twitter" />
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="https://www.snapchat.com/add/hippie_pepe?share_id=UB9twgjgo2w&locale=en-US"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <img src={snap} alt="snap" />
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="https://t.me/+918124877707"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <img src={telegram} alt="telegram" />
+                    </a>{" "}
+                  </li>
+                  <li>
+                    <a
+                      href="https://www.youtube.com/@HippiePepe"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <img src={youtube} alt="youtube" />
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <div className="col-2 navbar-1">
+              <nav className="navbar navbar-light">
+                <div className="container-fluid">
+                  <button
+                    className="navbar-toggler"
+                    type="button"
+                    onClick={toggleMenu}
+                  >
+                    <span className="navbar-toggler-icon"></span>
+                  </button>
+                </div>
+              </nav>
+              {isOpen && (
+                <div className="overlay">
+                  <div className="overlay-content">
+                    <div
+                      style={{
+                        display: "flex",
+                        flexDirection: "column",
+                        gap: 10,
+                      }}
+                    >
+                      <ul className="ul-button">
+                        <li
+                          style={getButtonDetails("play").style}
+                          onClick={handlePlayClick}
+                        >
+                          <img
+                            src={getButtonDetails("play").icon}
+                            alt="Play Icon"
+                          />
+                          <span>&nbsp;&nbsp;play</span>
+                        </li>
+                        <li
+                          style={getButtonDetails("about").style}
+                          onClick={handleAboutClick}
+                        >
+                          <img
+                            src={getButtonDetails("about").icon}
+                            alt="About Icon"
+                          />
+                          <span>&nbsp;&nbsp;About</span>
+                        </li>
+                        <li
+                          style={getButtonDetails("roadmap").style}
+                          onClick={handleRoadmapClick}
+                        >
+                          <img
+                            src={getButtonDetails("roadmap").icon}
+                            alt="Roadmap Icon"
+                          />
+                          <span>&nbsp;&nbsp;Roadmap</span>
+                        </li>
+                        <li
+                          style={getButtonDetails("token").style}
+                          onClick={handleTokenClick}
+                        >
+                          <img
+                            src={getButtonDetails("token").icon}
+                            alt="Token Icon"
+                          />
+                          <span>&nbsp;&nbsp;Token</span>
+                        </li>
+                        <li
+                          style={getButtonDetails("social").style}
+                          onClick={handleSocialClick}
+                        >
+                          <img
+                            src={getButtonDetails("social").icon}
+                            alt="Social Icon"
+                          />
+                          <span>&nbsp;&nbsp;Social</span>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                  <div className="overlay-close" onClick={toggleMenu}></div>
+                </div>
+              )}
+            </div>
           </div>
         </div>
-
         <div id="screen">
           <div id="glass">
             <div className="inner-glass">
@@ -381,7 +469,7 @@ const Coin = () => {
                   />
                 )}
                 {/* {showVideo && (
-                  <video ref={videoRef} width="850" height="740" controls>
+                  <video ref={videoRef} width="100%" height="100%" controls>
                     <source src={frogvideo} type="video/mp4" />
                     Your browser does not support the video tag.
                   </video>
@@ -399,12 +487,14 @@ const Coin = () => {
                     ></iframe>
                   </div>
                 )}
+
                 {showAbout && (
                   <div id="glitch-background">
                     <div className="about-trasition-1">
                       <div className="rope-img">
                         <img src={aboutimg} />
                       </div>
+
                       <h2 id="textcolorabout" className="header-line">
                         About HippiePepeMemeTV
                       </h2>
@@ -437,14 +527,15 @@ const Coin = () => {
                   <div id="glitch-background">
                     <div className="trasition-2">
                       <div className="supply-part">
-                        <h2 id="textcolorabout">Total Supply</h2>
+                        <h3 id="textcolorabout">Total Supply</h3>
                         <img src={supplygif} />{" "}
                       </div>
+
                       {/*<span className='shadow'>About HippiePepeMemeTV</span>  */}
+                      <h2 id="textcolorsocial" className="supply-p header-line">
+                        999,999,999,999,999 HPTV{" "}
+                      </h2>
                       <div className="text-head">
-                        <h3 id="textcolorsocial" className="supply-p">
-                          999,999,999,999,999 HPTV{" "}
-                        </h3>
                         <p id="textcolorsocial">
                           5%- Build (We can’t jus’ doNothing. Memes need to win)
                           5% - Team(We need to win. We want to doNothing) Rest-
@@ -459,13 +550,38 @@ const Coin = () => {
                         </p>
                       </div>
                     </div>
+
+                    {/*   <div className="trasition-2">
+                    <h2 className="header-line ">How to Get HPTV</h2>
+                    <div className="text-head">
+                      <div className="img-res">
+                        <img className="hpmt-img" src={pepe} />
+                      </div>
+                      <p>Connect your wallet, watch the HippiePepeMemeTV </p>
+                    </div>
+<div className='row btn-do'>
+  <div className='do-nothing-button'>
+  <div className='col-md-3'>
+                      <button className='btn-primary'>Buy Now</button>
+                    </div>
+                    <div className='col-md-3'>
+                      <button className='btn-primary'>doNothing</button>
+                    </div>
+                     </div>
+
+   </div>
+
+                  
+                  </div> */}
                   </div>
                 )}
+
                 {showSocial && (
                   <div id="glitch-background">
                     <div className="trasition-1">
                       <img src={socialimg} />
                       <h3>Tune into CMemeTv and doNothing</h3>
+
                       <div className="text-head">
                         <h2 id="textcolorsocial" className="header-line h-size">
                           Namastay
@@ -536,35 +652,66 @@ const Coin = () => {
                     <p id="textcolorroadmap" className="header-line">
                       Road map
                     </p>
-                    <div className="text-head">
+                    <div className="">
                       <div className="row">
-                        <div className="column">
+                        <div className="col-4">
                           <img className="roadmapimg" src={roadmap1} />
                           <div className="road-map-dash">
-                            <h2 className="road-map">doNothing</h2>
-                            <p className="road-map-txt">
+                            <h2 className="road-map do1">doNothing</h2>
+                            <p className="road-map-txt text-head">
                               HippiePepeMemeTv BetaTheta version
                             </p>
                           </div>
                         </div>
-                        <div className="column">
+                        <div className="col-4">
                           <img className="roadmapimg" src={roadmap2} />
                           <div className="road-map-dash">
-                            <h2 className="road-map">doNothing more</h2>
-                            <p className="road-map-txt">
+                            <h2 className="road-map do2">doNothing more</h2>
+                            <p className="road-map-txt text-head">
                               HippieMemeTv Mint your own MEMEs
                             </p>{" "}
                           </div>
                         </div>
-                        <div className="column">
+                        <div className="col-4">
                           <img className="roadmapimg" src={roadmap3} />
                           <div className="road-map-dash">
-                            <h2 className="road-map">doNothing most</h2>
-                            <p className="road-map-txt">The HippiepepeMemeTv</p>
+                            <h2 className="road-map do3">doNothing most</h2>
+                            <p className="road-map-txt text-head">
+                              The HippiepepeMemeTv
+                            </p>
                           </div>
                         </div>
                       </div>
                     </div>
+                  </div>
+                )}
+                {/* {showDoNothing && (
+                  <div className="trasition-1">
+                    <p id="textcolorroadmap" className="header-line">
+                      Meme Tv
+                    </p>
+                    <div className="text-head">
+                      <p id="textcolorroadmap">
+                        Watch HippiePepeMemeTv and doNothing
+                      </p>
+                      <p id="textcolorroadmap">Ashte</p>
+                      <p id="textcolorroadmap">
+                        Meme.Tv is a meme coin with no intrinsic value or
+                        expectation of financial return. There is no formal team
+                        or roadmap. the coin is completely useless and for
+                        entertainment purposes only.
+                      </p>
+                    </div>
+                  </div>
+                )} */}
+
+                {isVideoPlaying && (
+                  <div>
+                    <video ref={videoRef} width="100%" height="100%" controls>
+                      <source src={[currentIndex]} type="video/mp4" />
+                      Your browser does not support the video tag.
+                    </video>
+                    {/* <button>{videoRef.current && videoRef.current.muted ? '' : ''}</button> */}
                   </div>
                 )}
               </div>
@@ -585,7 +732,6 @@ const Coin = () => {
                   <img src={getButtonDetails("play").icon} alt="Play Icon" />
                   <span onClick={ButtonTextChange}>&nbsp;&nbsp;{button}</span>
                 </li>
-                {/* <button onClick={startVideo}>Play Video</button> */}
                 <li
                   style={getButtonDetails("about").style}
                   onClick={handleAboutClick}
@@ -625,11 +771,11 @@ const Coin = () => {
           </div>
           <div className="control-1">
             <div id="navi-video">
-              <button onClick={handleClick}>
+              <button className="btn-color" onClick={handleClick}>
                 {isActive ? (
-                  <h1 className="text-green-500">Time {formatTime(seconds)}</h1>
+                  <h3>Time {formatTime(seconds)}</h3>
                 ) : (
-                  <h1 className="text-green-500">DoNothing</h1>
+                  <h3>DoNothing</h3>
                 )}
               </button>
             </div>
@@ -638,19 +784,8 @@ const Coin = () => {
           <div className="control-1">
             <div id="speaker">
               <div>
-                <div
-                  style={{
-                    cursor: "pointer",
-                    display: "flex",
-                    flexDirection: "column",
-                    alignItems: "center",
-                    border: "2px solid #0e7616",
-                    padding: "12px",
-                    gap: 10,
-                    justifyContent: "center",
-                  }}
-                >
-                  <h1 id="imagetext">{imageTexts[currentIndex]}</h1>
+                <div className="navi">
+                  <h3 id="imagetext">{imageTexts[currentIndex]}</h3>
                   <img
                     id="imagetext"
                     src={images[currentIndex]}
@@ -662,8 +797,8 @@ const Coin = () => {
                       height: "auto",
                     }}
                   />
-
                   <div
+                    className="video-play"
                     id="imagetext"
                     style={{
                       display: "flex",
@@ -679,17 +814,10 @@ const Coin = () => {
                   </div>
                 </div>
               </div>
+
               {/* <div style={{}}>
-                <h2
-                  style={{
-                    background: "#232323",
-                    padding: 1,
-                    border: "2px solid #595959ff",
-                    position: "absolute",
-                    right: "7%",
-                  }}
-                ></h2>
-              </div> */}
+              <h2 style={{ background: '#232323', padding: 1, border: '2px solid #595959ff', position: 'absolute', right: '7%' }}>meme tv</h2>
+            </div> */}
             </div>
             <div class="meme-img">
               <img src={image1} />
@@ -700,4 +828,5 @@ const Coin = () => {
     </div>
   );
 };
+
 export default Coin;
