@@ -17,8 +17,8 @@ import roadmap2 from "../assets/c.png";
 import roadmap3 from "../assets/W.png";
 import sociallinks from "../assets/social-links.png";
 import glitch from "../assets/757Y.gif";
-import leftarrow from "../assets/Group 20591.png";
-import rightarrow from "../assets/Group 2060s.png";
+import leftarrow from "../assets/Group 2059.png";
+import rightarrow from "../assets/Group 2060.png";
 import twitter from "../assets/x.png";
 import snap from "../assets/snap.png";
 import telegram from "../assets/telegram.png";
@@ -28,9 +28,7 @@ import supplygif from "../assets/supply-gif.gif";
 import supplygif1 from "../assets/supply-gif1.gif";
 import socialimg from "../assets/social-gif.gif";
 import aboutimg from "../assets/Rope.png";
-
 import clickSound from "../assets/clicksound.mp3";
-
 const Coin = () => {
   const [showVideo, setShowVideo] = useState(true);
   const [showAbout, setShowAbout] = useState(false);
@@ -43,14 +41,12 @@ const Coin = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const imageTexts = ["Doge", "Pepe", "Shibu"];
   const [showContent, setShowContent] = useState(true);
-  const videos = [ frogvideo, shibuvideo];
+  const videos = [frogvideo, shibuvideo];
   const [showGlitchGif, setShowGlitchGif] = useState(true);
   const [activeButton, setActiveButton] = useState("");
   const [button, setButton] = useState("pause");
-
   const [isVideoPlaying, setIsVideoPlaying] = useState(false);
   const videoRef = useRef(null);
-
   const playClickSound = () => {
     const sound = new Audio(clickSound);
     sound.play();
@@ -58,34 +54,25 @@ const Coin = () => {
   function ButtonTextChange() {
     if (button == "pause") {
       setButton("play");
-
-     
-      
       // setShowVideo(true);
       // setIsVideoPlaying(false);
       setShowVideo(false);
-      setShowGlitchGif(true);
-    }
-    else if(button == "play") {
+    } else if (button == "play") {
       setButton("pause");
       // setShowVideo(false);
       // setIsVideoPlaying(true);
       setShowVideo(true);
-      setShowGlitchGif(false);
-
     }
   }
-  useEffect(()=>{
+  useEffect(() => {
     togglePlayPause();
-  
-  },[button])
+  }, [button]);
   // }
   // useEffect(()=>{
   //   ButtonTextChange();
   // },[button])
   // function useTypingEffect(text, speed = 100) {
   //   const [displayedText, setDisplayedText] = useState("");
-
   //   useEffect(() => {
   //     setDisplayedText(""); // Reset text on text change
   //     let index = 0;
@@ -97,13 +84,10 @@ const Coin = () => {
   //         clearInterval(interval);
   //       }
   //     }, speed);
-
   //     return () => clearInterval(interval);
   //   }, [text, speed]);
-
   //   return displayedText;
   // }
-
   useEffect(() => {
     setShowGlitchGif(true); // Initially show the glitch GIF
     setTimeout(() => {
@@ -112,25 +96,20 @@ const Coin = () => {
       setIsVideoPlaying(false); // Automatically start playing the video
     }, 1000); // Glitch GIF displays for 1 second
   }, []);
-
   useEffect(() => {
     const timerId = setInterval(() => {
       setSeconds((prevSeconds) => prevSeconds + 1);
     }, 1000);
-
     return () => clearInterval(timerId);
   }, []);
-
   const formatTime = (totalSeconds) => {
     const hours = Math.floor(totalSeconds / 3600);
     const minutes = Math.floor((totalSeconds % 3600) / 60);
     const seconds = totalSeconds % 60;
-
     return [hours, minutes, seconds]
       .map((v) => (v < 10 ? "0" + v : v))
       .join(":");
   };
-
   const getButtonDetails = (buttonName) => {
     if (buttonName === activeButton) {
       return {
@@ -152,7 +131,6 @@ const Coin = () => {
       };
     }
   };
-
   const handleVideoLoadAndPlay = (videoIndex) => {
     if (videoRef.current) {
       videoRef.current.src = videos[videoIndex];
@@ -183,14 +161,16 @@ const Coin = () => {
         });
     }
   }, []);
-
   const togglePlayPause = () => {
     if (videoRef.current) {
       if (videoRef.current.paused) {
-        videoRef.current.play().then(() => {
-          setIsVideoPlaying(true);
-          setButton("pause");
-        }).catch((error) => console.log("Error playing the video:", error));
+        videoRef.current
+          .play()
+          .then(() => {
+            setIsVideoPlaying(true);
+            setButton("pause");
+          })
+          .catch((error) => console.log("Error playing the video:", error));
       } else {
         videoRef.current.pause();
         setIsVideoPlaying(false);
@@ -207,7 +187,6 @@ const Coin = () => {
   //     handleVideoLoadAndPlay(0); // Start with the first video
   //   }, 1000);
   // }, []);
-
   const handlePlayClick = () => {
     // console.log('Play clicked');
     playClickSound();
@@ -222,7 +201,6 @@ const Coin = () => {
     setShowRoadmap(false);
     // setShowDoNothing(false);
     // setShowGlitchGif(true);
-
     // setTimeout(() => {
     //   setShowGlitchGif(true);
     //   setShowVideo((prevShowVideo) => !prevShowVideo); // Toggle the video visibility based on previous state
@@ -243,7 +221,6 @@ const Coin = () => {
       // }
     }, 1000);
   };
-
   const handleAboutClick = () => {
     playClickSound();
     setActiveButton("about");
@@ -256,14 +233,12 @@ const Coin = () => {
     setShowRoadmap(false);
     // setShowDoNothing(false);
     setShowGlitchGif(true);
-
     // After the glitch effect, toggle the content
     setTimeout(() => {
       setShowGlitchGif(false);
       setShowAbout((prevShowAbout) => !prevShowAbout); // Toggle the visibility based on previous state
     }, 1000);
   };
-
   const handleTokenClick = () => {
     playClickSound();
     setActiveButton("token");
@@ -276,13 +251,11 @@ const Coin = () => {
     setShowRoadmap(false);
     // setShowDoNothing(false);
     setShowGlitchGif(true);
-
     setTimeout(() => {
       setShowGlitchGif(false);
       setShowToken((prevShowToken) => !prevShowToken); // Toggle the visibility based on previous state
     }, 1000);
   };
-
   const handleSocialClick = () => {
     playClickSound();
     setActiveButton("social");
@@ -294,13 +267,11 @@ const Coin = () => {
     setShowRoadmap(false);
     // setShowDoNothing(false);
     setShowGlitchGif(true);
-
     setTimeout(() => {
       setShowGlitchGif(false);
       setShowSocial((prevShowSocial) => !prevShowSocial); // Toggle the visibility based on previous state
     }, 1000);
   };
-
   const handleRoadmapClick = () => {
     playClickSound();
     setActiveButton("roadmap");
@@ -312,13 +283,11 @@ const Coin = () => {
     setShowRoadmap(false);
     // setShowDoNothing(false);
     setShowGlitchGif(true);
-
     setTimeout(() => {
       setShowGlitchGif(false);
       setShowRoadmap((prevShowRoadmap) => !prevShowRoadmap); // Toggle the visibility based on previous state
     }, 1000);
   };
-
   const handleNextClick = () => {
     playClickSound();
     setShowGlitchGif(true); // Display the glitch effect
@@ -360,22 +329,18 @@ const Coin = () => {
     const videoElement = videoRef.current;
     if (videoElement) {
       videoElement.addEventListener("click", togglePlayPause);
-
       // Cleanup
       return () => {
         videoElement.removeEventListener("click", togglePlayPause);
       };
     }
   }, [videoRef.current]); // Ensure re-attachment if the ref updates
-
   // useEffect hook to manage changes in currentIndex or video source
   useEffect(() => {
     if (currentIndex !== undefined && videos[currentIndex]) {
       handleVideoLoadAndPlay(currentIndex);
     }
   }, [currentIndex]);
-
-
 
   return (
     <div>
@@ -449,22 +414,18 @@ const Coin = () => {
                 )} */}
                 {showVideo && (
                   <div>
-                    
                     <video ref={videoRef} width="850" height="740" controls>
                       <source src={videos[currentIndex]} type="video/mp4" />
                       Your browser does not support the video tag.
                     </video>
-                   
                   </div>
                 )}
-
                 {showAbout && (
                   <div id="glitch-background">
                     <div className="about-trasition-1">
                       <div className="rope-img">
                         <img src={aboutimg} />
                       </div>
-
                       <h2 id="textcolorabout" className="header-line">
                         About HippiePepeMemeTV
                       </h2>
@@ -500,7 +461,6 @@ const Coin = () => {
                         <h2 id="textcolorabout">Total Supply</h2>
                         <img src={supplygif} />{" "}
                       </div>
-
                       {/*<span className='shadow'>About HippiePepeMemeTV</span>  */}
                       <div className="text-head">
                         <h3 id="textcolorsocial" className="supply-p">
@@ -522,13 +482,11 @@ const Coin = () => {
                     </div>
                   </div>
                 )}
-
                 {showSocial && (
                   <div id="glitch-background">
                     <div className="trasition-1">
                       <img src={socialimg} />
                       <h3>Tune into CMemeTv and doNothing</h3>
-
                       <div className="text-head">
                         <h2 id="textcolorsocial" className="header-line h-size">
                           Namastay
@@ -649,8 +607,6 @@ const Coin = () => {
                     </div>
                   </div>
                 )} */}
-
-               
               </div>
             </div>
           </div>
@@ -670,7 +626,6 @@ const Coin = () => {
                   <span onClick={ButtonTextChange}>&nbsp;&nbsp;{button}</span>
                 </li>
                 {/* <button onClick={startVideo}>Play Video</button> */}
-
                 <li
                   style={getButtonDetails("about").style}
                   onClick={handleAboutClick}
@@ -711,10 +666,9 @@ const Coin = () => {
           <div className="control-1">
             <div id="navi-video">
               <button>
-                <h1>Time {formatTime(seconds)}</h1>
+                <h1 className="text-green-500">Time {formatTime(seconds)}</h1>
               </button>
             </div>
-
             <div id="speaker">
               <div>
                 <div
@@ -724,14 +678,13 @@ const Coin = () => {
                     flexDirection: "column",
                     alignItems: "center",
                     border: "2px solid #0e7616",
-                    padding: "100px",
+                    padding: "12px",
                     gap: 10,
                     justifyContent: "center",
-                    
                   }}
                 >
-                  {/* <h1 id="imagetext">{imageTexts[currentIndex]}</h1> */}
-                  {/* <img
+                  <h1 id="imagetext">{imageTexts[currentIndex]}</h1>
+                  <img
                     id="imagetext"
                     src={images[currentIndex]}
                     alt="Display"
@@ -741,9 +694,9 @@ const Coin = () => {
                       width: "auto",
                       height: "auto",
                     }}
-                  /> */}
+                  />
 
-                  {/* <div
+                  <div
                     id="imagetext"
                     style={{
                       display: "flex",
@@ -752,15 +705,24 @@ const Coin = () => {
                       marginTop: "2px",
                     }}
                   >
-                    
-                   
-                  </div> */}
+                    {/* <button onClick={handleBackClick}>Back</button>
+                  <button onClick={handleNextClick} >Next</button> */}
+                    <img onClick={handleBackClick} src={leftarrow}></img>
+                    <img onClick={handleNextClick} src={rightarrow}></img>
+                  </div>
                 </div>
               </div>
-
               {/* <div style={{}}>
-              <h2 style={{ background: '#232323', padding: 1, border: '2px solid #595959ff', position: 'absolute', right: '7%' }}>meme tv</h2>
-            </div> */}
+                <h2
+                  style={{
+                    background: "#232323",
+                    padding: 1,
+                    border: "2px solid #595959ff",
+                    position: "absolute",
+                    right: "7%",
+                  }}
+                ></h2>
+              </div> */}
             </div>
             <div class="meme-img">
               <img src={image1} />
@@ -771,5 +733,4 @@ const Coin = () => {
     </div>
   );
 };
-
 export default Coin;
