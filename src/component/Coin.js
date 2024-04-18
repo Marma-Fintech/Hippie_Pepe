@@ -17,8 +17,8 @@ import roadmap2 from "../assets/c.png";
 import roadmap3 from "../assets/W.png";
 import sociallinks from "../assets/social-links.png";
 import glitch from "../assets/757Y.gif";
-import leftarrow from "../assets/Group 2059.png";
-import rightarrow from "../assets/Group 2060.png";
+import leftarrow from "../assets/Group 20592 (1).png";
+import rightarrow from "../assets/Group 20601 (1).png";
 import twitter from "../assets/x.png";
 import snap from "../assets/snap.png";
 import telegram from "../assets/telegram.png";
@@ -29,28 +29,32 @@ import supplygif1 from "../assets/supply-gif1.gif";
 import socialimg from "../assets/social-gif.gif";
 import aboutimg from "../assets/Rope.png";
 import clickSound from "../assets/clicksound.mp3";
+
 const Coin = () => {
   const [showVideo, setShowVideo] = useState(true);
   const [showAbout, setShowAbout] = useState(false);
   const [showToken, setShowToken] = useState(false);
   const [showSocial, setShowSocial] = useState(false);
   const [showRoadmap, setShowRoadmap] = useState(false);
-  const [showDoNothing, setshowDoNothing] = useState(false);
+  const [isActive, setIsActive] = useState(false);
   const [seconds, setSeconds] = useState(0);
+
   const images = [doge, frog, shibu]; // Array of image imports
   const [currentIndex, setCurrentIndex] = useState(0);
   const imageTexts = ["Doge", "Pepe", "Shibu"];
   const [showContent, setShowContent] = useState(true);
-  const videos = [frogvideo, shibuvideo];
+  // const videos = [frogvideo, shibuvideo];
   const [showGlitchGif, setShowGlitchGif] = useState(true);
   const [activeButton, setActiveButton] = useState("");
   const [button, setButton] = useState("pause");
   const [isVideoPlaying, setIsVideoPlaying] = useState(false);
   const videoRef = useRef(null);
+
   const playClickSound = () => {
     const sound = new Audio(clickSound);
     sound.play();
   };
+
   function ButtonTextChange() {
     if (button == "pause") {
       setButton("play");
@@ -67,27 +71,7 @@ const Coin = () => {
   useEffect(() => {
     togglePlayPause();
   }, [button]);
-  // }
-  // useEffect(()=>{
-  //   ButtonTextChange();
-  // },[button])
-  // function useTypingEffect(text, speed = 100) {
-  //   const [displayedText, setDisplayedText] = useState("");
-  //   useEffect(() => {
-  //     setDisplayedText(""); // Reset text on text change
-  //     let index = 0;
-  //     const interval = setInterval(() => {
-  //       if (index < text.length) {
-  //         setDisplayedText((prev) => prev + text.charAt(index));
-  //         index++;
-  //       } else {
-  //         clearInterval(interval);
-  //       }
-  //     }, speed);
-  //     return () => clearInterval(interval);
-  //   }, [text, speed]);
-  //   return displayedText;
-  // }
+
   useEffect(() => {
     setShowGlitchGif(true); // Initially show the glitch GIF
     setTimeout(() => {
@@ -96,20 +80,35 @@ const Coin = () => {
       setIsVideoPlaying(false); // Automatically start playing the video
     }, 1000); // Glitch GIF displays for 1 second
   }, []);
+
   useEffect(() => {
-    const timerId = setInterval(() => {
-      setSeconds((prevSeconds) => prevSeconds + 1);
-    }, 1000);
-    return () => clearInterval(timerId);
-  }, []);
+    let interval = null;
+    if (isActive) {
+      interval = setInterval(() => {
+        setSeconds((prevSeconds) => prevSeconds + 1);
+      }, 1000);
+    } else {
+      clearInterval(interval);
+    }
+    return () => clearInterval(interval);
+  }, [isActive]);
+
   const formatTime = (totalSeconds) => {
     const hours = Math.floor(totalSeconds / 3600);
     const minutes = Math.floor((totalSeconds % 3600) / 60);
     const seconds = totalSeconds % 60;
+
     return [hours, minutes, seconds]
       .map((v) => (v < 10 ? "0" + v : v))
       .join(":");
   };
+
+  const handleClick = () => {
+    if (!isActive) {
+      setIsActive(true); // Only activate the timer, no deactivation
+    }
+  };
+
   const getButtonDetails = (buttonName) => {
     if (buttonName === activeButton) {
       return {
@@ -133,7 +132,7 @@ const Coin = () => {
   };
   const handleVideoLoadAndPlay = (videoIndex) => {
     if (videoRef.current) {
-      videoRef.current.src = videos[videoIndex];
+      // videoRef.current.src = videos[videoIndex];
       videoRef.current.load(); // Load the video after changing the source
       videoRef.current
         .play() // Attempt to play the video
@@ -178,15 +177,7 @@ const Coin = () => {
       }
     }
   };
-  // useEffect(() => {
-  //   setShowGlitchGif(true);
-  //   setTimeout(() => {
-  //     setShowGlitchGif(false);
-  //     setShowVideo(true);
-  //     setIsVideoPlaying(true);
-  //     handleVideoLoadAndPlay(0); // Start with the first video
-  //   }, 1000);
-  // }, []);
+
   const handlePlayClick = () => {
     // console.log('Play clicked');
     playClickSound();
@@ -199,27 +190,8 @@ const Coin = () => {
     setShowToken(false);
     setShowSocial(false);
     setShowRoadmap(false);
-    // setShowDoNothing(false);
-    // setShowGlitchGif(true);
-    // setTimeout(() => {
-    //   setShowGlitchGif(true);
-    //   setShowVideo((prevShowVideo) => !prevShowVideo); // Toggle the video visibility based on previous state
-    // }, 1000);
-    setTimeout(() => {
-      // setShowGlitchGif(false);
-      // if (videoRef.current) {
-      //   videoRef.current
-      //     .play() // Attempt to play the video when user clicks
-      //     .then(() => {
-      //       setShowVideo(true);
-      //       setIsVideoPlaying(true);
-      //     })
-      //     .catch((error) => {
-      //       console.error("Error playing the video:", error);
-      //       setIsVideoPlaying(false);
-      //     });
-      // }
-    }, 1000);
+
+    setTimeout(() => {}, 1000);
   };
   const handleAboutClick = () => {
     playClickSound();
@@ -231,7 +203,7 @@ const Coin = () => {
     setShowToken(false);
     setShowSocial(false);
     setShowRoadmap(false);
-    // setShowDoNothing(false);
+
     setShowGlitchGif(true);
     // After the glitch effect, toggle the content
     setTimeout(() => {
@@ -249,7 +221,7 @@ const Coin = () => {
     setShowToken(false);
     setShowSocial(false);
     setShowRoadmap(false);
-    // setShowDoNothing(false);
+
     setShowGlitchGif(true);
     setTimeout(() => {
       setShowGlitchGif(false);
@@ -265,7 +237,7 @@ const Coin = () => {
     setShowToken(false);
     setShowSocial(false);
     setShowRoadmap(false);
-    // setShowDoNothing(false);
+
     setShowGlitchGif(true);
     setTimeout(() => {
       setShowGlitchGif(false);
@@ -281,7 +253,7 @@ const Coin = () => {
     setShowToken(false);
     setShowSocial(false);
     setShowRoadmap(false);
-    // setShowDoNothing(false);
+
     setShowGlitchGif(true);
     setTimeout(() => {
       setShowGlitchGif(false);
@@ -294,13 +266,13 @@ const Coin = () => {
     setTimeout(() => {
       setShowGlitchGif(false); // Hide the glitch effect
       setIsVideoPlaying(true);
-      setshowDoNothing(false);
+      // setshowDoNothing(false);
       setShowVideo(true);
       setShowAbout(false);
       setShowToken(false);
       setShowSocial(false);
       setShowRoadmap(false);
-      let nextIndex = (currentIndex + 1) % videos.length; // Get the next index
+      let nextIndex = currentIndex + 1; // Get the next index
       setCurrentIndex(nextIndex); // Update the current index
       // Update the video source and ensure it plays
       handleVideoLoadAndPlay(nextIndex);
@@ -312,7 +284,7 @@ const Coin = () => {
     setTimeout(() => {
       setShowGlitchGif(false); // Hide the glitch effect
       setIsVideoPlaying(true);
-      setshowDoNothing(false);
+      // setshowDoNothing(false);
       // setShowVideo(true);
       setShowAbout(false);
       setShowToken(false);
@@ -337,7 +309,7 @@ const Coin = () => {
   }, [videoRef.current]); // Ensure re-attachment if the ref updates
   // useEffect hook to manage changes in currentIndex or video source
   useEffect(() => {
-    if (currentIndex !== undefined && videos[currentIndex]) {
+    if (currentIndex !== undefined && [currentIndex]) {
       handleVideoLoadAndPlay(currentIndex);
     }
   }, [currentIndex]);
@@ -387,6 +359,7 @@ const Coin = () => {
             </ul>
           </div>
         </div>
+
         <div id="screen">
           <div id="glass">
             <div className="inner-glass">
@@ -414,10 +387,15 @@ const Coin = () => {
                 )} */}
                 {showVideo && (
                   <div>
-                    <video ref={videoRef} width="850" height="740" controls>
-                      <source src={videos[currentIndex]} type="video/mp4" />
-                      Your browser does not support the video tag.
-                    </video>
+                    <iframe
+                      width="844px"
+                      height="555px"
+                      src="https://www.youtube.com/embed/A-rEb0KuopI?autoplay=1&unmute=1&enablejsapi=1&controls=1&rel=0"
+                      title="YouTube video player"
+                      frameborder="0"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                      allowfullscreen
+                    ></iframe>
                   </div>
                 )}
                 {showAbout && (
@@ -588,25 +566,6 @@ const Coin = () => {
                     </div>
                   </div>
                 )}
-                {/* {showDoNothing && (
-                  <div className="trasition-1">
-                    <p id="textcolorroadmap" className="header-line">
-                      Meme Tv
-                    </p>
-                    <div className="text-head">
-                      <p id="textcolorroadmap">
-                        Watch HippiePepeMemeTv and doNothing
-                      </p>
-                      <p id="textcolorroadmap">Ashte</p>
-                      <p id="textcolorroadmap">
-                        Meme.Tv is a meme coin with no intrinsic value or
-                        expectation of financial return. There is no formal team
-                        or roadmap. the coin is completely useless and for
-                        entertainment purposes only.
-                      </p>
-                    </div>
-                  </div>
-                )} */}
               </div>
             </div>
           </div>
@@ -665,10 +624,17 @@ const Coin = () => {
           </div>
           <div className="control-1">
             <div id="navi-video">
-              <button>
-                <h1 className="text-green-500">Time {formatTime(seconds)}</h1>
+              <button onClick={handleClick}>
+                {isActive ? (
+                  <h1 className="text-green-500">Time {formatTime(seconds)}</h1>
+                ) : (
+                  <h1 className="text-green-500">DoSomething</h1>
+                )}
               </button>
             </div>
+          </div>
+
+          <div className="control-1">
             <div id="speaker">
               <div>
                 <div
