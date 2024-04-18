@@ -104,6 +104,7 @@ const Coin = () => {
   };
 
   const handleClick = () => {
+    playClickSound();
     if (!isActive) {
       setIsActive(true); // Only activate the timer, no deactivation
     }
