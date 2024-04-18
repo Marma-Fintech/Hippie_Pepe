@@ -389,7 +389,10 @@ const Coin = () => {
                         gap: 10,
                       }}
                     >
-                      <ul className="ul-button">
+                      <ul className="ul-button"
+                        style={{
+                          zIndex: 100000,
+                        }}>
                         <li
                           style={getButtonDetails("play").style}
                           onClick={handlePlayClick}
