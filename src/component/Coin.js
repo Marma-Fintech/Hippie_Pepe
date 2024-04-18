@@ -389,23 +389,33 @@ const Coin = () => {
                         gap: 10,
                       }}
                     >
-                      <ul className="ul-button"
+                       <ul
+                        className="ul-button"
                         style={{
                           zIndex: 100000,
-                        }}>
+                        }}
+                      >
                         <li
                           style={getButtonDetails("play").style}
-                          onClick={handlePlayClick}
+                          onClick={() => {
+                            handlePlayClick();
+                            toggleMenu();
+                          }}
                         >
                           <img
                             src={getButtonDetails("play").icon}
                             alt="Play Icon"
                           />
-                          <span>&nbsp;&nbsp;play</span>
+                          <span onClick={ButtonTextChange}>
+                            &nbsp;&nbsp;{button}
+                          </span>
                         </li>
                         <li
                           style={getButtonDetails("about").style}
-                          onClick={handleAboutClick}
+                          onClick={() => {
+                            handleAboutClick();
+                            toggleMenu();
+                          }}
                         >
                           <img
                             src={getButtonDetails("about").icon}
@@ -415,7 +425,10 @@ const Coin = () => {
                         </li>
                         <li
                           style={getButtonDetails("roadmap").style}
-                          onClick={handleRoadmapClick}
+                          onClick={() => {
+                            handleRoadmapClick();
+                            toggleMenu();
+                          }}
                         >
                           <img
                             src={getButtonDetails("roadmap").icon}
@@ -425,7 +438,10 @@ const Coin = () => {
                         </li>
                         <li
                           style={getButtonDetails("token").style}
-                          onClick={handleTokenClick}
+                          onClick={() => {
+                            handleTokenClick();
+                            toggleMenu();
+                          }}
                         >
                           <img
                             src={getButtonDetails("token").icon}
@@ -435,7 +451,10 @@ const Coin = () => {
                         </li>
                         <li
                           style={getButtonDetails("social").style}
-                          onClick={handleSocialClick}
+                          onClick={() => {
+                            handleSocialClick();
+                            toggleMenu();
+                          }}
                         >
                           <img
                             src={getButtonDetails("social").icon}
