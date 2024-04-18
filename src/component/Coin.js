@@ -628,7 +628,7 @@ const Coin = () => {
                 {isActive ? (
                   <h1 className="text-green-500">Time {formatTime(seconds)}</h1>
                 ) : (
-                  <h1 className="text-green-500">DoSomething</h1>
+                  <h1 className="text-green-500">DoNothing</h1>
                 )}
               </button>
             </div>
