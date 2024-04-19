@@ -4,13 +4,31 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import "bootstrap/dist/css/bootstrap.css";
+import {
+  ThirdwebProvider,
+  metamaskWallet,
+  coinbaseWallet,
+  walletConnect,
+  PhantomWallet,
+} from '@thirdweb-dev/react';
+
+const activeChain = 'ethereum';
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  // <React.StrictMode>
-  //   <App />
-  // </React.StrictMode>
-  <App />
+  <ThirdwebProvider
+    supportedWallets={[
+      metamaskWallet({
+        recommended: true,
+      }),
+      coinbaseWallet(),
+      walletConnect(),
+    ]}
+    clientId="fd684aa3fe470cec7ef09d75dcd2a37c"
+    activeChain={activeChain}
+  >
+    <App />
+  </ThirdwebProvider>
 );
 
 // If you want to start measuring performance in your app, pass a function
