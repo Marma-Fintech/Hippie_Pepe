@@ -28,11 +28,12 @@ import supplygif from "../assets/supply-gif.gif";
 import supplygif1 from "../assets/supply-gif1.gif";
 import socialimg from "../assets/social-gif.gif";
 import aboutimg from "../assets/Rope.png";
+import welcome from "../assets/logo-welcome.png";
 
 import clickSound from "../assets/clicksound.mp3";
 
 const Coin = () => {
-  const [showVideo, setShowVideo] = useState(true);
+  const [showVideo, setShowVideo] = useState(false);
   const [showAbout, setShowAbout] = useState(false);
   const [showToken, setShowToken] = useState(false);
   const [showSocial, setShowSocial] = useState(false);
@@ -47,8 +48,9 @@ const Coin = () => {
   // const videos = [frogvideo, shibuvideo];
   const [showGlitchGif, setShowGlitchGif] = useState(true);
   const [activeButton, setActiveButton] = useState("");
-  const [button, setButton] = useState("pause");
+  const [button, setButton] = useState("play");
   const [isVideoPlaying, setIsVideoPlaying] = useState(false);
+  const [showWelcomeMessage, setShowWelcomeMessage] = useState(true);
   const videoRef = useRef(null);
 
   const playClickSound = () => {
@@ -59,19 +61,25 @@ const Coin = () => {
   function ButtonTextChange() {
     if (button == "pause") {
       setButton("play");
-      // setShowVideo(true);
-      // setIsVideoPlaying(false);
-      setShowVideo(false);
+
+      setShowVideo(true);
     } else if (button == "play") {
       setButton("pause");
-      // setShowVideo(false);
-      // setIsVideoPlaying(true);
       setShowVideo(true);
+      handlePause();
     }
   }
-  useEffect(() => {
-    togglePlayPause();
-  }, [button]);
+  // useEffect(() => {
+  //   togglePlayPause();
+  // }, [button]);
+
+  const handlePause = () => {
+    if (videoRef.current) {
+      videoRef.current.pause();
+    } else {
+      console.log("noynot");
+    }
+  };
 
   useEffect(() => {
     setShowGlitchGif(true); // Initially show the glitch GIF
@@ -88,7 +96,7 @@ const Coin = () => {
       interval = setInterval(() => {
         setSeconds((prevSeconds) => prevSeconds + 1);
       }, 1000);
-    } else {
+    } else if (!isActive && interval) {
       clearInterval(interval);
     }
     return () => clearInterval(interval);
@@ -113,6 +121,9 @@ const Coin = () => {
 
   const getButtonDetails = (buttonName) => {
     if (buttonName === activeButton) {
+      // if (buttonName !== "play") {
+      //   togglePlayPause();
+      // }
       return {
         style: {
           color: "yellow",
@@ -162,20 +173,39 @@ const Coin = () => {
         });
     }
   }, []);
+  // const togglePlayPause = () => {
+  //   if (videoRef.current) {
+  //     if (videoRef.current.paused) {
+  //       videoRef.current
+  //         .play()
+  //         .then(() => {
+  //           setIsVideoPlaying(true);
+  //           setButton("pause");
+  //         })
+  //         .catch((error) => console.log("Error playing the video:", error));
+  //     } else {
+  //       videoRef.current.pause();
+  //       setIsVideoPlaying(false);
+  //       setButton("play");
+  //     }
+  //   }
+  // };
+
   const togglePlayPause = () => {
     if (videoRef.current) {
       if (videoRef.current.paused) {
         videoRef.current
           .play()
           .then(() => {
-            setIsVideoPlaying(true);
-            setButton("pause");
+            setIsVideoPlaying(true); // Ensure the state is correctly set when video plays
+            handleClick();
+            setButton("pause"); // Change button text to "pause"
           })
-          .catch((error) => console.log("Error playing the video:", error));
+          .catch((error) => console.error("Error playing the video:", error));
       } else {
         videoRef.current.pause();
-        setIsVideoPlaying(false);
-        setButton("play");
+        setIsVideoPlaying(false); // Ensure the state is correctly set when video is paused
+        setButton("play"); // Change button text to "play"
       }
     }
   };
@@ -186,13 +216,24 @@ const Coin = () => {
     // alert("all")
     setActiveButton("play");
     setShowAbout(false);
+
     ButtonTextChange();
-    // setShowVideo(true);
+    // setShowVideo(false);
     // setIsVideoPlaying(false);
     setShowToken(false);
     setShowSocial(false);
     setShowRoadmap(false);
+    setShowWelcomeMessage(false);
 
+    if (!isVideoPlaying) {
+      // If the video is not playing, start it and the timer.
+      setIsActive(true); // Start the timer
+      togglePlayPause(); // This will start the video and update `isVideoPlaying` to true.
+    } else {
+      // If the video is playing, pause it and stop the timer.
+      setIsActive(false); // Stop the timer
+      togglePlayPause(); // This will pause the video and update `isVideoPlaying` to false.
+    }
     setTimeout(() => {}, 1000);
   };
   const handleAboutClick = () => {
@@ -201,11 +242,15 @@ const Coin = () => {
     // Immediately hide the content and start the glitch effect
     setShowAbout(false);
     setShowVideo(false);
+    setIsActive(false);
     setIsVideoPlaying(false);
     setShowToken(false);
     setShowSocial(false);
     setShowRoadmap(false);
-
+    videoRef.current.pause();
+    setIsVideoPlaying(false);
+    setButton("play");
+    setShowWelcomeMessage(false);
     setShowGlitchGif(true);
     // After the glitch effect, toggle the content
     setTimeout(() => {
@@ -216,14 +261,19 @@ const Coin = () => {
   const handleTokenClick = () => {
     playClickSound();
     setActiveButton("token");
+    setIsActive(false);
+
     // Hide all content and trigger the glitch effect
     setShowAbout(false);
     setShowVideo(false);
+    videoRef.current.pause();
+    setIsVideoPlaying(false);
+    setButton("play");
     setIsVideoPlaying(false);
     setShowToken(false);
     setShowSocial(false);
     setShowRoadmap(false);
-
+    setShowWelcomeMessage(false);
     setShowGlitchGif(true);
     setTimeout(() => {
       setShowGlitchGif(false);
@@ -235,11 +285,15 @@ const Coin = () => {
     setActiveButton("social");
     setShowAbout(false);
     setShowVideo(false);
+    setIsActive(false);
+    videoRef.current.pause();
+    setIsVideoPlaying(false);
+    setButton("play");
     setIsVideoPlaying(false);
     setShowToken(false);
     setShowSocial(false);
     setShowRoadmap(false);
-
+    setShowWelcomeMessage(false);
     setShowGlitchGif(true);
     setTimeout(() => {
       setShowGlitchGif(false);
@@ -251,64 +305,71 @@ const Coin = () => {
     setActiveButton("roadmap");
     setShowAbout(false);
     setShowVideo(false);
+    setIsActive(false);
+    videoRef.current.pause();
+    setIsVideoPlaying(false);
+    setButton("play");
     setIsVideoPlaying(false);
     setShowToken(false);
     setShowSocial(false);
     setShowRoadmap(false);
-
+    setShowWelcomeMessage(false);
     setShowGlitchGif(true);
     setTimeout(() => {
       setShowGlitchGif(false);
       setShowRoadmap((prevShowRoadmap) => !prevShowRoadmap); // Toggle the visibility based on previous state
     }, 1000);
   };
-  const handleNextClick = () => {
-    playClickSound();
-    setShowGlitchGif(true); // Display the glitch effect
-    setTimeout(() => {
-      setShowGlitchGif(false); // Hide the glitch effect
-      setIsVideoPlaying(true);
-      // setshowDoNothing(false);
-      setShowVideo(true);
-      setShowAbout(false);
-      setShowToken(false);
-      setShowSocial(false);
-      setShowRoadmap(false);
-      let nextIndex = currentIndex + 1; // Get the next index
-      setCurrentIndex(nextIndex); // Update the current index
-      // Update the video source and ensure it plays
-      handleVideoLoadAndPlay(nextIndex);
-    }, 1000);
-  };
-  const handleBackClick = () => {
-    playClickSound();
-    setShowGlitchGif(true); // Display the glitch effect
-    setTimeout(() => {
-      setShowGlitchGif(false); // Hide the glitch effect
-      setIsVideoPlaying(true);
-      // setshowDoNothing(false);
-      // setShowVideo(true);
-      setShowAbout(false);
-      setShowToken(false);
-      setShowSocial(false);
-      setShowRoadmap(false);
-      let prevIndex =
-        currentIndex - 1 < 0 ? images.length - 1 : currentIndex - 1; // Calculate the previous index
-      setCurrentIndex(prevIndex); // Update the current index
-      handleVideoLoadAndPlay(prevIndex);
-    }, 1000);
-  };
+  // const handleNextClick = () => {
+  //   playClickSound();
+  //   setShowGlitchGif(true); // Display the glitch effect
+  //   setTimeout(() => {
+  //     setShowGlitchGif(false); // Hide the glitch effect
+  //     setIsVideoPlaying(true);
+  //     // setshowDoNothing(false);
+  //     setShowVideo(true);
+  //     setShowAbout(false);
+  //     setShowToken(false);
+  //     setShowSocial(false);
+  //     setShowRoadmap(false);
+  //     setShowWelcomeMessage(false);
+  //     let nextIndex = currentIndex + 1; // Get the next index
+  //     setCurrentIndex(nextIndex); // Update the current index
+  //     // Update the video source and ensure it plays
+  //     handleVideoLoadAndPlay(nextIndex);
+  //   }, 1000);
+  // };
+  // const handleBackClick = () => {
+  //   playClickSound();
+  //   setShowGlitchGif(true); // Display the glitch effect
+  //   setTimeout(() => {
+  //     setShowGlitchGif(false); // Hide the glitch effect
+  //     setIsVideoPlaying(true);
+  //     // setshowDoNothing(false);
+  //     setShowVideo(false);
+  //     setShowAbout(false);
+  //     setShowWelcomeMessage(false);
+  //     setShowToken(false);
+  //     setShowSocial(false);
+  //     setShowRoadmap(false);
+  //     let prevIndex =
+  //       currentIndex - 1 < 0 ? images.length - 1 : currentIndex - 1; // Calculate the previous index
+  //     setCurrentIndex(prevIndex); // Update the current index
+  //     handleVideoLoadAndPlay(prevIndex);
+  //   }, 1000);
+  // };
   // Add event listener for play/pause toggle
-  useEffect(() => {
-    const videoElement = videoRef.current;
-    if (videoElement) {
-      videoElement.addEventListener("click", togglePlayPause);
-      // Cleanup
-      return () => {
-        videoElement.removeEventListener("click", togglePlayPause);
-      };
-    }
-  }, [videoRef.current]); // Ensure re-attachment if the ref updates
+  // useEffect(() => {
+  //   const videoElement = videoRef.current;
+  //   if (videoElement) {
+  //     videoElement.addEventListener("click", togglePlayPause);
+  //     // Cleanup
+  //     return () => {
+  //       videoElement.removeEventListener("click", togglePlayPause);
+  //     };
+  //   }
+  // }, [videoRef.current]);
+  // Ensure re-attachment if the ref updates
   // useEffect hook to manage changes in currentIndex or video source
   useEffect(() => {
     if (currentIndex !== undefined && [currentIndex]) {
@@ -325,7 +386,7 @@ const Coin = () => {
       <div id="tv" className="memetv">
         <div className="tv">
           <div className="row">
-            <div className="col-10 col-xl-12">
+            <div className="col-9 col-xl-12">
               <div className="social-links">
                 <ul>
                   <li>
@@ -367,7 +428,7 @@ const Coin = () => {
                 </ul>
               </div>
             </div>
-            <div className="col-2 navbar-1">
+            <div className="col-3 navbar-1">
               <nav className="navbar navbar-light">
                 <div className="container-fluid">
                   <button
@@ -389,7 +450,7 @@ const Coin = () => {
                         gap: 10,
                       }}
                     >
-                       <ul
+                      <ul
                         className="ul-button"
                         style={{
                           zIndex: 100000,
@@ -476,9 +537,7 @@ const Coin = () => {
             <div className="inner-glass">
               <div class="noise"></div>
               <div className="inner-text">
-                <div className="nav-1">
-                  <img src={meme} />
-                </div>
+                
                 {showGlitchGif && (
                   <img
                     src={glitch}
@@ -490,25 +549,35 @@ const Coin = () => {
                     }}
                   />
                 )}
+                {showWelcomeMessage && (
+                    <div className="row img-res">
+                      <div className="col-md-12 ">
+                        <div>
+                        <img src={welcome} /> </div>
+                        </div>
+                      {/*<span className='shadow'>About HippiePepeMemeTV</span>  */}
+                      <div className="text-head pt-1"></div>
+                    </div>
+                
+                )}
+                <div className="nav-1">
+                  <img src={meme} />
+                </div>
                 {/* {showVideo && (
                   <video ref={videoRef} width="100%" height="100%" controls>
                     <source src={frogvideo} type="video/mp4" />
                     Your browser does not support the video tag.
                   </video>
                 )} */}
-                {showVideo && (
-                  <div>
-                    <iframe
-                      width="844px"
-                      height="555px"
-                      src="https://www.youtube.com/embed/A-rEb0KuopI?autoplay=1&unmute=1&enablejsapi=1&controls=1&rel=0"
-                      title="YouTube video player"
-                      frameborder="0"
-                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                      allowfullscreen
-                    ></iframe>
-                  </div>
-                )}
+                <video
+                  ref={videoRef}
+                  width={showVideo ? "100%" : "0%"}
+                  height={showVideo ? "100%" : "0%"}
+                  controls
+                >
+                  <source src={frogvideo} type="video/mp4" />
+                  Your browser does not support the video tag.
+                </video>
 
                 {showAbout && (
                   <div id="glitch-background">
@@ -519,21 +588,22 @@ const Coin = () => {
                       {/*<span className='shadow'>About HippiePepeMemeTV</span>  */}
                       <div className="text-head pt-2">
                         <h3 id="textcolorabout" className="about-para1">
-                        What is The Meme TV? </h3>
+                          What is The Meme TV?{" "}
+                        </h3>
                         <p className="about-para2 pb-2">
-                        It is a non-stop stream of delightful Meme videos. 
-                          </p>
+                          It is a non-stop stream of delightful Meme videos.
+                        </p>
 
-
-                      
                         <h3 id="textcolorabout" className="pb-3 about-para3">
-                          How do I get TheMemeTV(TheTV) tokens? </h3>
-<p> Connect your wallet and start watching TheMemeTV.
- You will be rewarded with TheTV tokens for every second you watch. 
- At some point, we are sure you may also find the tokens on some exchanges or get airdrops.</p>
-
-                      
-                    
+                          How do I get TheMemeTV(TheTV) tokens?{" "}
+                        </h3>
+                        <p>
+                          {" "}
+                          Connect your wallet and start watching TheMemeTV. You
+                          will be rewarded with TheTV tokens for every second
+                          you watch. At some point, we are sure you may also
+                          find the tokens on some exchanges or get airdrops.
+                        </p>
                       </div>
                     </div>
                   </div>
@@ -541,61 +611,51 @@ const Coin = () => {
                 {showToken && (
                   <div id="glitch-background">
                     <div className="trasition-2">
-                      
                       <div className="row">
                         <div className="col-md-1"></div>
                         <div className="col-md-10">
-                        <div className="supply-part">
-                        <h3 id="textcolorabout">Total Supply</h3>
-                        <img src={supplygif} /> {" "}
+                          <div className="supply-part">
+                            <h3 id="textcolorabout">Total Supply</h3>
+                            <img src={supplygif} />{" "}
                           </div>
-                        <h2 id="textcolorsocial" className="supply-p head-dash header-line">
-                      17,922,656,250 MEMETV {" "}
-                      </h2>
-                          </div>
-                          <div className="col-md-1"></div>
+                          <h2
+                            id="textcolorsocial"
+                            className="supply-p head-dash header-line"
+                          >
+                            17,922,656,250 MEMETV{" "}
+                          </h2>
                         </div>
+                        <div className="col-md-1"></div>
+                      </div>
                       {/*<span className='shadow'>About HippiePepeMemeTV</span>  */}
                       <div>
-                        <div className="row justify-content-center"> 
-                        <div className="col-md-5">
-                          <div className="supply-token">
-                          <p className="text-head2">
-                        Development 10% 
-                        </p>
-                        <p className="text-head2">
-                        Team 5% 
-                        </p>
-                        <p className="text-head2">
-                        Charity 5%
-                        </p>
-                        <p className="text-head2">
-                        Airdrops 10%
-                        </p>
+                        <div className="row justify-content-center">
+                          <div className="col-md-5">
+                            <div className="supply-token">
+                              <p className="text-head2">Development 10%</p>
+                              <p className="text-head2">Team 5%</p>
+                              <p className="text-head2">Charity 5%</p>
+                              <p className="text-head2">Airdrops 10%</p>
                             </div>
-                       
-                        </div>
-                        <div className="col-md-5"> <div className="supply-ocb">
-                        <div className="supply-token">
-                          <p className="text-head2">
-                        Watch & Earn 10%
-                        </p>
-                        <p className="text-head2">
-                        Creator royalty 10%
-                        </p>
-                        <p className="text-head2">
-                        Liqudity Pool 50%
-                        </p>
-
+                          </div>
+                          <div className="col-md-5">
+                            {" "}
+                            <div className="supply-ocb">
+                              <div className="supply-token">
+                                <p className="text-head2">Watch & Earn 10%</p>
+                                <p className="text-head2">
+                                  Creator royalty 10%
+                                </p>
+                                <p className="text-head2">Liqudity Pool 50%</p>
+                              </div>
                             </div>
-                        </div>
                           </div>
                           <div className="pt-4 col-md-12 text-head2">
-                          <button className="btn-line">
-                            Read More About Token
-                          </button>
-                            </div>
-                       </div>
+                            <button className="btn-line">
+                              Read More About Token
+                            </button>
+                          </div>
+                        </div>
                       </div>
                     </div>
 
@@ -632,7 +692,7 @@ const Coin = () => {
 
                       <div className="text-head">
                         <h2 id="textcolorsocial" className="header-line h-size">
-                        Ashte
+                          Ashte
                         </h2>
                         <div className="img-social">
                           <ul>
@@ -683,10 +743,12 @@ const Coin = () => {
                           <a
                             href="https://www.youtube.com/@HippiePepe"
                             target="_blank"
-                            rel="noopener noreferrer" >
-                           TheMemeTV is a meme 
-                           coin with no intrinsic value or expectation of financial return. There is no formal team or roadmap. 
-                           the coin is completely useless and for Entertainment purposes only.
+                            rel="noopener noreferrer"
+                          >
+                            TheMemeTV is a meme coin with no intrinsic value or
+                            expectation of financial return. There is no formal
+                            team or roadmap. the coin is completely useless and
+                            for Entertainment purposes only.
                           </a>
                         </p>
                       </div>
@@ -700,31 +762,33 @@ const Coin = () => {
                     </p>
                     <div className="">
                       <div className="row">
-                        <div className="col-4">
+                        <div className="col-12 col-md-4">
                           <img className="roadmapimg" src={roadmap1} />
                           <div className="road-map-dash">
                             <h2 className="road-map do1">doNothing</h2>
                             <p className="road-map-txt text-head">
-                            TheMemeTV child version. Random content. Limited Content. Watch and Earn . Creator royalty 
+                              TheMemeTV child version. Random content. Limited
+                              Content. Watch and Earn . Creator royalty
                             </p>
                           </div>
                         </div>
-                        <div className="col-4">
+                        <div className="col-12 col-md-4">
                           <img className="roadmapimg" src={roadmap2} />
                           <div className="road-map-dash">
                             <h2 className="road-map do2">doNothing more</h2>
                             <p className="road-map-txt text-head">
-                            TheMemeTV teenage version 
-Pay to watch. Create and Earn. Mint your NFTs. Meme wars
+                              TheMemeTV teenage version Pay to watch. Create and
+                              Earn. Mint your NFTs. Meme wars
                             </p>{" "}
                           </div>
                         </div>
-                        <div className="col-4">
+                        <div className="col-12 col-md-4">
                           <img className="roadmapimg" src={roadmap3} />
                           <div className="road-map-dash">
                             <h2 className="road-map do3">doNothing most</h2>
                             <p className="road-map-txt text-head">
-                            TheMemeTV adult version. Meme Cinematic Universe Movie production. 
+                              TheMemeTV adult version. Meme Cinematic Universe
+                              Movie production.
                             </p>
                           </div>
                         </div>
@@ -751,16 +815,6 @@ Pay to watch. Create and Earn. Mint your NFTs. Meme wars
                     </div>
                   </div>
                 )} */}
-
-                {isVideoPlaying && (
-                  <div>
-                    <video ref={videoRef} width="100%" height="100%" controls>
-                      <source src={[currentIndex]} type="video/mp4" />
-                      Your browser does not support the video tag.
-                    </video>
-                    {/* <button>{videoRef.current && videoRef.current.muted ? '' : ''}</button> */}
-                  </div>
-                )}
               </div>
             </div>
           </div>
@@ -818,12 +872,8 @@ Pay to watch. Create and Earn. Mint your NFTs. Meme wars
           </div>
           <div className="control-1">
             <div id="navi-video">
-              <button className="btn-color" onClick={handleClick}>
-                {isActive ? (
-                  <h3>Time {formatTime(seconds)}</h3>
-                ) : (
-                  <h3>DoNothing</h3>
-                )}
+              <button className="btn-color">
+                <h3>Time {formatTime(seconds)}</h3>
               </button>
             </div>
           </div>
@@ -833,7 +883,7 @@ Pay to watch. Create and Earn. Mint your NFTs. Meme wars
               <div id="speaker">
                 <div className="navi">
                   <h3 id="imagetext">connect your wallet to mint</h3>
-                  
+
                   <div
                     className="video-play"
                     id="imagetext"
@@ -846,7 +896,6 @@ Pay to watch. Create and Earn. Mint your NFTs. Meme wars
                   >
                     {/* <button onClick={handleBackClick}>Back</button>
                   <button onClick={handleNextClick} >Next</button> */}
-            
                   </div>
                 </div>
               </div>
