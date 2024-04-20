@@ -792,9 +792,10 @@
     position: relative;
     /* padding: 10px; */
     width: 100%;
-    overflow-x: hidden;
     /*height: 80vh !important;*/
     z-index: 0;
+    overflow-x: hidden;
+    overflow-y: scroll;
     /* height: auto; */
   }
   .img-res {
@@ -837,7 +838,7 @@
     );
     /*box-shadow: inset 0 4px 5px #444, inset 4px 0 5px #666, inset -2px 0 5px #888, inset 0 0px 5px #888; */
     width: 100%;
-    height: 80vh;
+    height: 70vh;
     background-image: url("../assets/Frame 21.png");
     background-repeat: no-repeat;
     background-size: 100% 100%;
@@ -1156,17 +1157,26 @@
   }
 
   #textcolorsocial {
-    font-size: 25px;
+    font-size: 20px;
     color: red;
     /*margin-left: 150px;*/
     margin-top: 30px;
+  }
+  .roadmapimg {
+    display: none !important;
   }
 
   #textcolorroadmap {
     color: red;
     /* margin-left: 150px;*/
-    margin-top: 30px;
+    margin-top: 60px;
     font-size: 40px;
+  }
+  .text-head2 {
+    font-size: 16px !important;
+  }
+  .text-head {
+    font-size: 16px !important;
   }
 
   #textcolorsocial {
@@ -1210,10 +1220,13 @@
   }
   .road-map {
     padding-top: 25px;
-    font-size: 20px !important;
+    font-size: 16px !important;
     padding-bottom: 25px;
     color: green !important ;
     border-bottom: 2px dashed #4cef39;
+  }
+  .road-map-txt {
+    font-size: 13px !important;
   }
   .road-map-txt {
     padding-top: 20px;
@@ -1577,6 +1590,9 @@
     /* height: 100%; */
     margin-left: 10px;
   }
+  .small-d {
+    padding-right: 20px !important;
+  }
 
   #screen {
     width: 80%;
@@ -1613,5 +1629,11 @@
     padding: 5px;
     /* border: 2px solid #232323; */
     width: 100%;
+  }
+}
+
+@media screen and (min-width: 1201px) {
+  .row {
+    margin-right: 10px !important;
   }
 }
