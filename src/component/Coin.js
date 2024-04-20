@@ -428,7 +428,7 @@ const Coin = () => {
     <div>
       <div id="tv" className="memetv">
         <div className="tv">
-          <div className="row">
+          <div className="row  small-d">
             <div className="col-3 col-sm-9 col-md-10 col-xl-12">
               <div className="social-links">
                 <ul>
