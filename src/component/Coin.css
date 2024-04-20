@@ -13,6 +13,22 @@
 .do3 {
   color: #ee2e95 !important;
 }
+
+.card {
+  background-color: rgba(0, 0, 0, 0.3);
+  /* backdrop-filter: blur(10%); */
+  height: 100%;
+  width: 100%;
+}
+
+.cardd {
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  height: 215px;
+  display: flex;
+}
+
 .text-head2 {
   background: var(
     --Gradent,
