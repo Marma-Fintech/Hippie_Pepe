@@ -38,6 +38,7 @@ const Coin = () => {
   const [showVideo, setShowVideo] = useState(false);
   const [showAbout, setShowAbout] = useState(false);
   const [showToken, setShowToken] = useState(false);
+  const [tokenButtonText, setTokenButtonText] = useState(false);
   const [showSocial, setShowSocial] = useState(false);
   const [showRoadmap, setShowRoadmap] = useState(false);
   const [isActive, setIsActive] = useState(false);
@@ -53,6 +54,7 @@ const Coin = () => {
   const [button, setButton] = useState("play");
   const [isVideoPlaying, setIsVideoPlaying] = useState(false);
   const [showWelcomeMessage, setShowWelcomeMessage] = useState(true);
+  const [showConnectScreen, setShowConnectScreen] = useState(false);
   const [Claim, isClaim] = useState(false);
   const videoRef = useRef(null);
   const address = useAddress();
@@ -88,6 +90,20 @@ const Coin = () => {
     } else {
       console.log("noynot");
     }
+  };
+  useEffect(() => {
+    let timer;
+    if (showWelcomeMessage) {
+      timer = setTimeout(() => {
+        setShowWelcomeMessage(false); // Hide welcome message
+        setShowConnectScreen(true); // Show next screen after 2 seconds
+      }, 2000);
+    }
+    return () => clearTimeout(timer); // Clear the timeout if the component unmounts
+  }, [showWelcomeMessage]);
+
+  const handleWelcomeDismiss = () => {
+    setShowWelcomeMessage(false); // Hide welcome message and start showing Connect button
   };
 
   useEffect(() => {
@@ -232,19 +248,23 @@ const Coin = () => {
     setShowToken(false);
     setShowSocial(false);
     setShowRoadmap(false);
+    setShowConnectScreen(false);
     setShowWelcomeMessage(false);
 
     if (!isVideoPlaying) {
       // If the video is not playing, start it and the timer.
       setIsActive(true); // Start the timer
-      togglePlayPause(); // This will start the video and update `isVideoPlaying` to true.
+      togglePlayPause();
+      setShowConnectScreen(false); // This will start the video and update `isVideoPlaying` to true.
     } else {
       // If the video is playing, pause it and stop the timer.
       setIsActive(false); // Stop the timer
-      togglePlayPause(); // This will pause the video and update `isVideoPlaying` to false.
+      togglePlayPause();
+      setShowConnectScreen(false); // This will pause the video and update `isVideoPlaying` to false.
     }
     setTimeout(() => {}, 1000);
   };
+
   const handleAboutClick = () => {
     playClickSound();
     setActiveButton("about");
@@ -256,10 +276,14 @@ const Coin = () => {
     setShowToken(false);
     setShowSocial(false);
     setShowRoadmap(false);
-    videoRef.current.pause();
+    setShowConnectScreen(false); // Correct usage of the state setter function
+    if (videoRef.current) {
+      videoRef.current.pause();
+    }
     setIsVideoPlaying(false);
     setButton("play");
     setShowWelcomeMessage(false);
+    setShowConnectScreen(false);
     setShowGlitchGif(true);
     // After the glitch effect, toggle the content
     setTimeout(() => {
@@ -267,6 +291,7 @@ const Coin = () => {
       setShowAbout((prevShowAbout) => !prevShowAbout); // Toggle the visibility based on previous state
     }, 1000);
   };
+
   const handleTokenClick = () => {
     playClickSound();
     setActiveButton("token");
@@ -275,30 +300,42 @@ const Coin = () => {
     // Hide all content and trigger the glitch effect
     setShowAbout(false);
     setShowVideo(false);
-    videoRef.current.pause();
+    if (videoRef.current) {
+      videoRef.current.pause();
+    }
     setIsVideoPlaying(false);
+    setShowConnectScreen(false); // Corrected from showConnectScreen to setShowConnectScreen
     setButton("play");
     setIsVideoPlaying(false);
     setShowToken(false);
     setShowSocial(false);
     setShowRoadmap(false);
+    setTokenButtonText(false);
     setShowWelcomeMessage(false);
     setShowGlitchGif(true);
     setTimeout(() => {
       setShowGlitchGif(false);
       setShowToken((prevShowToken) => !prevShowToken); // Toggle the visibility based on previous state
     }, 1000);
+
+    // Set a timeout to change the text after 2 seconds
+    setTimeout(() => {
+      setTokenButtonText(true);
+      setShowToken(false);
+    }, 2000);
   };
   const handleSocialClick = () => {
     playClickSound();
     setActiveButton("social");
     setShowAbout(false);
     setShowVideo(false);
+    setShowConnectScreen(false); // Correct usage of the state setter function
     setIsActive(false);
-    videoRef.current.pause();
+    if (videoRef.current) {
+      videoRef.current.pause();
+    }
     setIsVideoPlaying(false);
     setButton("play");
-    setIsVideoPlaying(false);
     setShowToken(false);
     setShowSocial(false);
     setShowRoadmap(false);
@@ -309,16 +346,19 @@ const Coin = () => {
       setShowSocial((prevShowSocial) => !prevShowSocial); // Toggle the visibility based on previous state
     }, 1000);
   };
+
   const handleRoadmapClick = () => {
     playClickSound();
     setActiveButton("roadmap");
     setShowAbout(false);
     setShowVideo(false);
+    setShowConnectScreen(false); // Correct usage of the state setter function
     setIsActive(false);
-    videoRef.current.pause();
+    if (videoRef.current) {
+      videoRef.current.pause();
+    }
     setIsVideoPlaying(false);
     setButton("play");
-    setIsVideoPlaying(false);
     setShowToken(false);
     setShowSocial(false);
     setShowRoadmap(false);
@@ -329,6 +369,7 @@ const Coin = () => {
       setShowRoadmap((prevShowRoadmap) => !prevShowRoadmap); // Toggle the visibility based on previous state
     }, 1000);
   };
+
   // const handleNextClick = () => {
   //   playClickSound();
   //   setShowGlitchGif(true); // Display the glitch effect
@@ -830,6 +871,7 @@ const Coin = () => {
                     }}
                   />
                 )}
+
                 {showWelcomeMessage && (
                   <div className="row img-res">
                     <div className="col-md-12 ">
@@ -841,9 +883,41 @@ const Coin = () => {
                     <div className="text-head pt-1"></div>
                   </div>
                 )}
-                <div className="nav-1">
-                  <img src={meme} />
-                </div>
+                {showConnectScreen && (
+                  <div className="row img-res">
+                    <div className="col-md-12 ">
+                      <div className="row justify-items-center">
+                        <div className="col-md-12 wel-trasition-1 ">
+                          <div className="col-md-8">
+                            <h2 className="text-head text-left pb-4">
+                              RULES FOR PARTICIPATION
+                            </h2>
+                            <p className="text-head text-left pb-0">
+                              1.Connect the wallet
+                            </p>
+                            <p className="text-head  text-left pb-0">
+                              2.Start watching the video by clicking start
+                              button
+                            </p>
+                            <p className="text-head  text-left pb-0">
+                              3.Receive TheMEMETv tokens for every second you
+                              watch
+                            </p>
+                            <p className="text-head  text-left pb-0">
+                              MOST IMPORTANT: doNothing else while watching the
+                              Meme Lords.{" "}
+                            </p>
+                          </div>
+                          {/*<span className='shadow'>About HippiePepeMemeTV</span>  */}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                )}
+
+                {/* {showWelcomeMessage && <div>Welcome to our platform!</div>}
+                {showConnectButton && <button>Connect to Wallet</button>} */}
+
                 {/* {showVideo && (
                   <video ref={videoRef} width="100%" height="100%" controls>
                     <source src={frogvideo} type="video/mp4" />
@@ -894,6 +968,7 @@ const Coin = () => {
                 )}
                 {showToken && (
                   <div id="glitch-background">
+                    {/* <h1 className="text-white mt-20">{tokenButtonText}</h1> */}
                     <div className="trasition-2">
                       <div className="row">
                         <div className="col-md-1"></div>
@@ -968,6 +1043,9 @@ const Coin = () => {
                   
                   </div> */}
                   </div>
+                )}
+                {tokenButtonText && (
+                  <h1 className="text-white mt-10">Welcome</h1>
                 )}
 
                 {showSocial && (
@@ -1044,37 +1122,35 @@ const Coin = () => {
                 {showRoadmap && (
                   <div id="glitch-background" className="road-map-text">
                     <p id="textcolorroadmap" className="header-line">
-                      Road map
+                      Road map<span>(coz is’s a formality)</span>
                     </p>
                     <div className="">
                       <div className="row">
                         <div className="col-4">
                           <img className="roadmapimg" src={roadmap1} />
                           <div className="road-map-dash">
-                            <h2 className="road-map do1">doNothing</h2>
+                            <h2 className="road-map do1">Phase 1</h2>
                             <p className="road-map-txt text-head">
-                              TheMemeTV child version. Random content. Limited
-                              Content. Watch and Earn . Creator royalty
+                              Current phase. You are in it. Here, we doNothing
                             </p>
                           </div>
                         </div>
                         <div className="col-4">
                           <img className="roadmapimg" src={roadmap2} />
                           <div className="road-map-dash">
-                            <h2 className="road-map do2">doNothing more</h2>
+                            <h2 className="road-map do2">Phase 2</h2>
                             <p className="road-map-txt text-head">
-                              TheMemeTV teenage version Pay to watch. Create and
-                              Earn. Mint your NFTs. Meme wars
+                              We will decide the final name. Start releasing
+                              claim tokens
                             </p>{" "}
                           </div>
                         </div>
                         <div className="col-4">
                           <img className="roadmapimg" src={roadmap3} />
                           <div className="road-map-dash">
-                            <h2 className="road-map do3">doNothing most</h2>
+                            <h2 className="road-map do3">Phase 3</h2>
                             <p className="road-map-txt text-head">
-                              TheMemeTV adult version. Meme Cinematic Universe
-                              Movie production.
+                              Decentralised Meme TV for all to watch and earn
                             </p>
                           </div>
                         </div>
