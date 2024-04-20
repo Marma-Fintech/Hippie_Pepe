@@ -725,6 +725,13 @@
     transform: translate(0%, 25%);
     padding: 0px 50px 0px 50px;
   }
+  .token-read1 {
+    transform: translate(0%, 20%);
+    padding: 0px 50px 0px 50px;
+  }
+  .token-read1 p {
+    font-size: 14px;
+  }
 
   .trasition-2 {
     transform: translate(0%, 25%);
@@ -995,7 +1002,7 @@
     margin-top: 16%;
     margin-left: 10%;
     width: 100%;
-    position: absolute;
+    position: relative;
     text-align: left;
   }
   .nav-2 {
