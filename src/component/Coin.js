@@ -341,6 +341,7 @@ const Coin = () => {
     setShowRoadmap(false);
     setShowWelcomeMessage(false);
     setShowGlitchGif(true);
+    setTokenButtonText(false);
     setTimeout(() => {
       setShowGlitchGif(false);
       setShowSocial((prevShowSocial) => !prevShowSocial); // Toggle the visibility based on previous state
@@ -364,6 +365,7 @@ const Coin = () => {
     setShowRoadmap(false);
     setShowWelcomeMessage(false);
     setShowGlitchGif(true);
+    setTokenButtonText(false);
     setTimeout(() => {
       setShowGlitchGif(false);
       setShowRoadmap((prevShowRoadmap) => !prevShowRoadmap); // Toggle the visibility based on previous state
@@ -1045,7 +1047,47 @@ const Coin = () => {
                   </div>
                 )}
                 {tokenButtonText && (
-                  <h1 className="text-white mt-10">Welcome</h1>
+                  <div className="row token-read1">
+                    <div className="rope-img"></div>
+                    {/*<span className='shadow'>About HippiePepeMemeTV</span>  */}
+                    <div className=" col-md-12 text-head pt-2">
+                      <h3 id="textcolorabout" className="about-para1">
+                        It is a little complicated. If you are not so smart,
+                        just skip it.It’s cool{" "}
+                      </h3>
+                      <p className="about-para2 ">
+                        So, some% of all the tokens are kept aside for you all
+                        to watch the HippiePepe TV and earn. A total of ’we
+                        don’t know yet’ seconds of total watch time is available
+                        across ‘x’ Phases of ‘some beautiful’ seconds each. In
+                        the first phase, for every second you watch, you will
+                        receive a ‘large number’ of HPTV tokens. After you all
+                        have cumulatively watched those ‘beautiful’ seconds, the
+                        first Reward halving will happen. Then it becomes half
+                        of ‘a large number’ HPTV tokens per second. And
+                        then....so on and so forth. You get the drift. This was
+                        Reward Halving.
+                      </p>{" "}
+                      <p>
+                        Now, time for reward doubling. During the ’we don’t know
+                        yet’ seconds of the Watch and Earn phase, the content
+                        owners of the videos that are played on the HippiePepe
+                        TV will be paid from the some% kept aside for them. In
+                        the initial phases we believe it is us that wil mostly
+                        put up the content. So, the creator royalty starts at a
+                        ‘very low’ HPTV tokens per second in Phase 1 of Watch
+                        and Earn.It keeps doubling till it Phase M when the
+                        reward would have increased to a ‘large number’ of HPTV
+                        tokens per second.The deal is that every time you watch
+                        the the HippiePepe TV, the creator of what you are
+                        watching will also be rewarded.
+                      </p>
+                      <p>
+                        If you read the whole thing, we love you. And if you
+                        read the whole thing, you love us.
+                      </p>
+                    </div>
+                  </div>
                 )}
 
                 {showSocial && (
