@@ -15,6 +15,7 @@ import meme from "../assets/Memetv.png";
 import roadmap1 from "../assets/a.png";
 import roadmap2 from "../assets/c.png";
 import roadmap3 from "../assets/W.png";
+
 import sociallinks from "../assets/social-links.png";
 import glitch from "../assets/757Y.gif";
 import leftarrow from "../assets/Group 20592 (1).png";
@@ -1702,7 +1703,7 @@ const Coin = () => {
                       <div className="flex flex-col items-center justify-center gap-1">
                         <div className="flex justify-end items-end h-full w-full">
                           <img
-                            className="h-8"
+                            className="h-8 img-icon"
                             src={info}
                             alt="My GIF"
                             onMouseEnter={() => setInfoicon(true)}
@@ -1743,7 +1744,10 @@ const Coin = () => {
                                         Comming Soon
                                       </h3>
                                     ) : (
-                                      <h3 onMouseEnter={handleMouseEnter}>
+                                      <h3
+                                        className="claim-h3"
+                                        onMouseEnter={handleMouseEnter}
+                                      >
                                         Claim Token
                                       </h3>
                                     )}
