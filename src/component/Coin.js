@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import "../component/Coin.css";
 import videoSource from "../assets/video.mp4";
-import dogevideo from "../assets/doge.mp4";
+import dogevideo from "../assets/dogevideo.MP4";
 import frogvideo from "../assets/frog.mp4";
 import shibuvideo from "../assets/shibu.mp4";
 import doge from "../assets/Rectangle1.png";
