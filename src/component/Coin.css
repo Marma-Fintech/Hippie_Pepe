@@ -412,11 +412,13 @@
     /*margin-left: 150px;*/
     margin-top: 50px;
   }
-
+  #textcolorroadmap span {
+    font-size: 15px !important;
+  }
   #textcolorroadmap {
     color: red;
     /* margin-left: 150px;*/
-    margin-top: 25px;
+    margin-top: 40px;
     font-size: 40px;
   }
 
@@ -728,6 +730,11 @@
     transform: translate(0%, 25%);
     padding: 0px 50px 0px 50px;
   }
+  .wel-trasition-1 {
+    transform: translate(0%, -35%);
+    padding: 0px 50px 0px 50px;
+  }
+
   .trasition-2 img {
     width: 80px;
   }
@@ -783,6 +790,9 @@
   }
   iframe {
     width: 100% !important;
+  }
+  #textcolorroadmap span {
+    display: none;
   }
   #tv {
     background: radial-gradient(#060606, #313131, #101010);
