@@ -1084,7 +1084,7 @@ const Coin = () => {
                   controls
                   loop
                 >
-                  <source src={frogvideo} type="video/mp4" />
+                  <source src={dogevideo} type="video/mp4" />
                   Your browser does not support the video tag.
                 </video>
                 <div className="nav-1">
