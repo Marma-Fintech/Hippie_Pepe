@@ -898,7 +898,8 @@
     overflow: hidden;
   }
   h3 {
-    font-size: 20px !important;
+    font-size: 16px !important;
+    padding: 10px;
   }
   .meme-img img {
     background-position: center;
@@ -1186,7 +1187,7 @@
   }
 
   .trasition-1 {
-    transform: translate(0%, 25%);
+    transform: translate(0%, 10%);
     text-align: -webkit-center;
     padding: 0px 50px 0px 50px;
   }
@@ -1223,7 +1224,7 @@
     font-size: 16px !important;
   }
   .text-head {
-    font-size: 16px !important;
+    font-size: 12px !important;
   }
 
   #textcolorsocial {
@@ -1423,7 +1424,7 @@
     margin-top: 15px;
   }
   .road-map-text {
-    /*transform: translate(0%, 25%);*/
+    transform: translate(0%, 0.5%);
     padding: 40px;
   }
 
@@ -1540,12 +1541,12 @@
   }
 
   .about-trasition-1 {
-    transform: translate(0%, 15%);
+    transform: translate(0%, 0%);
     padding: 0px 50px 0px 50px;
   }
 
   .trasition-2 {
-    transform: translate(0%, 25%);
+    transform: translate(0%, 5%);
     padding: 0px 50px 0px 50px;
   }
   .trasition-2 img {
