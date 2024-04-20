@@ -29,6 +29,10 @@ import supplygif1 from "../assets/supply-gif1.gif";
 import socialimg from "../assets/social-gif.gif";
 import aboutimg from "../assets/Rope.png";
 import welcome from "../assets/logo-welcome.png";
+import info from "../assets/info.png";
+import btn from "../assets/btn.png";
+import yo from "../assets/yo.gif";
+import arrow from "../assets/arrow.gif";
 
 import clickSound from "../assets/clicksound.mp3";
 
@@ -41,6 +45,10 @@ const Coin = () => {
   const [tokenButtonText, setTokenButtonText] = useState(false);
   const [showSocial, setShowSocial] = useState(false);
   const [showRoadmap, setShowRoadmap] = useState(false);
+  const [playPauseCounter, setPlaypauseCounter] = useState(0);
+  const [isHovered, setIsHovered] = useState(false);
+  const [hasClaimed, setHasClaimed] = useState(false);
+  const [infoIcon, setInfoicon] = useState(false);
   const [isActive, setIsActive] = useState(false);
   const [seconds, setSeconds] = useState(0);
   const [isOpen, setIsOpen] = useState(false);
@@ -58,6 +66,28 @@ const Coin = () => {
   const [Claim, isClaim] = useState(false);
   const videoRef = useRef(null);
   const address = useAddress();
+
+  // State to hold the random number
+  const [randomNumber, setRandomNumber] = useState("");
+
+  // Function to generate a random 11-digit number
+  const generateRandomNumber = () => {
+    // Generate random 11-digit number
+    const number = Math.floor(100000000000 + Math.random() * 900000000000);
+    // Format the number with commas
+    const formattedNumber = new Intl.NumberFormat("en-US").format(number);
+    setRandomNumber(formattedNumber);
+  };
+
+  useEffect(() => {
+    // Generate an initial random number
+    generateRandomNumber();
+    // Set up an interval to update the random number every 5 seconds
+    const interval = setInterval(generateRandomNumber, 1000);
+    // Clear the interval on component unmount
+    return () => clearInterval(interval);
+  }, []);
+
   useEffect(() => {
     if (address) {
       setSeconds(0);
@@ -216,6 +246,37 @@ const Coin = () => {
   //   }
   // };
 
+  const updateUserDetails = async () => {
+    const url = "https://hippie-pepe-be.onrender.com/setUserdetail";
+    const body = {
+      userPublicKey: address,
+      userSeconds: String(playPauseCounter),
+      userReward: String(Number(playPauseCounter) * 50),
+    };
+
+    try {
+      const response = await fetch(url, {
+        method: "PUT", // Specify the method
+        headers: {
+          "Content-Type": "application/json", // Specify the content type
+        },
+        body: JSON.stringify(body), // Convert the JavaScript object to a JSON string
+      });
+
+      if (response.ok) {
+        const data = await response.json(); // Parse JSON response if successful
+        console.log("Success:", data);
+        setPlaypauseCounter(0);
+        // isClaim(!Claim);
+        return data;
+      } else {
+        throw new Error("Failed to update user details");
+      }
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
+
   const togglePlayPause = () => {
     if (videoRef.current) {
       if (videoRef.current.paused) {
@@ -322,7 +383,7 @@ const Coin = () => {
     setTimeout(() => {
       setTokenButtonText(true);
       setShowToken(false);
-    }, 2000);
+    }, 5000);
   };
   const handleSocialClick = () => {
     playClickSound();
@@ -434,12 +495,19 @@ const Coin = () => {
   };
 
   const claimRewards = () => {
+    setHasClaimed(true);
+    setSeconds(0);
+
+    setTimeout(() => {
+      setHasClaimed(false);
+    }, 5000);
+
     const updateUserDetails = async () => {
       const url = "https://hippie-pepe-be.onrender.com/setUserdetail";
       const body = {
         userPublicKey: address,
-        userSeconds: String(seconds),
-        userReward: String(Number(seconds) * 50),
+        userSeconds: String(playPauseCounter),
+        userReward: String(Number(playPauseCounter) * 50),
       };
 
       try {
@@ -465,6 +533,44 @@ const Coin = () => {
     };
 
     updateUserDetails(); // Call the function to make the request
+  };
+
+  useEffect(() => {
+    fetchUserDetails();
+  }, [address]);
+  const fetchUserDetails = async () => {
+    try {
+      console.log(address);
+      // Make the GET request using fetch
+      const response = await fetch(
+        `https://hippie-pepe-be.onrender.com/getUserdetail/${address}`
+      );
+
+      // Check if the response is successful (status code 200)
+      if (response.ok) {
+        // Parse the response JSON data
+        const data = await response.json();
+        // Set the user details in state
+        setSeconds(Number(data.user.userSeconds));
+        console.log(JSON.stringify(data) + "Datadatadata");
+      } else {
+        // Handle error if response is not successful
+        console.error("Error fetching user details:", response.statusText);
+      }
+    } catch (error) {
+      // Handle any network errors
+      console.error("Network error:", error);
+    }
+  };
+
+  // Event handler for when the element is hovered over
+  const handleMouseEnter = () => {
+    setIsHovered(true);
+  };
+
+  // Event handler for when the mouse leaves the element
+  const handleMouseLeave = () => {
+    setIsHovered(false);
   };
 
   return (
@@ -873,6 +979,50 @@ const Coin = () => {
                     }}
                   />
                 )}
+                {infoIcon && (
+                  <div
+                    // className="card"
+                    id="glitch-background"
+                    style={{
+                      zIndex: 1000000,
+                      position: "absolute",
+                      backgroundColor: "black",
+                      height: "100%",
+                      width: "100%",
+                    }}
+                  >
+                    <div className="row img-res">
+                      <div className="col-md-12 ">
+                        <div className="row justify-items-center">
+                          <div className="col-md-12 wel-trasition-1 ">
+                            <div className="col-md-8">
+                              <h2 className="text-head text-left pb-4">
+                                RULES FOR PARTICIPATION
+                              </h2>
+                              <p className="text-head text-left pb-0">
+                                1.Connect the wallet
+                              </p>
+                              <p className="text-head  text-left pb-0">
+                                2.Start watching the video by clicking start
+                                button
+                              </p>
+                              <p className="text-head  text-left pb-0">
+                                3.Receive TheMEMETv tokens for every second you
+                                watch
+                              </p>
+                              <p className="text-head  text-left pb-0">
+                                MOST IMPORTANT: doNothing else while watching
+                                the Meme Lords.{" "}
+                              </p>
+                            </div>
+                            {/*<span className='shadow'>About HippiePepeMemeTV</span>  */}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    )}
+                  </div>
+                )}
 
                 {showWelcomeMessage && (
                   <div className="row img-res">
@@ -983,7 +1133,7 @@ const Coin = () => {
                             id="textcolorsocial"
                             className="supply-p head-dash header-line"
                           >
-                            17,922,656,250 MEMETV{" "}
+                            {randomNumber} HPTV{" "}
                           </h2>
                         </div>
                         <div className="col-md-1"></div>
@@ -1535,21 +1685,82 @@ const Coin = () => {
             <div>
               <div id="speaker">
                 <div className="navi">
-                  <div className="">
-                    <div>
-                      <button className="btn-color">
-                        <h3>Time {formatTime(seconds)}</h3>
+                  {address ? (
+                    // Conditional rendering based on whether the rewards have been claimed
+                    hasClaimed ? (
+                      // Display "Congratulations" message if rewards have been claimed
+                      <button
+                        className="btn-color flex flex-col justify-center items-center gap-1"
+                        onClick={claimRewards}
+                      >
+                        <h3>{" Congratulations!"}</h3>
+                        <h3 className="text-sm">
+                          {" You claimed your token & restart the minting."}
+                        </h3>
                       </button>
-                    </div>
-                    <button className="btn-color">
-                      <h3> {seconds * 50} MMT Tokens</h3>
+                    ) : (
+                      <div className="flex flex-col items-center justify-center gap-1">
+                        <div className="flex justify-end items-end h-full w-full">
+                          <img
+                            className="h-8"
+                            src={info}
+                            alt="My GIF"
+                            onMouseEnter={() => setInfoicon(true)}
+                            onMouseLeave={() => setInfoicon(false)}
+                          />
+                          {infoIcon}
+                        </div>
+                        <div>
+                          <button className="btn-color">
+                            <h3>Time {formatTime(seconds)}</h3>
+                          </button>
+                        </div>
+                        <button className="btn-color">
+                          <h3> {seconds * 50} MMT Tokens</h3>
+                        </button>
+                        <div className="">
+                          <button className="btn-color">
+                            {/* <h3>{' Claim Token'}</h3> */}
+                            <div className="w-[160.50px] h-10 relative">
+                              <div className="left-[15px] top-[12px] absolute text-center text-green-600 text-base font-normal font-['VCR OSD Mono'] ">
+                                <div
+                                  className="cardd text-center"
+                                  style={{ position: "relative" }}
+                                >
+                                  <img
+                                    className="h-9"
+                                    src={btn}
+                                    alt="My button"
+                                  />
+                                  <div
+                                    style={{
+                                      position: "absolute",
+                                      marginLeft: "15px",
+                                    }}
+                                  >
+                                    {isHovered ? (
+                                      <h3 onMouseLeave={handleMouseLeave}>
+                                        Comming Soon
+                                      </h3>
+                                    ) : (
+                                      <h3 onMouseEnter={handleMouseEnter}>
+                                        Claim Token
+                                      </h3>
+                                    )}
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </button>
+                        </div>
+                      </div>
+                    )
+                  ) : (
+                    <button className="btn-color flex flex-col justify-center items-center">
+                      <img className="h-32" src={arrow} alt="My GIF" />
+                      <h3> Connect your wallet to mint</h3>
                     </button>
-                    <div className="">
-                      <button className="btn-color" onClick={claimRewards}>
-                        <h3>{" Claim Rewards"}</h3>
-                      </button>
-                    </div>
-                  </div>
+                  )}
                   <div
                     className="video-play"
                     id="imagetext"
@@ -1570,6 +1781,7 @@ const Coin = () => {
               <h2 style={{ background: '#232323', padding: 1, border: '2px solid #595959ff', position: 'absolute', right: '7%' }}>meme tv</h2>
             </div> */}
             </div>
+
             <div class="meme-img">
               <img src={image1} />
             </div>
