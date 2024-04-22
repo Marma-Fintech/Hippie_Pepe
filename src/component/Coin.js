@@ -1162,6 +1162,11 @@ const Coin = () => {
                               </div>
                             </div>
                           </div>
+                          <div className="pt-4 col-md-12 text-head2">
+                            <button className="btn-line">
+                              Read More About Token
+                            </button>
+                          </div>
                           {/*
                           <div className="pt-4 col-md-12 text-head2">
                             <button className="btn-line">
