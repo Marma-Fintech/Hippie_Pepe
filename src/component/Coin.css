@@ -834,7 +834,10 @@ body
   #navi-video {
     display: none !important;
   }
-
+.cnt-gif
+{
+  display: none;
+}
   ol,
   ul,
   dl {

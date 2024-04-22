@@ -1782,7 +1782,7 @@ const Coin = () => {
                     )
                   ) : (
                     <button className="btn-color flex flex-col justify-center items-center">
-                      <img className="h-32" src={arrow} alt="My GIF" />
+                      <img className="h-32 cnt-gif" src={arrow} alt="My GIF" />
                       <h3> Connect your wallet to mint</h3>
                     </button>
                   )}
