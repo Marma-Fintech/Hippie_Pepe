@@ -20,6 +20,10 @@
     object-fit: cover;
   }
 */
+.fnt-back
+{
+  font-size: 16px !important;
+}
 body
 {
   margin: 0;

@@ -122,16 +122,16 @@ const Coin = () => {
       console.log("noynot");
     }
   };
-  useEffect(() => {
-    let timer;
-    if (showWelcomeMessage) {
-      timer = setTimeout(() => {
-        setShowWelcomeMessage(false); // Hide welcome message
-        setShowConnectScreen(true); // Show next screen after 2 seconds
-      }, 2000);
-    }
-    return () => clearTimeout(timer); // Clear the timeout if the component unmounts
-  }, [showWelcomeMessage]);
+  // useEffect(() => {
+  //   let timer;
+  //   if (showWelcomeMessage) {
+  //     timer = setTimeout(() => {
+  //       setShowWelcomeMessage(false); // Hide welcome message
+  //       setShowConnectScreen(true); // Show next screen after 2 seconds
+  //     }, 2000);
+  //   }
+  //   return () => clearTimeout(timer); // Clear the timeout if the component unmounts
+  // }, [showWelcomeMessage]);
 
   const handleWelcomeDismiss = () => {
     setShowWelcomeMessage(false); // Hide welcome message and start showing Connect button
@@ -354,6 +354,17 @@ const Coin = () => {
     }, 1000);
   };
 
+  const handleOnclickinToken =() => {
+    setTokenButtonText(true);
+    setShowToken(false);
+  }
+
+  const handleOffclickinToken =() => {
+    setTokenButtonText(false);
+    setShowToken(true);
+  }
+
+
   const handleTokenClick = () => {
     playClickSound();
     setActiveButton("token");
@@ -380,11 +391,13 @@ const Coin = () => {
       setShowToken((prevShowToken) => !prevShowToken); // Toggle the visibility based on previous state
     }, 1000);
 
+   
+
     // Set a timeout to change the text after 2 seconds
-    setTimeout(() => {
-      setTokenButtonText(true);
-      setShowToken(false);
-    }, 5000);
+    // setTimeout(() => {
+    //   setTokenButtonText(true);
+    //   setShowToken(false);
+    // }, 5000);
   };
   const handleSocialClick = () => {
     playClickSound();
@@ -1163,7 +1176,7 @@ const Coin = () => {
                             </div>
                           </div>
                           <div className="pt-4 col-md-12 text-head2">
-                            <button className="btn-line">
+                            <button className="btn-line" onClick={()=>{handleOnclickinToken()}}>
                               Read More About Token
                             </button>
                           </div>
@@ -1206,11 +1219,14 @@ const Coin = () => {
                   <div className="row token-read1">
                     <div className="rope-img"></div>
                     {/*<span className='shadow'>About HippiePepeMemeTV</span>  */}
+                    <div className="col-md-12">
+                      <h3 className="text-right text-head fnt-back" style={{cursor:"pointer"}} onClick={()=>{handleOffclickinToken()}}>Back</h3>
+                      </div>
                     <div className=" col-md-12 text-head pt-2">
-                      <h3 id="textcolorabout" className="about-para1">
+                      <h5 id="textcolorabout" className="about-para1">
                         It is a little complicated. If you are not so smart,
                         just skip it.It’s cool{" "}
-                      </h3>
+                      </h5>
                       <p className="about-para2 ">
                         So, some% of all the tokens are kept aside for you all
                         to watch the HippiePepe TV and earn. A total of ’we
