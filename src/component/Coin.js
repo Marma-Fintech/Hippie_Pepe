@@ -255,23 +255,18 @@ const Coin = () => {
       console.error("Error:", error);
     }
   };
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      if (isVideoPlaying && !walletConnected) {
-        setShowConnectWalletMessage(true);
-      }
-    }, 5000);
-
-    return () => clearTimeout(timer);
-  }, [isVideoPlaying, walletConnected]);
 
   const handleVideoPlay = () => {
-    setIsVideoPlaying(true);
-    setTimeout(() => {
-      if (!walletConnected) {
-        setShowConnectWalletMessage(true);
-      }
-    }, 5000);
+    setIsVideoPlaying(true); // Set video playing state to true
+    // Only attempt to show the message if the wallet is not connected
+    if (!walletConnected) {
+      setTimeout(() => {
+        // Double-check the wallet connection status and if the video is still playing
+        if (!walletConnected && isVideoPlaying) {
+          setShowConnectWalletMessage(true);
+        }
+      }, 5000);
+    }
   };
 
   const handleVideoPause = () => {
@@ -308,11 +303,35 @@ const Coin = () => {
       }
     }, 30000); // 30 seconds delay
   };
+
+  // const handleConnectWallet = () => {
+  //   setWalletConnected(true);
+  //   localStorage.setItem("walletConnected", "true");
+  //   setShowConnectWalletMessage(false);
+  // };
+
+  // When connecting the wallet
   const handleConnectWallet = () => {
-    // You might already have some logic here to handle the wallet connection
-    setWalletConnected(true); // Prevents the message from reappearing
+    setWalletConnected(true);
+    localStorage.setItem("walletConnected", "true");
     setShowConnectWalletMessage(false);
   };
+
+  useEffect(() => {
+    const isConnected = localStorage.getItem("walletConnected") === "true";
+    console.log("Wallet connected from storage:", isConnected); // Check what is being read from local storage
+    setWalletConnected(isConnected);
+  }, []);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      if (isVideoPlaying && !walletConnected) {
+        setShowConnectWalletMessage(true);
+      }
+    }, 5000);
+
+    return () => clearTimeout(timer);
+  }, [isVideoPlaying, walletConnected]);
 
   const handlePlayClick = () => {
     // console.log('Play clicked');
@@ -1042,7 +1061,7 @@ const Coin = () => {
                   </div>
                 )}
                 <div>
-                  {showConnectWalletMessage && (
+                  {showConnectWalletMessage && !address && (
                     <div
                       style={{
                         zIndex: 1000000,
