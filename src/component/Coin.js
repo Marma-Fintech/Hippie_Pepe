@@ -1061,62 +1061,65 @@ const Coin = () => {
                   </div>
                 )}
                 <div>
-                  {showConnectWalletMessage && !address && (
-                    <div
-                      style={{
-                        zIndex: 1000000,
-                      }}
-                    >
-                      <div className="intro-wallet">
-                        <div class="welcome-info">
-                          <div class="text-head pt-2">
-                            <h2 id="textcolorabout" class="welcome-para">
-                              Welcome to TheMemeTV!
-                            </h2>
-                            <p class="about-para2 pb-2">
-                              Connect your crypto wallet to our platform now and
-                              begin earning tokens while you indulge in Meme
-                              videos.
-                            </p>
-                          </div>
-                          <div className="row justify-content-center">
-                            <div className="col-5">
-                              <div className="">
-                                <button
-                                  onClick={handleCloseMessage}
-                                  className="btn-primary"
-                                >
-                                  doNothing
-                                </button>
-                              </div>
-                            </div>{" "}
-                            &nbsp;
-                            <div className="col-5">
-                              <div className="">
-                                <button
-                                  className="cnt-wallet"
-                                  onClick={handleConnectWallet}
-                                >
-                                  <ConnectWallet
-                                    switchToActiveChain={true}
-                                    style={{
-                                      backgroundColor: "rgba(0, 0, 0, 0)",
-                                      color: "#2a585b",
-                                    }}
-                                  />
-                                </button>
+                  {showConnectWalletMessage &&
+                    !address &&
+                    activeButton == "play" && (
+                      <div
+                        style={{
+                          zIndex: 1000000,
+                        }}
+                      >
+                        <div className="intro-wallet">
+                          <div class="welcome-info">
+                            <div class="text-head pt-2">
+                              <h2 id="textcolorabout" class="welcome-para">
+                                Welcome to TheMemeTV!
+                              </h2>
+                              <p class="about-para2 pb-2">
+                                Connect your crypto wallet to our platform now
+                                and begin earning tokens while you indulge in
+                                Meme videos.
+                              </p>
+                            </div>
+                            <div className="row justify-content-center">
+                              <div className="col-5">
+                                <div className="">
+                                  <button
+                                    onClick={handleCloseMessage}
+                                    className="btn-primary"
+                                  >
+                                    doNothing
+                                  </button>
+                                </div>
+                              </div>{" "}
+                              &nbsp;
+                              <div className="col-5">
+                                <div className="">
+                                  <button
+                                    className="cnt-wallet"
+                                    onClick={handleConnectWallet}
+                                  >
+                                    <ConnectWallet
+                                      switchToActiveChain={true}
+                                      style={{
+                                        backgroundColor: "rgba(0, 0, 0, 0)",
+                                        color: "#2a585b",
+                                      }}
+                                    />
+                                  </button>
+                                </div>
                               </div>
                             </div>
                           </div>
+                          <div></div>
                         </div>
-                        <div></div>
                       </div>
-                    </div>
-                  )}
+                    )}
                   <video
+                    className={showVideo ? "playvideo" : "hidevideo"}
                     ref={videoRef}
-                    width={showVideo ? "100%" : "0%"}
-                    height={showVideo ? "100%" : "0%"}
+                    // width={showVideo ? "100%" : "0%"}
+                    // height={showVideo ? "100%" : "0%"}
                     controls
                     loop
                   >
