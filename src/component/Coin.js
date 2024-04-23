@@ -1418,7 +1418,7 @@ const Coin = () => {
           <div>
             <div>
               <div id="navi-video" className="wallet-desk">
-                <button className="btn-color">
+                <button className="btn-color" onClick={handleConnectWallet}>
                   <ConnectWallet
                     switchToActiveChain={true}
                     style={{
