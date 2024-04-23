@@ -6,10 +6,17 @@
   font-size: 40px;
   padding-bottom: 10px;
 }
+.btn-outline
+{
+    border: 2px solid;
+    padding: 9px 33px;
+    color: #0abd1c;
+}
 .welcome-info {
   width: 590px;
-  background: #00000091;
+  background: #000000e0;
   padding: 25px;
+  
   border: 2px solid #0abd1c;
 }
 .playvideo {
@@ -21,6 +28,19 @@
   width: 0;
   height: 0;
   object-fit: cover;
+}
+.cnt-outline {
+  border: 1px solid #000;
+  color: #2a585b;
+  border-radius: 1px;
+  padding:1px;
+}
+.cnt-wallet {
+  background-color: #0E4911;
+  color: hsl(120, 5%, 15%);
+  border-radius: 1px;
+  padding: 1px;
+  border:1ps solid  #0E4911;
 }
 .intro-wallet {
   display: flex;
@@ -72,8 +92,16 @@
 }
 .text-right {
   text-align: right;
-  text-align: -w;
+  text-align: -webkit-right;
 }
+.text-c {
+  text-align: -webkit-center !important;
+}
+.handgif img
+{
+width: 40px;
+}
+
 body {
   margin: 0;
   padding: 0;
@@ -367,7 +395,7 @@ body {
   }
   .btn-color h3 {
     color: #4cf030;
-    margin-top: 5px;
+    margin-top: 7px;
   }
   .vertical-lines {
     display: flex;
@@ -874,6 +902,14 @@ body {
   .rope-img img {
     width: 120px;
   }
+  .icon-1
+  {
+    text-align: -webkit-right;
+    position: absolute;
+    right: 30px;
+    width: 100%;
+    margin-top: -15px;
+  }
 }
 
 /* On screens that are 992px or less, set the background color to blue */
@@ -882,6 +918,10 @@ body {
   #panel,
   #navi-video {
     display: none !important;
+  }
+  .handgif
+  {
+    display: none;
   }
   .cnt-gif {
     display: none;

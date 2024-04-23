@@ -633,6 +633,7 @@ const Coin = () => {
                     style={{
                       backgroundColor: "rgba(0, 0, 0, 0)",
                       color: "white",
+                      
                     }}
                   />
                 </div>
@@ -1081,34 +1082,31 @@ const Coin = () => {
                                 Meme videos.
                               </p>
                             </div>
-                            <div className="row justify-content-center">
-                              <div className="col-5">
-                                <div className="">
-                                  <button
-                                    onClick={handleCloseMessage}
-                                    className="btn-primary"
-                                  >
-                                    doNothing
-                                  </button>
-                                </div>
-                              </div>{" "}
-                              &nbsp;
-                              <div className="col-5">
-                                <div className="">
-                                  <button
-                                    className="cnt-wallet"
-                                    onClick={handleConnectWallet}
-                                  >
-                                    <ConnectWallet
-                                      switchToActiveChain={true}
-                                      style={{
-                                        backgroundColor: "rgba(0, 0, 0, 0)",
-                                        color: "#2a585b",
-                                      }}
-                                    />
-                                  </button>
-                                </div>
-                              </div>
+                            <div className="">
+                            <button
+                                  onClick={handleCloseMessage}
+                                  className="btn-outline"
+                                >
+                                  doNothing
+                                </button> &nbsp;
+                                <button style={{
+                                   border:"2px solid #4CB04F",
+                                }}
+                                  className="cnt-wallet"
+                                  onClick={handleConnectWallet}
+                                >
+                                  <ConnectWallet
+                                    switchToActiveChain={true}
+                                    style={{
+                                      backgroundColor: "rgba(0, 0, 0, 0)",
+                                      color: "#0E4911",
+                                    }}
+                                  />
+                                </button>
+                                
+                             {" "}
+                             
+                            
                             </div>
                           </div>
                           <div></div>
@@ -1446,6 +1444,7 @@ const Coin = () => {
                     style={{
                       backgroundColor: "rgba(0, 0, 0, 0)",
                       color: "#4cf030",
+                      border: "none",
                     }}
                   />
                 </button>
@@ -1463,16 +1462,15 @@ const Coin = () => {
                       // Display "Congratulations" message if rewards have been claimed
                       <button
                         className="btn-color flex flex-col justify-center items-center gap-1"
-                        onClick={claimRewards}
-                      >
+                        onClick={claimRewards}>
                         <h3>{" Congratulations!"}</h3>
                         <h3 className="text-sm">
                           {" You claimed your token & restart the minting."}
                         </h3>
                       </button>
                     ) : (
-                      <div className="flex flex-col items-center justify-center gap-1">
-                        <div className="flex justify-end items-end h-full w-full">
+                      <div className="">
+                        <div className="text-right icon-1">
                           <img
                             className="h-8 img-icon"
                             src={info}
@@ -1482,17 +1480,25 @@ const Coin = () => {
                           />
                           {infoIcon}
                         </div>
-                        <div className="w-10 h-10">
-                          <img src={handgif} />
+                        <div className="handgif text-c">
+                          <img src={handgif}  />
                         </div>
+                        <div className="col-12">
                         <div>
                           <button className="btn-color">
                             <h3>Time {formatTime(seconds)}</h3>
                           </button>
                         </div>
-                        <button className="btn-color">
+                          </div>
+                          <div className="col-12">
+                            <div>
+                            <button className="btn-color">
                           <h3> {seconds * 50} MMT Tokens</h3>
                         </button>
+                            </div>
+                            </div>
+                        
+                        
                         <div className="">
                           <button className="btn-color">
                             {/* <h3>{' Claim Token'}</h3> */}
