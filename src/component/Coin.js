@@ -34,6 +34,7 @@ import info from "../assets/info.png";
 import btn from "../assets/btn.png";
 import yo from "../assets/yo.gif";
 import arrow from "../assets/arrow.gif";
+import tokenarrow from "../assets/Vector 1.png";
 
 import clickSound from "../assets/clicksound.mp3";
 
@@ -1220,7 +1221,8 @@ const Coin = () => {
                     <div className="rope-img"></div>
                     {/*<span className='shadow'>About HippiePepeMemeTV</span>  */}
                     <div className="col-md-12">
-                      <h3 className="text-right text-head fnt-back" style={{cursor:"pointer"}} onClick={()=>{handleOffclickinToken()}}>Back</h3>
+                      <span className="text-right text-head fnt-back" style={{cursor:"pointer"}} onClick={()=>{handleOffclickinToken()}}>
+                      <img src={tokenarrow}/></span>
                       </div>
                     <div className=" col-md-12 text-head pt-2">
                       <h5 id="textcolorabout" className="about-para1">
@@ -1691,7 +1693,7 @@ const Coin = () => {
                     switchToActiveChain={true}
                     style={{
                       backgroundColor: "rgba(0, 0, 0, 0)",
-                      color: "white",
+                      color: "#4cf030",
                     }}
                   />
                 </button>
@@ -1782,7 +1784,7 @@ const Coin = () => {
                     )
                   ) : (
                     <button className="btn-color flex flex-col justify-center items-center">
-                      <img className="h-32 cnt-gif" src={arrow} alt="My GIF" />
+                      <img className="h-24 cnt-gif" src={arrow} alt="My GIF" />
                       <h3> Connect your wallet to mint</h3>
                     </button>
                   )}
