@@ -144,7 +144,7 @@ body {
     color: #29585bff;
     width: 100%;
     height: 100%;
-    overflow: scroll !important;
+/*     overflow: scroll !important; */
     /*padding:15px;*/
   }
   .navbar-1 {
