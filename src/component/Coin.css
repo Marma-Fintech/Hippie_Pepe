@@ -19,7 +19,7 @@
   
   border: 2px solid #0abd1c;
 }
-.playvideo {
+/* .playvideo {
   width: 100%;
   height: 100vh;
   object-fit: cover;
@@ -28,7 +28,16 @@
   width: 0;
   height: 0;
   object-fit: cover;
+} */
+.playvideo {
+  width: 100%;
+  height: auto;
+  display: block;
 }
+.hidevideo {
+  display: none;
+}
+
 .cnt-outline {
   border: 1px solid #000;
   color: #2a585b;
@@ -914,6 +923,11 @@ body {
 
 /* On screens that are 992px or less, set the background color to blue */
 @media screen and (max-width: 992px) {
+  .small-d
+  {
+    padding-top: 5px;
+    padding-bottom: 5px;
+  }
   .meme-img,
   #panel,
   #navi-video {
@@ -959,7 +973,7 @@ body {
     position: relative;
     /* padding: 10px; */
     width: 100%;
-    /*height: 80vh !important;*/
+    height:100vh !important;
     z-index: 0;
     overflow-x: hidden;
     overflow-y: scroll;
@@ -1230,6 +1244,7 @@ body {
     background-position: center;
     height:140px;
     display: flex;
+    margin-bottom: 10px;
     justify-content: center;
     align-items: center;
     /*  border-radius: 0px;
