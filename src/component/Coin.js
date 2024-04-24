@@ -575,7 +575,7 @@ const Coin = () => {
     <div>
       <div id="tv" className="memetv">
         <div className="tv">
-          <div className="row  small-d">
+          <div className="row right-align small-d">
             <div className="col-3 col-sm-9 col-md-10 col-xl-12">
               <div className="social-links">
                 <ul>
@@ -635,6 +635,7 @@ const Coin = () => {
                     style={{
                       backgroundColor: "rgba(0, 0, 0, 0)",
                       color: "white",
+                      border:"none",
                       
                     }}
                   />
@@ -1163,7 +1164,7 @@ const Coin = () => {
                   <img src={meme} />
                 </div>
                 {showAbout && (
-                  <div id="glitch-background">
+                  <div id="glitch-background" className=" center-content">
                     <div className="about-trasition-1">
                       <div className="rope-img">
                         <img src={pepe} />
@@ -1192,7 +1193,7 @@ const Coin = () => {
                   </div>
                 )}
                 {showToken && (
-                  <div id="glitch-background">
+                  <div id="glitch-background" className=" center-content">
                     <div className="trasition-2">
                       <div className="row">
                         <div className="col-md-1"></div>
@@ -1304,7 +1305,7 @@ const Coin = () => {
                 )}
 
                 {showSocial && (
-                  <div id="glitch-background">
+                  <div id="glitch-background" className=" center-content">
                     <div className="trasition-1">
                       <img src={socialimg} />
                       <h3>Watch TheMemeTV and doNothing</h3>
@@ -1375,8 +1376,8 @@ const Coin = () => {
                   </div>
                 )}
                 {showRoadmap && (
-                  <div id="glitch-background" className="road-map-text">
-                    <p id="textcolorroadmap" className="header-line">
+                  <div id="glitch-background" className="road-map-text" >
+                    <p id="textcolorroadmap" className="header-line pb-2">
                       Road map<span>(coz is’s a formality)</span>
                     </p>
                     <div className="">
@@ -1502,8 +1503,8 @@ const Coin = () => {
                         </h3>
                       </button>
                     ) : (
-                      <div className="">
-                        <div className="text-right icon-1">
+                      <div className="row">
+                        <div className="text-right icon-1 col-12">
                           <img
                             className="h-8 img-icon"
                             src={info}
@@ -1519,7 +1520,7 @@ const Coin = () => {
                         <div className="col-12">
                         <div>
                           <button className="btn-color">
-                            <h3>Time {formatTime(seconds)}</h3>
+                            <h3><div>Time </div>{formatTime(seconds)}</h3>
                           </button>
                         </div>
                           </div>
@@ -1532,8 +1533,8 @@ const Coin = () => {
                             </div>
                         
                         
-                        <div className="">
-                          <button className="btn-color">
+                        <div className="col-12">
+                          <button className="btn-color mar-top">
                             {/* <h3>{' Claim Token'}</h3> */}
                             <div className="w-[160.50px] h-10 relative">
                               <div className="left-[15px] top-[12px] absolute text-center text-green-600 text-base font-normal font-['VCR OSD Mono'] ">
@@ -1546,19 +1547,20 @@ const Coin = () => {
                                     src={btn}
                                     alt="My button"
                                   />
-                                  <div
+                                  <div 
                                     style={{
                                       position: "absolute",
                                       marginLeft: "15px",
+                                
                                     }}
                                   >
                                     {isHovered ? (
-                                      <h3 onMouseLeave={handleMouseLeave}>
+                                      <h3 className="claim-h3" onMouseLeave={handleMouseLeave}>
                                         Comming Soon
                                       </h3>
                                     ) : (
-                                      <h3
-                                        className="claim-h3"
+                                      <h3 className="claim-h3"
+                                        
                                         onMouseEnter={handleMouseEnter}
                                       >
                                         Claim Token

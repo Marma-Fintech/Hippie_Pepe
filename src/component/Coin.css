@@ -136,7 +136,7 @@ body {
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
-  height: 215px;
+  /* height: 215px; */
   display: flex;
 }
 
@@ -180,11 +180,23 @@ body {
     font-family: myFirstFont !important;
     overflow: hidden;
   }
+  .claim-h3
+  {
+    line-height: 35px;
+  }
+  .center-content
+  {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 70%;
+  }
   .mob-desk {
     display: none !important;
   }
   h3 {
-    font-size: 20px !important;
+    font-size: 23px !important;
   }
   .meme-img img {
     background-position: center;
@@ -192,7 +204,7 @@ body {
   }
   .inner-text {
     text-align: center;
-    font-size: 18px;
+    font-size: 17px;
     color: #29585bff;
     width: 100%;
     height: 100%;
@@ -409,8 +421,9 @@ body {
   }
   .btn-color h3 {
     color: #4cf030;
-    margin-top: 7px;
-  }
+    /* margin-top: 7px;
+  */
+}
   .vertical-lines {
     display: flex;
   }
@@ -920,14 +933,19 @@ body {
   {
     text-align: -webkit-right;
     position: absolute;
-    right: 30px;
+    right: 14px;
     width: 100%;
-    margin-top: -15px;
+    margin-top: -15px !important;
   }
+}
+.mar-top
+{
+  margin-top: -10px;
 }
 
 /* On screens that are 992px or less, set the background color to blue */
 @media screen and (max-width: 992px) {
+
   .small-d
   {
     padding-top: 5px;
@@ -937,6 +955,11 @@ body {
   #panel,
   #navi-video {
     display: none !important;
+  }
+  .about-para1
+  {
+    font-size: 17px;
+    padding-bottom: 0px;
   }
   .handgif
   {
@@ -1053,13 +1076,13 @@ body {
     width: 100%;
     height: 100%;
     pointer-events: all;
-    overflow-y: scroll;
-    overflow-x: hidden;
+    /* overflow-y: scroll; */
+    overflow: hidden;
     /*padding:15px;*/
   }
   p {
-    padding-bottom: 5px !important;
-    margin-bottom: 5px !important;
+    padding-bottom: 0px !important;
+    margin-bottom: 0px !important;
   }
   .ul-button {
     font-weight: bolder;
@@ -1162,7 +1185,10 @@ body {
     /*height: 100%;*/
     /*margin-left: 10px;*/
   }
-
+.header-line
+{
+  font-size: 35px !important;
+}
   #panel {
     background: #b1b1b1 linear-gradient(90deg, transparent, #888);
     border-radius: 10px;
@@ -1176,11 +1202,15 @@ body {
   }
   .nav-1 {
     /*padding: 5px;*/
-    margin-top: 16%;
+    margin-top: 14%;
     margin-left: 10%;
     width: 100%;
     position: relative;
     text-align: left;
+  }
+  .nav-1 img 
+  {
+    width: 110px !important;
   }
   .nav-2 {
     padding: 5px;
@@ -1351,12 +1381,6 @@ body {
     margin-top: 50px;
   }
 
-  #textcolorsocial {
-    font-size: 20px;
-    color: red;
-    /*margin-left: 150px;*/
-    margin-top: 30px;
-  }
   .roadmapimg {
     display: none !important;
   }
@@ -1375,9 +1399,9 @@ body {
   }
 
   #textcolorsocial {
-    /* font-size: 20px; */
+    font-size:22px;
     color: red;
-    margin-top: 20px;
+    margin-top: 10px;
   }
 
   #playbutton {
@@ -1587,21 +1611,34 @@ body {
   .do-nothing-button {
     display: flex !important;
   }
+  .btn-outline {
+    border: 2px solid;
+    padding: 8px 20px;
+    color: #0abd1c;
+  }
 
+  .welcome-info {
+    width: 590px;
+    background: #000000e0;
+    padding: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border: 2px solid #0abd1c;
+  }
   .btn-do {
     transform: translate(23%, 0%);
     margin-top: 5px;
   }
   .supply-p {
-    font-size: 40px;
-    border: 1px solid green;
+    font-size: 22px !important;
+    /*border: .nav-2px solid green;*/
     padding: 10px 0px 10px 0px;
   }
   .img-social {
     display: flex;
     justify-content: center; /* Centers child elements horizontally */
     align-items: center; /* Centers child elements vertically */
-    padding: 20px;
+    padding: 10px;
   }
 
   .img-social ul {
@@ -1619,11 +1656,9 @@ body {
   .trasition-1 h3 {
     color: #ffffff;
   }
-  .h-size {
-    font-size: 70px;
-  }
+ 
   .social-tag {
-    font-size: 16px;
+    font-size: 12px;
     padding: 15px;
     background: var(
       --Gradent,
@@ -1698,7 +1733,7 @@ body {
   }
 
   .trasition-2 {
-    transform: translate(0%, 5%);
+    transform: translate(0%, 0%);
     padding: 0px 50px 0px 50px;
   }
   .trasition-2 img {
@@ -1753,6 +1788,21 @@ body {
     width: 1200px;
     padding: 10px;
     transform: translate(0%, -360px);
+  }
+  #glitch-background
+  {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 60%;
+  }
+  .nav-1 {
+    padding: 5px;
+    margin-top: 5%;
+    margin-left: 5%;
+    width: 127px;
+    position: relative;
   }
   .tv {
     /* background: #210; */
@@ -1836,7 +1886,7 @@ body {
 }
 
 @media screen and (min-width: 1201px) {
-  .row {
+  .right-align {
     margin-right: 10px !important;
   }
 }
