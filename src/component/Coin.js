@@ -335,12 +335,10 @@ const Coin = () => {
 
   const handlePlayClick = () => {
     // console.log('Play clicked');
-
     playClickSound();
     // alert("all")
     setActiveButton("play");
     setShowAbout(false);
-
     ButtonTextChange();
     // setShowVideo(false);
     // setIsVideoPlaying(false);
@@ -349,7 +347,6 @@ const Coin = () => {
     setShowRoadmap(false);
     setShowConnectScreen(false);
     setShowWelcomeMessage(false);
-
     if (!isVideoPlaying) {
       // If the video is not playing, start it and the timer.
       setIsActive(true); // Start the timer
@@ -363,10 +360,8 @@ const Coin = () => {
       setShowConnectScreen(false);
     }
   };
-
   const handleAboutClick = () => {
     setShowConnectWalletMessage(false);
-
     playClickSound();
     setActiveButton("about");
     // Immediately hide the content and start the glitch effect
@@ -385,25 +380,24 @@ const Coin = () => {
     setButton("play");
     setShowWelcomeMessage(false);
     setShowConnectScreen(false);
-
     setShowGlitchGif(true);
     // After the glitch effect, toggle the content
     setTimeout(() => {
       setShowGlitchGif(false);
-      setShowAbout((prevShowAbout) => !prevShowAbout); // Toggle the visibility based on previous state
+      setShowAbout(true); // Toggle the visibility based on previous state
+      setShowRoadmap(false);
+      setShowSocial(false);
+      setShowToken(false);
     }, 1000);
   };
-
   const handleOnclickinToken = () => {
     setTokenButtonText(true);
     setShowToken(false);
   };
-
   const handleOffclickinToken = () => {
     setTokenButtonText(false);
     setShowToken(true);
   };
-
   const handleTokenClick = () => {
     playClickSound();
     setActiveButton("token");
@@ -427,7 +421,10 @@ const Coin = () => {
     setShowGlitchGif(true);
     setTimeout(() => {
       setShowGlitchGif(false);
-      setShowToken((prevShowToken) => !prevShowToken); // Toggle the visibility based on previous state
+      setShowToken(true); // Toggle the visibility based on previous state
+      setShowAbout(false);
+      setShowSocial(false);
+      setShowRoadmap(false);
     }, 1000);
   };
   const handleSocialClick = () => {
@@ -451,10 +448,12 @@ const Coin = () => {
     setTokenButtonText(false);
     setTimeout(() => {
       setShowGlitchGif(false);
-      setShowSocial((prevShowSocial) => !prevShowSocial); // Toggle the visibility based on previous state
+      setShowSocial(true); // Toggle the visibility based on previous state
+      setShowAbout(false);
+      setShowRoadmap(false);
+      setShowToken(false);
     }, 1000);
   };
-
   const handleRoadmapClick = () => {
     playClickSound();
     setActiveButton("roadmap");
@@ -476,7 +475,10 @@ const Coin = () => {
     setTokenButtonText(false);
     setTimeout(() => {
       setShowGlitchGif(false);
-      setShowRoadmap((prevShowRoadmap) => !prevShowRoadmap); // Toggle the visibility based on previous state
+      setShowRoadmap(true); // Toggle the visibility based on previous state
+      setShowAbout(false);
+      setShowSocial(false);
+      setShowToken(false);
     }, 1000);
   };
 
@@ -1113,6 +1115,37 @@ const Coin = () => {
                         </div>
                       </div>
                     )}
+                    {!showConnectWalletMessage && activeButton == "play" && (
+                    <div
+                      style={{
+                        zIndex: 10000,
+                      }}
+                    >
+                      <div className="intro-wallet">
+                        <div class="welcome-info1">
+                          {/* <div class="text-head pt-2">
+                              <h2 id="textcolorabout" class="welcome-para">
+                              </h2>
+                              <p class="about-para2 pb-2">
+                              </p>
+                            </div> */}
+                          <div className="">
+                            {/* <button
+                                  className="btn-outline"
+                                >
+                                </button> &nbsp;
+                                <button style={{
+                                   border:"2px solid #4CB04F",
+                                }}
+                                  className="cnt-wallet"
+                                >
+                                </button> */}
+                          </div>
+                        </div>
+                        <div></div>
+                      </div>
+                    </div>
+                  )}
                   <video
                     className={showVideo ? "playvideo" : "hidevideo"}
                     ref={videoRef}

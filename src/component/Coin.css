@@ -29,6 +29,11 @@
   height: 0;
   object-fit: cover;
 } 
+
+.welcome-info1 {
+  width: 590px;
+  padding: 25px;
+}
 /* .playvideo {
   width: 100%;
   height: auto;
