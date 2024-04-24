@@ -645,7 +645,7 @@ const Coin = () => {
                     switchToActiveChain={true}
                     style={{
                       backgroundColor: "rgba(0, 0, 0, 0)",
-                      color: "white",
+                      color: "rgb(26 179 34)",
                       border:"none",
                       
                     }}
