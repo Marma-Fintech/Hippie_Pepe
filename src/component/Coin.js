@@ -629,7 +629,7 @@ const Coin = () => {
                 </ul>
               </div>
             </div>
-            <div className="col-5 col-sm-7">
+            <div className="col-6 col-sm-7">
               <div className="mob-desk" style={{ position: "relative" }}>
                 <div
                   style={{
@@ -870,7 +870,7 @@ const Coin = () => {
                 </svg>
               </div>
             </div>
-            <div className="col-2 col-sm-2 navbar-1">
+            <div className="col-3 col-sm-2 navbar-1">
               <nav className="navbar navbar-light">
                 <div className="container-fluid">
                   <button
@@ -1179,7 +1179,7 @@ const Coin = () => {
                     <div className="about-trasition-1">
                      
                       {/*<span className='shadow'>About HippiePepeMemeTV</span>  */}
-                      <div className="pt-5 pb-5">
+                      <div className="pt-2 pb-5 about-pad">
                         <h3 id="textcolorabout" className="about-para1 header-line  mb-2">
                         About TheMemeTV{" "}
                         </h3>
@@ -1255,7 +1255,7 @@ So, you also watch TheMemeTv and doNothing. Okay
                               </div>
                             </div>
                           </div>
-                          <div className="pt-4 col-md-12 text-head2">
+                          <div className="pt-2 pb-5 col-md-12 text-head2">
                             <button
                               className="btn-line"
                               onClick={() => {
@@ -1428,7 +1428,7 @@ So, you also watch TheMemeTv and doNothing. Okay
                           </ul>
                         </div>
                         <span className="hippe text-head">TheMemeTV</span>
-                        <p className="social-tag">
+                        <p className="social-tag pb-5">
                           <a
                             href="https://www.youtube.com/@HippiePepe"
                             target="_blank"
@@ -1621,13 +1621,13 @@ So, you also watch TheMemeTv and doNothing. Okay
                                   <div 
                                     style={{
                                       position: "absolute",
-                                      marginLeft: "15px",
+                                      marginLeft: "8px",
                                 
                                     }}
                                   >
                                     {isHovered ? (
                                       <h3 className="claim-h3" onMouseLeave={handleMouseLeave}>
-                                        Comming Soon
+                                        Coming Soon
                                       </h3>
                                     ) : (
                                       <h3 className="claim-h3"

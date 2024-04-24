@@ -264,7 +264,7 @@ body {
   #content {
     position: absolute;
     top: -100%;
-    animation: scoller 50s linear infinite;
+    animation: scoller 100s linear infinite;
   }
   #content p {
     font-size: 35px;
@@ -287,6 +287,7 @@ body {
   .about-para1 
   {
     font-size: 40px !important;
+    padding-bottom: 15px;
   }
   .claim-h3
   {
@@ -975,12 +976,12 @@ body {
     margin-top: 15px;
   }
   .about-gif-part img {
-    margin-top: 60px;
+    margin-top:0px;
     width: 100px;
   }
 
   .about-trasition-1 {
-    /*transform: translate(0%, 25%);*/
+    transform: translate(0%, 10%);
     padding: 0px 50px 0px 50px;
   }
   .token-read1 {
@@ -1295,8 +1296,8 @@ body {
     width: 100%;
     height: 100%;
     pointer-events: all;
-    /* overflow-y: scroll; */
-    overflow: hidden;
+    overflow-y: scroll; 
+    overflow-x: hidden;
     /*padding:15px;*/
   }
   p {
@@ -1669,8 +1670,8 @@ body {
   .road-map-txt {
     padding-top: 20px;
     padding-bottom: 20px;
-    padding-left: 5px;
-    padding-right: 5px;
+    padding-left: 2px;
+    padding-right:2px;
   }
   .road-map-dash {
     border: 2px dashed #4cef39;
@@ -2123,17 +2124,59 @@ body {
   #scroller {
     font-weight: bold;
     font-size: 350%;
-    text-align: justify;
+    text-align: justify;  
     overflow: hidden;
     height: 50em;
     width: 40em;
     position: absolute;
     bottom: 0;
-    left: 100%;
+    left: 92%;
     margin-left: -370px !important;
     z-index: 0;
     transform: perspective(350px) rotateX(25deg);
     transform-origin: 50% 100%;
-}
+    
 }
 
+
+#content {
+  position: absolute;
+  top: -100%;
+  animation: scoller 100s linear infinite;
+}
+
+
+}
+
+@media screen and (max-width: 768px)
+{
+
+  .road-map-text {
+    transform: translate(0%, 0.5%);
+    padding-left: 40px;
+    padding-right: 40px;
+    padding-top: 10px;
+    padding-bottom: 40px;
+  
+  }
+  .text-head2
+  {
+    font-size: 12px !important;
+  }
+  .supply-p
+  {
+    font-size:18px !important;
+  }
+  .about-pad
+  {
+    margin-top: 10px !important;
+  }
+  .nav-1 {
+    /* padding: 5px; */
+    margin-top: 15%;
+    margin-left: 10%;
+    width: 100%;
+    position: relative;
+    text-align: left;
+  }
+}
