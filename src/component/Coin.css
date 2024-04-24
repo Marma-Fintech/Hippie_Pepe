@@ -19,7 +19,7 @@
   
   border: 2px solid #0abd1c;
 }
-/* .playvideo {
+.playvideo {
   width: 100%;
   height: 100vh;
   object-fit: cover;
@@ -28,15 +28,15 @@
   width: 0;
   height: 0;
   object-fit: cover;
-} */
-.playvideo {
+} 
+/* .playvideo {
   width: 100%;
   height: auto;
   display: block;
 }
 .hidevideo {
   display: none;
-}
+} */
 
 .cnt-outline {
   border: 1px solid #000;
