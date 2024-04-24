@@ -48,6 +48,7 @@ const Coin = () => {
   const [showVideo, setShowVideo] = useState(false);
   const [showAbout, setShowAbout] = useState(false);
   const [showToken, setShowToken] = useState(false);
+  const [key, setKey] = useState(0); //animation text loop
   const [tokenButtonText, setTokenButtonText] = useState(false);
   const [showSocial, setShowSocial] = useState(false);
   const [showRoadmap, setShowRoadmap] = useState(false);
@@ -72,6 +73,16 @@ const Coin = () => {
   const [Claim, isClaim] = useState(false);
   const videoRef = useRef(null);
   const address = useAddress();
+
+
+  //animation text token
+  useEffect(() => {
+    // Set a timeout to reset the animation by changing the key
+    const timeout = setTimeout(() => {
+      setKey((prevKey) => prevKey + 1); // Increment the key to force re-render
+    }, 25000); // Duration of the animation
+    return () => clearTimeout(timeout);
+  }, [key]);
 
   // State to hold the random number
   const [randomNumber, setRandomNumber] = useState("");
@@ -576,7 +587,7 @@ const Coin = () => {
       <div id="tv" className="memetv">
         <div className="tv">
           <div className="row right-align small-d">
-            <div className="col-3 col-sm-9 col-md-10 col-xl-12">
+            <div className="col-3 col-sm-3 col-md-10 col-xl-12">
               <div className="social-links">
                 <ul>
                   <li>
@@ -618,7 +629,7 @@ const Coin = () => {
                 </ul>
               </div>
             </div>
-            <div className="col-5">
+            <div className="col-5 col-sm-7">
               <div className="mob-desk" style={{ position: "relative" }}>
                 <div
                   style={{
@@ -859,7 +870,7 @@ const Coin = () => {
                 </svg>
               </div>
             </div>
-            <div className="col-2 navbar-1">
+            <div className="col-2 col-sm-2 navbar-1">
               <nav className="navbar navbar-light">
                 <div className="container-fluid">
                   <button
@@ -1166,29 +1177,39 @@ const Coin = () => {
                 {showAbout && (
                   <div id="glitch-background" className=" center-content">
                     <div className="about-trasition-1">
-                      <div className="rope-img">
-                        <img src={pepe} />
-                      </div>
+                     
                       {/*<span className='shadow'>About HippiePepeMemeTV</span>  */}
-                      <div className="text-head pt-2">
-                        <h3 id="textcolorabout" className="about-para1">
-                          What is The Meme TV?{" "}
+                      <div className="pt-5 pb-5">
+                        <h3 id="textcolorabout" className="about-para1 header-line  mb-2">
+                        About TheMemeTV{" "}
                         </h3>
-                        <p className="about-para2 pb-2">
-                          It is a non-stop stream of delightful Meme videos.
+                        <p className="about-para2 pb-0 text-head">
+                         
+We were all born Memes . We were all born to Memes. We were all  born to meme.
+
+                        </p>
+                        <p className="text-head pb-0">
+                          {" "}
+                          The world seems to have forgotten this and taken itself too seriously. 
                         </p>
 
-                        <h3 id="textcolorabout" className="pb-3 about-para3">
-                          How do I get TheMemeTV(TheTV) tokens?{" "}
-                        </h3>
-                        <p>
-                          {" "}
-                          Connect your wallet and start watching TheMemeTV. You
-                          will be rewarded with TheTV tokens for every second
-                          you watch. At some point, we are sure you may also
-                          find the tokens on some exchanges or get airdrops.
-                        </p>
+                     <p className="text-head pb-0">
+                     TheMemeTV is here- to spread joy, to spread other things also I think but most 
+importantly to #doNothing </p>
+<p className="text-head">
+So, you also watch TheMemeTv and doNothing. Okay
+</p>
+<div className="rope-img">
+                        {/* <img src={pepe} /> */}
                       </div>
+
+                   
+                       
+                      </div>
+                      <div className="about-gif-part">
+                        <img src={aboutgif} />{" "}
+                      </div>
+                      
                     </div>
                   </div>
                 )}
@@ -1264,7 +1285,7 @@ const Coin = () => {
                         <img src={tokenarrow} />
                       </span>
                     </div>
-                    <div className=" col-md-12 text-head pt-2">
+                    {/* <div className=" col-md-12 text-head pt-2">
                       <h5 id="textcolorabout" className="about-para1">
                         It is a little complicated. If you are not so smart,
                         just skip it.It’s cool{" "}
@@ -1300,7 +1321,55 @@ const Coin = () => {
                         If you read the whole thing, we love you. And if you
                         read the whole thing, you love us.
                       </p>
-                    </div>
+                    </div> */}
+                   {activeButton == "token" && (
+                      <>
+                        <section class="intro text-head">
+                          It is a little complicated. If you are not so smart,
+                          just skip it.It’s cool
+                        </section>
+                        <div id="scroller" key={key}>
+                          <div id="content">
+                            <p id="title"></p>
+                            <br />
+                            <p className="text-head">
+                              So, some% of all the tokens are kept aside for you
+                              all to watch the HippiePepe TV and earn. A total
+                              of ’we don’t know yet’ seconds of total watch time
+                              is available across ‘x’ Phases of ‘some beautiful’
+                              seconds each. In the first phase, for every second
+                              you watch, you will receive a ‘large number’ of
+                              HPTV tokens. After you all have cumulatively
+                              watched those ‘beautiful’ seconds, the first
+                              Reward halving will happen. Then it becomes half
+                              of ‘a large number’ HPTV tokens per second. And
+                              then....so on and so forth. You get the drift.
+                              This was Reward Halving.
+                            </p>
+                            <p className="text-head">
+                              Now, time for reward doubling. During the ’we
+                              don’t know yet’ seconds of the Watch and Earn
+                              phase, the content owners of the videos that are
+                              played on the HippiePepe TV will be paid from the
+                              some% kept aside for them. In the initial phases
+                              we believe it is us that wil mostly put up the
+                              content. So, the creator royalty starts at a ‘very
+                              low’ HPTV tokens per second in Phase 1 of Watch
+                              and Earn.It keeps doubling till it Phase M when
+                              the reward would have increased to a ‘large
+                              number’ of HPTV tokens per second.The deal is that
+                              every time you watch the the HippiePepe TV, the
+                              creator of what you are watching will also be
+                              rewarded.
+                            </p>
+                            <p className="text-head">
+                              If you read the whole thing, we love you. And if
+                              you read the whole thing, you love us.
+                            </p>
+                          </div>
+                        </div>
+                      </>
+                    )}
                   </div>
                 )}
 
@@ -1312,7 +1381,7 @@ const Coin = () => {
 
                       <div className="text-head">
                         <h2 id="textcolorsocial" className="header-line h-size">
-                          Ashte
+                        Namastay
                         </h2>
                         <div className="img-social">
                           <ul>
@@ -1358,17 +1427,15 @@ const Coin = () => {
                             </li>
                           </ul>
                         </div>
-                        <span className="hippe">HippiePepememeTV</span>
+                        <span className="hippe text-head">TheMemeTV</span>
                         <p className="social-tag">
                           <a
                             href="https://www.youtube.com/@HippiePepe"
                             target="_blank"
                             rel="noopener noreferrer"
                           >
-                            TheMemeTV is a meme coin with no intrinsic value or
-                            expectation of financial return. There is no formal
-                            team or roadmap. the coin is completely useless and
-                            for Entertainment purposes only.
+                           TheMemeTV is a meme coin with no intrinsic value or expectation of financial return.
+                            There is no formal team or roadmap. the coin is completely useless and for Entertainment purposes only.
                           </a>
                         </p>
                       </div>
@@ -1517,23 +1584,27 @@ const Coin = () => {
                         <div className="handgif text-c">
                           <img src={handgif}  />
                         </div>
-                        <div className="col-12">
+                        <div className="row" style={{
+                          marginLeft:"0",
+                        }}>
+
+                        <div className="col-6 col-xl-12 col-md-6 col-sm-6 col-xl-12">
                         <div>
                           <button className="btn-color">
                             <h3><div>Time </div>{formatTime(seconds)}</h3>
                           </button>
                         </div>
                           </div>
-                          <div className="col-12">
+                          <div className="col-6 col-xl-12 col-sm-6 col-md-6">
                             <div>
-                            <button className="btn-color">
+                            <button className="btn-color">  
                           <h3> {seconds * 50} MMT Tokens</h3>
                         </button>
                             </div>
                             </div>
+                        </div>
                         
-                        
-                        <div className="col-12">
+                        <div className="col-12 col-xl-12 col-md-12">
                           <button className="btn-color mar-top">
                             {/* <h3>{' Claim Token'}</h3> */}
                             <div className="w-[160.50px] h-10 relative">

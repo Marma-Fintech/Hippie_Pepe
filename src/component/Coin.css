@@ -19,6 +19,14 @@
   
   border: 2px solid #0abd1c;
 }
+.about-gif-part {
+  text-align: -webkit-center;
+  margin-top: 15px;
+}
+.about-gif-part img {
+  margin-top: 30px;
+  width: 100px;
+}
 .playvideo {
   width: 100%;
   height: 100vh;
@@ -175,10 +183,110 @@ body {
 } 
 */
 @media screen and (min-width: 993px) {
+
+  .starwars {
+    margin: 0;
+    /* background-color: #000; */
+    overflow: hidden !important;
+  }
+  .starwars::after {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 80vh;
+    /* background: linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 1) 61%,
+      rgba(0, 0, 0, 0.54) 79%,
+      rgba(0, 0, 0, 0) 100%
+    ); */
+    z-index: 99999;
+  }
+  .stars {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    background-color: #fff;
+    z-index: 2;
+  }
+  .intro {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+    font-weight: 500;
+    font-size: 25px;
+    padding: 30px;
+    width: 80%;
+    opacity: 0;
+    animation: intro 2s ease-out 0.5s;
+  }
+  @keyframes intro {
+    0% {
+      opacity: 0;
+    }
+    20% {
+      opacity: 1;
+    }
+    90% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0;
+    }
+  }
+  #scroller {
+    font-weight: bold;
+    font-size: 350%;
+    text-align: justify;
+    overflow: hidden;
+    height: 50em;
+    width: 40em;
+    position: absolute;
+    bottom: 0;
+    left: 75%;
+    margin-left: -10em;
+    z-index: 0;
+    transform: perspective(350px) rotateX(25deg);
+    transform-origin: 50% 100%;
+  }
+  #scroller::after {
+    position: absolute;
+    content: "";
+    bottom: 60%;
+    left: 0;
+    right: 0;
+    top: 0;
+  }
+  #content {
+    position: absolute;
+    top: -100%;
+    animation: scoller 50s linear infinite;
+  }
+  #content p {
+    font-size: 35px;
+    text-align: center;
+  }
+  @keyframes scoller {
+    0% {
+      top: 100%;
+    }
+    100% {
+      top: -100%;
+    }
+  }
+
   body {
     background: #453522 !important;
     font-family: myFirstFont !important;
     overflow: hidden;
+  }
+  .about-para1 
+  {
+    font-size: 40px !important;
   }
   .claim-h3
   {
@@ -190,7 +298,7 @@ body {
     align-items: center;
     justify-content: center;
     width: 100%;
-    height: 70%;
+    /* height: 70%; */
   }
   .mob-desk {
     display: none !important;
@@ -923,8 +1031,11 @@ body {
   }
 
   .rope-img {
-    text-align: -webkit-center;
-    margin-top: 0px;
+    transform: translateX(35%);
+    bottom: 5px;
+    width: 100%;
+    /* left: 0; */
+    position: absolute;
   }
   .rope-img img {
     width: 120px;
@@ -945,7 +1056,115 @@ body {
 
 /* On screens that are 992px or less, set the background color to blue */
 @media screen and (max-width: 992px) {
+  #scroller {
+    font-weight: bold;
+    font-size: 350%;
+    text-align: justify;
+    overflow: hidden;
+    height: 50em;
+    width: 40em;
+    position: absolute;
+    bottom: 0;
+    left: 100%;
+    margin-left: -7em;
+    z-index: 0;
+    transform: perspective(350px) rotateX(25deg);
+    transform-origin: 50% 100%;
+  }
 
+  .starwars {
+    margin: 0;
+    /* background-color: #000; */
+    overflow: hidden !important;
+  }
+  .starwars::after {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 80vh;
+    /* background: linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 1) 61%,
+      rgba(0, 0, 0, 0.54) 79%,
+      rgba(0, 0, 0, 0) 100%
+    ); */
+    z-index: 99999;
+  }
+  .stars {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    background-color: #fff;
+    z-index: 2;
+  }
+  .intro {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+    font-weight: 500;
+    font-size: 25px;
+    padding: 30px;
+    width: 80%;
+    opacity: 0;
+    animation: intro 2s ease-out 0.5s;
+  }
+  @keyframes intro {
+    0% {
+      opacity: 0;
+    }
+    20% {
+      opacity: 1;
+    }
+    90% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0;
+    }
+  }
+
+  #scroller::after {
+    position: absolute;
+    content: "";
+    bottom: 60%;
+    left: 0;
+    right: 0;
+    top: 0;
+  }
+  #content {
+    position: absolute;
+    top: -100%;
+    animation: scoller 50s linear infinite;
+  }
+  #content p {
+    font-size: 35px;
+    text-align: center;
+  }
+  @keyframes scoller {
+    0% {
+      top: 100%;
+    }
+    100% {
+      top: -100%;
+    }
+  }
+
+
+
+
+
+
+  .rope-img {
+    transform: translateX(35%);
+    bottom: 5px;
+    width: 100%;
+    /* left: 0; */
+    position: absolute;
+  }
   .small-d
   {
     padding-top: 5px;
@@ -1450,6 +1669,8 @@ body {
   .road-map-txt {
     padding-top: 20px;
     padding-bottom: 20px;
+    padding-left: 5px;
+    padding-right: 5px;
   }
   .road-map-dash {
     border: 2px dashed #4cef39;
@@ -1765,6 +1986,7 @@ body {
   .rope-img img {
     width: 120px;
   }
+
 }
 
 @media screen and (min-width: 1250px) {
@@ -1788,6 +2010,10 @@ body {
     width: 1200px;
     padding: 10px;
     transform: translate(0%, -360px);
+  }
+  .about-para1 
+  {
+    font-size: 40px !important;
   }
   #glitch-background
   {
@@ -1890,3 +2116,24 @@ body {
     margin-right: 10px !important;
   }
 }
+
+
+@media screen and (max-width: 768px)
+{
+  #scroller {
+    font-weight: bold;
+    font-size: 350%;
+    text-align: justify;
+    overflow: hidden;
+    height: 50em;
+    width: 40em;
+    position: absolute;
+    bottom: 0;
+    left: 100%;
+    margin-left: -370px !important;
+    z-index: 0;
+    transform: perspective(350px) rotateX(25deg);
+    transform-origin: 50% 100%;
+}
+}
+
