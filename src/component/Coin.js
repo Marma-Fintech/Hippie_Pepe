@@ -587,7 +587,7 @@ const Coin = () => {
       <div id="tv" className="memetv">
         <div className="tv">
           <div className="row right-align small-d">
-            <div className="col-3 col-sm-3 col-md-10 col-xl-12">
+            <div className="col-3 social-mob col-sm-3 col-md-10 col-xl-12">
               <div className="social-links">
                 <ul>
                   <li>
@@ -1096,7 +1096,7 @@ const Coin = () => {
                                 Meme videos.
                               </p>
                             </div>
-                            <div className="">
+                            <div className="mob-wel">
                             <button
                                   onClick={handleCloseMessage}
                                   className="btn-outline"
@@ -1120,8 +1120,39 @@ const Coin = () => {
                                 
                              {" "}
                              
-                            
                             </div>
+
+                            <div className="row desk-wel">
+                              <div className="col-12 pb-2">
+                                <div className="">
+                                <button style={{
+                                   border:"2px solid #4CB04F",
+                                }}
+                                  className="cnt-wallet"
+                                  onClick={handleConnectWallet}
+                                >
+                                  <ConnectWallet
+                                    switchToActiveChain={true}
+                                    style={{
+                                      backgroundColor: "rgba(0, 0, 0, 0)",
+                                      color: "#0E4911",
+                                    }}
+                                  />
+                                </button>
+                                </div>
+                              </div>
+                              <div className="col-12">
+                                <div className="">
+                                <button
+                                  onClick={handleCloseMessage}
+                                  className="btn-outline" >
+                                  doNothing
+                                </button>
+                                </div>
+                              </div>
+
+                              </div>
+
                           </div>
                           <div></div>
                         </div>
@@ -1618,7 +1649,7 @@ So, you also watch TheMemeTv and doNothing. Okay
                                     src={btn}
                                     alt="My button"
                                   />
-                                  <div 
+                                  <div className="claim-1"
                                     style={{
                                       position: "absolute",
                                       marginLeft: "8px",
