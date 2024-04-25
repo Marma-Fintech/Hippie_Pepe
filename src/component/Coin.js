@@ -1349,7 +1349,7 @@ const Coin = () => {
           <div id="glass">
             <div className="inner-glass">
               <div class="noise"></div>
-              <div className="inner-text">
+            <div className={showWelcomeMessage ? " inner-text1" : "inner-text"}>
                 {showGlitchGif && (
                   <img
                     src={glitch}
