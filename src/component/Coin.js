@@ -587,7 +587,7 @@ const Coin = () => {
       <div id="tv" className="memetv">
         <div className="tv">
           <div className="row right-align small-d">
-            <div className="col-3 social-mob col-sm-3 col-md-10 col-xl-12">
+            <div className="col-3 social-mob col-sm-3 col-md-12 col-xl-12">
               <div className="social-links">
                 <ul>
                   <li>
@@ -629,7 +629,7 @@ const Coin = () => {
                 </ul>
               </div>
             </div>
-            <div className="col-6 col-sm-7">
+            <div className="col-8 col-sm-7">
               <div className="mob-desk" style={{ position: "relative" }}>
                 <div
                   style={{
@@ -870,6 +870,7 @@ const Coin = () => {
                 </svg>
               </div>
             </div>
+            <div className="col-1"></div>
             <div className="col-3 col-sm-2 navbar-1">
               <nav className="navbar navbar-light">
                 <div className="container-fluid">
@@ -1237,9 +1238,9 @@ So, you also watch TheMemeTv and doNothing. Okay
                    
                        
                       </div>
-                      <div className="about-gif-part">
+                      {/* <div className="about-gif-part">
                         <img src={aboutgif} />{" "}
-                      </div>
+                      </div> */}
                       
                     </div>
                   </div>
@@ -1248,8 +1249,8 @@ So, you also watch TheMemeTv and doNothing. Okay
                   <div id="glitch-background" className=" center-content">
                     <div className="trasition-2">
                       <div className="row">
-                        <div className="col-md-1"></div>
-                        <div className="col-md-10">
+                      
+                        <div className="col-md-12">
                           <div className="supply-part">
                             <h3 id="textcolorabout">Total Supply</h3>
                             <img src={supplygif} />{" "}
@@ -1261,7 +1262,7 @@ So, you also watch TheMemeTv and doNothing. Okay
                             {randomNumber} HPTV{" "}
                           </h2>
                         </div>
-                        <div className="col-md-1"></div>
+                      
                       </div>
 
                       <div>
@@ -1286,7 +1287,7 @@ So, you also watch TheMemeTv and doNothing. Okay
                               </div>
                             </div>
                           </div>
-                          <div className="pt-2 pb-5 col-md-12 text-head2">
+                          <div className="pt-5 pb-5 col-md-12 text-head2">
                             <button
                               className="btn-line"
                               onClick={() => {
@@ -1407,7 +1408,7 @@ So, you also watch TheMemeTv and doNothing. Okay
                 {showSocial && (
                   <div id="glitch-background" className=" center-content">
                     <div className="trasition-1">
-                      <img src={socialimg} />
+                      <img className="pb-2" src={socialimg} />
                       <h3>Watch TheMemeTV and doNothing</h3>
 
                       <div className="text-head">
@@ -1460,14 +1461,12 @@ So, you also watch TheMemeTv and doNothing. Okay
                         </div>
                         <span className="hippe text-head">TheMemeTV</span>
                         <p className="social-tag pb-5">
-                          <a
-                            href="https://www.youtube.com/@HippiePepe"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                          >
-                           TheMemeTV is a meme coin with no intrinsic value or expectation of financial return.
+                         <p> 
+ TheMemeTV is a meme coin with no intrinsic value or expectation of financial return.
                             There is no formal team or roadmap. the coin is completely useless and for Entertainment purposes only.
-                          </a>
+                          </p>
+                          
+                       
                         </p>
                       </div>
                     </div>
@@ -1480,7 +1479,7 @@ So, you also watch TheMemeTv and doNothing. Okay
                     </p>
                     <div className="">
                       <div className="row">
-                        <div className="col-4">
+                        <div className="col-12 col-lg-4 pb-2">
                           <img className="roadmapimg" src={roadmap1} />
                           <div className="road-map-dash">
                             <h2 className="road-map do1">Phase 1</h2>
@@ -1489,7 +1488,7 @@ So, you also watch TheMemeTv and doNothing. Okay
                             </p>
                           </div>
                         </div>
-                        <div className="col-4">
+                        <div className="col-12 col-lg-4 pb-2">
                           <img className="roadmapimg" src={roadmap2} />
                           <div className="road-map-dash">
                             <h2 className="road-map do2">Phase 2</h2>
@@ -1499,7 +1498,7 @@ So, you also watch TheMemeTv and doNothing. Okay
                             </p>{" "}
                           </div>
                         </div>
-                        <div className="col-4">
+                        <div className="col-12 col-lg-4 pb-2">
                           <img className="roadmapimg" src={roadmap3} />
                           <div className="road-map-dash">
                             <h2 className="road-map do3">Phase 3</h2>
@@ -1575,8 +1574,9 @@ So, you also watch TheMemeTv and doNothing. Okay
                     switchToActiveChain={true}
                     style={{
                       backgroundColor: "rgba(0, 0, 0, 0)",
-                      color: "#4cf030",
+                      color: "#09BD1B",
                       border: "none",
+                      fontSize: "18px"
                     }}
                   />
                 </button>
@@ -1619,14 +1619,14 @@ So, you also watch TheMemeTv and doNothing. Okay
                           marginLeft:"0",
                         }}>
 
-                        <div className="col-6 col-xl-12 col-md-6 col-sm-6 col-xl-12">
+                        <div className="col-6 col-xl-12 col-lg-12 col-sm-6 col-xl-12">
                         <div>
                           <button className="btn-color">
                             <h3><div>Time </div>{formatTime(seconds)}</h3>
                           </button>
                         </div>
                           </div>
-                          <div className="col-6 col-xl-12 col-sm-6 col-md-6">
+                          <div className="col-6 col-xl-12 col-sm-6 col-lg-12">
                             <div>
                             <button className="btn-color">  
                           <h3> {seconds * 50} MMT Tokens</h3>
