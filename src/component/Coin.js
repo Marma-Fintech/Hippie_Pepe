@@ -817,6 +817,7 @@ const Coin = () => {
             </div>
           </nav> 
         </div>
+        
       </div>
       <div className="tv">
           <div className="row social-mob right-align small-d sticky pt-1 pb-1">
