@@ -583,7 +583,7 @@ const Coin = () => {
 
   return (
     <div>
-      <div className="row right-align small-d sticky">
+      <div className="row right-align small-d">
         <div className="col-6 col-sm-7">
           <div className="mob-desk" style={{ position: "relative" }}>
             <div
@@ -815,13 +815,12 @@ const Coin = () => {
                 <span className="navbar-toggler-icon"></span>
               </button>
             </div>
-          </nav>
+          </nav> 
         </div>
       </div>
-      <div id="tv" className="memetv">
-        <div className="tv">
-          <div className="row right-align small-d sticky">
-            <div className="col-3 social-mob col-sm-3 col-md-12 col-xl-12">
+      <div className="tv">
+          <div className="row social-mob right-align small-d sticky pt-1 pb-1">
+            <div className="col-3 col-sm-3 col-md-12 col-xl-12">
               <div className="social-links">
                 <ul>
                   <li>
@@ -1345,6 +1344,7 @@ const Coin = () => {
             </div>
           </div>
         </div>
+      <div id="tv" className="memetv">
         <div id="screen">
           <div id="glass">
             <div className="inner-glass">
