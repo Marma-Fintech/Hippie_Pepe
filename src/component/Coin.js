@@ -398,6 +398,7 @@ const Coin = () => {
       setShowRoadmap(false);
       setShowSocial(false);
       setShowToken(false);
+      setTokenButtonText(false);
     }, 1000);
   };
   const handleOnclickinToken = () => {
@@ -1356,7 +1357,7 @@ const Coin = () => {
                   <div className="row token-read1">
                     <div className="rope-img"></div>
                     {/*<span className='shadow'>About HippiePepeMemeTV</span>  */}
-                    <div className="col-md-12">
+                    <div className="col-md-12" style={{ zIndex: 1000000 }}>
                       <span
                         className="text-right text-head fnt-back"
                         style={{ cursor: "pointer" }}
