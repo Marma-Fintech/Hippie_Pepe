@@ -69,7 +69,7 @@
   z-index: 99999999;
   justify-content: center; /* Center horizontally */
   align-items: center; /* Center vertically */
-  height: 65vh; /* Full height of the viewport */
+  height: 80vh; /* Full height of the viewport */
   width: 100%;
 }
 .cnt-outline {
@@ -1079,7 +1079,7 @@
       -webkit-env(safe-area-inset-bottom) + constant(safe-area-inset-bottom)
     );
   }
- 
+
   #scroller {
     font-weight: bold;
     font-size: 350%;
@@ -1287,7 +1287,7 @@
       86deg,
       rgb(47 46 46) 1%,
       rgb(131 132 135 / 29%) 10%,
-      rgb(0 0 0) 50%, 
+      rgb(0 0 0) 50%,
       rgb(133 133 133 / 25%) 90%,
       rgb(0 0 0) 100%
     );
@@ -1302,7 +1302,7 @@
   }
 
   body {
-    background:#221100 !important;
+    background: #221100 !important;
     font-family: myFirstFont !important;
     overflow-y: auto;
   }
@@ -1320,7 +1320,7 @@
     color: #29585bff;
     width: 100%;
     height: 100%;
-    pointer-events: all;
+    /* pointer-events: all; */
     overflow-y: scroll;
     overflow-x: hidden;
     /*padding:15px;*/
@@ -1854,8 +1854,8 @@
   }
   .playvideo {
     width: 100%;
-        height: 100vh;
-        object-fit: cover;
+    height: 100vh;
+    object-fit: cover;
   }
   .img-res img {
     width: 250px;
@@ -2043,7 +2043,6 @@
 } */
 
 @media screen and (min-width: 993px) and (max-width: 1199px) {
-  
   .tv {
     /* background: #210; */
     /* border-radius: 0px; */
@@ -2248,9 +2247,7 @@
   }
 }
 
-@media screen and (min-width: 1551px) 
-{
-
+@media screen and (min-width: 1551px) {
   body {
     margin: 0;
     padding: 0;
@@ -2402,7 +2399,7 @@
     /* overflow: scroll !important; */
     /*padding:15px;*/
   }
-  .inner-text1{
+  .inner-text1 {
     text-align: center;
     font-size: 17px;
     color: #29585bff;
@@ -3032,17 +3029,17 @@
   }
 
   .tv {
-           /* background: #210; */
-        /* border-radius: 0px; */
-        /* box-shadow: inset 0 5px 5px #121212, inset 5px 0 5px #555, inset -5px 0 5px #555, inset 0 -5px 5px #555; */
-        position: relative;
-        /* margin: 5px 0px 5px 0px; */
-        padding: 10px;
-        /* margin-top: -113px; */
-        z-index: 1;
-        width: 100%;
-        /* padding: 10px; */
-        /* transform: translate(0%, -450px); */
+    /* background: #210; */
+    /* border-radius: 0px; */
+    /* box-shadow: inset 0 5px 5px #121212, inset 5px 0 5px #555, inset -5px 0 5px #555, inset 0 -5px 5px #555; */
+    position: relative;
+    /* margin: 5px 0px 5px 0px; */
+    padding: 10px;
+    /* margin-top: -113px; */
+    z-index: 1;
+    width: 100%;
+    /* padding: 10px; */
+    /* transform: translate(0%, -450px); */
   }
   .social-links {
     text-align: -webkit-right !important;

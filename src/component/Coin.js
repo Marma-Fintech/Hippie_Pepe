@@ -818,9 +818,133 @@ const Coin = () => {
           </nav>
         </div>
         <div className="tv">
-          
-            <div className="col-3 social-mob col-sm-3 col-md-12 col-xl-12">
-              <div className="social-links">
+          <div className="col-3 social-mob col-sm-3 col-md-12 col-xl-12">
+            <div className="social-links">
+              <ul>
+                <li>
+                  <a
+                    href="https://twitter.com/hippie_pepe"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <img src={twitter} alt="Twitter" />
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://www.snapchat.com/add/hippie_pepe?share_id=UB9twgjgo2w&locale=en-US"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <img src={snap} alt="snap" />
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://t.me/+918124877707"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <img src={telegram} alt="telegram" />
+                  </a>{" "}
+                </li>
+                <li>
+                  <a
+                    href="https://www.youtube.com/@HippiePepe"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <img src={youtube} alt="youtube" />
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div className="col-3 col-sm-2 navbar-1">
+        {isOpen && (
+          <div className="overlay">
+            <div className="overlay-content">
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: 10,
+                }}
+              >
+                <ul
+                  className="ul-button"
+                  style={{
+                    zIndex: 100000,
+                  }}
+                >
+                  <li
+                    style={getButtonDetails("play").style}
+                    onClick={() => {
+                      handlePlayClick();
+                      toggleMenu();
+                    }}
+                  >
+                    <img src={getButtonDetails("play").icon} alt="Play Icon" />
+                    <span onClick={ButtonTextChange}>&nbsp;&nbsp;{button}</span>
+                  </li>
+                  <li
+                    style={getButtonDetails("about").style}
+                    onClick={() => {
+                      handleAboutClick();
+                      toggleMenu();
+                    }}
+                  >
+                    <img
+                      src={getButtonDetails("about").icon}
+                      alt="About Icon"
+                    />
+                    <span>&nbsp;&nbsp;About</span>
+                  </li>
+                  <li
+                    style={getButtonDetails("roadmap").style}
+                    onClick={() => {
+                      handleRoadmapClick();
+                      toggleMenu();
+                    }}
+                  >
+                    <img
+                      src={getButtonDetails("roadmap").icon}
+                      alt="Roadmap Icon"
+                    />
+                    <span>&nbsp;&nbsp;Roadmap</span>
+                  </li>
+                  <li
+                    style={getButtonDetails("token").style}
+                    onClick={() => {
+                      handleTokenClick();
+                      toggleMenu();
+                    }}
+                  >
+                    <img
+                      src={getButtonDetails("token").icon}
+                      alt="Token Icon"
+                    />
+                    <span>&nbsp;&nbsp;Token</span>
+                  </li>
+                  <li
+                    style={getButtonDetails("social").style}
+                    onClick={() => {
+                      handleSocialClick();
+                      toggleMenu();
+                    }}
+                  >
+                    <img
+                      src={getButtonDetails("social").icon}
+                      alt="Social Icon"
+                    />
+                    <span>&nbsp;&nbsp;Social</span>
+                  </li>
+                </ul>
+              </div>
+
+              <div className="social-links" style={{ marginTop: "50px" }}>
                 <ul>
                   <li>
                     <a
@@ -861,151 +985,18 @@ const Coin = () => {
                 </ul>
               </div>
             </div>
-     
-
-          
-        
-        </div>
+            <div className="overlay-close" onClick={toggleMenu}></div>
+          </div>
+        )}
       </div>
-      <div className="col-3 col-sm-2 navbar-1">
-              {isOpen && (
-                <div className="overlay">
-                  <div className="overlay-content">
-                    <div
-                      style={{
-                        display: "flex",
-                        flexDirection: "column",
-                        gap: 10,
-                      }}
-                    >
-                      <ul
-                        className="ul-button"
-                        style={{
-                          zIndex: 100000,
-                        }}
-                      >
-                        <li
-                          style={getButtonDetails("play").style}
-                          onClick={() => {
-                            handlePlayClick();
-                            toggleMenu();
-                          }}
-                        >
-                          <img
-                            src={getButtonDetails("play").icon}
-                            alt="Play Icon"
-                          />
-                          <span onClick={ButtonTextChange}>
-                            &nbsp;&nbsp;{button}
-                          </span>
-                        </li>
-                        <li
-                          style={getButtonDetails("about").style}
-                          onClick={() => {
-                            handleAboutClick();
-                            toggleMenu();
-                          }}
-                        >
-                          <img
-                            src={getButtonDetails("about").icon}
-                            alt="About Icon"
-                          />
-                          <span>&nbsp;&nbsp;About</span>
-                        </li>
-                        <li
-                          style={getButtonDetails("roadmap").style}
-                          onClick={() => {
-                            handleRoadmapClick();
-                            toggleMenu();
-                          }}
-                        >
-                          <img
-                            src={getButtonDetails("roadmap").icon}
-                            alt="Roadmap Icon"
-                          />
-                          <span>&nbsp;&nbsp;Roadmap</span>
-                        </li>
-                        <li
-                          style={getButtonDetails("token").style}
-                          onClick={() => {
-                            handleTokenClick();
-                            toggleMenu();
-                          }}
-                        >
-                          <img
-                            src={getButtonDetails("token").icon}
-                            alt="Token Icon"
-                          />
-                          <span>&nbsp;&nbsp;Token</span>
-                        </li>
-                        <li
-                          style={getButtonDetails("social").style}
-                          onClick={() => {
-                            handleSocialClick();
-                            toggleMenu();
-                          }}
-                        >
-                          <img
-                            src={getButtonDetails("social").icon}
-                            alt="Social Icon"
-                          />
-                          <span>&nbsp;&nbsp;Social</span>
-                        </li>
-                      </ul>
-                    </div>
-
-                    <div className="social-links" style={{ marginTop: "50px" }}>
-                      <ul>
-                        <li>
-                          <a
-                            href="https://twitter.com/hippie_pepe"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                          >
-                            <img src={twitter} alt="Twitter" />
-                          </a>
-                        </li>
-                        <li>
-                          <a
-                            href="https://www.snapchat.com/add/hippie_pepe?share_id=UB9twgjgo2w&locale=en-US"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                          >
-                            <img src={snap} alt="snap" />
-                          </a>
-                        </li>
-                        <li>
-                          <a
-                            href="https://t.me/+918124877707"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                          >
-                            <img src={telegram} alt="telegram" />
-                          </a>{" "}
-                        </li>
-                        <li>
-                          <a
-                            href="https://www.youtube.com/@HippiePepe"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                          >
-                            <img src={youtube} alt="youtube" />
-                          </a>
-                        </li>
-                      </ul>
-                    </div>
-                  </div>
-                  <div className="overlay-close" onClick={toggleMenu}></div>
-                </div>
-              )}
-            </div>
       <div id="tv" className="memetv">
-       
         <div id="screen">
           <div id="glass">
             <div className="inner-glass">
               <div class="noise"></div>
-            <div className={showWelcomeMessage ? " inner-text1" : "inner-text"}>
+              <div
+                className={showWelcomeMessage ? " inner-text1" : "inner-text"}
+              >
                 {showGlitchGif && (
                   <img
                     src={glitch}
@@ -1184,22 +1175,24 @@ const Coin = () => {
                         </div>
                       </div>
                     )}
-                  {!showConnectWalletMessage && activeButton == "play" && (
-                    <div
-                      style={{
-                        zIndex: 10000,
-                      }}
-                    >
-                      <div className="intro-wallet">
-                        <div class="welcome-info1">
-                          {/* <div class="text-head pt-2">
+                  {!showConnectWalletMessage &&
+                    activeButton == "play" &&
+                    address && (
+                      <div
+                        style={{
+                          zIndex: 10000,
+                        }}
+                      >
+                        <div className="intro-wallet">
+                          <div class="welcome-info1">
+                            {/* <div class="text-head pt-2">
                               <h2 id="textcolorabout" class="welcome-para">
                               </h2>
                               <p class="about-para2 pb-2">
                               </p>
                             </div> */}
-                          <div className="">
-                            {/* <button
+                            <div className="">
+                              {/* <button
                                   className="btn-outline"
                                 >
                                 </button> &nbsp;
@@ -1209,12 +1202,47 @@ const Coin = () => {
                                   className="cnt-wallet"
                                 >
                                 </button> */}
+                            </div>
                           </div>
+                          <div></div>
                         </div>
-                        <div></div>
                       </div>
-                    </div>
-                  )}
+                    )}
+
+                  {!showConnectWalletMessage &&
+                    activeButton == "play" &&
+                    !address && (
+                      <div
+                        style={{
+                          zIndex: 10000,
+                        }}
+                      >
+                        <div className="intro-wallet">
+                          <div class="welcome-info1">
+                            {/* <div class="text-head pt-2">
+                              <h2 id="textcolorabout" class="welcome-para">
+                              </h2>
+                              <p class="about-para2 pb-2">
+                              </p>
+                            </div> */}
+                            <div className="">
+                              {/* <button
+                                  className="btn-outline"
+                                >
+                                </button> &nbsp;
+                                <button style={{
+                                   border:"2px solid #4CB04F",
+                                }}
+                                  className="cnt-wallet"
+                                >
+                                </button> */}
+                            </div>
+                          </div>
+                          <div></div>
+                        </div>
+                      </div>
+                    )}
+
                   <video
                     className={showVideo ? "playvideo" : "hidevideo"}
                     ref={videoRef}
