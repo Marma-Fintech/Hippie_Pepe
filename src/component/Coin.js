@@ -866,86 +866,95 @@ const Coin = () => {
       <div className="col-3 col-sm-2 navbar-1">
         {isOpen && (
           <div className="overlay">
-            <div className="overlay-content">
-              <div
-                style={{
-                  display: "flex",
-                  flexDirection: "column",
-                  gap: 10,
-                }}
-              >
-                <ul
-                  className="ul-button"
+            <div style={{ display: "flex", flexDirection: "column" }}>
+              <div className="overlay-content">
+                <div
                   style={{
-                    zIndex: 100000,
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: 10,
                   }}
                 >
-                  <li
-                    style={getButtonDetails("play").style}
-                    onClick={() => {
-                      handlePlayClick();
-                      toggleMenu();
+                  <ul
+                    className="ul-button"
+                    style={{
+                      zIndex: 100000,
                     }}
                   >
-                    <img src={getButtonDetails("play").icon} alt="Play Icon" />
-                    <span onClick={ButtonTextChange}>&nbsp;&nbsp;{button}</span>
-                  </li>
-                  <li
-                    style={getButtonDetails("about").style}
-                    onClick={() => {
-                      handleAboutClick();
-                      toggleMenu();
-                    }}
-                  >
-                    <img
-                      src={getButtonDetails("about").icon}
-                      alt="About Icon"
-                    />
-                    <span>&nbsp;&nbsp;About</span>
-                  </li>
-                  <li
-                    style={getButtonDetails("roadmap").style}
-                    onClick={() => {
-                      handleRoadmapClick();
-                      toggleMenu();
-                    }}
-                  >
-                    <img
-                      src={getButtonDetails("roadmap").icon}
-                      alt="Roadmap Icon"
-                    />
-                    <span>&nbsp;&nbsp;Roadmap</span>
-                  </li>
-                  <li
-                    style={getButtonDetails("token").style}
-                    onClick={() => {
-                      handleTokenClick();
-                      toggleMenu();
-                    }}
-                  >
-                    <img
-                      src={getButtonDetails("token").icon}
-                      alt="Token Icon"
-                    />
-                    <span>&nbsp;&nbsp;Token</span>
-                  </li>
-                  <li
-                    style={getButtonDetails("social").style}
-                    onClick={() => {
-                      handleSocialClick();
-                      toggleMenu();
-                    }}
-                  >
-                    <img
-                      src={getButtonDetails("social").icon}
-                      alt="Social Icon"
-                    />
-                    <span>&nbsp;&nbsp;Social</span>
-                  </li>
-                </ul>
+                    <li
+                      style={getButtonDetails("play").style}
+                      onClick={() => {
+                        handlePlayClick();
+                        toggleMenu();
+                      }}
+                    >
+                      <img
+                        src={getButtonDetails("play").icon}
+                        alt="Play Icon"
+                      />
+                      <span onClick={ButtonTextChange}>
+                        &nbsp;&nbsp;{button}
+                      </span>
+                    </li>
+                    <li
+                      style={getButtonDetails("about").style}
+                      onClick={() => {
+                        handleAboutClick();
+                        toggleMenu();
+                      }}
+                    >
+                      <img
+                        src={getButtonDetails("about").icon}
+                        alt="About Icon"
+                      />
+                      <span>&nbsp;&nbsp;About</span>
+                    </li>
+                    <li
+                      style={getButtonDetails("roadmap").style}
+                      onClick={() => {
+                        handleRoadmapClick();
+                        toggleMenu();
+                      }}
+                    >
+                      <img
+                        src={getButtonDetails("roadmap").icon}
+                        alt="Roadmap Icon"
+                      />
+                      <span>&nbsp;&nbsp;Roadmap</span>
+                    </li>
+                    <li
+                      style={getButtonDetails("token").style}
+                      onClick={() => {
+                        handleTokenClick();
+                        toggleMenu();
+                      }}
+                    >
+                      <img
+                        src={getButtonDetails("token").icon}
+                        alt="Token Icon"
+                      />
+                      <span>&nbsp;&nbsp;Token</span>
+                    </li>
+                    <li
+                      style={getButtonDetails("social").style}
+                      onClick={() => {
+                        handleSocialClick();
+                        toggleMenu();
+                      }}
+                    >
+                      <img
+                        src={getButtonDetails("social").icon}
+                        alt="Social Icon"
+                      />
+                      <span>&nbsp;&nbsp;Social</span>
+                    </li>
+                  </ul>
+                </div>
               </div>
-
-              <div className="social-links" style={{ marginTop: "50px" }}>
+              <div
+                className="social-links"
+                style={{ marginTop: "50px", zIndex: 10000000 }}
+              >
                 <ul>
                   <li>
                     <a
