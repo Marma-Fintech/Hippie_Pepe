@@ -79,7 +79,7 @@ const Coin = () => {
     // Set a timeout to reset the animation by changing the key
     const timeout = setTimeout(() => {
       setKey((prevKey) => prevKey + 1); // Increment the key to force re-render
-    }, 25000); // Duration of the animation
+    }, 45000); // Duration of the animation
     return () => clearTimeout(timeout);
   }, [key]);
 
