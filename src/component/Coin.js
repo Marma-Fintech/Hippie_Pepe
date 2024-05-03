@@ -100,6 +100,7 @@ const Coin = () => {
     generateRandomNumber();
     // Set up an interval to update the random number every 5 seconds
     const interval = setInterval(generateRandomNumber, 1000);
+
     // Clear the interval on component unmount
     return () => clearInterval(interval);
   }, []);
@@ -1258,7 +1259,6 @@ const Coin = () => {
                     ref={videoRef}
                     // width={showVideo ? "100%" : "0%"}
                     // height={showVideo ? "100%" : "0%"}
-                    controls
                     loop
                   >
                     <source src={dogevideo} type="video/mp4" />
