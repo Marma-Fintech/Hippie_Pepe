@@ -403,18 +403,22 @@ const Coin = () => {
     if (!isVideoPlaying) {
       // If the video is not playing, start it and the timer.
       setIsActive(true); // Start the timer
-      togglePlayPause();
+      if (!showConnectWalletMessage) {
+        togglePlayPause();
+      }
       setShowConnectScreen(false); // This will start the video and update `isVideoPlaying` to true.
       // Set a timeout to display the message after 5 seconds
     } else {
       // If the video is playing, pause it and stop the timer.
       setIsActive(false); // Stop the timer
-      togglePlayPause();
+      if (!showConnectWalletMessage) {
+        togglePlayPause();
+      }
       setShowConnectScreen(false);
     }
   };
   const handleAboutClick = () => {
-    setShowConnectWalletMessage(false);
+    // setShowConnectWalletMessage(false);
     playClickSound();
     setActiveButton("about");
     // Immediately hide the content and start the glitch effect
@@ -456,7 +460,7 @@ const Coin = () => {
     playClickSound();
     setActiveButton("token");
     setIsActive(false);
-    setShowConnectWalletMessage(false);
+    // setShowConnectWalletMessage(false);
     // Hide all content and trigger the glitch effect
     setShowAbout(false);
     setShowVideo(false);
@@ -486,7 +490,7 @@ const Coin = () => {
     setActiveButton("social");
     setShowAbout(false);
     setShowVideo(false);
-    setShowConnectWalletMessage(false);
+    // setShowConnectWalletMessage(false);
     setShowConnectScreen(false); // Correct usage of the state setter function
     setIsActive(false);
     if (videoRef.current) {
@@ -513,7 +517,7 @@ const Coin = () => {
     setActiveButton("roadmap");
     setShowAbout(false);
     setShowVideo(false);
-    setShowConnectWalletMessage(false);
+    // setShowConnectWalletMessage(false);
     setShowConnectScreen(false); // Correct usage of the state setter function
     setIsActive(false);
     if (videoRef.current) {
