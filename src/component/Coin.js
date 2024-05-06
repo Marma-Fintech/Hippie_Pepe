@@ -63,6 +63,7 @@ const Coin = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const imageTexts = ["Doge", "Pepe", "Shibu"];
   const [showContent, setShowContent] = useState(true);
+  const [isFirstTime, setIsFirstTime] = useState(true);
 
   const [showGlitchGif, setShowGlitchGif] = useState(true);
   const [activeButton, setActiveButton] = useState("");
@@ -107,9 +108,26 @@ const Coin = () => {
 
   useEffect(() => {
     if (address) {
+      loadAndResumePlayback();
       setSeconds(0);
     }
+    if (!address) {
+      savePlaybackPosition(videoRef.current.currentTime);
+    }
   }, [address]);
+
+  function loadAndResumePlayback() {
+    const savedPosition = localStorage.getItem("videoPlaybackPosition");
+    if (savedPosition) {
+      videoRef.current.currentTime = savedPosition;
+      // videoRef.current.play();
+    }
+  }
+
+  function savePlaybackPosition(time) {
+    // console.log(time);
+    localStorage.setItem("videoPlaybackPosition", time);
+  }
 
   const playClickSound = () => {
     const sound = new Audio(clickSound);
@@ -295,9 +313,17 @@ const Coin = () => {
             setButton("pause"); // Change button text to "pause"
           })
           .catch((error) => console.error("Error playing the video:", error));
-        setTimeout(() => {
-          setShowConnectWalletMessage(true);
-        }, 5000);
+        if (isFirstTime) {
+          setTimeout(() => {
+            if (!address) {
+              setIsFirstTime(false);
+              videoRef.current.pause();
+              setIsVideoPlaying(false); // Ensure the state is correctly set when video is paused
+              setButton("play"); // Change button text to "play"
+              setShowConnectWalletMessage(true);
+            }
+          }, 30000);
+        }
       } else {
         videoRef.current.pause();
         setIsVideoPlaying(false); // Ensure the state is correctly set when video is paused
@@ -308,8 +334,24 @@ const Coin = () => {
 
   const handleCloseMessage = () => {
     setShowConnectWalletMessage(false);
+    videoRef.current.currentTime = 0;
+    videoRef.current
+      .play()
+      .then(() => {
+        setIsVideoPlaying(true); // Ensure the state is correctly set when video plays
+        handleClick();
+        setButton("pause"); // Change button text to "pause"
+      })
+      .catch((error) => console.error("Error playing the video:", error));
+    setTimeoutofvideo();
+  };
+
+  const setTimeoutofvideo = () => {
     setTimeout(() => {
-      if (!walletConnected) {
+      if (!address) {
+        videoRef.current.pause();
+        setIsVideoPlaying(false); // Ensure the state is correctly set when video is paused
+        setButton("play"); // Change button text to "play"
         setShowConnectWalletMessage(true);
       }
     }, 30000); // 30 seconds delay
