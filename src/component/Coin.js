@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import "../component/Coin.css";
 import videoSource from "../assets/video.mp4";
-import dogevideo from "../assets/dogevideo.MP4";
+// import dogevideo from "../assets/dogevideo.MP4";
 import frogvideo from "../assets/frog.mp4";
 import shibuvideo from "../assets/shibu.mp4";
 import doge from "../assets/Rectangle1.png";
@@ -1054,7 +1054,7 @@ const Coin = () => {
               <div
                 className={showWelcomeMessage ? " inner-text1" : "inner-text"}
               >
-                {showGlitchGif && (
+                {/* {showGlitchGif && (
                   <img
                     src={glitch}
                     alt="Glitch Effect"
@@ -1064,7 +1064,7 @@ const Coin = () => {
                       height: "100%",
                     }}
                   />
-                )}
+                )} */}
 
                 {infoIcon && (
                   <div
@@ -1113,7 +1113,7 @@ const Coin = () => {
                   <div className="row img-res">
                     <div className="col-md-12 ">
                       <div>
-                        <img src={welcome} />{" "}
+                        <img className="animation-logo" src={welcome} />{" "}
                       </div>
                     </div>
                     {/*<span className='shadow'>About HippiePepeMemeTV</span>  */}
@@ -1307,7 +1307,10 @@ const Coin = () => {
                     // height={showVideo ? "100%" : "0%"}
                     loop
                   >
-                    <source src={dogevideo} type="video/mp4" />
+                    <source
+                      src="https://res.cloudinary.com/dnryicjdq/video/upload/v1715168845/Pepe_Lore_Animation_Part_1_extended_version_juj8cv.mp4"
+                      type="video/mp4"
+                    />
                     Your browser does not support the video tag.
                   </video>
                 </div>
@@ -1471,18 +1474,18 @@ const Coin = () => {
                             <p id="title"></p>
                             <br />
                             <p className="text-head">
-                              So, some% of all the tokens are kept aside for you
-                              all to watch the HippiePepe TV and earn. A total
-                              of ’we don’t know yet’ seconds of total watch time
-                              is available across ‘x’ Phases of ‘some beautiful’
-                              seconds each. In the first phase, for every second
-                              you watch, you will receive a ‘large number’ of
-                              HPTV tokens. After you all have cumulatively
-                              watched those ‘beautiful’ seconds, the first
-                              Reward halving will happen. Then it becomes half
-                              of ‘a large number’ HPTV tokens per second. And
-                              then....so on and so forth. You get the drift.
-                              This was Reward Halving.
+                              So, some % of all the tokens are kept aside for
+                              you all to watch the HippiePepe TV and earn. A
+                              total of ’we don’t know yet’ seconds of total
+                              watch time is available across ‘x’ Phases of ‘some
+                              beautiful’ seconds each. In the first phase, for
+                              every second you watch, you will receive a ‘large
+                              number’ of HPTV tokens. After you all have
+                              cumulatively watched those ‘beautiful’ seconds,
+                              the first Reward halving will happen. Then it
+                              becomes half of ‘a large number’ HPTV tokens per
+                              second. And then....so on and so forth. You get
+                              the drift. This was Reward Halving.
                             </p>
                             <p className="text-head">
                               Now, time for reward doubling. During the ’we

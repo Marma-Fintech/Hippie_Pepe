@@ -6,6 +6,18 @@
   font-size: 40px;
   padding-bottom: 10px;
 }
+
+.animation-logo {
+  animation: zoom-in 1s forwards;
+}
+@keyframes zoom-in {
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(1.2); /* Adjust the scale factor for desired zoom level */
+  }
+}
 .btn-outline {
   border: 2px solid;
   padding: 9px 33px;
@@ -69,7 +81,7 @@
   z-index: 99999999;
   justify-content: center; /* Center horizontally */
   align-items: center; /* Center vertically */
-  height: 80vh; /* Full height of the viewport */
+  height: 70vh; /* Full height of the viewport */
   width: 100%;
 }
 .cnt-outline {
@@ -268,7 +280,7 @@
   #content {
     position: absolute;
     top: -100%;
-    animation: scoller 100s linear infinite;
+    animation: scoller 250s linear infinite;
   }
   #content p {
     font-size: 40px;
