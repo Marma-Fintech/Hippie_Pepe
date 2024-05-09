@@ -1685,7 +1685,7 @@ const Coin = () => {
                       backgroundColor: "rgba(0, 0, 0, 0)",
                       color: "#09BD1B",
                       border: "none",
-                      fontSize: "18px",
+                      fontSize: "16px",
                     }}
                   />
                 </button>
