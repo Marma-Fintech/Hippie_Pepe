@@ -1305,10 +1305,12 @@ const Coin = () => {
                     ref={videoRef}
                     // width={showVideo ? "100%" : "0%"}
                     // height={showVideo ? "100%" : "0%"}
+                    style={{ objectFit: "cover" }}
                     loop
                   >
                     <source
-                      src="https://res.cloudinary.com/dnryicjdq/video/upload/v1715168845/Pepe_Lore_Animation_Part_1_extended_version_juj8cv.mp4"
+                      className=""
+                      src="https://res.cloudinary.com/dhebiyrep/video/upload/v1715257036/kbld2jankfvu2d8wvixj.mp4"
                       type="video/mp4"
                     />
                     Your browser does not support the video tag.
