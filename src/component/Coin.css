@@ -2268,6 +2268,15 @@
     justify-content: center;
     align-items: center;
   }
+  .intro-wallet {
+    display: flex;
+    position: absolute;
+    z-index: 99999999;
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    height: 75vh; /* Full height of the viewport */
+    width: 100%;
+  }
   .desk-wel {
     display: none !important;
   }
