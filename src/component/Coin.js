@@ -1165,7 +1165,7 @@ const Coin = () => {
                               <h2 id="textcolorabout" class="welcome-para">
                                 Welcome to TheMemeTV!
                               </h2>
-                              <p class="about-para2 pb-2">
+                              <p class="about-para2 pb-3">
                                 Connect your crypto wallet to our platform now
                                 and begin earning tokens while you indulge in
                                 Meme videos.
