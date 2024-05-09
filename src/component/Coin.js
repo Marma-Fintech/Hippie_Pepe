@@ -632,7 +632,7 @@ const Coin = () => {
   return (
     <div>
       <div className="row right-align small-d">
-        <div className="col-6 col-sm-7">
+        <div className="col-5 col-sm-7">
           <div className="mob-desk" style={{ position: "relative" }}>
             <div
               style={{
@@ -852,7 +852,7 @@ const Coin = () => {
             </svg>
           </div>
         </div>
-        <div className="col-3 col-sm-2 navbar-1">
+        <div className="col-6 col-sm-2 navbar-1">
           <nav className="navbar navbar-light">
             <div className="container-fluid">
               <button

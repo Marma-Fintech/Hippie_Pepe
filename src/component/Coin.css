@@ -1091,7 +1091,9 @@
       -webkit-env(safe-area-inset-bottom) + constant(safe-area-inset-bottom)
     );
   }
-
+  .navbar-light {
+    float: inline-end;
+  }
   #scroller {
     font-weight: bold;
     font-size: 350%;
