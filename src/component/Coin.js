@@ -64,7 +64,6 @@ const Coin = () => {
   const imageTexts = ["Doge", "Pepe", "Shibu"];
   const [showContent, setShowContent] = useState(true);
   const [isFirstTime, setIsFirstTime] = useState(true);
-
   const [showGlitchGif, setShowGlitchGif] = useState(true);
   const [activeButton, setActiveButton] = useState("");
   const [button, setButton] = useState("play");
@@ -632,8 +631,8 @@ const Coin = () => {
   return (
     <div>
       <div className="row right-align small-d">
-        <div className="col-6 col-sm-6">
-          <div className="mob-desk" style={{ position: "relative" }}>
+        <div className="col-6 col-sm-8">
+          <div className="mob-desk" style={{ position: "relative",float:'left' }}>
             <div
               style={{
                 position: "absolute",
@@ -852,7 +851,7 @@ const Coin = () => {
             </svg>
           </div>
         </div>
-        <div className="col-6 col-sm-5 navbar-1">
+        <div className="col-6 col-sm-4 navbar-1">
           <nav className="navbar navbar-light">
             <div className="container-fluid">
               <button
@@ -1585,24 +1584,26 @@ const Coin = () => {
                 )}
                 {showRoadmap && (
                   <div id="glitch-background" className="road-map-text">
-                    <p id="textcolorroadmap" className="header-line pb-2">
-                      Road map<span>(coz is’s a formality)</span>
+                    <p id="textcolorroadmap" className="header-line text-left pb-5">
+                      Road map
+                      {/* <span>(coz is’s a formality)</span> */}
                     </p>
                     <div className="">
-                      <div className="row">
-                        <div className="col-12 col-lg-4 pb-2">
-                          <img className="roadmapimg" src={roadmap1} />
+                      <div className="row road1" >
+                        <div className="col-12 col-lg-4 pb-2 road-min">
                           <div className="road-map-dash">
                             <h2 className="road-map do1">Phase 1</h2>
+                            <img className="roadmapimg" src={roadmap1} />
                             <p className="road-map-txt text-head">
                               Current phase. You are in it. Here, we doNothing
                             </p>
                           </div>
                         </div>
-                        <div className="col-12 col-lg-4 pb-2">
-                          <img className="roadmapimg" src={roadmap2} />
+                        <div className="col-12 col-lg-4 pb-2 road-2">
+                          
                           <div className="road-map-dash">
                             <h2 className="road-map do2">Phase 2</h2>
+                            <img className="roadmapimg" src={roadmap2} />
                             <p className="road-map-txt text-head">
                               We will decide the final name. Start releasing
                               claim tokens
@@ -1610,9 +1611,10 @@ const Coin = () => {
                           </div>
                         </div>
                         <div className="col-12 col-lg-4 pb-2">
-                          <img className="roadmapimg" src={roadmap3} />
+                         
                           <div className="road-map-dash">
                             <h2 className="road-map do3">Phase 3</h2>
+                            <img className="roadmapimg" src={roadmap3} />
                             <p className="road-map-txt text-head">
                               Decentralised Meme TV for all to watch and earn
                             </p>
@@ -1733,7 +1735,7 @@ const Coin = () => {
                             marginLeft: "0",
                           }}
                         >
-                          <div className="col-6 col-xl-12 col-lg-12 col-sm-6 col-xl-12">
+                          <div className="col-5 col-xl-12 col-lg-12 col-sm-6 col-xl-12">
                             <div>
                               <button className="btn-color">
                                 <h3>
@@ -1743,7 +1745,7 @@ const Coin = () => {
                               </button>
                             </div>
                           </div>
-                          <div className="col-6 col-xl-12 col-sm-6 col-lg-12">
+                          <div className="col-5 col-xl-12 col-sm-6 col-lg-12">
                             <div>
                               <button className="btn-color">
                                 <h3> {seconds * 50} MMT Tokens</h3>
@@ -1762,7 +1764,7 @@ const Coin = () => {
                                   style={{ position: "relative" }}
                                 >
                                   <img
-                                    className="h-9"
+                                    className="h-10"
                                     src={btn}
                                     alt="My button"
                                   />
