@@ -60,6 +60,7 @@ const Coin = () => {
   const [isActive, setIsActive] = useState(false);
   const [seconds, setSeconds] = useState(0);
   const [isOpen, setIsOpen] = useState(false);
+  const [responce, setResponce] = useState("");
   const images = [doge, frog, shibu]; // Array of image imports
   const [currentIndex, setCurrentIndex] = useState(0);
   const imageTexts = ["Doge", "Pepe", "Shibu"];
@@ -387,7 +388,41 @@ const Coin = () => {
     return () => clearTimeout(timer);
   }, [isVideoPlaying, walletConnected]);
 
+  const claimToken = async () => {
+    const url = "https://hippie-pepe-be.onrender.com/setUserdetail";
+    const body = {
+      publicKey: address,
+      userWatchSeconds: seconds,
+    };
+
+    try {
+      const response = await fetch(url, {
+        method: "PUT", // Specify the method
+        headers: {
+          "Content-Type": "application/json", // Specify the content type
+        },
+        body: JSON.stringify(body), // Convert the JavaScript object to a JSON string
+      });
+
+      if (response.ok) {
+        const data = await response.json(); // Parse JSON response if successful
+        console.log("Success:", data);
+        // setPlaypauseCounter(0);
+        // isClaim(!Claim);
+        setResponce(data);
+        handleClickclaimedToken();
+        return data;
+      } else {
+        throw new Error("Failed to update user details");
+      }
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
+
   const handleClickclaimedToken = () => {
+    setPlaypauseCounter(0);
+    setSeconds(0);
     setShowClaimedText(true);
     playClickSound();
     setActiveButton("roadmap");
@@ -1620,16 +1655,24 @@ const Coin = () => {
                 )}
                 {showclaimedText && (
                   <div className="trasition-3">
-                    <img src={claimToken} /> 
-                    <p className="text-head1 pt-2 claim-reward">
-                      Collect Your Reward
-                    </p>  
-                    <p className="text-head1">
-                    You earned 23,478 HPTV Token
-                    </p>
-                    <p className="text-head2"> You are in Phase I </p>
-                    </div>
-                 
+                    <img src={claimToken} />
+                    {responce.message ==
+                    "User has Reached the Maximum WatchSeconds Limit" ? (
+                      <p className="text-head1 pt-2 claim-reward">
+                        User has Reached the Maximum WatchSeconds Limit
+                      </p>
+                    ) : (
+                      <>
+                        <p className="text-head1 pt-2 claim-reward">
+                          Collect Your Reward
+                        </p>
+                        <p className="text-head1">
+                          You earned {responce.user.userRewards}HPTV Token
+                        </p>
+                        <p className="text-head2"> {responce.phaseMessage} </p>
+                      </>
+                    )}
+                  </div>
                 )}
                 {showRoadmap && (
                   <div id="glitch-background" className="road-map-text">
@@ -1826,7 +1869,7 @@ const Coin = () => {
                                   >
                                     <h3
                                       className="claim-h3"
-                                      onClick={handleClickclaimedToken}
+                                      onClick={claimToken}
                                     >
                                       claim token
                                     </h3>
