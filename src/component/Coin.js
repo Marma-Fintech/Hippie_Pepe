@@ -35,6 +35,7 @@ import yo from "../assets/yo.gif";
 import arrow from "../assets/arrow.gif";
 import tokenarrow from "../assets/Vector 1.png";
 import handgif from "../assets/handgif.gif";
+import claimToken from "../assets/claim-token.gif";
 
 import clickSound from "../assets/clicksound.mp3";
 
@@ -1618,25 +1619,23 @@ const Coin = () => {
                   </div>
                 )}
                 {showclaimedText && (
-                  <p>
-                    Now, time for reward doubling. During the ’we don’t know
-                    yet’ seconds of the Watch and Earn phase, the content owners
-                    of the videos that are played on the HippiePepe TV will be
-                    paid from the some% kept aside for them. In the initial
-                    phases we believe it is us that will mostly put up the
-                    content. So, the creator royalty starts at a ‘very low’ HPTV
-                    tokens per second in Phase 1 of Watch and Earn. It keeps
-                    doubling till it Phase M when the reward would have
-                    increased to a ‘large number’ of HPTV tokens per second. The
-                    deal is that every time you watch the HippiePepe TV, the
-                    creator of what you are watching will also be rewarded.
-                  </p>
+                  <div className="trasition-3">
+                    <img src={claimToken} /> 
+                    <p className="text-head1 pt-2 claim-reward">
+                      Collect Your Reward
+                    </p>  
+                    <p className="text-head1">
+                    You earned 23,478 HPTV Token
+                    </p>
+                    <p className="text-head2"> You are in Phase I </p>
+                    </div>
+                 
                 )}
                 {showRoadmap && (
                   <div id="glitch-background" className="road-map-text">
                     <p
                       id="textcolorroadmap"
-                      className="header-line text-left pb-5"
+                      className="header-line text-left pb-3"
                     >
                       Road map
                       {/* <span>(coz is’s a formality)</span> */}
