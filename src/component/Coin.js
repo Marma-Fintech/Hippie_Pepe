@@ -70,6 +70,7 @@ const Coin = () => {
   const [isVideoPlaying, setIsVideoPlaying] = useState(false);
   const [showWelcomeMessage, setShowWelcomeMessage] = useState(true);
   const [showConnectScreen, setShowConnectScreen] = useState(false);
+  const [showclaimedText, setShowClaimedText] = useState(false);
   const [Claim, isClaim] = useState(false);
   const videoRef = useRef(null);
   const address = useAddress();
@@ -385,11 +386,41 @@ const Coin = () => {
     return () => clearTimeout(timer);
   }, [isVideoPlaying, walletConnected]);
 
+  const handleClickclaimedToken = () => {
+    setShowClaimedText(true);
+    playClickSound();
+    setActiveButton("roadmap");
+    setShowAbout(false);
+    setShowVideo(false);
+    // setShowConnectWalletMessage(false);
+    setShowConnectScreen(false); // Correct usage of the state setter function
+    setIsActive(false);
+    if (videoRef.current) {
+      videoRef.current.pause();
+    }
+    setIsVideoPlaying(false);
+    setButton("play");
+    setShowToken(false);
+    setShowSocial(false);
+    setShowRoadmap(false);
+    setShowWelcomeMessage(false);
+    setShowGlitchGif(true);
+    setTokenButtonText(false);
+    setTimeout(() => {
+      setShowGlitchGif(false);
+      setShowRoadmap(false); // Toggle the visibility based on previous state
+      setShowAbout(false);
+      setShowSocial(false);
+      setShowToken(false);
+    }, 1000);
+  };
+
   const handlePlayClick = () => {
     // console.log('Play clicked');
     playClickSound();
     // alert("all")
     setActiveButton("play");
+    setShowClaimedText(false);
     setShowAbout(false);
     ButtonTextChange();
     // setShowVideo(false);
@@ -419,6 +450,7 @@ const Coin = () => {
   const handleAboutClick = () => {
     // setShowConnectWalletMessage(false);
     playClickSound();
+    setShowClaimedText(false);
     setActiveButton("about");
     // Immediately hide the content and start the glitch effect
     setShowAbout(false);
@@ -458,6 +490,7 @@ const Coin = () => {
   const handleTokenClick = () => {
     playClickSound();
     setActiveButton("token");
+    setShowClaimedText(false);
     setIsActive(false);
     // setShowConnectWalletMessage(false);
     // Hide all content and trigger the glitch effect
@@ -487,6 +520,7 @@ const Coin = () => {
   const handleSocialClick = () => {
     playClickSound();
     setActiveButton("social");
+    setShowClaimedText(false);
     setShowAbout(false);
     setShowVideo(false);
     // setShowConnectWalletMessage(false);
@@ -515,6 +549,7 @@ const Coin = () => {
     playClickSound();
     setActiveButton("roadmap");
     setShowAbout(false);
+    setShowClaimedText(false);
     setShowVideo(false);
     // setShowConnectWalletMessage(false);
     setShowConnectScreen(false); // Correct usage of the state setter function
@@ -632,7 +667,10 @@ const Coin = () => {
     <div>
       <div className="row right-align small-d">
         <div className="col-6 col-sm-8">
-          <div className="mob-desk" style={{ position: "relative",float:'left' }}>
+          <div
+            className="mob-desk"
+            style={{ position: "relative", float: "left" }}
+          >
             <div
               style={{
                 position: "absolute",
@@ -1107,7 +1145,6 @@ const Coin = () => {
                     </div>
                   </div>
                 )}
-
                 {showWelcomeMessage && (
                   <div className="row img-res">
                     <div className="col-md-12 ">
@@ -1315,7 +1352,6 @@ const Coin = () => {
                     Your browser does not support the video tag.
                   </video>
                 </div>
-
                 <div className="nav-1">
                   <img src={meme} />
                 </div>
@@ -1514,7 +1550,6 @@ const Coin = () => {
                     )}
                   </div>
                 )}
-
                 {showSocial && (
                   <div id="glitch-background" className=" center-content">
                     <div className="trasition-1">
@@ -1582,14 +1617,32 @@ const Coin = () => {
                     </div>
                   </div>
                 )}
+                {showclaimedText && (
+                  <p>
+                    Now, time for reward doubling. During the ’we don’t know
+                    yet’ seconds of the Watch and Earn phase, the content owners
+                    of the videos that are played on the HippiePepe TV will be
+                    paid from the some% kept aside for them. In the initial
+                    phases we believe it is us that will mostly put up the
+                    content. So, the creator royalty starts at a ‘very low’ HPTV
+                    tokens per second in Phase 1 of Watch and Earn. It keeps
+                    doubling till it Phase M when the reward would have
+                    increased to a ‘large number’ of HPTV tokens per second. The
+                    deal is that every time you watch the HippiePepe TV, the
+                    creator of what you are watching will also be rewarded.
+                  </p>
+                )}
                 {showRoadmap && (
                   <div id="glitch-background" className="road-map-text">
-                    <p id="textcolorroadmap" className="header-line text-left pb-5">
+                    <p
+                      id="textcolorroadmap"
+                      className="header-line text-left pb-5"
+                    >
                       Road map
                       {/* <span>(coz is’s a formality)</span> */}
                     </p>
                     <div className="">
-                      <div className="row road1" >
+                      <div className="row road1">
                         <div className="col-12 col-lg-4 pb-2 road-min">
                           <div className="road-map-dash">
                             <h2 className="road-map do1">Phase 1</h2>
@@ -1600,7 +1653,6 @@ const Coin = () => {
                           </div>
                         </div>
                         <div className="col-12 col-lg-4 pb-2 road-2">
-                          
                           <div className="road-map-dash">
                             <h2 className="road-map do2">Phase 2</h2>
                             <img className="roadmapimg" src={roadmap2} />
@@ -1611,7 +1663,6 @@ const Coin = () => {
                           </div>
                         </div>
                         <div className="col-12 col-lg-4 pb-2">
-                         
                           <div className="road-map-dash">
                             <h2 className="road-map do3">Phase 3</h2>
                             <img className="roadmapimg" src={roadmap3} />
@@ -1748,7 +1799,7 @@ const Coin = () => {
                           <div className="col-5 col-xl-12 col-sm-6 col-lg-12">
                             <div>
                               <button className="btn-color">
-                                <h3> {seconds * 50} MMT Tokens</h3>
+                                {/* <h3> {seconds * 50} MMT Tokens</h3> */}
                               </button>
                             </div>
                           </div>
@@ -1756,7 +1807,6 @@ const Coin = () => {
 
                         <div className="col-12 col-xl-12 col-md-12">
                           <button className="btn-color mar-top">
-                            {/* <h3>{' Claim Token'}</h3> */}
                             <div className="w-[160.50px] h-10 relative">
                               <div className="left-[15px] top-[12px] absolute text-center text-green-600 text-base font-normal font-['VCR OSD Mono'] ">
                                 <div
@@ -1775,21 +1825,12 @@ const Coin = () => {
                                       marginLeft: "8px",
                                     }}
                                   >
-                                    {isHovered ? (
-                                      <h3
-                                        className="claim-h3"
-                                        onMouseLeave={handleMouseLeave}
-                                      >
-                                        Coming Soon
-                                      </h3>
-                                    ) : (
-                                      <h3
-                                        className="claim-h3"
-                                        onMouseEnter={handleMouseEnter}
-                                      >
-                                        Claim Token
-                                      </h3>
-                                    )}
+                                    <h3
+                                      className="claim-h3"
+                                      onClick={handleClickclaimedToken}
+                                    >
+                                      claim token
+                                    </h3>
                                   </div>
                                 </div>
                               </div>
