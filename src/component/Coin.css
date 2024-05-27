@@ -698,7 +698,12 @@
   .trasition-3 {
     transform: translate(0%, 10%);
     text-align: -webkit-center;
-    padding: 0px 100px 0px 100px;
+    padding: 0px 50px 0px 50px;
+  }
+  .trasition-4 {
+    transform: translate(0%, 10%);
+    text-align: -webkit-center;
+    padding: 0px 20px 0px 20px;
   }
   .claim-reward
   {
@@ -813,7 +818,7 @@
     border-image-slice: 1;
     padding: 10px;
     height: 100%;
-    width: 75%;
+    width: 85%;
   }
 
   .roadmapimg {
@@ -1528,7 +1533,9 @@
     /*margin-left: 10px;*/
   }
   .header-line {
-    font-size: 35px !important;
+    font-size: 40px !important;
+    text-align: center;
+    margin-bottom: 40px;
   }
   #panel {
     background: #b1b1b1 linear-gradient(90deg, transparent, #888);
@@ -1713,6 +1720,7 @@
     text-align: -webkit-center;
     padding: 0px 100px 0px 100px;
   }
+  
 
   #textcolorabout {
     color: #ffffff;
@@ -1784,10 +1792,29 @@
   }
   .road-map {
     padding-top: 25px;
-    font-size: 16px !important;
+    font-size: 20px !important;
     padding-bottom: 25px;
-    color: green !important ;
-    border-bottom: 2px dashed #4cef39;
+    margin-top: -36px;
+    /* margin-left: 15px;
+        margin-right: 15px; */
+    background: black;
+    /* margin-right: 15px; */
+    border: 2px solid #63ef39;
+    width: 85%;
+    box-shadow: 2px 6px 8px #f82f9b;
+    border: 2px solid transparent;
+    border-image-slice: 1;
+    border-image-source: linear-gradient(
+      180deg,
+      #fd8d23 -1.34%,
+      #fae61c 10.31%,
+      #eef73b 20.95%,
+      #4cf038 42.23%,
+      #33c6f6 65.04%,
+      #559cfb 73.14%,
+      #7475ff 80.74%,
+      #d457ff 100%
+    );
   }
   .road-map-txt {
     font-size: 16px !important;
@@ -1803,8 +1830,24 @@
     padding-right: 2px;
   }
   .road-map-dash {
-    border: 2px dashed #4cef39;
-    padding: 10px;
+    border: 2px solid transparent;
+    border-image-source: linear-gradient(
+      180deg,
+      #fd8d23 -1.34%,
+      #fae61c 10.31%,
+      #eef73b 20.95%,
+      #4cf038 42.23%,
+      #33c6f6 65.04%,
+      #559cfb 73.14%,
+      #7475ff 80.74%,
+      #d457ff 100%
+    );
+    border-image-slice: 1;
+    padding: 10px 10px 20px 10px;
+    height: 100%;
+    width: 85%;
+    margin-bottom: 50px;
+        margin-top: 20px;
   }
   .roadmapimg {
     padding-bottom: 10px;
@@ -2160,6 +2203,7 @@
     text-align: -webkit-center;
     padding: 0px 100px 0px 100px;
   }
+
   #scroller {
     font-weight: bold;
     font-size: 350%;
@@ -2847,6 +2891,11 @@
     text-align: -webkit-center;
     padding: 0px 100px 0px 100px;
   }
+  .trasition-4 {
+    transform: translate(0%, 10%);
+    text-align: -webkit-center;
+    padding: 0px 100px 0px 100px;
+  }
   .claim-reward
   {
     font-size: 20px;
@@ -2875,7 +2924,7 @@
     color: red;
     /* margin-left: 150px;*/
     margin-top: 20px;
-    font-size: 70px;
+    font-size: 55px;
   }
 
   #textcolorsocial {
@@ -3016,7 +3065,7 @@
     border-image-slice: 1;
     padding: 10px;
     height: 100%;
-    width: 75%;
+    width: 85%;
   }
 
   .roadmapimg {
@@ -3134,8 +3183,8 @@
   }
   .road-map-text {
     /*transform: translate(0%, 25%);*/
-    padding-left: 200px;
-    padding-right: 200px;
+    padding-left: 150px;
+    padding-right: 150px;
   }
 
   .btn-primary {

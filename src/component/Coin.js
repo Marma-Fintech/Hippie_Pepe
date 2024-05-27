@@ -1641,7 +1641,7 @@ const Coin = () => {
                       {/* <span>(coz is’s a formality)</span> */}
                     </p>
                     <div className="">
-                      <div className="row road1">
+                      <div className="row road1 trasition-4">
                         <div className="col-12 col-lg-4 pb-2 road-min">
                           <div className="road-map-dash">
                             <h2 className="road-map do1">Phase 1</h2>
