@@ -1657,9 +1657,10 @@ const Coin = () => {
                   <div className="trasition-3">
                     <img src={claimTokenn} />
                     {responce.message ==
-                    "User has Reached the Maximum WatchSeconds Limit" ? (
+                    ("User has Reached the Maximum WatchSeconds Limit" ||
+                      "All Phases have been completed") ? (
                       <p className="text-head1 pt-2 claim-reward">
-                        User has Reached the Maximum WatchSeconds Limit
+                        {responce.message}
                       </p>
                     ) : (
                       <>
