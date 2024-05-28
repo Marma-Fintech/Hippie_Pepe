@@ -35,7 +35,7 @@ import yo from "../assets/yo.gif";
 import arrow from "../assets/arrow.gif";
 import tokenarrow from "../assets/Vector 1.png";
 import handgif from "../assets/handgif.gif";
-import claimToken from "../assets/claim-token.gif";
+import claimTokenn from "../assets/claim-token.gif";
 
 import clickSound from "../assets/clicksound.mp3";
 
@@ -1655,7 +1655,7 @@ const Coin = () => {
                 )}
                 {showclaimedText && (
                   <div className="trasition-3">
-                    <img src={claimToken} />
+                    <img src={claimTokenn} />
                     {responce.message ==
                     "User has Reached the Maximum WatchSeconds Limit" ? (
                       <p className="text-head1 pt-2 claim-reward">
