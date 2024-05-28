@@ -1535,7 +1535,7 @@
   .header-line {
     font-size: 40px !important;
     text-align: center;
-    margin-bottom: 40px;
+    /* margin-bottom: 40px; */
   }
   #panel {
     background: #b1b1b1 linear-gradient(90deg, transparent, #888);
