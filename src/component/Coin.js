@@ -1667,7 +1667,7 @@ const Coin = () => {
                           Collect Your Reward
                         </p>
                         <p className="text-head1">
-                          You earned {responce.user.userRewards}HPTV Token
+                          You earned {responce.user.totalReward}HPTV Token
                         </p>
                         <p className="text-head2"> {responce.phaseMessage} </p>
                       </>
