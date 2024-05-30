@@ -1,5 +1,5 @@
-import React, { useEffect, useRef, useState } from "react";
-import "../component/Coin.css"; 
+import React, { useEffect, useCallback, useRef, useState } from "react";
+import "../component/Coin.css";
 import videoSource from "../assets/video.mp4";
 // import dogevideo from "../assets/dogevideo.MP4";
 import frogvideo from "../assets/frog.mp4";
@@ -39,7 +39,10 @@ import claimTokenn from "../assets/claim-token.gif";
 
 import clickSound from "../assets/clicksound.mp3";
 
-import { ConnectWallet, useAddress, useChain } from "@thirdweb-dev/react";
+// Blockchain -Integration
+import { ConnectWallet, useAddress, useChain, ThirdwebProvider, useSigner} from "@thirdweb-dev/react";
+import config from "../config/config";
+import { ethers } from "ethers";
 
 const Coin = () => {
   const [showConnectWalletMessage, setShowConnectWalletMessage] =
@@ -76,6 +79,14 @@ const Coin = () => {
   const [Claim, isClaim] = useState(false);
   const videoRef = useRef(null);
   const address = useAddress();
+
+  // Blockchain -Integration
+  const { contract_Address, contract_ABI } = config;
+  const [mTVContract, setMTVContract] = useState();
+  const [signer, setSigner] = useState();
+  const [signerAddress, setSignerAddress] = useState();
+  const [error, setError] = useState();
+
 
   //animation text token
   useEffect(() => {
@@ -688,6 +699,64 @@ const Coin = () => {
       console.error("Network error:", error);
     }
   };
+
+  const thirdwebSigner = useSigner();
+
+    const getSignerAddress = useCallback(async () => {
+      if (thirdwebSigner && !signer) {
+        try {
+          const address = await thirdwebSigner.getAddress();
+          setSigner(thirdwebSigner);
+          setSignerAddress(address);
+          console.log("Signer address:", address);
+          console.log(contract_Address);
+          const contract = new ethers.Contract(contract_Address, contract_ABI, thirdwebSigner);
+          setMTVContract(contract);
+          console.log("Contract:", contract);
+        } catch (error) {
+          console.error("Error getting signer address:", error);
+        }
+      }
+    }, [thirdwebSigner, signer]);
+  
+    useEffect(() => {
+      getSignerAddress();
+    }, [getSignerAddress]);
+  
+
+      const claimTokensFromBlockchain = async () =>
+        {
+          console.log("Inside Claim Tokens from  blockchain function");
+          if (!signer) {
+            // Check if signer is available
+            alert("Please connect your wallet first");
+            return;
+          }
+          try {
+            console.log("inside try");
+            const tx = await mTVContract.mintWithWatchTime([seconds]);
+            await tx.wait();
+            console.log(tx.hash);
+            if(tx.hash)
+            {
+              claimToken();
+            }
+            console.log(
+              `The transaction hash for minting tokens from memeTV is ${tx.hash}`
+            );
+          } catch (error) {
+            if (error.message.search("The Array lengths can't be different")!== -1)
+              setError("The Array lengths can't be different");
+            else if (
+              error.message.search(
+                "User Cooldown time has not expired"
+              )!== -1
+            )
+              setError("User Cooldown time has not expired");
+            else setError(error.message);
+          }
+        }
+
 
   // Event handler for when the element is hovered over
   const handleMouseEnter = () => {
@@ -1668,8 +1737,8 @@ const Coin = () => {
                           Collect Your Reward
                         </p>
                         <p className="text-head1">
-                          You earned {responce.user.totalReward}HPTV Token
-                        </p>
+                          You earned {responce.user.yourReward} MEMETV Token
+                        </p> 
                         <p className="text-head2"> {responce.phaseMessage} </p>
                       </>
                     )}
@@ -1870,7 +1939,7 @@ const Coin = () => {
                                   >
                                     <h3
                                       className="claim-h3"
-                                      onClick={claimToken}
+                                      onClick={claimTokensFromBlockchain}
                                     >
                                       claim token
                                     </h3>
