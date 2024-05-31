@@ -120,7 +120,7 @@ const Coin = () => {
       ws.close();
     };
     // }
-  }, [address]);
+  }, []);
 
   // Blockchain -Integration
   const { contract_Address, contract_ABI } = config;
