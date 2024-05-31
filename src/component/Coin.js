@@ -104,22 +104,22 @@ const Coin = () => {
   const [activeUsers, setActiveUsers] = useState(0);
 
   useEffect(async () => {
-    if (address) {
-      const ws = new WebSocket("https://hippie-pepe-be.onrender.com");
+    // if (address) {
+    const ws = new WebSocket("https://hippie-pepe-be.onrender.com");
 
-      ws.onmessage = (message) => {
-        const data = JSON.parse(message.data);
-        setActiveUsers(data.activeUsers);
-      };
+    ws.onmessage = (message) => {
+      const data = JSON.parse(message.data);
+      setActiveUsers(data.activeUsers);
+    };
 
-      ws.onclose = () => {
-        console.log("WebSocket connection closed");
-      };
+    ws.onclose = () => {
+      console.log("WebSocket connection closed");
+    };
 
-      return () => {
-        ws.close();
-      };
-    }
+    return () => {
+      ws.close();
+    };
+    // }
   }, [address]);
 
   // Blockchain -Integration
