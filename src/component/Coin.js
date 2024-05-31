@@ -40,7 +40,13 @@ import claimTokenn from "../assets/claim-token.gif";
 import clickSound from "../assets/clicksound.mp3";
 
 // Blockchain -Integration
-import { ConnectWallet, useAddress, useChain, ThirdwebProvider, useSigner} from "@thirdweb-dev/react";
+import {
+  ConnectWallet,
+  useAddress,
+  useChain,
+  ThirdwebProvider,
+  useSigner,
+} from "@thirdweb-dev/react";
 import config from "../config/config";
 import { ethers } from "ethers";
 
@@ -79,6 +85,40 @@ const Coin = () => {
   const [Claim, isClaim] = useState(false);
   const videoRef = useRef(null);
   const address = useAddress();
+  const chain = useChain();
+
+  document.addEventListener("visibilitychange", function () {
+    if (document.hidden) {
+      console.log("Browser tab is hidden");
+      // togglePlayPause();
+      videoRef.current.pause();
+      setButton("play");
+      setIsActive(false);
+    } else {
+      // console.log("Browser tab is visible")
+      //     togglePlayPause();
+      // setIsActive(true);
+    }
+  });
+
+  const [activeUsers, setActiveUsers] = useState(0);
+
+  useEffect(() => {
+    const ws = new WebSocket("ws://localhost:3000");
+
+    ws.onmessage = (message) => {
+      const data = JSON.parse(message.data);
+      setActiveUsers(data.activeUsers);
+    };
+
+    ws.onclose = () => {
+      console.log("WebSocket connection closed");
+    };
+
+    return () => {
+      ws.close();
+    };
+  }, []);
 
   // Blockchain -Integration
   const { contract_Address, contract_ABI } = config;
@@ -86,7 +126,6 @@ const Coin = () => {
   const [signer, setSigner] = useState();
   const [signerAddress, setSignerAddress] = useState();
   const [error, setError] = useState();
-
 
   //animation text token
   useEffect(() => {
@@ -123,6 +162,7 @@ const Coin = () => {
     if (address) {
       loadAndResumePlayback();
       setSeconds(0);
+      setIsActive(false);
     }
     if (!address) {
       savePlaybackPosition(videoRef.current.currentTime);
@@ -702,61 +742,61 @@ const Coin = () => {
 
   const thirdwebSigner = useSigner();
 
-    const getSignerAddress = useCallback(async () => {
-      if (thirdwebSigner && !signer) {
-        try {
-          const address = await thirdwebSigner.getAddress();
-          setSigner(thirdwebSigner);
-          setSignerAddress(address);
-          console.log("Signer address:", address);
-          console.log(contract_Address);
-          const contract = new ethers.Contract(contract_Address, contract_ABI, thirdwebSigner);
-          setMTVContract(contract);
-          console.log("Contract:", contract);
-        } catch (error) {
-          console.error("Error getting signer address:", error);
-        }
+  const getSignerAddress = useCallback(async () => {
+    if (thirdwebSigner && !signer) {
+      try {
+        const address = await thirdwebSigner.getAddress();
+        setSigner(thirdwebSigner);
+        setSignerAddress(address);
+        console.log("Signer address:", address);
+        console.log(contract_Address);
+        const contract = new ethers.Contract(
+          contract_Address,
+          contract_ABI,
+          thirdwebSigner
+        );
+        setMTVContract(contract);
+        console.log("Contract:", contract);
+      } catch (error) {
+        console.error("Error getting signer address:", error);
       }
-    }, [thirdwebSigner, signer]);
-  
-    useEffect(() => {
-      getSignerAddress();
-    }, [getSignerAddress]);
-  
+    }
+  }, [thirdwebSigner, signer]);
 
-      const claimTokensFromBlockchain = async () =>
-        {
-          console.log("Inside Claim Tokens from  blockchain function");
-          if (!signer) {
-            // Check if signer is available
-            alert("Please connect your wallet first");
-            return;
-          }
-          try {
-            console.log("inside try");
-            const tx = await mTVContract.mintWithWatchTime([seconds]);
-            await tx.wait();
-            console.log(tx.hash);
-            if(tx.hash)
-            {
-              claimToken();
-            }
-            console.log(
-              `The transaction hash for minting tokens from memeTV is ${tx.hash}`
-            );
-          } catch (error) {
-            if (error.message.search("The Array lengths can't be different")!== -1)
-              setError("The Array lengths can't be different");
-            else if (
-              error.message.search(
-                "User Cooldown time has not expired"
-              )!== -1
-            )
-              setError("User Cooldown time has not expired");
-            else setError(error.message);
-          }
-        }
+  useEffect(() => {
+    getSignerAddress();
+  }, [getSignerAddress]);
 
+  const claimTokensFromBlockchain = async () => {
+    console.log("Inside Claim Tokens from  blockchain function");
+    togglePlayPause();
+    setIsActive(false);
+    if (!signer) {
+      // Check if signer is available
+      alert("Please connect your wallet first");
+      return;
+    }
+    try {
+      console.log("inside try");
+      const tx = await mTVContract.mintWithWatchTime([seconds]);
+      await tx.wait();
+      console.log(tx.hash);
+      if (tx.hash) {
+        claimToken();
+      }
+      console.log(
+        `The transaction hash for minting tokens from memeTV is ${tx.hash}`
+      );
+    } catch (error) {
+      if (error.message.search("The Array lengths can't be different") !== -1)
+        setError("The Array lengths can't be different");
+      else if (
+        error.message.search("User Cooldown time has not expired") !== -1
+      )
+        setError("User Cooldown time has not expired");
+      else setError(error.message);
+    }
+  };
 
   // Event handler for when the element is hovered over
   const handleMouseEnter = () => {
@@ -809,40 +849,40 @@ const Coin = () => {
                 width="199"
                 height="55"
                 stroke="#01F128"
-                stroke-opacity="0.25"
-                stroke-width="2"
+                strokeOpacity="0.25"
+                strokeWidth="2"
               />
               <path
                 opacity="0.75"
                 d="M163.438 9H169.971H194.831V42.7347L188.547 49H8V9H74.9965"
                 stroke="url(#paint0_linear_1235_2507)"
-                stroke-linecap="round"
-                stroke-linejoin="round"
+                strokeLinecap="round"
+                strokeLinejoin="round"
               />
               <path
                 d="M149.74 9H158.588"
                 stroke="url(#paint1_linear_1235_2507)"
-                stroke-linecap="round"
-                stroke-linejoin="round"
+                strokeLinecap="round"
+                strokeLinejoin="round"
               />
               <path
                 d="M98.2988 9H111.615H136.513"
                 stroke="url(#paint2_linear_1235_2507)"
-                stroke-linecap="round"
-                stroke-linejoin="round"
+                strokeLinecap="round"
+                strokeLinejoin="round"
               />
               <path
                 opacity="0.5"
                 d="M193.067 36.6534V41.3985L187.22 47.2295H9.75928V23.8017"
                 stroke="url(#paint3_linear_1235_2507)"
-                stroke-linecap="round"
-                stroke-linejoin="round"
+                strokeLinecap="round"
+                strokeLinejoin="round"
               />
               <path
                 d="M176.472 10.7658H193.067V18.0038"
                 stroke="url(#paint4_linear_1235_2507)"
-                stroke-linecap="round"
-                stroke-linejoin="round"
+                strokeLinecap="round"
+                strokeLinejoin="round"
               />
               <path
                 opacity="0.26"
@@ -1738,7 +1778,7 @@ const Coin = () => {
                         </p>
                         <p className="text-head1">
                           You earned {responce.user.yourReward} MEMETV Token
-                        </p> 
+                        </p>
                         <p className="text-head2"> {responce.phaseMessage} </p>
                       </>
                     )}
@@ -1939,10 +1979,17 @@ const Coin = () => {
                                   >
                                     <h3
                                       className="claim-h3"
-                                      onClick={claimTokensFromBlockchain}
+                                      onClick={
+                                        chain.chain == "BSC" && seconds !== 0
+                                          ? claimTokensFromBlockchain
+                                          : null
+                                      }
                                     >
                                       claim token
                                     </h3>
+                                    {/* <p> */}
+                                    <h6>Live Users: {activeUsers}</h6>
+                                    {/* </p> */}
                                   </div>
                                 </div>
                               </div>

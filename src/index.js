@@ -10,9 +10,9 @@ import {
   coinbaseWallet,
   walletConnect,
   PhantomWallet,
-} from '@thirdweb-dev/react';
+} from "@thirdweb-dev/react";
 
-const activeChain = 'ethereum';
+const activeChain = "binance";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
