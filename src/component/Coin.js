@@ -103,8 +103,8 @@ const Coin = () => {
 
   const [activeUsers, setActiveUsers] = useState(0);
 
-  useEffect(() => {
-    const ws = new WebSocket("ws://hippie-pepe-be.onrender.com");
+  useEffect(async () => {
+    const ws = new WebSocket("ws://localhost:3000");
 
     ws.onmessage = (message) => {
       const data = JSON.parse(message.data);
