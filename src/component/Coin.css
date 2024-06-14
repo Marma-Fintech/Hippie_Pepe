@@ -558,7 +558,7 @@
     /* box-shadow: inset 0 3px 4px #000; */
     margin-bottom: 5px;
     /* background: black; */
-    background: url("../assets/donothing.png");
+    /* background: url("../assets/donothing.png"); */
     background-repeat: repeat;
     padding: 5px;
     width: 100%;
@@ -599,7 +599,7 @@
     border-left: none;
   }
   #speaker {
-    background-image: url("../assets/wallet-1.png");
+    /* background-image: url("../assets/wallet-1.png"); */
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
@@ -705,8 +705,7 @@
     text-align: -webkit-center;
     padding: 0px 20px 0px 20px;
   }
-  .claim-reward
-  {
+  .claim-reward {
     font-size: 20px;
   }
   #textcolorabout {
@@ -1138,10 +1137,10 @@
   }
   .icon-1 {
     text-align: -webkit-right;
-        position: absolute;
-        right: 10px;
-        width: 100%;
-        margin-top: -20px !important;
+    position: absolute;
+    right: 10px;
+    width: 100%;
+    margin-top: -20px !important;
   }
 }
 /* .mar-top
@@ -1382,7 +1381,7 @@
     );
     /*box-shadow: inset 0 4px 5px #444, inset 4px 0 5px #666, inset -2px 0 5px #888, inset 0 0px 5px #888; */
     width: 100%;
-    height: 70vh;
+    height: 80vh;
     background-image: url("../assets/Frame 21.png");
     background-repeat: no-repeat;
     background-size: 100% 100%;
@@ -1391,7 +1390,7 @@
   }
 
   body {
-    background: #221100 !important;
+    background: rgba(69, 53, 34, 1) !important;
     font-family: myFirstFont !important;
     overflow-y: auto;
     overflow-x: hidden;
@@ -1620,26 +1619,54 @@
     border-left: none;
   }
   #speaker {
-    background-image: url("../assets/Frame-mob.png");
+    /* background-image: url("../assets/Frame-mob.png"); */
     background-repeat: no-repeat;
+    /* background-image: linear-gradient(
+      "rgba(37, 36, 34, 1)",
+      "rgba(50, 50, 50, 1)"
+    ); */
+    background-image: linear-gradient(#252422, rgba(50, 50, 50, 1));
+
     background-size: 100% 100%;
     background-position: center;
-    height: 140px;
+    height: 10vh;
     display: flex;
     margin-bottom: 10px;
     justify-content: center;
     align-items: center;
-    /*  border-radius: 0px;
-      box-shadow: inset 0 3px 4px #000;
-      margin: 5% auto;
-      background: #000;   
-  ;
-      width: 90%;
-      height: 30%;
-      border: 2px solid #5c5c5c; */
-    /* margin: 5% auto;*/
-  }
 
+    border-radius: 5px;
+    -webkit-box-shadow: inset 8px 8px 5px -6px #595959;
+    -moz-box-shadow: inset 8px 8px 5px -6px #595959;
+    box-shadow: inset 8px 8px 5px -6px #595959;
+  }
+  .buttonStyle {
+    background-image: linear-gradient(#252422);
+    -webkit-box-shadow: inset 8px 8px 5px -6px #595959;
+    -moz-box-shadow: inset 8px 8px 5px -6px #595959;
+    box-shadow: inset 8px 8px 5px -6px #595959;
+    background-color: #333333;
+    border-width: 5;
+    /* border-right-width: 1.5; */
+    border-bottom-color: red;
+  }
+  .claimBox {
+    background-image: url("../assets/Rectangle\ 34624173.png");
+    background-repeat: repeat-y;
+    background-size: cover;
+    width: 50px;
+  }
+  .backrain1 {
+    background-image: linear-gradient(
+      rgba(253, 141, 35, 1),
+      rgba(250, 230, 28, 1),
+      rgba(238, 247, 59, 1),
+      rgba(76, 240, 56, 1),
+      rgba(51, 198, 246, 1),
+      rgba(116, 117, 255, 1),
+      rgba(212, 87, 255, 1)
+    );
+  }
   .hole {
     background: #000;
     border-left: 6px solid green;
@@ -1720,7 +1747,6 @@
     text-align: -webkit-center;
     padding: 0px 50px 0px 50px;
   }
-  
 
   #textcolorabout {
     color: #ffffff;
@@ -1847,7 +1873,7 @@
     height: 100%;
     width: 85%;
     margin-bottom: 50px;
-        margin-top: 20px;
+    margin-top: 20px;
   }
   .roadmapimg {
     padding-bottom: 10px;
@@ -2203,7 +2229,7 @@
     text-align: -webkit-center;
     padding: 0px 100px 0px 100px;
   }
-  
+
   #scroller {
     font-weight: bold;
     font-size: 350%;
@@ -2222,7 +2248,7 @@
   .about-para1 {
     font-size: 40px !important;
   }
-  
+
   #glitch-background {
     /* display: flex; */
     align-items: center;
@@ -2791,7 +2817,7 @@
     border-left: none;
   }
   #speaker {
-    background-image: url("../assets/wallet-1.png");
+    /* background-image: url("../assets/wallet-1.png"); */
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
@@ -2897,8 +2923,7 @@
     text-align: -webkit-center;
     padding: 0px 100px 0px 100px;
   }
-  .claim-reward
-  {
+  .claim-reward {
     font-size: 20px;
   }
   #textcolorabout {
