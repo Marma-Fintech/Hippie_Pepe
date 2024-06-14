@@ -1154,6 +1154,7 @@
     margin-bottom: calc(
       -webkit-env(safe-area-inset-bottom) + constant(safe-area-inset-bottom)
     );
+    overflow-x: hidden !important;
   }
   .navbar-light {
     float: inline-end;
@@ -1548,12 +1549,13 @@
     /* height: 35%; */
   }
   .nav-1 {
-    /*padding: 5px;*/
-    margin-top: 14%;
-    margin-left: 10%;
+    /* padding: 5px; */
+    margin-top: 20%;
+    /* margin-left: 10%; */
     width: 100%;
     position: relative;
-    text-align: left;
+    text-align: -webkit-center;
+    align-items: center;
   }
   .nav-1 img {
     width: 110px !important;

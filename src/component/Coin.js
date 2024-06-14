@@ -899,7 +899,7 @@ const Coin = () => {
         </div>
         <div className="col-6 col-sm-4 navbar-1">
           <nav className="navbar navbar-light">
-            <div className="container-fluid">
+            <div className="container-fluid" style={{ visibility: "hidden" }}>
               <button
                 className="navbar-toggler"
                 type="button"
@@ -1195,7 +1195,7 @@ const Coin = () => {
                   </div>
                 )}
                 <div>
-                  {showConnectWalletMessage &&
+                  {/* {showConnectWalletMessage &&
                     !address &&
                     activeButton == "play" && (
                       <div
@@ -1221,7 +1221,7 @@ const Coin = () => {
                                 className="btn-outline"
                               >
                                 doNothing
-                              </button>{" "}
+                              </button>
                               &nbsp;
                               <button
                                 style={{
@@ -1237,7 +1237,7 @@ const Coin = () => {
                                     color: "#0E4911",
                                   }}
                                 />
-                              </button>{" "}
+                              </button>
                             </div>
 
                             <div className="row desk-wel">
@@ -1275,7 +1275,7 @@ const Coin = () => {
                           <div></div>
                         </div>
                       </div>
-                    )}
+                    )} */}
                   {!showConnectWalletMessage &&
                     activeButton == "play" &&
                     address && (
@@ -1286,24 +1286,7 @@ const Coin = () => {
                       >
                         <div className="intro-wallet">
                           <div class="welcome-info1">
-                            {/* <div class="text-head pt-2">
-                              <h2 id="textcolorabout" class="welcome-para">
-                              </h2>
-                              <p class="about-para2 pb-2">
-                              </p>
-                            </div> */}
-                            <div className="">
-                              {/* <button
-                                  className="btn-outline"
-                                >
-                                </button> &nbsp;
-                                <button style={{
-                                   border:"2px solid #4CB04F",
-                                }}
-                                  className="cnt-wallet"
-                                >
-                                </button> */}
-                            </div>
+                            <div className=""></div>
                           </div>
                           <div></div>
                         </div>
@@ -1879,8 +1862,8 @@ const Coin = () => {
                   <div
                     className="buttonStyle"
                     style={{
-                      height: 60,
-                      width: 60,
+                      height: "60%",
+                      width: "70%",
                       borderRadius: 5,
                       borderBottomColor: "rgb(0, 0, 0,.4)",
                       borderBottomWidth: 5,
@@ -2085,12 +2068,12 @@ const Coin = () => {
                               justifyContent: "center",
                             }}
                           >
-                            234 Mtv
+                            {seconds} Mtv
                           </div>
                           <div
                             className="backrain1"
                             style={{
-                              height: "%",
+                              height: "50%",
                               display: "flex",
                               alignItems: "center",
                               justifyContent: "center",
@@ -2116,8 +2099,8 @@ const Coin = () => {
                   <div
                     className="buttonStyle"
                     style={{
-                      height: 60,
-                      width: 60,
+                      height: "60%",
+                      width: "70%",
                       borderRadius: 5,
                       borderBottomColor: "rgb(0, 0, 0,.4)",
                       borderBottomWidth: 5,
@@ -2127,6 +2110,7 @@ const Coin = () => {
                       alignItems: "center",
                       justifyContent: "center",
                     }}
+                    onClick={toggleMenu}
                   >
                     <img src={burgern} style={{ height: 40, width: 40 }} />
                   </div>
