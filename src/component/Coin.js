@@ -2117,6 +2117,7 @@ const Coin = () => {
                     <img
                       onClick={() => {
                         handlePlayClick();
+                        setIsOpen(false);
                       }}
                       src={playIcoN}
                       style={{ height: 20, width: 20 }}
