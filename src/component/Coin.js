@@ -57,11 +57,10 @@ const Coin = () => {
   const [showConnectWalletMessage, setShowConnectWalletMessage] =
     useState(false);
   const [walletConnected, setWalletConnected] = useState(false);
-
   const [showVideo, setShowVideo] = useState(false);
   const [showAbout, setShowAbout] = useState(false);
   const [showToken, setShowToken] = useState(false);
-  const [key, setKey] = useState(0); //animation text loop
+  const [key, setKey] = useState(0);
   const [tokenButtonText, setTokenButtonText] = useState(false);
   const [showSocial, setShowSocial] = useState(false);
   const [showRoadmap, setShowRoadmap] = useState(false);
@@ -73,7 +72,7 @@ const Coin = () => {
   const [seconds, setSeconds] = useState(0);
   const [isOpen, setIsOpen] = useState(false);
   const [responce, setResponce] = useState("");
-  const images = [doge, frog, shibu]; // Array of image imports
+  const images = [doge, frog, shibu];
   const [currentIndex, setCurrentIndex] = useState(0);
   const imageTexts = ["Doge", "Pepe", "Shibu"];
   const [showContent, setShowContent] = useState(true);
@@ -93,21 +92,15 @@ const Coin = () => {
   document.addEventListener("visibilitychange", function () {
     if (document.hidden) {
       console.log("Browser tab is hidden");
-      // togglePlayPause();
       videoRef.current.pause();
       setButton("play");
       setIsActive(false);
-    } else {
-      // console.log("Browser tab is visible")
-      //     togglePlayPause();
-      // setIsActive(true);
     }
   });
 
   const [activeUsers, setActiveUsers] = useState(0);
 
-  useEffect(async () => {
-    // if (address) {
+  useEffect(() => {
     const ws = new WebSocket("https://hippie-pepe-be.onrender.com");
 
     ws.onmessage = (message) => {
@@ -122,44 +115,32 @@ const Coin = () => {
     return () => {
       ws.close();
     };
-    // }
   }, []);
 
-  // Blockchain -Integration
   const { contract_Address, contract_ABI } = config;
   const [mTVContract, setMTVContract] = useState();
   const [signer, setSigner] = useState();
   const [signerAddress, setSignerAddress] = useState();
   const [error, setError] = useState();
 
-  //animation text token
   useEffect(() => {
-    // Set a timeout to reset the animation by changing the key
     const timeout = setTimeout(() => {
-      setKey((prevKey) => prevKey + 1); // Increment the key to force re-render
-    }, 45000); // Duration of the animation
+      setKey((prevKey) => prevKey + 1);
+    }, 45000);
     return () => clearTimeout(timeout);
   }, [key]);
 
-  // State to hold the random number
   const [randomNumber, setRandomNumber] = useState("");
 
-  // Function to generate a random 11-digit number
   const generateRandomNumber = () => {
-    // Generate random 11-digit number
     const number = Math.floor(100000000000 + Math.random() * 900000000000);
-    // Format the number with commas
     const formattedNumber = new Intl.NumberFormat("en-US").format(number);
     setRandomNumber(formattedNumber);
   };
 
   useEffect(() => {
-    // Generate an initial random number
     generateRandomNumber();
-    // Set up an interval to update the random number every 5 seconds
     const interval = setInterval(generateRandomNumber, 1000);
-
-    // Clear the interval on component unmount
     return () => clearInterval(interval);
   }, []);
 
@@ -168,8 +149,7 @@ const Coin = () => {
       loadAndResumePlayback();
       setSeconds(0);
       setIsActive(false);
-    }
-    if (!address) {
+    } else {
       savePlaybackPosition(videoRef.current.currentTime);
     }
   }, [address]);
@@ -178,12 +158,10 @@ const Coin = () => {
     const savedPosition = localStorage.getItem("videoPlaybackPosition");
     if (savedPosition) {
       videoRef.current.currentTime = savedPosition;
-      // videoRef.current.play();
     }
   }
 
   function savePlaybackPosition(time) {
-    // console.log(time);
     localStorage.setItem("videoPlaybackPosition", time);
   }
 
@@ -193,39 +171,32 @@ const Coin = () => {
   };
 
   function ButtonTextChange() {
-    if (button == "pause") {
+    if (button === "pause") {
       setButton("play");
-
       setShowVideo(true);
-    } else if (button == "play") {
+    } else if (button === "play") {
       setButton("pause");
       setShowVideo(true);
       handlePause();
     }
   }
-  // useEffect(() => {
-  //   togglePlayPause();
-  // }, [button]);
 
   const handlePause = () => {
     if (videoRef.current) {
       videoRef.current.pause();
-    } else {
-      console.log("noynot");
     }
   };
 
   const handleWelcomeDismiss = () => {
-    setShowWelcomeMessage(false); // Hide welcome message and start showing Connect button
+    setShowWelcomeMessage(false);
   };
 
   useEffect(() => {
-    setShowGlitchGif(true); // Initially show the glitch GIF
+    setShowGlitchGif(true);
     setTimeout(() => {
       setShowGlitchGif(false);
-      // setShowVideo(true); // Show the video component
-      setIsVideoPlaying(false); // Automatically start playing the video
-    }, 1000); // Glitch GIF displays for 1 second
+      setIsVideoPlaying(false);
+    }, 1000);
   }, []);
 
   useEffect(() => {
@@ -253,15 +224,12 @@ const Coin = () => {
   const handleClick = () => {
     playClickSound();
     if (!isActive) {
-      setIsActive(true); // Only activate the timer, no deactivation
+      setIsActive(true);
     }
   };
 
   const getButtonDetails = (buttonName) => {
     if (buttonName === activeButton) {
-      // if (buttonName !== "play") {
-      //   togglePlayPause();
-      // }
       return {
         style: {
           color: "yellow",
@@ -281,28 +249,28 @@ const Coin = () => {
       };
     }
   };
+
   const handleVideoLoadAndPlay = (videoIndex) => {
     if (videoRef.current) {
-      // videoRef.current.src = videos[videoIndex];
-      videoRef.current.load(); // Load the video after changing the source
+      videoRef.current.load();
       videoRef.current
-        .play() // Attempt to play the video
+        .play()
         .then(() => {
-          setIsVideoPlaying(true); // Update state to reflect that video is playing
+          setIsVideoPlaying(true);
         })
         .catch((error) => {
           console.error("Error attempting to play the video: ", error);
-          setIsVideoPlaying(false); // Update state to reflect that video is not playing
+          setIsVideoPlaying(false);
         });
     }
   };
+
   useEffect(() => {
     if (videoRef.current) {
-      videoRef.current.muted = false; // Mute the video initially
+      videoRef.current.muted = false;
       videoRef.current
-        .play() // Attempt to autoplay the video when component mounts
+        .play()
         .then(() => {
-          // Video is playing muted
           setIsVideoPlaying(true);
         })
         .catch((error) => {
@@ -322,18 +290,17 @@ const Coin = () => {
 
     try {
       const response = await fetch(url, {
-        method: "PUT", // Specify the method
+        method: "PUT",
         headers: {
-          "Content-Type": "application/json", // Specify the content type
+          "Content-Type": "application/json",
         },
-        body: JSON.stringify(body), // Convert the JavaScript object to a JSON string
+        body: JSON.stringify(body),
       });
 
       if (response.ok) {
-        const data = await response.json(); // Parse JSON response if successful
+        const data = await response.json();
         console.log("Success:", data);
         setPlaypauseCounter(0);
-        // isClaim(!Claim);
         return data;
       } else {
         throw new Error("Failed to update user details");
@@ -344,11 +311,9 @@ const Coin = () => {
   };
 
   const handleVideoPlay = () => {
-    setIsVideoPlaying(true); // Set video playing state to true
-    // Only attempt to show the message if the wallet is not connected
+    setIsVideoPlaying(true);
     if (!walletConnected) {
       setTimeout(() => {
-        // Double-check the wallet connection status and if the video is still playing
         if (!walletConnected && isVideoPlaying) {
           setShowConnectWalletMessage(true);
         }
@@ -366,9 +331,9 @@ const Coin = () => {
         videoRef.current
           .play()
           .then(() => {
-            setIsVideoPlaying(true); // Ensure the state is correctly set when video plays
+            setIsVideoPlaying(true);
             handleClick();
-            setButton("pause"); // Change button text to "pause"
+            setButton("pause");
           })
           .catch((error) => console.error("Error playing the video:", error));
         if (isFirstTime) {
@@ -376,16 +341,16 @@ const Coin = () => {
             if (!address) {
               setIsFirstTime(false);
               videoRef.current.pause();
-              setIsVideoPlaying(false); // Ensure the state is correctly set when video is paused
-              setButton("play"); // Change button text to "play"
+              setIsVideoPlaying(false);
+              setButton("play");
               setShowConnectWalletMessage(true);
             }
           }, 30000);
         }
       } else {
         videoRef.current.pause();
-        setIsVideoPlaying(false); // Ensure the state is correctly set when video is paused
-        setButton("play"); // Change button text to "play"
+        setIsVideoPlaying(false);
+        setButton("play");
       }
     }
   };
@@ -396,9 +361,9 @@ const Coin = () => {
     videoRef.current
       .play()
       .then(() => {
-        setIsVideoPlaying(true); // Ensure the state is correctly set when video plays
+        setIsVideoPlaying(true);
         handleClick();
-        setButton("pause"); // Change button text to "pause"
+        setButton("pause");
       })
       .catch((error) => console.error("Error playing the video:", error));
     setTimeoutofvideo();
@@ -408,20 +373,13 @@ const Coin = () => {
     setTimeout(() => {
       if (!address) {
         videoRef.current.pause();
-        setIsVideoPlaying(false); // Ensure the state is correctly set when video is paused
-        setButton("play"); // Change button text to "play"
+        setIsVideoPlaying(false);
+        setButton("play");
         setShowConnectWalletMessage(true);
       }
-    }, 30000); // 30 seconds delay
+    }, 30000);
   };
 
-  // const handleConnectWallet = () => {
-  //   setWalletConnected(true);
-  //   localStorage.setItem("walletConnected", "true");
-  //   setShowConnectWalletMessage(false);
-  // };
-
-  // When connecting the wallet
   const handleConnectWallet = () => {
     setWalletConnected(true);
     localStorage.setItem("walletConnected", "true");
@@ -430,7 +388,7 @@ const Coin = () => {
 
   useEffect(() => {
     const isConnected = localStorage.getItem("walletConnected") === "true";
-    console.log("Wallet connected from storage:", isConnected); // Check what is being read from local storage
+    console.log("Wallet connected from storage:", isConnected);
     setWalletConnected(isConnected);
   }, []);
 
@@ -453,18 +411,16 @@ const Coin = () => {
 
     try {
       const response = await fetch(url, {
-        method: "PUT", // Specify the method
+        method: "PUT",
         headers: {
-          "Content-Type": "application/json", // Specify the content type
+          "Content-Type": "application/json",
         },
-        body: JSON.stringify(body), // Convert the JavaScript object to a JSON string
+        body: JSON.stringify(body),
       });
 
       if (response.ok) {
-        const data = await response.json(); // Parse JSON response if successful
+        const data = await response.json();
         console.log("Success:", data);
-        // setPlaypauseCounter(0);
-        // isClaim(!Claim);
         setResponce(data);
         handleClickclaimedToken();
         return data;
@@ -484,8 +440,7 @@ const Coin = () => {
     setActiveButton("roadmap");
     setShowAbout(false);
     setShowVideo(false);
-    // setShowConnectWalletMessage(false);
-    setShowConnectScreen(false); // Correct usage of the state setter function
+    setShowConnectScreen(false);
     setIsActive(false);
     if (videoRef.current) {
       videoRef.current.pause();
@@ -500,7 +455,7 @@ const Coin = () => {
     setTokenButtonText(false);
     setTimeout(() => {
       setShowGlitchGif(false);
-      setShowRoadmap(false); // Toggle the visibility based on previous state
+      setShowRoadmap(false);
       setShowAbout(false);
       setShowSocial(false);
       setShowToken(false);
@@ -508,43 +463,35 @@ const Coin = () => {
   };
 
   const handlePlayClick = () => {
-    // console.log('Play clicked');
     playClickSound();
-    // alert("all")
     setActiveButton("play");
     setShowClaimedText(false);
     setShowAbout(false);
     ButtonTextChange();
-    // setShowVideo(false);
-    // setIsVideoPlaying(false);
     setShowToken(false);
     setShowSocial(false);
     setShowRoadmap(false);
     setShowConnectScreen(false);
     setShowWelcomeMessage(false);
     if (!isVideoPlaying) {
-      // If the video is not playing, start it and the timer.
-      setIsActive(true); // Start the timer
+      setIsActive(true);
       if (!showConnectWalletMessage) {
         togglePlayPause();
       }
-      setShowConnectScreen(false); // This will start the video and update `isVideoPlaying` to true.
-      // Set a timeout to display the message after 5 seconds
+      setShowConnectScreen(false);
     } else {
-      // If the video is playing, pause it and stop the timer.
-      setIsActive(false); // Stop the timer
+      setIsActive(false);
       if (!showConnectWalletMessage) {
         togglePlayPause();
       }
       setShowConnectScreen(false);
     }
   };
+
   const handleAboutClick = () => {
-    // setShowConnectWalletMessage(false);
     playClickSound();
     setShowClaimedText(false);
     setActiveButton("about");
-    // Immediately hide the content and start the glitch effect
     setShowAbout(false);
     setShowVideo(false);
     setIsActive(false);
@@ -552,7 +499,7 @@ const Coin = () => {
     setShowToken(false);
     setShowSocial(false);
     setShowRoadmap(false);
-    setShowConnectScreen(false); // Correct usage of the state setter function
+    setShowConnectScreen(false);
     if (videoRef.current) {
       videoRef.current.pause();
     }
@@ -561,38 +508,38 @@ const Coin = () => {
     setShowWelcomeMessage(false);
     setShowConnectScreen(false);
     setShowGlitchGif(true);
-    // After the glitch effect, toggle the content
     setTimeout(() => {
       setShowGlitchGif(false);
-      setShowAbout(true); // Toggle the visibility based on previous state
+      setShowAbout(true);
       setShowRoadmap(false);
       setShowSocial(false);
       setShowToken(false);
       setTokenButtonText(false);
     }, 1000);
   };
+
   const handleOnclickinToken = () => {
     setTokenButtonText(true);
     setShowToken(false);
   };
+
   const handleOffclickinToken = () => {
     setTokenButtonText(false);
     setShowToken(true);
   };
+
   const handleTokenClick = () => {
     playClickSound();
     setActiveButton("token");
     setShowClaimedText(false);
     setIsActive(false);
-    // setShowConnectWalletMessage(false);
-    // Hide all content and trigger the glitch effect
     setShowAbout(false);
     setShowVideo(false);
     if (videoRef.current) {
       videoRef.current.pause();
     }
     setIsVideoPlaying(false);
-    setShowConnectScreen(false); // Corrected from showConnectScreen to setShowConnectScreen
+    setShowConnectScreen(false);
     setButton("play");
     setIsVideoPlaying(false);
     setShowToken(false);
@@ -603,20 +550,20 @@ const Coin = () => {
     setShowGlitchGif(true);
     setTimeout(() => {
       setShowGlitchGif(false);
-      setShowToken(true); // Toggle the visibility based on previous state
+      setShowToken(true);
       setShowAbout(false);
       setShowSocial(false);
       setShowRoadmap(false);
     }, 1000);
   };
+
   const handleSocialClick = () => {
     playClickSound();
     setActiveButton("social");
     setShowClaimedText(false);
     setShowAbout(false);
     setShowVideo(false);
-    // setShowConnectWalletMessage(false);
-    setShowConnectScreen(false); // Correct usage of the state setter function
+    setShowConnectScreen(false);
     setIsActive(false);
     if (videoRef.current) {
       videoRef.current.pause();
@@ -631,20 +578,20 @@ const Coin = () => {
     setTokenButtonText(false);
     setTimeout(() => {
       setShowGlitchGif(false);
-      setShowSocial(true); // Toggle the visibility based on previous state
+      setShowSocial(true);
       setShowAbout(false);
       setShowRoadmap(false);
       setShowToken(false);
     }, 1000);
   };
+
   const handleRoadmapClick = () => {
     playClickSound();
     setActiveButton("roadmap");
     setShowAbout(false);
     setShowClaimedText(false);
     setShowVideo(false);
-    // setShowConnectWalletMessage(false);
-    setShowConnectScreen(false); // Correct usage of the state setter function
+    setShowConnectScreen(false);
     setIsActive(false);
     if (videoRef.current) {
       videoRef.current.pause();
@@ -659,7 +606,7 @@ const Coin = () => {
     setTokenButtonText(false);
     setTimeout(() => {
       setShowGlitchGif(false);
-      setShowRoadmap(true); // Toggle the visibility based on previous state
+      setShowRoadmap(true);
       setShowAbout(false);
       setShowSocial(false);
       setShowToken(false);
@@ -667,7 +614,7 @@ const Coin = () => {
   };
 
   useEffect(() => {
-    if (currentIndex !== undefined && [currentIndex]) {
+    if (currentIndex !== undefined) {
       handleVideoLoadAndPlay(currentIndex);
     }
   }, [currentIndex]);
@@ -694,15 +641,15 @@ const Coin = () => {
 
       try {
         const response = await fetch(url, {
-          method: "PUT", // Specify the method
+          method: "PUT",
           headers: {
-            "Content-Type": "application/json", // Specify the content type
+            "Content-Type": "application/json",
           },
-          body: JSON.stringify(body), // Convert the JavaScript object to a JSON string
+          body: JSON.stringify(body),
         });
 
         if (response.ok) {
-          const data = await response.json(); // Parse JSON response if successful
+          const data = await response.json();
           console.log("Success:", data);
           isClaim(!Claim);
           return data;
@@ -714,33 +661,28 @@ const Coin = () => {
       }
     };
 
-    updateUserDetails(); // Call the function to make the request
+    updateUserDetails();
   };
 
   useEffect(() => {
     fetchUserDetails();
   }, [address]);
+
   const fetchUserDetails = async () => {
     try {
       console.log(address);
-      // Make the GET request using fetch
       const response = await fetch(
         `https://hippie-pepe-be.onrender.com/getUserdetail/${address}`
       );
 
-      // Check if the response is successful (status code 200)
       if (response.ok) {
-        // Parse the response JSON data
         const data = await response.json();
-        // Set the user details in state
         setSeconds(Number(data.user.userSeconds));
         console.log(JSON.stringify(data) + "Datadatadata");
       } else {
-        // Handle error if response is not successful
         console.error("Error fetching user details:", response.statusText);
       }
     } catch (error) {
-      // Handle any network errors
       console.error("Network error:", error);
     }
   };
@@ -773,11 +715,10 @@ const Coin = () => {
   }, [getSignerAddress]);
 
   const claimTokensFromBlockchain = async () => {
-    console.log("Inside Claim Tokens from  blockchain function");
+    console.log("Inside Claim Tokens from blockchain function");
     togglePlayPause();
     setIsActive(false);
     if (!signer) {
-      // Check if signer is available
       alert("Please connect your wallet first");
       return;
     }
@@ -803,12 +744,10 @@ const Coin = () => {
     }
   };
 
-  // Event handler for when the element is hovered over
   const handleMouseEnter = () => {
     setIsHovered(true);
   };
 
-  // Event handler for when the mouse leaves the element
   const handleMouseLeave = () => {
     setIsHovered(false);
   };
@@ -2175,7 +2114,13 @@ const Coin = () => {
                       justifyContent: "center",
                     }}
                   >
-                    <img src={playIcoN} style={{ height: 20, width: 20 }} />
+                    <img
+                      onClick={() => {
+                        handlePlayClick();
+                      }}
+                      src={playIcoN}
+                      style={{ height: 20, width: 20 }}
+                    />
                   </div>
                 </div>
                 <div
