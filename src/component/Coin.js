@@ -956,7 +956,7 @@ const Coin = () => {
         </div>
       </div>
       <div className="col-3 col-sm-2 navbar-1">
-        {isOpen && (
+        {/* {isOpen && (
           <div className="overlay">
             <div style={{ display: "flex", flexDirection: "column" }}>
               <div className="overlay-content">
@@ -1089,7 +1089,7 @@ const Coin = () => {
             </div>
             <div className="overlay-close" onClick={toggleMenu}></div>
           </div>
-        )}
+        )} */}
       </div>
       <div id="tv" className="memetv">
         <div id="screen">
@@ -1153,13 +1153,146 @@ const Coin = () => {
                     </div>
                   </div>
                 )}
-                {showWelcomeMessage && (
+                {showWelcomeMessage && !isOpen && (
                   <div className="row img-res">
                     <div className="col-md-12 ">
                       <div>
-                        <img className="animation-logo" src={welcome} />{" "}
+                        <img className="animation-logo" src={welcome} />
                       </div>
                     </div>
+                    {/*<span className='shadow'>About HippiePepeMemeTV</span>  */}
+                    <div className="text-head pt-1"></div>
+                  </div>
+                )}
+                {isOpen && (
+                  <div>
+                    {/* <div className="col-md-12 "> */}
+                    <div className="overlay">
+                      <div style={{ display: "flex", flexDirection: "column" }}>
+                        <div className="overlay-content">
+                          <div
+                            style={{
+                              display: "flex",
+                              flexDirection: "column",
+                              gap: 10,
+                            }}
+                          >
+                            <ul
+                              className="ul-button"
+                              style={{
+                                zIndex: 100000,
+                              }}
+                            >
+                              {/* <li
+                                style={getButtonDetails("play").style}
+                                onClick={() => {
+                                  handlePlayClick();
+                                  toggleMenu();
+                                }}
+                              >
+                                <img
+                                  src={getButtonDetails("play").icon}
+                                  alt="Play Icon"
+                                />
+                                <span onClick={ButtonTextChange}>
+                                  &nbsp;&nbsp;{button}
+                                </span>
+                              </li> */}
+                              <li
+                                style={getButtonDetails("about").style}
+                                onClick={() => {
+                                  handleAboutClick();
+                                  toggleMenu();
+                                }}
+                              >
+                                <span>About</span>
+                              </li>
+                              <li
+                                style={getButtonDetails("roadmap").style}
+                                onClick={() => {
+                                  handleRoadmapClick();
+                                  toggleMenu();
+                                }}
+                              >
+                                <span>Roadmap</span>
+                              </li>
+                              <li
+                                style={getButtonDetails("token").style}
+                                onClick={() => {
+                                  handleTokenClick();
+                                  toggleMenu();
+                                }}
+                              >
+                                <span>Token</span>
+                              </li>
+                              <li
+                                style={getButtonDetails("social").style}
+                                onClick={() => {
+                                  handleSocialClick();
+                                  toggleMenu();
+                                }}
+                              >
+                                <span>Social</span>
+                              </li>
+                              <li
+                                style={getButtonDetails("social").style}
+                                onClick={() => {
+                                  handleSocialClick();
+                                  toggleMenu();
+                                }}
+                              >
+                                <span>Refer & Earn</span>
+                              </li>
+                            </ul>
+                          </div>
+                        </div>
+                        {/* <div
+                          className="social-links"
+                          style={{ marginTop: "50px", zIndex: 10000000 }}
+                        >
+                          <ul>
+                            <li>
+                              <a
+                                href="https://twitter.com/hippie_pepe"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                              >
+                                <img src={twitter} alt="Twitter" />
+                              </a>
+                            </li>
+                            <li>
+                              <a
+                                href="https://www.snapchat.com/add/hippie_pepe?share_id=UB9twgjgo2w&locale=en-US"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                              >
+                                <img src={snap} alt="snap" />
+                              </a>
+                            </li>
+                            <li>
+                              <a
+                                href="https://t.me/+918124877707"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                              >
+                                <img src={telegram} alt="telegram" />
+                              </a>{" "}
+                            </li>
+                            <li>
+                              <a
+                                href="https://www.youtube.com/@HippiePepe"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                              >
+                                <img src={youtube} alt="youtube" />
+                              </a>
+                            </li>
+                          </ul>
+                        </div> */}
+                      </div>
+                      {/* <div className="overlay-close" onClick={toggleMenu}></div> */}
+                    </div>
+                    {/* </div> */}
                     {/*<span className='shadow'>About HippiePepeMemeTV</span>  */}
                     <div className="text-head pt-1"></div>
                   </div>
@@ -1384,6 +1517,7 @@ const Coin = () => {
                     </div>
                   </div>
                 )}
+
                 {showToken && (
                   <div id="glitch-background" className=" center-content">
                     <div className="trasition-2">
@@ -1391,7 +1525,7 @@ const Coin = () => {
                         <div className="col-md-12">
                           <div className="supply-part">
                             <h3 id="textcolorabout">Total Supply</h3>
-                            <img src={supplygif} />{" "}
+                            <img src={supplygif} />
                           </div>
                           <h2
                             id="textcolorsocial"
@@ -1749,108 +1883,9 @@ const Coin = () => {
           <div className="control-1">
             <div>
               <div id="speaker">
-                {/* <div className="navi"> */}
-                {/* {address ? (
-                    hasClaimed ? (
-                      <button
-                        className="btn-color flex flex-col justify-center items-center gap-1"
-                        onClick={claimRewards}
-                      >
-                        <h3>{" Congratulations!"}</h3>
-                        <h3 className="text-sm">
-                          {" You claimed your token & restart the minting."}
-                        </h3>
-                      </button>
-                    ) : (
-                      <div className="row">
-                        <div className="text-right icon-1 col-12">
-                          <img
-                            className="h-8 img-icon"
-                            src={info}
-                            alt="My GIF"
-                            onMouseEnter={() => setInfoicon(true)}
-                            onMouseLeave={() => setInfoicon(false)}
-                          />
-                          {infoIcon}
-                        </div>
-                        <div className="handgif text-c">
-                          <img src={handgif} />
-                        </div>
-                        <div
-                          className="row"
-                          style={{
-                            marginLeft: "0",
-                          }}
-                        >
-                          <div className="col-5 col-xl-12 col-lg-12 col-sm-6 col-xl-12">
-                            <div>
-                              <button className="btn-color">
-                                <h3>
-                                  <div>Time </div>
-                                  {formatTime(seconds)}
-                                </h3>
-                              </button>
-                            </div>
-                          </div>
-                          <div className="col-5 col-xl-12 col-sm-6 col-lg-12">
-                            <div>
-                              <button className="btn-color">
-                              </button>
-                            </div>
-                          </div>
-                        </div>
-
-                        <div className="col-12 col-xl-12 col-md-12">
-                          <button className="btn-color mar-top">
-                            <div className="w-[160.50px] h-10 relative">
-                              <div className="left-[15px] top-[12px] absolute text-center text-green-600 text-base font-normal font-['VCR OSD Mono'] ">
-                                <div
-                                  className="cardd text-center"
-                                  style={{ position: "relative" }}
-                                >
-                                  <img
-                                    className="h-10"
-                                    src={btn}
-                                    alt="My button"
-                                  />
-                                  <div
-                                    className="claim-1"
-                                    style={{
-                                      position: "absolute",
-                                      marginLeft: "8px",
-                                    }}
-                                  >
-                                    <h3
-                                      className="claim-h3"
-                                      onClick={
-                                        chain.chain == "BSC" && seconds !== 0
-                                          ? claimTokensFromBlockchain
-                                          : null
-                                      }
-                                    >
-                                      claim token
-                                    </h3>
-                                    <h6>Live Users: {activeUsers}</h6>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                          </button>
-                        </div>
-                      </div>
-                    )
-                  ) : (
-                   
-
-                    <div
-                      style={{
-                        width: "100%",
-                        height: "100%",
-                        backgroundColor: "red",
-                      }}
-                    ></div>
-                  )} */}
-                <div
+                {/* {handlePlayClick();
+                                  toggleMenu();} */}
+                {/* <div
                   style={{
                     width: "20%",
                     height: "100%",
@@ -2114,17 +2149,309 @@ const Coin = () => {
                   >
                     <img src={burgern} style={{ height: 40, width: 40 }} />
                   </div>
-                </div>
-                {/* <div
-                  className="video-play"
-                  id="imagetext"
+                </div> */}
+
+                <div
                   style={{
+                    width: "20%",
+                    height: "100%",
                     display: "flex",
                     justifyContent: "center",
-                    gap: "10px",
-                    marginTop: "2px",
+                    alignItems: "center",
                   }}
-                ></div> */}
+                >
+                  <div
+                    className="buttonStyle"
+                    style={{
+                      height: "60%",
+                      width: "70%",
+                      borderRadius: 5,
+                      borderBottomColor: "rgb(0, 0, 0,.4)",
+                      borderBottomWidth: 5,
+                      borderRightColor: "rgb(0, 0, 0,.4)",
+                      borderRightWidth: 5,
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                    }}
+                  >
+                    <img src={playIcoN} style={{ height: 20, width: 20 }} />
+                  </div>
+                </div>
+                <div
+                  style={{
+                    width: "60%",
+                    height: "100%",
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                  }}
+                >
+                  <div
+                    style={{
+                      borderWidth: 3,
+                      borderColor: "#cccccc",
+
+                      height: "80%",
+                      width: "100%",
+                      borderRadius: 5,
+                      backgroundColor: "rgba(3, 72, 7, 1)",
+                      padding: 3,
+                    }}
+                    // className="claimBox"
+                  >
+                    {activeButton === "play" && (
+                      <div
+                        style={{
+                          display: "flex",
+                          flexDirection: "row",
+                          borderWidth: 1,
+                          borderColor: "rgba(9, 189, 27, 1)",
+                          width: "100%",
+                          height: "100%",
+                          padding: 3,
+                        }}
+                      >
+                        <div
+                          style={{
+                            height: "100%",
+                            width: "20%",
+                            backgroundColor: "rgba(0, 109, 4, 1)",
+                            borderRadius: 5,
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                            flexDirection: "column",
+                          }}
+                        >
+                          <img
+                            src={peoplegrp}
+                            style={{
+                              height: 20,
+                              width: 16,
+                              objectFit: "contain",
+                            }}
+                          />
+                          <p
+                            style={{
+                              marginTop: 3,
+                              fontSize: 10,
+                              color: "black",
+                            }}
+                          >
+                            234
+                          </p>
+                        </div>
+                        <div
+                          style={{
+                            height: "100%",
+                            width: "40%",
+                            // backgroundColor: "blue",
+                            flexDirection: "column",
+                            paddingLeft: 5,
+                            paddingRight: 5,
+                          }}
+                        >
+                          <div
+                            style={{
+                              height: "40%",
+                              display: "flex",
+                              flexDirection: "row",
+                              alignItems: "center",
+                              justifyContent: "space-evenly",
+                              padding: 2,
+                            }}
+                          >
+                            <p style={{ fontSize: 12 }}> P1</p>
+                            <div
+                              style={{
+                                display: "flex",
+                                flexDirection: "column",
+                                alignItems: "center",
+                                justifyContent: "center",
+                              }}
+                            >
+                              <p style={{ fontSize: 10, marginTop: 6 }}> 45%</p>
+                              <img
+                                src={arrow1}
+                                style={{
+                                  height: 10,
+                                  width: "100%",
+                                  objectFit: "contain",
+                                  marginBottom: 12,
+                                }}
+                              />
+                            </div>
+                            <p style={{ fontSize: 12 }}>P2</p>
+                          </div>
+                          <div
+                            style={{
+                              height: "60%",
+                              // backgroundColor: "blue",
+                              display: "flex",
+                              alignItems: "center",
+                              justifyContent: "center",
+                              flexDirection: "column",
+                            }}
+                          >
+                            <p style={{ fontSize: 12, marginTop: 5 }}>
+                              16:09:38
+                            </p>
+                            <p style={{ fontSize: 12, marginTop: -5 }}>
+                              watch time
+                            </p>
+                          </div>
+                        </div>
+                        <div
+                          style={{
+                            height: "100%",
+                            width: "40%",
+                            position: "relative",
+                            // backgroundColor: "green",
+                          }}
+                        >
+                          <div
+                            // className="backrain"
+                            style={{
+                              // borderWidth: 1,
+                              // borderColor: "rgba(212, 87, 255, 1)",
+                              height: 1,
+                              position: "absolute",
+                              width: "100%",
+                              backgroundColor: "rgba(253, 141, 35, 1)",
+                              top: 0,
+                            }}
+                          ></div>
+
+                          <div
+                            // className="backrain"
+                            style={{
+                              // borderWidth: 1,
+                              // borderColor: "rgba(212, 87, 255, 1)",
+                              height: 1,
+                              position: "absolute",
+                              width: "100%",
+                              backgroundColor: "rgba(212, 87, 255, 1)",
+                              bottom: 0,
+                            }}
+                          ></div>
+                          <div
+                            className="backrain1"
+                            style={{
+                              // borderWidth: 1,
+                              // borderColor: "rgba(212, 87, 255, 1)",
+                              width: 1,
+                              position: "absolute",
+                              height: "100%",
+                              backgroundColor: "red",
+                              left: 0,
+                            }}
+                          ></div>
+                          <div
+                            className="backrain1"
+                            style={{
+                              // borderWidth: 1,
+                              // borderColor: "rgba(212, 87, 255, 1)",
+                              width: 1,
+                              position: "absolute",
+                              height: "100%",
+                              backgroundColor: "red",
+                              right: 0,
+                            }}
+                          ></div>
+                          <div
+                            style={{
+                              display: "flex",
+                              flexDirection: "column",
+                              height: "100%",
+                              paddingLeft: 5,
+                              paddingRight: 5,
+                            }}
+                          >
+                            <div
+                              style={{
+                                height: "50%",
+                                display: "flex",
+                                alignItems: "center",
+                                justifyContent: "center",
+                              }}
+                            >
+                              {seconds} Mtv
+                            </div>
+                            <div
+                              className="backrain1"
+                              style={{
+                                height: "50%",
+                                display: "flex",
+                                alignItems: "center",
+                                justifyContent: "center",
+                                borderRadius: 5,
+                              }}
+                            >
+                              <p style={{ color: "black" }}>claim</p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    )}
+                    {activeButton !== "play" && (
+                      <div
+                        onClick={() => {
+                          handlePlayClick();
+                          setIsOpen(false);
+                          // toggleMenu();
+                        }}
+                        style={{
+                          display: "flex",
+                          justifyContent: "center",
+                          alignItems: "center",
+                          height: "100%",
+                        }}
+                      >
+                        <p>Switch on the TV</p>
+                      </div>
+                    )}
+                  </div>
+                </div>
+                <div
+                  style={{
+                    width: "20%",
+                    height: "100%",
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                  }}
+                >
+                  <div
+                    className="buttonStyle"
+                    style={{
+                      height: "60%",
+                      width: "70%",
+                      borderRadius: 5,
+                      borderBottomColor: "rgb(0, 0, 0,.4)",
+                      borderBottomWidth: 5,
+                      borderRightColor: "rgb(0, 0, 0,.4)",
+                      borderRightWidth: 5,
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                    }}
+                    onClick={() => {
+                      toggleMenu();
+                      setActiveButton("");
+                      togglePlayPause();
+                    }}
+                  >
+                    <img src={burgern} style={{ height: 40, width: 40 }} />
+                  </div>
+                </div>
+                {/* {isActive !== "Play" && (
+                  <>
+                    <div>
+                      <h1>Switch on the TV</h1>
+                    </div>
+                  </>
+                )} */}
               </div>
             </div>
 
