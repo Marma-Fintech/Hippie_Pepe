@@ -2384,8 +2384,9 @@ const Coin = () => {
                     }}
                     onClick={() => {
                       toggleMenu();
-                      setActiveButton("");
-                      togglePlayPause();
+                      // setActiveButton(true);
+                      // togglePlayPause("");
+                      handlePlayClick();
                     }}
                   >
                     <img src={burgern} style={{ height: 40, width: 40 }} />
