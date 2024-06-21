@@ -1,34 +1,14 @@
-import React from "react";
-import ReactDOM from "react-dom/client";
-import "./index.css";
-import App from "./App";
-import reportWebVitals from "./reportWebVitals";
-import "bootstrap/dist/css/bootstrap.css";
-import {
-  ThirdwebProvider,
-  metamaskWallet,
-  coinbaseWallet,
-  walletConnect,
-  PhantomWallet,
-} from "@thirdweb-dev/react";
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import './index.css';
+import App from './App';
+import reportWebVitals from './reportWebVitals';
 
-const activeChain = "binance";
-
-const root = ReactDOM.createRoot(document.getElementById("root"));
+const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <ThirdwebProvider
-    supportedWallets={[
-      metamaskWallet({
-        recommended: true,
-      }),
-      coinbaseWallet(),
-      walletConnect(),
-    ]}
-    clientId="fd684aa3fe470cec7ef09d75dcd2a37c"
-    activeChain={activeChain}
-  >
+  <React.StrictMode>
     <App />
-  </ThirdwebProvider>
+  </React.StrictMode>
 );
 
 // If you want to start measuring performance in your app, pass a function

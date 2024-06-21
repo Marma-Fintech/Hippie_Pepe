@@ -1,24 +1,13 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
-/* In your global stylesheet, e.g., styles.css */
-@font-face {
-  font-family: "VCR OSD Mono";
-  src: url("../public//fonts/VCR_OSD_MONO_1.001.ttf") format("truetype");
-}
-
 body {
   margin: 0;
-  /*font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif; */
+    sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  font-family: "VCR OSD Mono", monospace;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
