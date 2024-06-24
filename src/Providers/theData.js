@@ -8,6 +8,7 @@ const INITIAL_STATE = {
     isHeader: false,
     isPlay: false,
     isMenu: false,
+    lastComponent: "",
   },
   updateUserInfo: () => undefined,
 };

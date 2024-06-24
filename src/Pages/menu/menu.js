@@ -2,6 +2,7 @@ import React from "react";
 import "./menu.css";
 import useUserInfo from "../../Hooks/useUserInfo";
 import About from "../About/about";
+import Social from "../Social/Social";
 
 const Menu = () => {
   const { userDetails, updateUserInfo } = useUserInfo();
@@ -12,6 +13,18 @@ const Menu = () => {
         ...prev,
         ...{
           currentComponent: About,
+          isMenu: !userDetails.isMenu,
+        },
+      };
+    });
+  };
+
+  const gotoSocial = () => {
+    updateUserInfo((prev) => {
+      return {
+        ...prev,
+        ...{
+          currentComponent: Social,
           isMenu: !userDetails.isMenu,
         },
       };
@@ -71,6 +84,9 @@ const Menu = () => {
           className="menuButton"
           style={{
             padding: "6%",
+          }}
+          onClick={() => {
+            gotoSocial();
           }}
         >
           <p className="textColor">Social</p>
