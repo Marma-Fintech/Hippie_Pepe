@@ -15,15 +15,6 @@
   height: 60%;
 }
 
-/* rgba(253, 141, 35, 1)
-rgba(250, 230, 28, 1)
-rgba(238, 247, 59, 1)
-rgba(76, 240, 56, 1)
-rgba(51, 198, 246, 1)
-rgba(85, 156, 251, 1)
-rgba(116, 117, 255, 1)
-rgba(212, 87, 255, 1) */
-
 .gradient-text1 {
   background-color: rgba(250, 230, 28, 1);
   -webkit-background-clip: text;

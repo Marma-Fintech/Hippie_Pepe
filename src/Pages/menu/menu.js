@@ -3,6 +3,8 @@ import "./menu.css";
 import useUserInfo from "../../Hooks/useUserInfo";
 import About from "../About/about";
 import Social from "../Social/Social";
+import Token from "../Token/Token";
+import Roadmap from "../Roadmap/Roadmap";
 
 const Menu = () => {
   const { userDetails, updateUserInfo } = useUserInfo();
@@ -25,6 +27,30 @@ const Menu = () => {
         ...prev,
         ...{
           currentComponent: Social,
+          isMenu: !userDetails.isMenu,
+        },
+      };
+    });
+  };
+
+  const gotoToken = () => {
+    updateUserInfo((prev) => {
+      return {
+        ...prev,
+        ...{
+          currentComponent: Token,
+          isMenu: !userDetails.isMenu,
+        },
+      };
+    });
+  };
+
+  const gotoRoadmap = () => {
+    updateUserInfo((prev) => {
+      return {
+        ...prev,
+        ...{
+          currentComponent: Roadmap,
           isMenu: !userDetails.isMenu,
         },
       };
@@ -69,6 +95,9 @@ const Menu = () => {
           style={{
             padding: "6%",
           }}
+          onClick={() => {
+            gotoRoadmap();
+          }}
         >
           <p className="textColor">Road Map</p>
         </div>
@@ -76,6 +105,9 @@ const Menu = () => {
           className="menuButton"
           style={{
             padding: "6%",
+          }}
+          onClick={() => {
+            gotoToken();
           }}
         >
           <p className="textColor">Token</p>
