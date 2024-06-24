@@ -6,6 +6,8 @@ const INITIAL_STATE = {
     id: 0,
     currentComponent: IntroImg,
     isHeader: false,
+    isPlay: false,
+    isMenu: false,
   },
   updateUserInfo: () => undefined,
 };

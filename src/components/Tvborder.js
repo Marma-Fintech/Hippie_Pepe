@@ -16,7 +16,7 @@ function Tvborder() {
       <img
         src={border}
         alt="border"
-        style={{ height: "100%", width: "100%", zIndex: 1 }}
+        style={{ height: "100%", width: "100%" }}
       />
     </div>
   );

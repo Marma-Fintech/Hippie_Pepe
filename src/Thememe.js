@@ -6,21 +6,45 @@ import useUserInfo from "../src/Hooks/useUserInfo";
 import Playbutton from "../src/components/buttons/Playbutton";
 import CenterBox from "../src/components/centerBox/centerBox";
 import Play from "../src/assets/images/Path.svg";
+import burgerIcon from "../src/assets/images/burgerIcon.svg";
+import menuClose from "../src/assets/images/menuClose.png";
+import Menu from "../src/Pages/menu/menu";
 
 const Thememe = () => {
-  const { userDetails } = useUserInfo();
+  const { userDetails, updateUserInfo } = useUserInfo();
   console.log(JSON.stringify(userDetails) + "lkjhgfdasdfghjk");
+
+  const toogleTv = () => {
+    updateUserInfo((prev) => {
+      return { ...prev, ...{ isPlay: !userDetails.isPlay } };
+    });
+  };
+
+  const toogleMenu = () => {
+    updateUserInfo((prev) => {
+      return {
+        ...prev,
+        ...{
+          isPlay: false,
+          currentComponent: userDetails.isMenu ? IntroImg : Menu,
+          isMenu: !userDetails.isMenu,
+        },
+      };
+    });
+  };
+
   return (
     <div style={{ height: "100vh", width: "100%", backgroundColor: "black" }}>
-      {/* {userDetails.isHeader && ( */}
-      <div className="box" style={{ height: "7%", width: "100%" }}></div>
-      {/* )} */}
+      {userDetails.isHeader && (
+        <div className="box" style={{ height: "7%", width: "100%" }}></div>
+      )}
       <div
         style={{
-          height: "77%",
+          height: userDetails.isHeader ? "77%" : "84%",
           width: "100%",
           backgroundColor: "black",
           position: "relative",
+          pointerEvents: "none",
         }}
       >
         <div
@@ -33,7 +57,6 @@ const Thememe = () => {
             justifyContent: "center",
           }}
         >
-          {/* <IntroImg /> */}
           {userDetails.currentComponent && <userDetails.currentComponent />}
         </div>
         <Tvborder />
@@ -56,8 +79,8 @@ const Thememe = () => {
             justifyContent: "center",
           }}
         >
-          <div style={{ width: "70%", height: "50%" }}>
-            <Playbutton img={Play} />
+          <div style={{ width: "70%", height: "45%" }}>
+            <Playbutton img={Play} clickFun={toogleTv} />
           </div>
         </div>
         <div
@@ -67,10 +90,6 @@ const Thememe = () => {
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
-            // paddingTop: 5,
-            // paddingBottom: 5,
-            // borderWidth: 2,
-            // borderColor: "red",
           }}
         >
           <div
@@ -83,11 +102,9 @@ const Thememe = () => {
               alignItems: "center",
               justifyContent: "center",
               padding: 5,
-              // paddingRight: 5,
             }}
           >
             <CenterBox />
-            {/* <Playbutton /> */}
           </div>
         </div>
         <div
@@ -102,10 +119,14 @@ const Thememe = () => {
           <div
             style={{
               width: "70%",
-              height: "50%",
+              height: "45%",
             }}
           >
-            <Playbutton />
+            <Playbutton
+              img={userDetails.isMenu ? menuClose : burgerIcon}
+              width="90%"
+              clickFun={toogleMenu}
+            />
           </div>
         </div>
       </div>
