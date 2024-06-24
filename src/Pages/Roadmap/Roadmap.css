@@ -31,14 +31,14 @@
   }
   .roadmap-intro {
     font-family: myFirstFont;
-    font-size: 16px;
+    font-size: 15px;
   }
 .road1
 {
-  margin-top: 80px !important;
+  margin-top: 65px !important;
   padding-left: 10px;
   padding-right: 10px;
-  margin-bottom: 35px;
+  margin-bottom:30px;
 }
 .font-1 h3
 {
@@ -56,16 +56,16 @@ font-size: 16px;
 }
 .svg-line
 {
-  margin-top:60px;
-  margin-left: 30px;
+  margin-top:40px;
+  margin-left: 10px;
 }
 .svg-line1{
-margin-left:-35px;
+margin-left:-40px;
   margin-top: 30px;
 }
 .svg-line2{
-  margin-left: 30px;
-  margin-top: 120px;
+    margin-left: 10px;
+    margin-top: 85px;
 }
 
 .squiggle2 {
@@ -83,7 +83,7 @@ margin-left:-35px;
 
 .svg-content2
 {
-  margin-top: 30px;
+  margin-top: 10px;
   margin-left: -30px;
   margin-right: 30px;
   opacity: 0;

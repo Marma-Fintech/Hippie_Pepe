@@ -41,7 +41,7 @@ const Roadmap = () => {
                     </div>
                     <div className="col-6"> 
                     <div className="text-left pb-0 svg-content font-1">
-                      <h3><span className="dot"></span>Phase 1</h3>
+                      <h3 className="mb-0"><span className="dot"></span>Phase 1</h3>
                    <p className="text-head ">Current phase.
 You are in it.
 Here, we doNothing </p>
@@ -52,7 +52,7 @@ Here, we doNothing </p>
                       <div className="row no-gutters road2">
                       <div className="col-6">
                       <div className="text-left pb-0 svg-content1 font-1">
-                      <h3><span className="dot"></span>Phase 2</h3>
+                      <h3 className="mb-0"><span className="dot"></span>Phase 2</h3>
                    <p className="text-head ">Current phase.
 You are in it.
 Here, we doNothing </p>
@@ -101,7 +101,7 @@ Here, we doNothing </p>
                     </div>
                     <div className="col-6"> 
                     <div className=" text-left pb-0 svg-content2 font-1">
-                    <h3><span className="dot"></span>Phase 3</h3>
+                    <h3 className="mb-0"><span className="dot"></span>Phase 3</h3>
                    <p className="text-head ">Current phase.
 You are in it.
 Here, we doNothing </p>
