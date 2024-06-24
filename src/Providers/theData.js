@@ -5,10 +5,12 @@ const INITIAL_STATE = {
   userDetails: {
     id: 0,
     currentComponent: IntroImg,
+    currentComponentText: "IntroImg",
     isHeader: false,
     isPlay: false,
     isMenu: false,
-    lastComponent: "",
+    lastComponent: IntroImg,
+    lastComponentText: "IntroImg",
   },
   updateUserInfo: () => undefined,
 };

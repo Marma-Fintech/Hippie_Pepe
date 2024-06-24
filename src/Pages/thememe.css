@@ -6,13 +6,15 @@
     rgba(0, 0, 0, 0.2)
   );
   box-shadow: #595959 3px 3px 4px 0px inset;
-  /* border-left: 3px solid #666666;
-  border-top: 3px solid #666666; */
 }
 .centerBox {
   border-radius: 5px;
-  /* background-color: red; */
-  /* border-width: 2px;
-  border-color: white; */
   border: 2.5px solid #cccccc;
 }
+
+.homeCenterButton {
+  color: rgb(41, 173, 48);
+  font-family: myFirstFont;
+  font-weight: 400;
+}
+/* rgb(1, 39, 3) */

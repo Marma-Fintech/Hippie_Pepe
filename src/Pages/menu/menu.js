@@ -1,7 +1,7 @@
 import React from "react";
 import "./menu.css";
 import useUserInfo from "../../Hooks/useUserInfo";
-import About from "../About/about";
+import AboutPage from "../About/about";
 import Social from "../Social/Social";
 import Token from "../Token/Token";
 import Roadmap from "../Roadmap/Roadmap";
@@ -9,48 +9,15 @@ import Roadmap from "../Roadmap/Roadmap";
 const Menu = () => {
   const { userDetails, updateUserInfo } = useUserInfo();
 
-  const gotoAbout = () => {
+  const goToThePage = (component, name) => {
     updateUserInfo((prev) => {
       return {
         ...prev,
         ...{
-          currentComponent: About,
-          isMenu: !userDetails.isMenu,
-        },
-      };
-    });
-  };
-
-  const gotoSocial = () => {
-    updateUserInfo((prev) => {
-      return {
-        ...prev,
-        ...{
-          currentComponent: Social,
-          isMenu: !userDetails.isMenu,
-        },
-      };
-    });
-  };
-
-  const gotoToken = () => {
-    updateUserInfo((prev) => {
-      return {
-        ...prev,
-        ...{
-          currentComponent: Token,
-          isMenu: !userDetails.isMenu,
-        },
-      };
-    });
-  };
-
-  const gotoRoadmap = () => {
-    updateUserInfo((prev) => {
-      return {
-        ...prev,
-        ...{
-          currentComponent: Roadmap,
+          currentComponent: component,
+          currentComponentText: name,
+          lastComponent: userDetails.currentComponent,
+          lastComponentText: userDetails.currentComponentText,
           isMenu: !userDetails.isMenu,
         },
       };
@@ -85,7 +52,7 @@ const Menu = () => {
             padding: "6%",
           }}
           onClick={() => {
-            gotoAbout();
+            goToThePage(AboutPage, "AboutPage");
           }}
         >
           <p className="textColor">About</p>
@@ -96,7 +63,7 @@ const Menu = () => {
             padding: "6%",
           }}
           onClick={() => {
-            gotoRoadmap();
+            goToThePage(Roadmap, "RoadmapPage");
           }}
         >
           <p className="textColor">Road Map</p>
@@ -107,7 +74,7 @@ const Menu = () => {
             padding: "6%",
           }}
           onClick={() => {
-            gotoToken();
+            goToThePage(Token, "TokenPage");
           }}
         >
           <p className="textColor">Token</p>
@@ -118,7 +85,7 @@ const Menu = () => {
             padding: "6%",
           }}
           onClick={() => {
-            gotoSocial();
+            goToThePage(Social, "SocialPage");
           }}
         >
           <p className="textColor">Social</p>

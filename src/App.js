@@ -1,6 +1,6 @@
 import logo from "./logo.svg";
 import "./App.css";
-import Thememe from "./Thememe";
+import Thememe from "./Pages/Thememe";
 import { UserInfoProvider } from "../src/Providers/theData";
 
 function App() {
