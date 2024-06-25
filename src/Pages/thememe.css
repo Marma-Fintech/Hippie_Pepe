@@ -21,5 +21,10 @@ background-size: 18px 3px;
   color: rgb(41, 173, 48);
   font-family: myFirstFont;
   font-weight: 400;
+  background-image: url("../assets/images/Rectangle.png");
+  background-position: center;
+  object-fit: contain;
+  background-repeat: none;
+  background-size: 100%, 100%;
 }
 /* rgb(1, 39, 3) */
