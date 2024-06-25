@@ -38,7 +38,8 @@ const UpdateProfile = () => {
 
   return (
     <div className="div menupointer">
-      <div className="div-2">Choose your meme profile Picture</div>
+      // <div className="div-2">Choose your meme profile Picture</div>
+    <img src={profileText} />
       <div className="div-3">
         {images.slice(0, 3).map((image, index) => (
           <img
