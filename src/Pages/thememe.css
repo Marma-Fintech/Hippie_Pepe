@@ -24,7 +24,7 @@ background-size: 18px 3px;
   background-image: url("../assets/images/Rectangle.png");
   background-position: center;
   object-fit: contain;
-  background-repeat: none;
+  background-repeat:no-repeat;
   background-size: 100%, 100%;
 }
 /* rgb(1, 39, 3) */
