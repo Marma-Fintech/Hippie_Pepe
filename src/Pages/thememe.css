@@ -25,6 +25,6 @@ background-size: 18px 3px;
   background-position: center;
   object-fit: contain;
   background-repeat:no-repeat;
-  background-size: 100%, 100%;
+  /* background-size: 100%, 100%; */
 }
 /* rgb(1, 39, 3) */
