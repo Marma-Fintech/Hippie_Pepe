@@ -1,3 +1,9 @@
+@font-face {
+  font-family: myFirstFont;
+  src: url("../../assets/FontFamily/VCR_OSD_MONO_1.001.ttf");
+}
+
+
 .div {
   display: flex;
   flex-direction: column;
@@ -7,6 +13,7 @@
   aspect-ratio: 0.58;
   max-width: 333px;
   padding: 80px 29px;
+  font-family: myFirstFont;
   margin-left: 40px;
 }
 .img {
@@ -18,9 +25,12 @@
   object-position: center;
 }
 .div-2 {
+  font-family: myFirstFont;
   position: relative;
   text-align: center;
-  text-shadow: 0px 2px 0px #fa0280;
+  font-size: 20px;
+  padding: 0px 70px;
+  /* text-shadow: 0px 2px 0px #fa0280; */
   text-transform: uppercase;
   background-clip: text;
   -webkit-background-clip: text;
@@ -39,12 +49,11 @@
     )
   );
   margin-top: 9px;
-  font: 400 24px/29px VCR OSD Mono, -apple-system, Roboto, Helvetica, sans-serif;
 }
 .div-3 {
   position: relative;
   display: flex;
-  margin-top: 38px;
+  margin-top:25px;
   align-items: start;
   gap: 19px;
 }
