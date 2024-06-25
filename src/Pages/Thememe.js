@@ -114,7 +114,7 @@ const Thememe = () => {
             justifyContent: "center",
           }}
         >
-          <div style={{ width: "70%", height: "45%" }}>
+          <div style={{ width: "80%", height: "50%" }}>
             <Playbutton width="50%" img={Invite} clickFun={toogleTv} />
           </div>
         </div>
@@ -192,8 +192,8 @@ const Thememe = () => {
         >
           <div
             style={{
-              width: "70%",
-              height: "45%",
+              width: "80%",
+              height: "50%",
             }}
           >
             <Playbutton
