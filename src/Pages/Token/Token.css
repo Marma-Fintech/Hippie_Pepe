@@ -25,7 +25,7 @@
 }
 .Tokenpara1 {
   font-family: myFirstFont;
-  font-size: 14px;
+  font-size: 15px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -78,12 +78,12 @@
 .TokenPadding {
   font-family: myFirstFont;
   padding: 0px 15px 0px 15px;
-  font-size: 12px;
+  font-size: 15px;
   margin-top: 30px;
 }
 
 .TokenPadding2 {
   font-family: myFirstFont;
   padding: 0px 15px 0px 15px;
-  font-size: 12px;
+  font-size: 15px;
 }

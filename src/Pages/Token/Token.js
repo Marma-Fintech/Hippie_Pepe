@@ -26,7 +26,7 @@ const Token = () => {
             className="Tokenintro"
             style={{ width: "100%", paddingLeft: "10px" }}
           >
-            <p style={{ textAlign: "start" }}>Token supply</p>
+            <p style={{ textAlign: "start", fontSize:"15px" }}>Token supply</p>
             <p className="tokenstyle" style={{ textAlign: "start" }}>
               999,999,999,999,999 HPTV
             </p>
