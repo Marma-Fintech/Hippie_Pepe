@@ -13,10 +13,10 @@ import IntroPage from "./IntroPage/IntroPage";
 import UsernamePage from "./Username/Username";
 import ProfilePicture from "./ProfilePicture/ProfilePicture";
 import ExplainPage from "./ExplainPage/ExplainPage";
+import Tv from "./Tv/Tv";
 
 const Thememe = () => {
   const { userDetails, updateUserInfo } = useUserInfo();
-  console.log(JSON.stringify(userDetails) + "lkjhgfdasdfghjk");
 
   const toogleTv = () => {
     updateUserInfo((prev) => {
@@ -156,6 +156,9 @@ const Thememe = () => {
                   if (userDetails.currentComponentText === "ProfilePicture") {
                     goToThePage(ExplainPage, "ExplainPage");
                   }
+                  if (userDetails.currentComponentText === "ExplainPage") {
+                    goToThePage(Tv, "TVPage");
+                  }
                 }}
                 className="homeCenterButton"
                 style={{
@@ -177,6 +180,7 @@ const Thememe = () => {
                 {userDetails.currentComponentText === "ExplainPage"
                   ? "LET'S START"
                   : ""}
+                {}
               </div>
             )}
           </div>
