@@ -44,7 +44,7 @@ const Username = () => {
       <div
         className="inputContainer"
         style={{
-          height: "45%",
+          height: "200px",
           width: "100%",
         }}
       >
