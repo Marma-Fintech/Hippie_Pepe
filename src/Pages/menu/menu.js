@@ -40,6 +40,7 @@ const Menu = () => {
       <div
         style={{
           height: "80%",
+          width : "50%",  
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
@@ -90,7 +91,7 @@ const Menu = () => {
         >
           <p className="textColor">Social</p>
         </div>
-        <div
+        {/* <div
           onClick={() => {
             console.log("hiii");
           }}
@@ -101,7 +102,7 @@ const Menu = () => {
           }}
         >
           <p className="textColor">Refer & Earn</p>
-        </div>
+        </div> */}
       </div>
     </div>
   );
