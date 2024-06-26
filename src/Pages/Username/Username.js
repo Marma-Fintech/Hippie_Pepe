@@ -18,7 +18,7 @@ const Username = () => {
   }, [name]);
 
   useEffect(() => {
-    if (name.length > 3) {
+    if (code.length > 6) {
       setCodeStatus("success");
       console.log("success");
     } else {
@@ -79,7 +79,7 @@ const Username = () => {
                   height: "100%",
                   width: "50px",
                   position: "absolute",
-                  top: 0,
+                  top: 2,
                   right: 60,
                 }}
               >
@@ -110,9 +110,9 @@ const Username = () => {
                 backgroundColor: "rgba(38, 38, 38, 1)",
                 color: "white",
                 borderColor:
-                  isNameStatus === "success"
+                  codeStatus === "success"
                     ? "rgba(76, 240, 56, 1)"
-                    : isNameStatus === "empty"
+                    : codeStatus === "empty"
                     ? "rgba(121, 121, 121, 1)"
                     : "rgba(121, 121, 121, 1)",
               }}
@@ -121,20 +121,26 @@ const Username = () => {
                 setCode(e.target.value);
               }}
             />
-            <div
-              style={{
-                height: "100%",
-                width: "50px",
-                position: "absolute",
-                top: 0,
-                right: 60,
-              }}
-            >
-              <img
-                src={tick}
-                style={{ height: "100%", width: "100%", objectFit: "contain" }}
-              />
-            </div>
+            {codeStatus === "success" && (
+              <div
+                style={{
+                  height: "100%",
+                  width: "50px",
+                  position: "absolute",
+                  top: 2,
+                  right: 60,
+                }}
+              >
+                <img
+                  src={tick}
+                  style={{
+                    height: "100%",
+                    width: "100%",
+                    objectFit: "contain",
+                  }}
+                />
+              </div>
+            )}
           </div>
         </div>
       </div>
