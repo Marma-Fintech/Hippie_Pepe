@@ -6,7 +6,7 @@ const INITIAL_STATE = {
     id: 0,
     currentComponent: IntroImg,
     currentComponentText: "IntroImg",
-    isHeader: false,
+    isHeader: true,
     isPlay: false,
     isMenu: false,
     lastComponent: IntroImg,
