@@ -14,6 +14,7 @@ import UsernamePage from "./Username/Username";
 import ProfilePicture from "./ProfilePicture/ProfilePicture";
 import ExplainPage from "./ExplainPage/ExplainPage";
 import Tv from "./Tv/Tv";
+import Header from "./Header/Header";
 
 const Thememe = () => {
   const { userDetails, updateUserInfo } = useUserInfo();
@@ -71,7 +72,9 @@ const Thememe = () => {
   return (
     <div style={{ height: "100vh", width: "100%", backgroundColor: "black" }}>
       {userDetails.isHeader && (
-        <div className="box" style={{ height: "7%", width: "100%" }}></div>
+        <div className="box" style={{ height: "7%", width: "100%" }}>
+          <Header />
+        </div>
       )}
       <div
         style={{
