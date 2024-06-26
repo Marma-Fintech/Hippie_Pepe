@@ -72,6 +72,16 @@
 .user-introtext {
   padding: 20px 40px 0px 40px;
 }
+
 .inputStyle {
   border: 0.6px solid rgba(121, 121, 121, 1);
+  padding: 0 35px 0 10px;
+}
+
+.inputStyle :active {
+  border: none;
+}
+
+.input-field {
+  position: relative;
 }

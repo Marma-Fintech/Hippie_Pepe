@@ -1,17 +1,17 @@
 import React, { useState } from "react";
 import "./ProfilePicture.css";
-import profileImage from "../../assets/profile.png";
-import profileImage1 from "../../assets/profile1.png";
-import profileImage2 from "../../assets/profile2.png";
-import profileImage3 from "../../assets/profile3.png";
-import profileImage4 from "../../assets/profile4.png";
-import profileImage5 from "../../assets/profile5.png";
-import profileImage6 from "../../assets/profile6.png";
-import profileImage7 from "../../assets/profile7.png";
-import profileImage8 from "../../assets/profile8.png";
-import profileImage9 from "../../assets/profile9.png";
-import profileImage10 from "../../assets/profile10.png";
-import profileImage11 from "../../assets/profile11.png";
+import profileImage from "../../assets/images/profile.png";
+import profileImage1 from "../../assets/images/profile1.png";
+import profileImage2 from "../../assets/images/profile2.png";
+import profileImage3 from "../../assets/images/profile3.png";
+import profileImage4 from "../../assets/images/profile4.png";
+import profileImage5 from "../../assets/images/profile5.png";
+import profileImage6 from "../../assets/images/profile6.png";
+import profileImage7 from "../../assets/images/profile7.png";
+import profileImage8 from "../../assets/images/profile8.png";
+import profileImage9 from "../../assets/images/profile9.png";
+import profileImage10 from "../../assets/images/profile10.png";
+import profileImage11 from "../../assets/images/profile11.png";
 
 const UpdateProfile = () => {
   const [selectedImage, setSelectedImage] = useState(null);
@@ -37,17 +37,18 @@ const UpdateProfile = () => {
   ];
 
   return (
-    <div  className="menupointer"
-    style={{
-      height: "100%",
-      width: "100%",
-      display: "flex",
-      alignItems: "center",
-      justifyContent: "center",
-      flexDirection: "column",
-      pointerEvents: "all",
-    }}
-  >
+    <div
+      className="menupointer"
+      style={{
+        height: "100%",
+        width: "100%",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        flexDirection: "column",
+        pointerEvents: "all",
+      }}
+    >
       <div className="div-2 text-head">Choose your meme profile Picture</div>
       <div className="div-3">
         {images.slice(0, 3).map((image, index) => (
