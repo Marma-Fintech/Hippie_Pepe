@@ -2,7 +2,7 @@ import React from "react";
 import "./button.css";
 
 const Playbutton = (props) => {
-  console.log(props);
+  // console.log(props);
   return (
     <div
       onClick={() => {

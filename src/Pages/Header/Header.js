@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Info from "../Info/Info";
 import "./Header.css";
 import useUserInfo from "../../Hooks/useUserInfo";
@@ -7,7 +7,8 @@ import mtvLogo from "../../assets/images/logo.png";
 
 const Header = () => {
   const { userDetails, updateUserInfo } = useUserInfo();
-  console.log(userDetails);
+
+  // console.log(userDetails);
   const goToThePage = (component, name) => {
     updateUserInfo((prev) => {
       return {
@@ -62,7 +63,8 @@ const Header = () => {
               </li>
               <li className="nav-bar token">
                 <img src={mtvLogo} style={{ width: "30px" }} />
-                &nbsp;2536 Mtv
+                {/* &nbsp;2536 Mtv */}
+                {userDetails.telegramDetails.id}
               </li>
               <li className="nav-bar profile">
                 <img src={mtvLogo} style={{ width: "35px" }} />

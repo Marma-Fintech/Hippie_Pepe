@@ -25,7 +25,7 @@ const Thememe = () => {
       const response = await axios.get(
         "https://hippie-pepe-be.onrender.com/user-details"
       );
-      // console.log(response.data);
+      console.log(response.data);
       updateUserInfo((prev) => {
         return {
           ...prev,
