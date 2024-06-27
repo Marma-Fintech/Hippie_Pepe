@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Tvborder from "../components/Tvborder";
 import "./thememe.css";
 import IntroImg from "../components/introImg/introImg";
@@ -15,9 +15,31 @@ import ProfilePicture from "./ProfilePicture/ProfilePicture";
 import ExplainPage from "./ExplainPage/ExplainPage";
 import Tv from "./Tv/Tv";
 import Header from "./Header/Header";
+import axios from "axios";
 
 const Thememe = () => {
   const { userDetails, updateUserInfo } = useUserInfo();
+
+  const fetchUserDetails = async () => {
+    try {
+      const response = await axios.get("http://localhost:3001/user-details");
+      // console.log(response.data);
+      updateUserInfo((prev) => {
+        return {
+          ...prev,
+          ...{
+            telegramDetails: response.data,
+          },
+        };
+      });
+    } catch (error) {
+      console.error("There was an error fetching the user details!", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchUserDetails();
+  }, []);
 
   const toogleTv = () => {
     updateUserInfo((prev) => {

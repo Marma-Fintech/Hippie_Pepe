@@ -4,7 +4,7 @@ import useUserInfo from "../../Hooks/useUserInfo";
 
 const Header = () => {
   const { userDetails, updateUserInfo } = useUserInfo();
-
+  console.log(userDetails);
   const goToThePage = (component, name) => {
     updateUserInfo((prev) => {
       return {
@@ -25,9 +25,11 @@ const Header = () => {
       onClick={() => {
         goToThePage(Info, "InfoPage");
       }}
-      style={{ color: "white" }}
+      style={{ color: "white", display: "flex", flexDirection: "row" }}
     >
-      Header
+      {/* Header */}
+      <p style={{ color: "white" }}>{userDetails.telegramDetails.firstName}</p>
+      <p>{userDetails.telegramDetails.id}</p>
     </div>
   );
 };
