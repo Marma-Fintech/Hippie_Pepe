@@ -7,7 +7,7 @@ import mtvLogo from "../../assets/images/logo.png";
 
 const Header = () => {
   const { userDetails, updateUserInfo } = useUserInfo();
-
+  console.log(userDetails);
   const goToThePage = (component, name) => {
     updateUserInfo((prev) => {
       return {
@@ -38,6 +38,7 @@ const Header = () => {
             <ul className="top-bar align-items-center d-flex gap-2">
               <li className="nav-bar" onClick={() => {
         goToThePage(Info, "InfoPage");
+<<<<<<< HEAD
       }} >
                 <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
 <g clip-path="url(#clip0_1550_1471)">
@@ -59,6 +60,14 @@ const Header = () => {
        
         </div>
     
+=======
+      }}
+      style={{ color: "white", display: "flex", flexDirection: "row" }}
+    >
+      {/* Header */}
+      <p style={{ color: "white" }}>{userDetails.telegramDetails.firstName}</p>
+      <p>{userDetails.telegramDetails.id}</p>
+>>>>>>> 8999fca3129453b2ad7eb055c8c694d3d97ea488
     </div>
     </div>
    

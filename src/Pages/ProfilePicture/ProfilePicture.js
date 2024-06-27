@@ -1,17 +1,17 @@
 import React, { useState } from "react";
 import "./ProfilePicture.css";
-import profileImage from "../../assets/images/profile.png";
-import profileImage1 from "../../assets/images/profile1.png";
-import profileImage2 from "../../assets/images/profile2.png";
-import profileImage3 from "../../assets/images/profile3.png";
-import profileImage4 from "../../assets/images/profile4.png";
-import profileImage5 from "../../assets/images/profile5.png";
-import profileImage6 from "../../assets/images/profile6.png";
-import profileImage7 from "../../assets/images/profile7.png";
-import profileImage8 from "../../assets/images/profile8.png";
-import profileImage9 from "../../assets/images/profile9.png";
-import profileImage10 from "../../assets/images/profile10.png";
-import profileImage11 from "../../assets/images/profile11.png";
+import profileImage from "../../assets/Profileicons/doge-1.png";
+import profileImage1 from "../../assets/Profileicons/doge-2.png";
+import profileImage2 from "../../assets/Profileicons/doge-3.png";
+import profileImage3 from "../../assets/Profileicons/doge-4.png";
+import profileImage4 from "../../assets/Profileicons/doge-5.png";
+import profileImage5 from "../../assets/Profileicons/doge-6.png";
+import profileImage6 from "../../assets/Profileicons/doge-7.png";
+import profileImage7 from "../../assets/Profileicons/doge-8.png";
+import profileImage8 from "../../assets/Profileicons/doge-9.png";
+import profileImage9 from "../../assets/Profileicons/doge-10.png";
+import profileImage10 from "../../assets/Profileicons/doge.png";
+import profileImage11 from "../../assets/Profileicons/doge copy.png";
 
 const UpdateProfile = () => {
   const [selectedImage, setSelectedImage] = useState(null);

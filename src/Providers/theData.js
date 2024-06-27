@@ -4,6 +4,7 @@ import IntroImg from "../components/introImg/introImg";
 const INITIAL_STATE = {
   userDetails: {
     id: 0,
+    telegramDetails: {},
     currentComponent: IntroImg,
     currentComponentText: "IntroImg",
     isHeader: true,
