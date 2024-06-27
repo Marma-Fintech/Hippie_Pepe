@@ -63,7 +63,7 @@ const Header = () => {
               </li>
               <li className="nav-bar token">
                 <img src={mtvLogo} style={{ width: "30px" }} />
-                {/* &nbsp;2536 Mtv */}
+                &nbsp;2536 Mtv
                 {userDetails.telegramDetails.id}
               </li>
               <li className="nav-bar profile">
@@ -74,10 +74,10 @@ const Header = () => {
         </div>
         {/* style={{ color: "white", display: "flex", flexDirection: "row" }} */}
         {/* Header */}
-        <p style={{ color: "white" }}>
+        {/* <p style={{ color: "white" }}>
           {userDetails.telegramDetails.firstName}
         </p>
-        <p>{userDetails.telegramDetails.id}</p>
+        <p>{userDetails.telegramDetails.id}</p> */}
       </div>
     </div>
   );
