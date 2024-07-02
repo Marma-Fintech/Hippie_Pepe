@@ -1,7 +1,7 @@
 import React from "react";
 
 const OpenTelegramBot = ({ onClick }) => {
-  const botUsername = "degenTv"; // Replace with your bot's username
+  const botUsername = "degenTvBot"; // Replace with your bot's username
 
   const handleClick = (e) => {
     e.preventDefault();
