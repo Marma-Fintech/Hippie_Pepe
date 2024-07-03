@@ -23,8 +23,8 @@ const Thememe = () => {
   const fetchUserDetails = async () => {
     try {
       const response = await axios.get(
-        // "https://hippie-pepe-be.onrender.com/user-details"
-        "http://localhost:3001/user-details"
+        "https://hippie-pepe-be.onrender.com/user-details"
+        // "http://localhost:3001/user-details"
       );
       console.log(response.data);
       updateUserInfo((prev) => {
