@@ -20,29 +20,29 @@ import axios from "axios";
 const Thememe = () => {
   const { userDetails, updateUserInfo } = useUserInfo();
 
-  const fetchUserDetails = async () => {
-    try {
-      const response = await axios.get(
-        "https://hippie-pepe-be.onrender.com/user-details"
-        // "http://localhost:3001/user-details"
-      );
-      console.log(response.data);
-      updateUserInfo((prev) => {
-        return {
-          ...prev,
-          ...{
-            telegramDetails: response.data,
-          },
-        };
-      });
-    } catch (error) {
-      console.error("There was an error fetching the user details!", error);
-    }
-  };
+  // const fetchUserDetails = async () => {
+  //   try {
+  //     const response = await axios.get(
+  //       "https://hippie-pepe-be.onrender.com/user-details"
+  //       // "http://localhost:3001/user-details"
+  //     );
+  //     console.log(response.data);
+  //     updateUserInfo((prev) => {
+  //       return {
+  //         ...prev,
+  //         ...{
+  //           telegramDetails: response.data,
+  //         },
+  //       };
+  //     });
+  //   } catch (error) {
+  //     console.error("There was an error fetching the user details!", error);
+  //   }
+  // };
 
-  useEffect(() => {
-    fetchUserDetails();
-  }, []);
+  // useEffect(() => {
+  //   fetchUserDetails();
+  // }, []);
 
   const toogleTv = () => {
     updateUserInfo((prev) => {

@@ -8,6 +8,30 @@ import mtvLogo from "../../assets/images/logo.png";
 const Header = () => {
   const { userDetails, updateUserInfo } = useUserInfo();
 
+  useEffect(() => {
+    // Initialize the Telegram WebApp
+    window.Telegram.WebApp.ready();
+
+    // Fetch user details
+    const userData = window.Telegram.WebApp.initDataUnsafe.user;
+
+    if (userData) {
+      // setUser(userData);
+      updateUserInfo((prev) => {
+        return {
+          ...prev,
+          ...{
+            telegramDetails: userData,
+          },
+        };
+      });
+
+      console.log("User data  available." + JSON.stringify(userData));
+    } else {
+      console.log("User data not available.");
+    }
+  }, []);
+
   // console.log(userDetails);
   const goToThePage = (component, name) => {
     updateUserInfo((prev) => {
