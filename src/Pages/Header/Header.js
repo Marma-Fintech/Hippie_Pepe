@@ -63,7 +63,7 @@ const Header = () => {
               </li>
               <li className="nav-bar token">
                 <img src={mtvLogo} style={{ width: "30px" }} />
-                &nbsp;2536 Mtv
+                {/* &nbsp;2536 Mtv */}
                 {userDetails.telegramDetails.id}
               </li>
               <li className="nav-bar profile">
