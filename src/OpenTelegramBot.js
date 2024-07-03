@@ -1,23 +1,23 @@
-// import React from "react";
+import React from "react";
 
-// const OpenTelegramBot = ({ onClick }) => {
-//   const botUsername = "degenTvBot"; // Replace with your bot's username
+const OpenTelegramBot = () => {
+  const botUsername = "degenTvBot"; // Your bot's username
 
-//   const handleClick = (e) => {
-//     e.preventDefault();
-//     // Set a flag in session storage to indicate the link was clicked
-//     sessionStorage.setItem("visitedTelegramBot", "true");
-//     // Open Telegram bot in the same window
-//     window.location.href = `https://t.me/${botUsername}`;
-//   };
+  const handleClick = (e) => {
+    e.preventDefault();
+    // Set a flag in local storage to indicate the link was clicked
+    localStorage.setItem("visitedTelegramBot", "true");
+    // Open Telegram bot in the same window with a query parameter
+    window.location.href = `https://t.me/${botUsername}`;
+  };
 
-//   return (
-//     <div>
-//       <a href={`https://t.me/${botUsername}`} onClick={handleClick}>
-//         Open Telegram Bot
-//       </a>
-//     </div>
-//   );
-// };
+  return (
+    <div>
+      <a href={`https://t.me/${botUsername}`} onClick={handleClick}>
+        Open Telegram Bot
+      </a>
+    </div>
+  );
+};
 
-// export default OpenTelegramBot;
+export default OpenTelegramBot;
