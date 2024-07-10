@@ -20,6 +20,28 @@ import axios from "axios";
 const Thememe = () => {
   const { userDetails, updateUserInfo } = useUserInfo();
 
+  const handleShare = async () => {
+    console.log("sdfghjkl;");
+    if (navigator.share) {
+      try {
+        await navigator.share({
+          title: "Join me on this platform!",
+          text: "Check out this awesome platform using my referral link.",
+          url: "https://t.me/mytestgetDetailsbot?start=34343456724",
+        });
+        console.log("Shared successfully");
+      } catch (error) {
+        console.error("Error sharing:", error);
+      }
+    } else {
+      // Fallback for browsers that don't support the Web Share API
+      navigator.clipboard.writeText(
+        "https://t.me/mytestgetDetailsbot?start=34343456724"
+      );
+      alert("Referral link copied to clipboard!");
+    }
+  };
+
   // const fetchUserDetails = async () => {
   //   try {
   //     const response = await axios.get(
@@ -143,7 +165,7 @@ const Thememe = () => {
           }}
         >
           <div style={{ width: "80%", height: "50%" }}>
-            <Playbutton width="50%" img={Invite} clickFun={toogleTv} />
+            <Playbutton width="50%" img={Invite} clickFun={handleShare} />
           </div>
         </div>
         <div

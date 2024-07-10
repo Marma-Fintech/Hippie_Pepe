@@ -7,6 +7,16 @@ import mtvLogo from "../../assets/images/logo.png";
 
 const Header = () => {
   const { userDetails, updateUserInfo } = useUserInfo();
+  const [refId, setRefId] = useState("");
+  useEffect(() => {
+    // Parse the URL to get the referral code
+    const urlParams = new URLSearchParams(window.location.search);
+    const referredIdFromUrl = urlParams.get("start");
+    // if (referredIdFromUrl) {
+    setRefId(referredIdFromUrl);
+    console.log(referredIdFromUrl + " referredIdFromUrl  ");
+    // }
+  }, []);
 
   useEffect(() => {
     // Initialize the Telegram WebApp
@@ -86,9 +96,13 @@ const Header = () => {
                 </svg>
               </li>
               <li className="nav-bar token">
-                <img src={mtvLogo} style={{ width: "30px" }} />
+                <img
+                  src={mtvLogo}
+                  style={{ width: "30px", fontSize: "10px" }}
+                />
                 {/* &nbsp;2536 Mtv */}
                 {userDetails.telegramDetails.id}
+                {refId}
               </li>
               <li className="nav-bar profile">
                 <img src={mtvLogo} style={{ width: "35px" }} />
