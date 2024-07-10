@@ -16,6 +16,7 @@ import ExplainPage from "./ExplainPage/ExplainPage";
 import Tv from "./Tv/Tv";
 import Header from "./Header/Header";
 import axios from "axios";
+import InvitePage from "./Invite/Invite";
 
 const Thememe = () => {
   const { userDetails, updateUserInfo } = useUserInfo();
@@ -165,7 +166,11 @@ const Thememe = () => {
           }}
         >
           <div style={{ width: "80%", height: "50%" }}>
-            <Playbutton width="50%" img={Invite} clickFun={handleShare} />
+            <Playbutton
+              width="50%"
+              img={Invite}
+              clickFun={goToThePage(InvitePage, "InvitePage")}
+            />
           </div>
         </div>
         <div
@@ -230,7 +235,6 @@ const Thememe = () => {
                 {userDetails.currentComponentText === "ExplainPage"
                   ? "LET'S START"
                   : ""}
-                {}
               </div>
             )}
           </div>

@@ -3,7 +3,7 @@ import IntroImg from "../components/introImg/introImg";
 
 const INITIAL_STATE = {
   userDetails: {
-    id: 0,
+    id: 1,
     telegramDetails: {},
     currentComponent: IntroImg,
     currentComponentText: "IntroImg",
