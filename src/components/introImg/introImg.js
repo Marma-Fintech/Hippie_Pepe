@@ -1,6 +1,7 @@
 import React from "react";
 import introLogo from "../../assets/images/introLogo.png";
 import "./introImg.css"; // Make sure this path is correct
+import introScreen from "../../assets/images/IntroScreen.png";
 
 const IntroImg = () => {
   return (
@@ -11,13 +12,12 @@ const IntroImg = () => {
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
-        // backgroundColor: "red",
       }}
     >
       <img
-        src={introLogo}
-        className="grow-img"
-        style={{ width: "200px" }}
+        src={introScreen}
+        // className="grow-img"
+        style={{ width: "300px" }}
         alt="border"
       />
     </div>

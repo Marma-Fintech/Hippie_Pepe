@@ -31,3 +31,6 @@
 .bottomtab {
   padding: 0 10px;
 }
+.bottomImg {
+  transform: rotateX("10");
+}

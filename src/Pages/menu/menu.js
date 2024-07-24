@@ -5,6 +5,7 @@ import AboutPage from "../About/about";
 import Social from "../Social/Social";
 import Token from "../Token/Token";
 import Roadmap from "../Roadmap/Roadmap";
+import Task from "../Task/Task";
 
 const Menu = () => {
   const { userDetails, updateUserInfo } = useUserInfo();
@@ -40,7 +41,7 @@ const Menu = () => {
       <div
         style={{
           height: "80%",
-          width : "50%",  
+          width: "50%",
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
@@ -91,9 +92,9 @@ const Menu = () => {
         >
           <p className="textColor">Social</p>
         </div>
-        {/* <div
+        <div
           onClick={() => {
-            console.log("hiii");
+            goToThePage(Task, "Task");
           }}
           className="menuButton"
           style={{
@@ -101,8 +102,8 @@ const Menu = () => {
             paddingBottom: "6%",
           }}
         >
-          <p className="textColor">Refer & Earn</p>
-        </div> */}
+          <p className="textColor">Task</p>
+        </div>
       </div>
     </div>
   );
