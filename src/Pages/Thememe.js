@@ -191,6 +191,9 @@ const Thememe = () => {
                 width: "60%",
                 marginBottom: "10px",
               }}
+              onClick={() => {
+                goToThePage(Tv, "TVPage");
+              }}
             >
               <div
                 style={{
