@@ -3,7 +3,13 @@ import border from "../assets/images/Frame 21.png";
 
 function Tvborder() {
   return (
-    <div style={{ position: "relative", height: "100%", width: "100%" }}>
+    <div
+      style={{
+        position: "relative",
+        height: "100%",
+        width: "100%",
+      }}
+    >
       {/* <div
         style={{
           position: "absolute",

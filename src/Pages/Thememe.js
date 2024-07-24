@@ -17,6 +17,10 @@ import Tv from "./Tv/Tv";
 import Header from "./Header/Header";
 import axios from "axios";
 import InvitePage from "./Invite/Invite";
+import bottomShape from "../assets/images/bottomshapemain.png";
+import bottomLeft from "../assets/images/RectangleLeft.png";
+import bottomRight from "../assets/images/RectangleRight.png";
+import bottomcenter from "../assets/images/bottomcenter.png";
 
 const Thememe = () => {
   const { userDetails, updateUserInfo } = useUserInfo();
@@ -118,7 +122,15 @@ const Thememe = () => {
   };
 
   return (
-    <div style={{ height: "100vh", width: "100%", backgroundColor: "black" }}>
+    <div
+      style={{
+        height: "100vh",
+        width: "100%",
+        backgroundColor: "black",
+        position: "relative",
+        overflow: "hidden",
+      }}
+    >
       {userDetails.isHeader && (
         <div className="box" style={{ height: "7%", width: "100%" }}>
           <Header />
@@ -126,7 +138,104 @@ const Thememe = () => {
       )}
       <div
         style={{
-          height: userDetails.isHeader ? "77%" : "84%",
+          position: "absolute",
+          zIndex: 1,
+          height: "17%",
+          width: "100%",
+          bottom: 0,
+          overflow: "hidden",
+        }}
+      >
+        <div style={{ position: "relative", height: "100%" }}>
+          <div style={{ position: "absolute", height: "100%" }}>
+            <img
+              src={bottomShape}
+              alt="border"
+              style={{ height: "100%", width: "100%" }}
+              className="bottomImg"
+            />
+          </div>
+          <div
+            className="bottomtab"
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              height: "100%",
+              width: "100%",
+              position: "absolute",
+              alignItems: "flex-end",
+            }}
+          >
+            <div
+              style={{
+                height: "80%",
+                width: "20%",
+                position: "relative",
+                marginBottom: "10px",
+              }}
+            >
+              <div
+                style={{ position: "absolute", height: "100%", width: "100%" }}
+              >
+                <img
+                  src={bottomLeft}
+                  alt="border"
+                  style={{ height: "100%", width: "100%" }}
+                  className="bottomImg"
+                />
+              </div>
+            </div>
+            <div
+              style={{
+                height: "100%",
+                width: "60%",
+                marginBottom: "10px",
+              }}
+            >
+              <div
+                style={{
+                  position: "absolute",
+                  height: "100%",
+                  width: "100%",
+                  left: 72,
+                  display: "flex",
+                  alignItems: "end",
+                }}
+              >
+                <img
+                  src={bottomcenter}
+                  alt="border"
+                  style={{ height: "85%", width: "63%" }}
+                  className="bottomImg"
+                />
+              </div>
+            </div>
+            <div
+              style={{
+                height: "80%",
+                width: "20%",
+                position: "relative",
+
+                marginBottom: "10px",
+              }}
+            >
+              <div
+                style={{ position: "absolute", height: "100%", width: "100%" }}
+              >
+                <img
+                  src={bottomRight}
+                  alt="border"
+                  style={{ height: "100%", width: "100%" }}
+                  className="bottomImg"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        style={{
+          height: userDetails.isHeader ? "77%" : "86%",
           width: "100%",
           backgroundColor: "black",
           position: "relative",
@@ -154,9 +263,19 @@ const Thememe = () => {
           width: "100%",
           display: "flex",
           flexDirection: "row",
+          overflow: "hidden",
+          position: "relative",
         }}
       >
-        <div
+        {/* <div style={{ position: "absolute", top: -10 }}>
+          <img
+            src={bottomShape}
+            alt="border"
+            style={{ height: "120%", width: "100%" }}
+            className="bottomImg"
+          />
+        </div> */}
+        {/* <div
           style={{
             width: "20%",
             height: "100%",
@@ -169,7 +288,7 @@ const Thememe = () => {
             <Playbutton
               width="50%"
               img={Invite}
-              clickFun={goToThePage(InvitePage, "InvitePage")}
+              // clickFun={goToThePage(InvitePage, "InvitePage")}
             />
           </div>
         </div>
@@ -260,7 +379,7 @@ const Thememe = () => {
               clickFun={toogleMenu}
             />
           </div>
-        </div>
+        </div> */}
       </div>
     </div>
   );

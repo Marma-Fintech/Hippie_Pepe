@@ -7,7 +7,7 @@ const INITIAL_STATE = {
     telegramDetails: {},
     currentComponent: IntroImg,
     currentComponentText: "IntroImg",
-    isHeader: true,
+    isHeader: false,
     isPlay: false,
     isMenu: false,
     lastComponent: IntroImg,

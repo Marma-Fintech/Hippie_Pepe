@@ -3,7 +3,6 @@
   src: url("../../assets/FontFamily/VCR_OSD_MONO_1.001.ttf");
 }
 
-
 .div {
   display: flex;
   flex-direction: column;
@@ -53,7 +52,7 @@
 .div-3 {
   position: relative;
   display: flex;
-  margin-top:25px;
+  margin-top: 25px;
   align-items: start;
   gap: 19px;
 }
