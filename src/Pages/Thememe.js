@@ -21,6 +21,10 @@ import bottomShape from "../assets/images/bottomshapemain.png";
 import bottomLeft from "../assets/images/RectangleLeft.png";
 import bottomRight from "../assets/images/RectangleRight.png";
 import bottomcenter from "../assets/images/bottomcenter.png";
+import greenLineBottom from "../assets/images/greenLinebottom.png";
+import boosterText from "../assets/images/boostText.png";
+import menuIcon from "../assets/images/menuIcon.png";
+import referIcon from "../assets/images/referIcon.png";
 
 const Thememe = () => {
   const { userDetails, updateUserInfo } = useUserInfo();
@@ -187,12 +191,30 @@ const Thememe = () => {
                   className="bottomImg"
                 />
               </div>
+              <div
+                style={{
+                  height: "100%",
+                  width: "100%",
+                  position: "absolute",
+                  top: 29,
+                  left: 18,
+                }}
+              >
+                <img
+                  src={menuIcon}
+                  alt="border"
+                  style={{ height: "40%", width: "40%" }}
+                  className="bottomImg"
+                />
+              </div>
             </div>
             <div
               style={{
                 height: "100%",
                 width: "60%",
                 marginBottom: "10px",
+                position: "relative",
+                // backgroundColor: "red",
               }}
               onClick={() => {
                 goToThePage(Tv, "TVPage");
@@ -201,9 +223,9 @@ const Thememe = () => {
               <div
                 style={{
                   position: "absolute",
+                  left: -9,
                   height: "100%",
-                  width: "100%",
-                  left: 75,
+                  width: "175%",
                   display: "flex",
                   alignItems: "end",
                 }}
@@ -212,6 +234,45 @@ const Thememe = () => {
                   src={bottomcenter}
                   alt="border"
                   style={{ height: "85%", width: "63%" }}
+                  className="bottomImg"
+                />
+              </div>
+              <div
+                style={{
+                  position: "absolute",
+                  left: -9,
+                  height: "100%",
+                  width: "175%",
+                  display: "flex",
+                  alignItems: "end",
+                }}
+              >
+                <img
+                  src={greenLineBottom}
+                  alt="border"
+                  style={{ height: "85%", width: "63%", padding: "10px" }}
+                  className="bottomImg"
+                />
+              </div>
+              <div
+                style={{
+                  position: "absolute",
+                  left: 30,
+                  top: -75,
+                  height: "100%",
+                  width: "175%",
+                  display: "flex",
+                  alignItems: "end",
+                }}
+              >
+                <img
+                  src={boosterText}
+                  alt="border"
+                  style={{
+                    height: "40%",
+                    width: "40%",
+                    padding: "10px",
+                  }}
                   className="bottomImg"
                 />
               </div>
@@ -232,6 +293,23 @@ const Thememe = () => {
                   src={bottomRight}
                   alt="border"
                   style={{ height: "100%", width: "100%" }}
+                  className="bottomImg"
+                />
+              </div>
+
+              <div
+                style={{
+                  height: "100%",
+                  width: "100%",
+                  position: "absolute",
+                  top: 25,
+                  left: 20,
+                }}
+              >
+                <img
+                  src={referIcon}
+                  alt="border"
+                  style={{ height: "50%", width: "50%", objectFit: "contain" }}
                   className="bottomImg"
                 />
               </div>

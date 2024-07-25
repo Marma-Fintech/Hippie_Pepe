@@ -16,7 +16,7 @@ const Task = () => {
           currentComponentText: name,
           lastComponent: userDetails.currentComponent,
           lastComponentText: userDetails.currentComponentText,
-          isMenu: !userDetails.isMenu,
+          isMenu: false,
         },
       };
     });
@@ -36,9 +36,8 @@ const Task = () => {
           goToThePage(Quiz, "Quiz");
         }}
       >
-        {" "}
         <h1>Quiz</h1>
-      </div>{" "}
+      </div>
       <div
         onClick={() => {
           goToThePage(Scramble, "Scramble");
