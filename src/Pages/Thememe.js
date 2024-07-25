@@ -28,6 +28,7 @@ import referIcon from "../assets/images/referIcon.png";
 import porotta from "../assets/audio/videoplayback.m4a";
 
 import ReferPage from "./ReferPage/ReferPage";
+import Boosters from "../Pages/Boosters/Boosters";
 
 const Thememe = () => {
   const { userDetails, updateUserInfo } = useUserInfo();
@@ -147,18 +148,18 @@ const Thememe = () => {
 
   const audioRef = useRef(null);
 
-  // useEffect(() => {
-  //   console.log(JSON.stringify(userDetails));
-  //   if (
-  //     userDetails.centerCount === 3 &&
-  //     userDetails.menuCount === 2 &&
-  //     userDetails.refererCount === 5
-  //   ) {
-  //     console.log("JSON.stringify(userDetails)");
+  useEffect(() => {
+    console.log(JSON.stringify(userDetails));
+    if (
+      userDetails.centerCount === 3 &&
+      userDetails.menuCount === 2 &&
+      userDetails.refererCount === 5
+    ) {
+      console.log("JSON.stringify(userDetails)");
 
-  //     audioRef.current.play();
-  //   }
-  // }, [userDetails]);
+      audioRef.current.play();
+    }
+  }, [userDetails]);
 
   return (
     <div
@@ -167,13 +168,13 @@ const Thememe = () => {
         width: "100%",
         backgroundColor: "black",
         position: "fixed",
-        overflowX: "hidden",
+        overflow: "hidden",
       }}
     >
-      {/* <audio ref={audioRef}>
+      <audio ref={audioRef}>
         <source src={porotta} type="audio/mpeg" />
         Your browser does not support the audio element.
-      </audio> */}
+      </audio>
       {userDetails.isHeader && (
         <div className="box" style={{ height: "7%", width: "100%" }}>
           <Header />
@@ -295,6 +296,20 @@ const Thememe = () => {
                   style={{ height: "85%", width: "63%", padding: "10px" }}
                   className="bottomImg"
                 />
+                {/* <Boosters /> */}
+              </div>
+              <div
+                style={{
+                  position: "relative",
+                  left: 0,
+                  height: "100%",
+                  width: "100%",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+              >
+                <Boosters />
               </div>
               <div
                 style={{
@@ -388,7 +403,7 @@ const Thememe = () => {
         </div>
         <Tvborder />
       </div>
-      <div
+      {/* <div
         className="box"
         style={{
           height: "16%",
@@ -398,8 +413,8 @@ const Thememe = () => {
           overflow: "hidden",
           position: "relative",
         }}
-      >
-        {/* <div style={{ position: "absolute", top: -10 }}>
+      > */}
+      {/* <div style={{ position: "absolute", top: -10 }}>
           <img
             src={bottomShape}
             alt="border"
@@ -407,7 +422,7 @@ const Thememe = () => {
             className="bottomImg"
           />
         </div> */}
-        {/* <div
+      {/* <div
           style={{
             width: "20%",
             height: "100%",
@@ -512,7 +527,7 @@ const Thememe = () => {
             />
           </div>
         </div> */}
-      </div>
+      {/* </div> */}
     </div>
   );
 };
