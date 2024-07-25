@@ -36,7 +36,7 @@ const Task = () => {
           goToThePage(Quiz, "Quiz");
         }}
       >
-        <h1>Quiz</h1> <button>Quiz</button>
+        <button>Quiz</button>
       </div>{" "}
       <div
         onClick={() => {
