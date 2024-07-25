@@ -37,7 +37,7 @@ const Task = () => {
         }}
       >
         {" "}
-        <button>Quiz</button>>
+        <button>Quiz</button>
       </div>{" "}
       <div
         onClick={() => {
