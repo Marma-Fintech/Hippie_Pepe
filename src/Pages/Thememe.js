@@ -166,8 +166,8 @@ const Thememe = () => {
         height: "100vh",
         width: "100%",
         backgroundColor: "black",
-        position: "relative",
-        overflow: "hidden",
+        position: "fixed",
+        overflowX: "hidden",
       }}
     >
       {/* <audio ref={audioRef}>
