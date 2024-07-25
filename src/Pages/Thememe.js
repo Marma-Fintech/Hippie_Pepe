@@ -167,7 +167,7 @@ const Thememe = () => {
         height: "100vh",
         width: "100%",
         backgroundColor: "black",
-        position: "relative",
+        position: "fixed",
         overflow: "hidden",
       }}
     >
@@ -403,7 +403,7 @@ const Thememe = () => {
         </div>
         <Tvborder />
       </div>
-      <div
+      {/* <div
         className="box"
         style={{
           height: "16%",
@@ -413,8 +413,8 @@ const Thememe = () => {
           overflow: "hidden",
           position: "relative",
         }}
-      >
-        {/* <div style={{ position: "absolute", top: -10 }}>
+      > */}
+      {/* <div style={{ position: "absolute", top: -10 }}>
           <img
             src={bottomShape}
             alt="border"
@@ -422,7 +422,7 @@ const Thememe = () => {
             className="bottomImg"
           />
         </div> */}
-        {/* <div
+      {/* <div
           style={{
             width: "20%",
             height: "100%",
@@ -527,7 +527,7 @@ const Thememe = () => {
             />
           </div>
         </div> */}
-      </div>
+      {/* </div> */}
     </div>
   );
 };

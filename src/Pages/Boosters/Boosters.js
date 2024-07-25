@@ -25,7 +25,7 @@ const Boosters = () => {
   return (
     <div
       className="menupointer"
-      style={{ height: "50%", width: "50%" }}
+      style={{ height: "50%", width: "50%", position: "relative" }}
       onClick={() => {
         console.log("click");
       }}
@@ -37,6 +37,8 @@ const Boosters = () => {
           flexDirection: "row",
           width: "100%",
           justifyContent: "space-around",
+          position: "absolute",
+          backgroundColor: "red",
         }}
       >
         <div
