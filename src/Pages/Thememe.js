@@ -176,6 +176,9 @@ const Thememe = () => {
             >
               <div
                 style={{ position: "absolute", height: "100%", width: "100%" }}
+                onClick={() => {
+                  toogleMenu();
+                }}
               >
                 <img
                   src={bottomLeft}
@@ -200,7 +203,7 @@ const Thememe = () => {
                   position: "absolute",
                   height: "100%",
                   width: "100%",
-                  left: 72,
+                  left: 75,
                   display: "flex",
                   alignItems: "end",
                 }}
