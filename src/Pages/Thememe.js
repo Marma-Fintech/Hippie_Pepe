@@ -192,6 +192,9 @@ const Thememe = () => {
                 />
               </div>
               <div
+                onClick={() => {
+                  toogleMenu();
+                }}
                 style={{
                   height: "100%",
                   width: "100%",
@@ -257,7 +260,7 @@ const Thememe = () => {
               <div
                 style={{
                   position: "absolute",
-                  left: 30,
+                  left: 55,
                   top: -75,
                   height: "100%",
                   width: "175%",
@@ -269,8 +272,8 @@ const Thememe = () => {
                   src={boosterText}
                   alt="border"
                   style={{
-                    height: "40%",
-                    width: "40%",
+                    height: "30%",
+                    width: "30%",
                     padding: "10px",
                   }}
                   className="bottomImg"
