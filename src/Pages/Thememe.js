@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import Tvborder from "../components/Tvborder";
 import "./thememe.css";
 import IntroImg from "../components/introImg/introImg";
@@ -25,12 +25,14 @@ import greenLineBottom from "../assets/images/greenLinebottom.png";
 import boosterText from "../assets/images/boostText.png";
 import menuIcon from "../assets/images/menuIcon.png";
 import referIcon from "../assets/images/referIcon.png";
+import porotta from "../assets/audio/videoplayback.m4a";
+
+import ReferPage from "./ReferPage/ReferPage";
 
 const Thememe = () => {
   const { userDetails, updateUserInfo } = useUserInfo();
 
   const handleShare = async () => {
-    console.log("sdfghjkl;");
     if (navigator.share) {
       try {
         await navigator.share({
@@ -80,6 +82,21 @@ const Thememe = () => {
       return { ...prev, ...{ isPlay: !userDetails.isPlay } };
     });
   };
+  const goToTheRefererPage = (component, name) => {
+    console.log("referrerere", userDetails.refererCount);
+    updateUserInfo((prev) => {
+      return {
+        ...prev,
+        ...{
+          currentComponent: component,
+          currentComponentText: name,
+          lastComponent: userDetails.currentComponent,
+          lastComponentText: userDetails.currentComponentText,
+          refererCount: userDetails.refererCount + 1,
+        },
+      };
+    });
+  };
 
   const toogleMenu = () => {
     if (!userDetails.isMenu) {
@@ -93,6 +110,7 @@ const Thememe = () => {
             lastComponent: userDetails.currentComponent,
             lastComponentText: userDetails.currentComponentText,
             isMenu: !userDetails.isMenu,
+            menuCount: userDetails.menuCount + 1,
           },
         };
       });
@@ -105,6 +123,7 @@ const Thememe = () => {
             currentComponent: userDetails.lastComponent,
             currentComponentText: userDetails.lastComponentText,
             isMenu: !userDetails.isMenu,
+            menuCount: userDetails.menuCount + 1,
           },
         };
       });
@@ -120,10 +139,25 @@ const Thememe = () => {
           currentComponentText: name,
           lastComponent: userDetails.currentComponent,
           lastComponentText: userDetails.currentComponentText,
+          centerCount: userDetails.centerCount + 1,
         },
       };
     });
   };
+
+  const audioRef = useRef(null);
+
+  // useEffect(() => {
+  //   console.log(JSON.stringify(userDetails));
+  //   if (
+  //     userDetails.centerCount === 3 &&
+  //     userDetails.menuCount === 2 &&
+  //     userDetails.refererCount === 12
+  //   )
+  //     console.log("JSON.stringify(userDetails)");
+
+  //   audioRef.current.play();
+  // }, [userDetails]);
 
   return (
     <div
@@ -135,6 +169,10 @@ const Thememe = () => {
         overflow: "hidden",
       }}
     >
+      {/* <audio ref={audioRef}>
+        <source src={porotta} type="audio/mpeg" />
+        Your browser does not support the audio element.
+      </audio> */}
       {userDetails.isHeader && (
         <div className="box" style={{ height: "7%", width: "100%" }}>
           <Header />
@@ -288,9 +326,15 @@ const Thememe = () => {
 
                 marginBottom: "10px",
               }}
+              onClick={() => {
+                goToTheRefererPage(ReferPage, "ReferPage");
+              }}
             >
               <div
                 style={{ position: "absolute", height: "100%", width: "100%" }}
+                onClick={() => {
+                  goToTheRefererPage(ReferPage, "ReferPage");
+                }}
               >
                 <img
                   src={bottomRight}

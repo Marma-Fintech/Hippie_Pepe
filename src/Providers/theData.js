@@ -12,6 +12,9 @@ const INITIAL_STATE = {
     isMenu: false,
     lastComponent: IntroImg,
     lastComponentText: "IntroImg",
+    menuCount: 0,
+    centerCount: 0,
+    refererCount: 0,
   },
   updateUserInfo: () => undefined,
 };
