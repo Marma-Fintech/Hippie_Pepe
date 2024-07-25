@@ -1,42 +1,63 @@
-import React, { useRef, useEffect } from "react";
+import React from "react";
+import "./Tv.css";
+import settings from "../../assets/images/settings.png";
+import help from "../../assets/images/help.png";
+import memetv from "../../assets/images/meme-logo.svg";
 
 const Tv = () => {
-  const videoRef = useRef(null);
-
-  useEffect(() => {
-    if (videoRef.current) {
-      videoRef.current.muted = false; // Mute the video initially
-      videoRef.current
-        .play() // Attempt to autoplay the video when component mounts
-        .then(() => {
-          // Video is playing muted
-          //   setIsVideoPlaying(true);
-        })
-        .catch((error) => {
-          console.error("Error attempting to autoplay the video: ", error);
-          //   setIsVideoPlaying(false);
-        });
-    }
-  }, []);
+  
+ 
 
   return (
     <div className="tvContainer" style={{ height: "100%", width: "100%" }}>
-      <video
-        // className={showVideo ? "playvideo" : "hidevideo"}
-        style={{ height: "100%", width: "100%" }}
-        ref={videoRef}
-        // width={showVideo ? "100%" : "0%"}
-        // height={showVideo ? "100%" : "0%"}
-        // style={{ objectFit: "cover" }}
-        loop
-      >
-        <source
-          //   className=""
-          src="https://res.cloudinary.com/dhebiyrep/video/upload/v1715257036/kbld2jankfvu2d8wvixj.mp4"
-          type="video/mp4"
-        />
-        Your browser does not support the video tag.
-      </video>
+     <div className="row level-div text-center">
+      <div className="col-6">
+        <div className="level-h2">
+        <h2 className="level">Level 1 25/5000</h2>
+        <hr />
+        </div>
+      
+        
+      </div>  
+      <div className="col-6">
+      <div className="level-h2">
+        <h2 className="energy">Energy 120/5000</h2>
+        <hr />
+        </div>
+        
+        </div>
+        <div class="row streak-center">
+  <div className="col-2 text-center"><img src={settings} /></div>
+  <div class="col-8 streak-border">
+    <div className="row text-center">
+    <div className="col-6">
+      <h2 className="streak"> STREAK &nbsp;></h2></div>
+    <div className="col-6"><h2 className="streak"> PHASE &nbsp; ></h2></div>
+    </div>
+    
+  </div>
+  <div className="col-2 text-center"><img src={help} /></div>
+</div>
+<div className="row">
+  <div className="col-2">
+  <div className="token-div"><p className="token-mint">Token Mint</p>
+  <p className="earn-p">1/Sec</p></div>
+  </div>
+  <div className="col-8 points">
+    <h2> 
+   <img src={memetv} /><span className="txt-color"> 100k</span></h2></div>
+  <div className="col-2">
+  <div className="token-div"><p className="token-mint1">Token Mint</p>
+  <p className="earn-p">10</p></div>
+  </div>
+</div>
+     </div>
+    <div className="row">
+      <div className="col-12">
+      <div class="floor"></div>
+  <img src="https://i.imgur.com/pXALzSc.gif" class="woot-dance" width="328" height="272" alt="8-bit dancing Karateka guy" />
+      </div>
+    </div>
     </div>
   );
 };
