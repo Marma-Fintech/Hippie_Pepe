@@ -647,18 +647,33 @@ const QuizPlayTask = () => {
   const [startDate, setStartDate] = useState(new Date());
   const [quizComplete, setQuizComplete] = useState(false);
 
+  // useEffect(() => {
+  //   // Randomly select 5 unique questions
+  //   const selectedQuestions = [];
+  //   const indices = new Set();
+  //   while (indices.size < 5) {
+  //     const randomIndex = Math.floor(Math.random() * questions.length);
+  //     if (!indices.has(randomIndex)) {
+  //       indices.add(randomIndex);
+  //       selectedQuestions.push(questions[randomIndex]);
+  //     }
+  //   }
+  //   setCurrentQuestions(selectedQuestions);
+  // }, []);
   useEffect(() => {
-    // Randomly select 5 unique questions
-    const selectedQuestions = [];
-    const indices = new Set();
-    while (indices.size < 5) {
-      const randomIndex = Math.floor(Math.random() * questions.length);
-      if (!indices.has(randomIndex)) {
-        indices.add(randomIndex);
-        selectedQuestions.push(questions[randomIndex]);
-      }
-    }
+    const baseDate = new Date("2024-01-01"); // Set this to a fixed starting point or the launch date of the quiz.
+    const dayIndex = differenceInCalendarDays(
+      startOfDay(new Date()),
+      startOfDay(baseDate)
+    ); // Calculate the number of days since the base date.
+    const questionsPerDay = 5; // Number of questions to show each day.
+    const startIndex = dayIndex * questionsPerDay; // Calculate the start index based on the day index.
+    const endIndex = startIndex + questionsPerDay; // Calculate the end index.
+    const selectedQuestions = questions.slice(startIndex, endIndex); // Slice the questions array to get the questions for the day.
+
     setCurrentQuestions(selectedQuestions);
+    setCurrentQuestionIndex(0); // Reset to the first question of the day.
+    setAnswered(false); // Allow answers for new questions.
   }, []);
 
   //   const handleAnswerOptionClick = (option) => {
@@ -747,22 +762,35 @@ const QuizPlayTask = () => {
     console.log(answered);
   }, [answered]);
 
+  // useEffect(() => {
+  //   const baseDate = new Date("2024-01-01");
+  //   const formattedDate = format(startDate, "yyyy-MM-dd");
+  //   const storedResults = localStorage.getItem(formattedDate);
+  //   if (storedResults) {
+  //     setQuizComplete(true);
+  //     setCurrentQuestions([]);
+  //   } else {
+  //     const dayIndex = differenceInCalendarDays(
+  //       startOfDay(startDate),
+  //       startOfDay(baseDate)
+  //     );
+  //     const startIndex = (dayIndex % (questions.length / 5)) * 5;
+  //     setCurrentQuestions(questions.slice(startIndex, startIndex + 5));
+  //     setQuizComplete(false);
+  //   }
+  // }, [startDate]);
   useEffect(() => {
     const baseDate = new Date("2024-01-01");
-    const formattedDate = format(startDate, "yyyy-MM-dd");
-    const storedResults = localStorage.getItem(formattedDate);
-    if (storedResults) {
-      setQuizComplete(true);
-      setCurrentQuestions([]);
-    } else {
-      const dayIndex = differenceInCalendarDays(
-        startOfDay(startDate),
-        startOfDay(baseDate)
-      );
-      const startIndex = (dayIndex % (questions.length / 5)) * 5;
-      setCurrentQuestions(questions.slice(startIndex, startIndex + 5));
-      setQuizComplete(false);
-    }
+    const dayIndex = differenceInCalendarDays(
+      startOfDay(startDate),
+      startOfDay(baseDate)
+    );
+    const startIndex = (dayIndex * 5) % questions.length; // Modulo to wrap around if day index exceeds length of questions array
+    setCurrentQuestions(questions.slice(startIndex, startIndex + 5));
+    setCurrentQuestionIndex(0);
+    setSelectedOption(null);
+    setAnswered(false);
+    setScore(0);
   }, [startDate]);
 
   const handleQuizCompletion = () => {
@@ -785,17 +813,19 @@ const QuizPlayTask = () => {
         }}
         className="cancel-icon"
       />
-      <h1>Quiz Game {format(startDate, "PPP")}</h1>
+      <h1 className="quizgame-datetext">
+        Quiz Game {format(startDate, "PPP")}
+      </h1>
 
       {showScore ? (
         <div className="section score-section">You scored {score} points</div>
       ) : (
         <>
+          <div className="question-count">
+            <span> YOU HAVE {currentQuestionIndex + 1}</span>/
+            {currentQuestions.length} Question
+          </div>
           <div className="question-section">
-            <div className="question-count">
-              <span> YOU HAVE {currentQuestionIndex + 1}</span>/
-              {currentQuestions.length} Question
-            </div>
             <div className="question-text">
               {currentQuestions[currentQuestionIndex]?.question}
             </div>

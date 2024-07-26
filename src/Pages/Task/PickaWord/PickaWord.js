@@ -680,14 +680,15 @@ const PickaWord = () => {
 
   return (
     <div className="task-page">
-      <div className="cancel-container">
+      <div className=""><h2>Pick a Card</h2></div>
+      {/* <div className="cancel-container">
         <FaTimes
           onClick={() => {
             goToThePage(Task, "Task");
           }}
           className="cancel-icon"
         />
-      </div>
+      </div> */}
       {selected && <p className="task-message">{message}</p>}
       <div className="cards-container">
         {cards.map((card, index) => (
@@ -712,12 +713,12 @@ const PickaWord = () => {
       <h5 className="chancesleft">
         YOU HAVE {playsRemaining}/5 CHANCES LEFT NOW
       </h5>
-
-      <button
+    
+      <button 
         onClick={handlePlayAgainClick}
         disabled={!cardPicked && freePicks === 0}
         className={
-          playsRemaining === 0 && freePicks === 0 ? "disabled-button" : ""
+          playsRemaining === 0 && freePicks === 0 ? "disabled-button" : "invite-fri"
         }
       >
         {buttonText}
