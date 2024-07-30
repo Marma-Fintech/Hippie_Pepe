@@ -27,10 +27,10 @@ const Tv = () => {
           <div class="col-8 streak-border">
             <div className="row text-center">
               <div className="col-6">
-                <h2 className="streak"> STREAK &nbsp;></h2>
+                <h2 className="streak"> STREAK &nbsp;</h2>
               </div>
               <div className="col-6">
-                <h2 className="streak"> PHASE &nbsp; ></h2>
+                <h2 className="streak"> PHASE &nbsp; </h2>
               </div>
             </div>
           </div>

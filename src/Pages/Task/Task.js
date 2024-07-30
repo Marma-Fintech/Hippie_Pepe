@@ -29,22 +29,22 @@ const Task = () => {
           goToThePage(Pickaword, "Pickaword");
         }}
       >
-        <h1>pickaword</h1>
+        <button>Pick A Word </button>
       </div>
       <div
         onClick={() => {
           goToThePage(Quiz, "Quiz");
         }}
       >
-        <h1>Quiz</h1>
-      </div>
+        <button>Quiz</button>
+      </div>{" "}
       <div
         onClick={() => {
           goToThePage(Scramble, "Scramble");
         }}
       >
         {" "}
-        <h1>Scrambledword</h1>
+        <button>Scramble a Word</button>
       </div>
     </div>
   );

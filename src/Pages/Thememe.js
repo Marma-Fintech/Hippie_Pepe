@@ -30,6 +30,7 @@ import porotta from "../assets/audio/videoplayback.m4a";
 import ReferPage from "./ReferPage/ReferPage";
 import Boosters from "../Pages/Boosters/Boosters";
 import ContinueText from "../assets/images/ContinueText.png";
+import switchOnTv from "../assets/images/switchOnTv.png";
 
 import { UserDeatils } from "../apis/user";
 
@@ -370,6 +371,32 @@ const Thememe = () => {
                 </div>
               ) : null}
 
+              {userDetails.currentComponentText !== "TVPage" &&
+              userDetails.currentComponentText !== "IntroImg" ? (
+                <div
+                  style={{
+                    position: "relative",
+                    left: 0,
+                    top: 10,
+                    height: "100%",
+                    width: "100%",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                  }}
+                >
+                  <div
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                    }}
+                  >
+                    <img src={switchOnTv} style={{ width: "80%" }} />
+                  </div>
+                </div>
+              ) : null}
+
               {userDetails.currentComponentText === "IntroImg" ? (
                 <div
                   style={{
@@ -384,7 +411,13 @@ const Thememe = () => {
                   }}
                 >
                   {/* <div style={{ color: "rgba(9, 189, 27, 1)" }}>Continue</div> */}
-                  <div>
+                  <div
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                    }}
+                  >
                     <img src={ContinueText} style={{ width: "100%" }} />
                   </div>
                 </div>
