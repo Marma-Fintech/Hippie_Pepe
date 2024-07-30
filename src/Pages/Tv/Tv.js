@@ -3,6 +3,7 @@ import "./Tv.css";
 import settings from "../../assets/images/settings.png";
 import help from "../../assets/images/help.png";
 import memetv from "../../assets/images/meme-logo.svg";
+import energy from "../../assets/images/energy.png";
 
 const Tv = () => {
   
@@ -21,13 +22,12 @@ const Tv = () => {
       </div>  
       <div className="col-6">
       <div className="level-h2">
-        <h2 className="energy">Energy 120/5000</h2>
+        <h2 className="energy"><img src={energy} /> Energy 15/1000</h2>
         <hr />
         </div>
-        
         </div>
         <div class="row streak-center">
-  <div className="col-2 text-center"><img src={settings} /></div>
+  <div className="col-2 text-center"><img src={help}  /></div>
   <div class="col-8 streak-border">
     <div className="row text-center">
     <div className="col-6">
@@ -36,7 +36,7 @@ const Tv = () => {
     </div>
     
   </div>
-  <div className="col-2 text-center"><img src={help} /></div>
+  <div className="col-2 text-center"><img src={settings} /></div>
 </div>
 <div className="row">
   <div className="col-2">

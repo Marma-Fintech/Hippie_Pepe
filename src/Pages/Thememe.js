@@ -167,7 +167,7 @@ const Thememe = () => {
         width: "100%",
         backgroundColor: "black",
         position: "fixed",
-        overflowX: "hidden",
+        // overflowX: "hidden",
       }}
     >
       {/* <audio ref={audioRef}>
@@ -238,14 +238,14 @@ const Thememe = () => {
                   height: "100%",
                   width: "100%",
                   position: "absolute",
-                  top: 29,
-                  left: 18,
+                  top: 30,
+                  left: 15,
                 }}
               >
                 <img
                   src={menuIcon}
                   alt="border"
-                  style={{ height: "40%", width: "40%" }}
+                  style={{  width: "45%" }}
                   className="bottomImg"
                 />
               </div>

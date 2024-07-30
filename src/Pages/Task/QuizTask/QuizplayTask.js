@@ -658,21 +658,21 @@ const QuizPlayTask = () => {
 
   return (
     <div className="quiz-play-task">
-      <FaTimes
+      {/* <FaTimes
         onClick={() => {
           goToThePage(QuizTask, "QuizTask");
         }}
         className="cancel-icon"
-      />
-      <h1>Quiz Game</h1>
+      /> */}
+      <h1 className="welcome-text txt-color1">Quiz Game!</h1>
       {showScore ? (
-        <div className="section score-section">You scored {score} points</div>
+        <div className="section score-section"><h2 className="phase-text1">You scored {score} points</h2></div>
       ) : (
         <>
           <div className="question-section">
-            <div className="question-count">
-              <span> YOU HAVE {currentQuestionIndex + 1}</span>/
-              {currentQuestions.length} Question
+            <div className="question-count "><h2 className="phase-text1"> 
+              <span className=""> YOU HAVE {currentQuestionIndex + 1}</span>/
+              {currentQuestions.length} Question </h2>
             </div>
             <div className="question-text">
               {currentQuestions[currentQuestionIndex]?.question}

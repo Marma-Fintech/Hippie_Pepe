@@ -1,8 +1,11 @@
+
 .quiz-task {
+ 
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 20px;
+  margin-top: 5px;
+  font-family: myFirstFont;
 }
 
 .quiz-task h1,
@@ -15,7 +18,7 @@
   /* display: flex; */
   flex-wrap: wrap;
   justify-content: center;
-  margin-top: 10px;
+  /* margin-top: 10px; */
 }
 
 .day-box {
@@ -23,27 +26,29 @@
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  width: 350px;
-  height: 40px;
-  margin: 5px;
-  border-radius: 10px;
-  background-color: gray;
-  border: 2px solid rgb(224, 224, 209); /* Adding a yellow border */
+   width: 290px; 
+  height: 45px;
+  margin-bottom: 10px;
+  border-radius:5px;
+  background-color: #212121;
 }
 
 .play-status {
-  margin: 25px;
+  margin: 22px;
+  padding: 5px;
   font-size: 14px;
-  border: 2px solid rgb(224, 224, 209);
-  border-radius: 5px;
-  width: 150px;
+  border: 2px solid #939598;
+  /* border-radius: 3px; */
+  /* width: 150px; */
   text-align: center;
   cursor: pointer;
+  color: #939598;
 }
 
 .day-label {
-  margin: 40px;
+  margin: 20px;
   font-size: 14px;
+  color: #0bbb12;
 }
 
 .cancel-container {
@@ -64,11 +69,21 @@
 
 .welcome-text {
   color: yellow;
+  font-family: mySecondFont;
+  font-size: 18px;
 }
 
 .phase-text {
   color: white;
-  font-size: 15px;
+  font-family: mySecondFont;
+  font-size: 14px;
+  margin-bottom: 20px;
+}
+.phase-text1 {
+  color: white;
+  font-family: myFirstFont;
+  font-size: 14px;
+  margin-bottom: 20px;
 }
 
 .daily-text {

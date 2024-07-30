@@ -680,7 +680,7 @@ const PickaWord = () => {
 
   return (
     <div className="task-page">
-      <div className=""><h2>Pick a Card</h2></div>
+      <div className=""><h2 className="txt-color1">Pick a Card</h2></div>
       {/* <div className="cancel-container">
         <FaTimes
           onClick={() => {
@@ -718,7 +718,7 @@ const PickaWord = () => {
         onClick={handlePlayAgainClick}
         disabled={!cardPicked && freePicks === 0}
         className={
-          playsRemaining === 0 && freePicks === 0 ? "disabled-button" : "invite-fri"
+          playsRemaining === 0 && freePicks === 0 ? "disabled-button" : "invite-pick"
         }
       >
         {buttonText}
