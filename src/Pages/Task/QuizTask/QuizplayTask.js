@@ -647,19 +647,6 @@ const QuizPlayTask = () => {
   const [startDate, setStartDate] = useState(new Date());
   const [quizComplete, setQuizComplete] = useState(false);
 
-  // useEffect(() => {
-  //   // Randomly select 5 unique questions
-  //   const selectedQuestions = [];
-  //   const indices = new Set();
-  //   while (indices.size < 5) {
-  //     const randomIndex = Math.floor(Math.random() * questions.length);
-  //     if (!indices.has(randomIndex)) {
-  //       indices.add(randomIndex);
-  //       selectedQuestions.push(questions[randomIndex]);
-  //     }
-  //   }
-  //   setCurrentQuestions(selectedQuestions);
-  // }, []);
   useEffect(() => {
     const baseDate = new Date("2024-01-01"); // Set this to a fixed starting point or the launch date of the quiz.
     const dayIndex = differenceInCalendarDays(
@@ -801,11 +788,11 @@ const QuizPlayTask = () => {
 
   return (
     <div className="quiz-play-task">
-      <ReactDatePicker
+      {/* <ReactDatePicker
         selected={startDate}
         onChange={(date) => setStartDate(date)}
         dateFormat="yyyy-MM-dd"
-      />
+      /> */}
 
       <FaTimes
         onClick={() => {
@@ -813,12 +800,26 @@ const QuizPlayTask = () => {
         }}
         className="cancel-icon"
       />
+
       <h1 className="quizgame-datetext">
         Quiz Game {format(startDate, "PPP")}
       </h1>
 
       {showScore ? (
-        <div className="section score-section">You scored {score} points</div>
+        <div className="cards">
+          <h1 className="title-epic">Epic Win!</h1>
+          <div className="pointsContainer">
+            <div className="pointsInnerContainer">
+              <p className="pointsLabel">POINTS EARNED </p>
+              <div className="pointsValue">
+                <p className="pointsNumber">{score}</p>
+              </div>
+            </div>
+          </div>
+          <p className="bottom-text">
+            Play daily to boost your score <br /> and rack up more points!
+          </p>
+        </div>
       ) : (
         <>
           <div className="question-count">
