@@ -33,13 +33,16 @@ const QuizTask = () => {
           className="cancel-icon"
         />
       </div>
-      <h1 className="welcome-text">Welcome to the Quiz Game</h1>
-      <h2 className="phase-text">Phase 1</h2>
-      <p className="daily-text">DAILY LIMITS: 5 QUESTIONS!</p>
+      <h1 className="welcome-texts">QUIZ GAME!</h1>
+      <div className="phase-box">
+        <h2 className="phase-texts">PHASE 1</h2>
+      </div>
+
       <div className="days-container">
         {Array.from({ length: 7 }, (_, i) => (
           <div key={i} className="day-box">
             <div className="day-label">Day {i + 1}</div>
+
             <div
               onClick={() => {
                 goToThePage(QuizplayTask, "QuizplayTask");
