@@ -1,22 +1,10 @@
 import React, { useEffect, useState, useRef } from "react";
 import Tvborder from "../components/Tvborder";
 import "./thememe.css";
-import IntroImg from "../components/introImg/introImg";
 import useUserInfo from "../Hooks/useUserInfo";
-import Playbutton from "../components/buttons/Playbutton";
-import CenterBox from "../components/centerBox/centerBox";
-import Invite from "../assets/images/invite.svg";
-import burgerIcon from "../assets/images/burgerIcon.svg";
-import menuClose from "../assets/images/menuClose.png";
 import Menu from "./menu/menu";
-import IntroPage from "./IntroPage/IntroPage";
-import UsernamePage from "./Username/Username";
-import ProfilePicture from "./ProfilePicture/ProfilePicture";
-import ExplainPage from "./ExplainPage/ExplainPage";
 import Tv from "./Tv/Tv";
 import Header from "./Header/Header";
-import axios from "axios";
-import InvitePage from "./Invite/Invite";
 import bottomShape from "../assets/images/bottomshapemain.png";
 import bottomLeft from "../assets/images/RectangleLeft.png";
 import bottomRight from "../assets/images/RectangleRight.png";
@@ -39,6 +27,23 @@ const Thememe = () => {
     useUserInfo();
 
   useEffect(() => {
+    const handleBeforeUnload = (event) => {
+      const confirmationMessage =
+        "Are you sure you want to leave? You may have unsaved changes.";
+
+      event.preventDefault(); // For some browsers
+      event.returnValue = confirmationMessage; // Standard for most browsers
+      return confirmationMessage; // For some older browsers
+    };
+
+    window.addEventListener("beforeunload", handleBeforeUnload);
+
+    return () => {
+      window.removeEventListener("beforeunload", handleBeforeUnload);
+    };
+  }, []);
+
+  useEffect(() => {
     // Initialize the Telegram WebApp
     window.Telegram.WebApp.ready();
 
@@ -57,24 +62,28 @@ const Thememe = () => {
 
       const urlParams = new URLSearchParams(window.location.search);
       const referredIdFromUrl = urlParams.get("start");
+      console.log(JSON.stringify(userData));
 
-      console.log(referredIdFromUrl + " referredIdFromUrl  ");
-      console.log("User data  available." + JSON.stringify(userData));
+      // console.log(referredIdFromUrl + " referredIdFromUrl  ");
+      // console.log("User data  available." + JSON.stringify(userData));
     } else {
-      console.log("User data not available.");
+      // console.log("User data not available.");
     }
     const data = {
-      name: "kathikeyan",
+      // name: userData.first_name,
+      name: "userData.first_name",
       // refferedById: referredIdFromUrl ? referredIdFromUrl : null,
-      telegramId: "123455667",
+      telegramId: "1234567",
     };
     getUserDetails(data);
-
-    console.log(watchScreen);
+    // console.log(watchScreen);
   }, []);
 
   const getUserDetails = async (data) => {
     const userDetails = await UserDeatils(data);
+    // console.log(JSON.stringify(userDetails) + " referredIdFromUrl  ");
+    // console.log(JSON.stringify(watchScreen) + " referredIdFromUrl  ");
+
     updateUserInfo((prev) => {
       return {
         ...prev,
@@ -150,13 +159,13 @@ const Thememe = () => {
   const audioRef = useRef(null);
 
   useEffect(() => {
-    console.log(JSON.stringify(userDetails));
+    // console.log(JSON.stringify(userDetails));
     if (
       userDetails.centerCount === 3 &&
       userDetails.menuCount === 2 &&
       userDetails.refererCount === 5
     ) {
-      console.log("JSON.stringify(userDetails)");
+      // console.log("JSON.stringify(userDetails)");
 
       audioRef.current.play();
     }

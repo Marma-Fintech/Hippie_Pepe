@@ -2,10 +2,13 @@ import axios from "axios";
 
 export const UserDeatils = async (data) => {
   try {
-    console.log(data + "datadatadatadatadata");
-    const response = await axios.post("http://localhost:9090/login", data);
+    // console.log(data + "datadatadatadatadata");
+    const response = await axios.post(
+      "https://memetv-backend.onrender.com/login",
+      data
+    );
 
-    return response.data;
+    return response.data.user;
   } catch (err) {}
 };
 

@@ -18,11 +18,13 @@ const INITIAL_STATE = {
     refererCount: 0,
   },
   watchScreen: {
-    levelReward: 0,
-    Energy: 0,
+    totalReward: 0,
+    currentLevel: 0,
+    energy: 5000,
     mintPerSec: 1,
-    tokenPerMint: 10,
+    tokenPerMint: 1,
     tokenToken: 0,
+    tapPoints: 0,
   },
   updatewatchScreenInfo: () => undefined,
   updateUserInfo: () => undefined,
@@ -46,7 +48,7 @@ export const UserInfoProvider = ({ children }) => {
       watchScreen: watchScreen,
       updatewatchScreenInfo: setwatchScreen,
     };
-  }, [userDetails]);
+  }, [userDetails, watchScreen]);
 
   return (
     <UserInfoContext.Provider value={contextValue}>
