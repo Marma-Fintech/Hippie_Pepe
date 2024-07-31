@@ -11,7 +11,7 @@ const Username = () => {
   useEffect(() => {
     if (name.length > 3) {
       setIsNameStatus("success");
-      console.log("success");
+      // console.log("success");
     } else {
       setIsNameStatus("empty");
     }
@@ -20,7 +20,7 @@ const Username = () => {
   useEffect(() => {
     if (code.length > 6) {
       setCodeStatus("success");
-      console.log("success");
+      // console.log("success");
     } else {
       setCodeStatus("empty");
     }

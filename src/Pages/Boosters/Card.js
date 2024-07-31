@@ -2,36 +2,23 @@ import Styles from "./Card.module.css";
 import React, { useState } from "react";
 import { useSpring, animated } from "react-spring";
 import Button from "./Button";
+import levelupBoostImg from "../../assets/images/levelupImg.png";
+import tapBoostImg from "../../assets/images/tapboostimg.png";
+import twoxboost from "../../assets/images/2xboostimg.png";
+import threexboost from "../../assets/images/3xturboimg.png";
+import fivexboost from "../../assets/images/5xboostimg.png";
 
-function Card({ imagen }) {
-  const [show, setShown] = useState(false);
-
-  const props3 = useSpring({
-    opacity: 1,
-    transform: show ? "scale(1.03)" : "scale(1)",
-    boxShadow: show
-      ? "0 20px 25px rgb(0 0 0 / 25%)"
-      : "0 2px 10px rgb(0 0 0 / 8%)",
-  });
+function Card() {
   return (
-    <animated.div
-      className={Styles.card}
-      style={props3}
-      onMouseEnter={() => setShown(true)}
-      onMouseLeave={() => setShown(false)}
-    >
-      <img src={imagen} alt="" />
-      <h2>Title</h2>
-      <p>
-        Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam
-        nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat
-        volutpat.
-      </p>
-      <div className={Styles.btnn}>
-        <Button text="Demo" />
-        <Button text="Code" />
+    <div style={{ height: "100%", width: "100%", position: "relative" }}>
+      <div
+        className="boostNumber"
+        style={{ position: "absolute", top: -2, left: "42%", fontSize: 10 }}
+      >
+        5
       </div>
-    </animated.div>
+      <img src={levelupBoostImg} />
+    </div>
   );
 }
 

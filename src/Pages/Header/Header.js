@@ -14,7 +14,7 @@ const Header = () => {
     const referredIdFromUrl = urlParams.get("start");
     // if (referredIdFromUrl) {
     setRefId(referredIdFromUrl);
-    console.log(referredIdFromUrl + " referredIdFromUrl  ");
+    // console.log(referredIdFromUrl + " referredIdFromUrl  ");
     // }
   }, []);
 
@@ -36,9 +36,9 @@ const Header = () => {
         };
       });
 
-      console.log("User data  available." + JSON.stringify(userData));
+      // console.log("User data  available." + JSON.stringify(userData));
     } else {
-      console.log("User data not available.");
+      // console.log("User data not available.");
     }
   }, []);
 

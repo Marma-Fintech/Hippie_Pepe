@@ -1,22 +1,10 @@
 import React, { useEffect, useState, useRef } from "react";
 import Tvborder from "../components/Tvborder";
 import "./thememe.css";
-import IntroImg from "../components/introImg/introImg";
 import useUserInfo from "../Hooks/useUserInfo";
-import Playbutton from "../components/buttons/Playbutton";
-import CenterBox from "../components/centerBox/centerBox";
-import Invite from "../assets/images/invite.svg";
-import burgerIcon from "../assets/images/burgerIcon.svg";
-import menuClose from "../assets/images/menuClose.png";
 import Menu from "./menu/menu";
-import IntroPage from "./IntroPage/IntroPage";
-import UsernamePage from "./Username/Username";
-import ProfilePicture from "./ProfilePicture/ProfilePicture";
-import ExplainPage from "./ExplainPage/ExplainPage";
 import Tv from "./Tv/Tv";
 import Header from "./Header/Header";
-import axios from "axios";
-import InvitePage from "./Invite/Invite";
 import bottomShape from "../assets/images/bottomshapemain.png";
 import bottomLeft from "../assets/images/RectangleLeft.png";
 import bottomRight from "../assets/images/RectangleRight.png";
@@ -29,62 +17,84 @@ import porotta from "../assets/audio/videoplayback.m4a";
 
 import ReferPage from "./ReferPage/ReferPage";
 import Boosters from "../Pages/Boosters/Boosters";
+import ContinueText from "../assets/images/ContinueText.png";
+import switchOnTv from "../assets/images/switchOnTv.png";
+
+import { UserDeatils } from "../apis/user";
 
 const Thememe = () => {
-  const { userDetails, updateUserInfo } = useUserInfo();
+  const { userDetails, watchScreen, updatewatchScreenInfo, updateUserInfo } =
+    useUserInfo();
 
-  const handleShare = async () => {
-    if (navigator.share) {
-      try {
-        await navigator.share({
-          title: "Join me on this platform!",
-          text: "Check out this awesome platform using my referral link.",
-          url: "https://t.me/mytestgetDetailsbot?start=34343456724",
-        });
-        console.log("Shared successfully");
-      } catch (error) {
-        console.error("Error sharing:", error);
-      }
+  useEffect(() => {
+    const handleBeforeUnload = (event) => {
+      const confirmationMessage =
+        "Are you sure you want to leave? You may have unsaved changes.";
+
+      event.preventDefault(); // For some browsers
+      event.returnValue = confirmationMessage; // Standard for most browsers
+      return confirmationMessage; // For some older browsers
+    };
+
+    window.addEventListener("beforeunload", handleBeforeUnload);
+
+    return () => {
+      window.removeEventListener("beforeunload", handleBeforeUnload);
+    };
+  }, []);
+
+  useEffect(() => {
+    // Initialize the Telegram WebApp
+    window.Telegram.WebApp.ready();
+
+    // Fetch user details
+    const userData = window.Telegram.WebApp.initDataUnsafe.user;
+
+    if (userData) {
+      updateUserInfo((prev) => {
+        return {
+          ...prev,
+          ...{
+            telegramDetails: userData,
+          },
+        };
+      });
+
+      const urlParams = new URLSearchParams(window.location.search);
+      const referredIdFromUrl = urlParams.get("start");
+      console.log(JSON.stringify(userData));
+
+      // console.log(referredIdFromUrl + " referredIdFromUrl  ");
+      // console.log("User data  available." + JSON.stringify(userData));
     } else {
-      // Fallback for browsers that don't support the Web Share API
-      navigator.clipboard.writeText(
-        "https://t.me/mytestgetDetailsbot?start=34343456724"
-      );
-      alert("Referral link copied to clipboard!");
+      // console.log("User data not available.");
     }
-  };
+    const data = {
+      // name: userData.first_name,
+      name: "userData.first_name",
+      // refferedById: referredIdFromUrl ? referredIdFromUrl : null,
+      telegramId: "1234567",
+    };
+    getUserDetails(data);
+    // console.log(watchScreen);
+  }, []);
 
-  // const fetchUserDetails = async () => {
-  //   try {
-  //     const response = await axios.get(
-  //       "https://hippie-pepe-be.onrender.com/user-details"
-  //       // "http://localhost:3001/user-details"
-  //     );
-  //     console.log(response.data);
-  //     updateUserInfo((prev) => {
-  //       return {
-  //         ...prev,
-  //         ...{
-  //           telegramDetails: response.data,
-  //         },
-  //       };
-  //     });
-  //   } catch (error) {
-  //     console.error("There was an error fetching the user details!", error);
-  //   }
-  // };
+  const getUserDetails = async (data) => {
+    const userDetails = await UserDeatils(data);
+    // console.log(JSON.stringify(userDetails) + " referredIdFromUrl  ");
+    // console.log(JSON.stringify(watchScreen) + " referredIdFromUrl  ");
 
-  // useEffect(() => {
-  //   fetchUserDetails();
-  // }, []);
-
-  const toogleTv = () => {
     updateUserInfo((prev) => {
-      return { ...prev, ...{ isPlay: !userDetails.isPlay } };
+      return {
+        ...prev,
+        ...{
+          userDetails: userDetails,
+        },
+      };
     });
   };
+
   const goToTheRefererPage = (component, name) => {
-    console.log("referrerere", userDetails.refererCount);
     updateUserInfo((prev) => {
       return {
         ...prev,
@@ -149,13 +159,13 @@ const Thememe = () => {
   const audioRef = useRef(null);
 
   useEffect(() => {
-    console.log(JSON.stringify(userDetails));
+    // console.log(JSON.stringify(userDetails));
     if (
       userDetails.centerCount === 3 &&
       userDetails.menuCount === 2 &&
       userDetails.refererCount === 5
     ) {
-      console.log("JSON.stringify(userDetails)");
+      // console.log("JSON.stringify(userDetails)");
 
       audioRef.current.play();
     }
@@ -183,7 +193,7 @@ const Thememe = () => {
       )}
       <div
         style={{
-          position: "absolute",
+          position: "fixed",
           zIndex: 1,
           height: "17%",
           width: "100%",
@@ -240,14 +250,14 @@ const Thememe = () => {
                   height: "100%",
                   width: "100%",
                   position: "absolute",
-                  top: 30,
-                  left: 15,
+                  top: 29,
+                  left: 18,
                 }}
               >
                 <img
                   src={menuIcon}
                   alt="border"
-                  style={{ width: "45%" }}
+                  style={{ height: "40%", width: "40%" }}
                   className="bottomImg"
                 />
               </div>
@@ -291,49 +301,133 @@ const Thememe = () => {
                   alignItems: "end",
                 }}
               >
+                {userDetails.currentComponentText === "TVPage" ? (
+                  <div
+                    style={{
+                      position: "relative",
+                      height: "100%",
+                      width: "100%",
+                    }}
+                  >
+                    <div
+                      style={{
+                        position: "absolute",
+                        left: 29,
+                        height: "100%",
+                        width: "45%",
+                        display: "flex",
+                        justifyContent: "center",
+                      }}
+                    >
+                      <div
+                        style={{
+                          position: "absolute",
+                          top: 11,
+                          color: "rgba(0, 255, 41, 1)",
+                          fontSize: "12px",
+                          display: "flex",
+                          alignItems: "end",
+                          justifyContent: "center",
+                        }}
+                      >
+                        BOOSTERS
+                      </div>
+                      <img
+                        src={boosterText}
+                        alt="border"
+                        style={{
+                          height: "32%",
+                          width: "70%",
+                          padding: "10px",
+                        }}
+                        className="bottomImg"
+                      />
+                    </div>
+                  </div>
+                ) : (
+                  ""
+                )}
+
                 <img
                   src={greenLineBottom}
                   alt="border"
-                  style={{ height: "85%", width: "63%", padding: "10px" }}
-                  className="bottomImg"
-                />
-                {/* <Boosters /> */}
-              </div>
-              <div
-                style={{
-                  position: "relative",
-                  left: 0,
-                  height: "100%",
-                  width: "100%",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                }}
-              >
-                <Boosters />
-              </div>
-              <div
-                style={{
-                  position: "absolute",
-                  left: 55,
-                  top: -75,
-                  height: "100%",
-                  width: "175%",
-                  display: "flex",
-                  alignItems: "end",
-                }}
-              >
-                <img
-                  src={boosterText}
-                  alt="border"
                   style={{
-                    height: "30%",
-                    width: "30%",
+                    height: "85%",
+                    width: "63%",
                     padding: "10px",
+                    position: "absolute",
                   }}
                   className="bottomImg"
                 />
               </div>
+              {userDetails.currentComponentText === "TVPage" ? (
+                <div
+                  style={{
+                    position: "relative",
+                    left: 0,
+                    top: 10,
+                    height: "100%",
+                    width: "100%",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                  }}
+                >
+                  <Boosters />
+                </div>
+              ) : null}
+
+              {userDetails.currentComponentText !== "TVPage" &&
+              userDetails.currentComponentText !== "IntroImg" ? (
+                <div
+                  style={{
+                    position: "relative",
+                    left: 0,
+                    top: 10,
+                    height: "100%",
+                    width: "100%",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                  }}
+                >
+                  <div
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                    }}
+                  >
+                    <img src={switchOnTv} style={{ width: "80%" }} />
+                  </div>
+                </div>
+              ) : null}
+
+              {userDetails.currentComponentText === "IntroImg" ? (
+                <div
+                  style={{
+                    position: "relative",
+                    left: 0,
+                    top: 10,
+                    height: "100%",
+                    width: "100%",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                  }}
+                >
+                  {/* <div style={{ color: "rgba(9, 189, 27, 1)" }}>Continue</div> */}
+                  <div
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                    }}
+                  >
+                    <img src={ContinueText} style={{ width: "100%" }} />
+                  </div>
+                </div>
+              ) : null}
             </div>
             <div
               style={{
@@ -366,14 +460,15 @@ const Thememe = () => {
                   height: "100%",
                   width: "100%",
                   position: "absolute",
-                  top: 25,
-                  left: 20,
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
                 }}
               >
                 <img
                   src={referIcon}
                   alt="border"
-                  style={{ height: "50%", width: "50%", objectFit: "contain" }}
+                  style={{ width: "50%", objectFit: "contain" }}
                   className="bottomImg"
                 />
               </div>

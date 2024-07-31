@@ -1,3 +1,8 @@
+@font-face {
+  font-family: pressStart;
+  src: url("../../assets/FontFamily/PressStart.ttf");
+}
+
 .card {
   display: flex;
   flex-direction: column;
@@ -31,4 +36,8 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+
+.boostNumber {
+  font-family: pressStart;
 }

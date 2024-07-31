@@ -350,9 +350,12 @@
 
 import React, { useState, useEffect } from "react";
 import "./QuizplayTask.css";
-import { FaTimes } from "react-icons/fa";
+import { FaTimes, FaCheck } from "react-icons/fa";
 import useUserInfo from "../../../Hooks/useUserInfo";
 import QuizTask from "./QuizTask.js";
+import "react-datepicker/dist/react-datepicker.css";
+import { format, startOfDay, differenceInCalendarDays } from "date-fns";
+import ReactDatePicker from "react-datepicker";
 
 const questions = [
   {
@@ -590,6 +593,47 @@ const questions = [
     options: ["Time", "Breath", "Memories", "Footsteps"],
     answer: "Footsteps",
   },
+  {
+    id: 31,
+    question:
+      "What is Laura’s go-to plant for adding greenery to her workspace?",
+    options: ["Succulent", "Bamboo", "Snake plant", "Philodendron"],
+    answer: "Bamboo",
+  },
+  {
+    id: 32,
+    question: "Which jewelry style does Chloe most enjoy for casual wear?",
+    options: [
+      "Bangles",
+      "Hoop earrings",
+      "Charm bracelet",
+      "Layered necklaces",
+    ],
+    answer: "Hoop earrings",
+  },
+  {
+    id: 33,
+    question: "What is Emily’s favorite type of houseplant?",
+    options: ["Snake plant", "Spider plant", "Peace lily", "Pothos"],
+    answer: "Pothos",
+  },
+  {
+    id: 34,
+    question: "Where does Tom keep his collection of spices in the kitchen?",
+    options: [
+      "Spice rack",
+      "Pantry shelf",
+      "Kitchen drawer",
+      "Cabinet door organizer",
+    ],
+    answer: "Spice rack",
+  },
+  {
+    id: 35,
+    question: "I’m tall when I’m young, and I’m short when I’m old. What am I?",
+    options: ["Pencil", "Candle", "Tree", "Rope"],
+    answer: "Candle",
+  },
 ];
 
 const QuizPlayTask = () => {
@@ -600,20 +644,52 @@ const QuizPlayTask = () => {
   const [score, setScore] = useState(0);
   const [showScore, setShowScore] = useState(false);
   const [answered, setAnswered] = useState(false);
+  const [startDate, setStartDate] = useState(new Date());
+  const [quizComplete, setQuizComplete] = useState(false);
 
+  // useEffect(() => {
+  //   // Randomly select 5 unique questions
+  //   const selectedQuestions = [];
+  //   const indices = new Set();
+  //   while (indices.size < 5) {
+  //     const randomIndex = Math.floor(Math.random() * questions.length);
+  //     if (!indices.has(randomIndex)) {
+  //       indices.add(randomIndex);
+  //       selectedQuestions.push(questions[randomIndex]);
+  //     }
+  //   }
+  //   setCurrentQuestions(selectedQuestions);
+  // }, []);
   useEffect(() => {
-    // Randomly select 5 unique questions
-    const selectedQuestions = [];
-    const indices = new Set();
-    while (indices.size < 5) {
-      const randomIndex = Math.floor(Math.random() * questions.length);
-      if (!indices.has(randomIndex)) {
-        indices.add(randomIndex);
-        selectedQuestions.push(questions[randomIndex]);
-      }
-    }
+    const baseDate = new Date("2024-01-01"); // Set this to a fixed starting point or the launch date of the quiz.
+    const dayIndex = differenceInCalendarDays(
+      startOfDay(new Date()),
+      startOfDay(baseDate)
+    ); // Calculate the number of days since the base date.
+    const questionsPerDay = 5; // Number of questions to show each day.
+    const startIndex = dayIndex * questionsPerDay; // Calculate the start index based on the day index.
+    const endIndex = startIndex + questionsPerDay; // Calculate the end index.
+    const selectedQuestions = questions.slice(startIndex, endIndex); // Slice the questions array to get the questions for the day.
+
     setCurrentQuestions(selectedQuestions);
+    setCurrentQuestionIndex(0); // Reset to the first question of the day.
+    setAnswered(false); // Allow answers for new questions.
   }, []);
+
+  //   const handleAnswerOptionClick = (option) => {
+  //     if (!answered) {
+  //       // Only allow selection if no answer has been submitted
+  //       setSelectedOption(option);
+  //       const isCorrect =
+  //         option === currentQuestions[currentQuestionIndex].answer;
+  //       if (isCorrect) {
+  //         setScore(score + 1000);
+  //       } else {
+  //         setScore(score + 500);
+  //       }
+  //       setAnswered(true); // Prevent further selections
+  //     }
+  //   };
 
   const handleAnswerOptionClick = (option) => {
     if (!answered) {
@@ -621,12 +697,38 @@ const QuizPlayTask = () => {
       setSelectedOption(option);
       const isCorrect =
         option === currentQuestions[currentQuestionIndex].answer;
-      if (isCorrect) {
-        setScore(score + 1000);
-      } else {
-        setScore(score + 500);
-      }
+
+      // Update the score based on whether the answer is correct
+      const pointsAwarded = isCorrect ? 1000 : 500;
+      setScore((prevScore) => prevScore + pointsAwarded);
+
+      // Console log the results
+      // console.log(
+      //   `Answer is ${
+      //     isCorrect ? "correct" : "incorrect"
+      //   }. Points awarded: ${pointsAwarded}`
+      // );
+      // console.log(`Total points: ${score + pointsAwarded}`);
+
       setAnswered(true); // Prevent further selections
+
+      // Check if it's the last question
+      if (currentQuestionIndex + 1 === currentQuestions.length) {
+        const formattedDate = format(new Date(), "yyyy-MM-dd"); // Use today's date
+        const result = {
+          date: formattedDate,
+          score: score + pointsAwarded,
+          completed: true,
+        };
+
+        // Store the result in local storage
+        localStorage.setItem(
+          `quizResult_${formattedDate}`,
+          JSON.stringify(result)
+        );
+
+        // console.log("Quiz completed. Final score:", score + pointsAwarded);
+      }
     }
   };
 
@@ -656,23 +758,66 @@ const QuizPlayTask = () => {
     });
   };
 
+  // useEffect(() => {
+  //   console.log(answered);
+  // }, [answered]);
+
+  // useEffect(() => {
+  //   const baseDate = new Date("2024-01-01");
+  //   const formattedDate = format(startDate, "yyyy-MM-dd");
+  //   const storedResults = localStorage.getItem(formattedDate);
+  //   if (storedResults) {
+  //     setQuizComplete(true);
+  //     setCurrentQuestions([]);
+  //   } else {
+  //     const dayIndex = differenceInCalendarDays(
+  //       startOfDay(startDate),
+  //       startOfDay(baseDate)
+  //     );
+  //     const startIndex = (dayIndex % (questions.length / 5)) * 5;
+  //     setCurrentQuestions(questions.slice(startIndex, startIndex + 5));
+  //     setQuizComplete(false);
+  //   }
+  // }, [startDate]);
+  useEffect(() => {
+    const baseDate = new Date("2024-01-01");
+    const dayIndex = differenceInCalendarDays(
+      startOfDay(startDate),
+      startOfDay(baseDate)
+    );
+    const startIndex = (dayIndex * 5) % questions.length; // Modulo to wrap around if day index exceeds length of questions array
+    setCurrentQuestions(questions.slice(startIndex, startIndex + 5));
+    setCurrentQuestionIndex(0);
+    setSelectedOption(null);
+    setAnswered(false);
+    setScore(0);
+  }, [startDate]);
+
+  const handleQuizCompletion = () => {
+    const formattedDate = format(startDate, "yyyy-MM-dd");
+    localStorage.setItem(formattedDate, JSON.stringify({ completed: true }));
+    setQuizComplete(true);
+  };
+
   return (
     <div className="quiz-play-task">
-      {/* <FaTimes
+      <FaTimes
         onClick={() => {
           goToThePage(QuizTask, "QuizTask");
         }}
         className="cancel-icon"
-      /> */}
-      <h1 className="welcome-text txt-color1">Quiz Game!</h1>
+      />
+      <h1>Quiz Game</h1>
       {showScore ? (
-        <div className="section score-section"><h2 className="phase-text1">You scored {score} points</h2></div>
+        <div className="section score-section">
+          <h2 className="phase-text1">You scored {score} points</h2>
+        </div>
       ) : (
         <>
           <div className="question-section">
-            <div className="question-count "><h2 className="phase-text1"> 
-              <span className=""> YOU HAVE {currentQuestionIndex + 1}</span>/
-              {currentQuestions.length} Question </h2>
+            <div className="question-count">
+              <span> YOU HAVE {currentQuestionIndex + 1}</span>/
+              {currentQuestions.length} Question
             </div>
             <div className="question-text">
               {currentQuestions[currentQuestionIndex]?.question}
@@ -693,12 +838,37 @@ const QuizPlayTask = () => {
                           : answered &&
                             option ===
                               currentQuestions[currentQuestionIndex].answer
-                          ? "lightgreen"
+                          ? "green"
                           : "initial",
                       color: "white",
                     }}
                   >
                     {option}
+
+                    {answered ? (
+                      selectedOption !== option &&
+                      option ===
+                        currentQuestions[currentQuestionIndex].answer ? (
+                        <FaCheck
+                          style={{ marginLeft: "10px", color: "white" }}
+                        />
+                      ) : null
+                    ) : null}
+
+                    {answered ? (
+                      selectedOption === option ? (
+                        option ===
+                        currentQuestions[currentQuestionIndex].answer ? (
+                          <FaCheck
+                            style={{ marginLeft: "10px", color: "white" }}
+                          />
+                        ) : (
+                          <FaTimes
+                            style={{ marginLeft: "10px", color: "white" }}
+                          />
+                        )
+                      ) : null
+                    ) : null}
                   </button>
                 )
               )}

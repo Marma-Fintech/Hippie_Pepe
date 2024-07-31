@@ -14,12 +14,19 @@
   max-width: 600px;
   margin: 0px auto;
   padding: 10px 20px;
+  margin: 10px auto;
+  padding: 20px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
 }
 
 .question-count {
   text-align: center;
+  color: gray;
+}
+.quizgame-datetext {
+  font-size: 20px;
+  color: yellow;
 }
 
 .answer-section {
@@ -31,9 +38,9 @@
 .answer-section button {
   padding: 10px 20px;
   width: 100%;
-  BACKGROUND: #232222 !important;
+  background: #232222 !important;
   max-width: 300px;
-  border: 2PX SOLID #232222 !important;
+  border: 2px SOLID #232222 !important;
   margin: 5px 0;
 }
 
@@ -51,17 +58,17 @@
   cursor: pointer;
   pointer-events: fill;
   position: fixed;
-    bottom: 17%;
-    padding-top: 5px;
-    border-radius: 100px;
-    width: 95%;
-    height: 60px;
-    border-radius: 238px;
-    background-color: #034807;
-    text-align: center;
-    color: #fff;
-    font-size: 18px;
-    text-transform: uppercase;
+  bottom: 17%;
+  padding-top: 5px;
+  border-radius: 100px;
+  width: 95%;
+  height: 60px;
+  border-radius: 238px;
+  background-color: #034807;
+  text-align: center;
+  color: #fff;
+  font-size: 18px;
+  text-transform: uppercase;
 }
 
 .next-button:disabled {
