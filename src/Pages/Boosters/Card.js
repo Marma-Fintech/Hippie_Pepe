@@ -8,16 +8,27 @@ import twoxboost from "../../assets/images/2xboostimg.png";
 import threexboost from "../../assets/images/3xturboimg.png";
 import fivexboost from "../../assets/images/5xboostimg.png";
 
-function Card() {
+function Card(props) {
+  console.log(JSON.stringify(props.item));
+  const { value, key } = props.item;
+
+  const images = {
+    levelUp: levelupBoostImg,
+    tap: tapBoostImg,
+    "2x": twoxboost,
+    "3x": threexboost,
+    "5x": fivexboost,
+  };
+
   return (
     <div style={{ height: "100%", width: "100%", position: "relative" }}>
       <div
         className="boostNumber"
-        style={{ position: "absolute", top: -2, left: "42%", fontSize: 10 }}
+        style={{ position: "absolute", top: -2, left: "42%", fontSize: 9 }}
       >
-        5
+        {value}
       </div>
-      <img src={levelupBoostImg} />
+      <img src={images[key]} />
     </div>
   );
 }

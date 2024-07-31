@@ -97,8 +97,8 @@ const Tv = () => {
               {formatNumber(watchScreen.totalReward + watchScreen.tapPoints)}/
               {formatNumber(level[currentLevel])}
             </h2>
-            <div style={{}}>
-              <ProgressBar>
+            <div style={{ height: "10px", marginBottom: "10px" }}>
+              <ProgressBar style={{ height: "10px" }}>
                 <ProgressBar
                   variant="warning"
                   now={Number(
@@ -117,8 +117,8 @@ const Tv = () => {
         <div className="col-6">
           <div className="level-h2">
             <h2 className="energy">Energy {watchScreen.energy}/5000</h2>
-            <div>
-              <ProgressBar>
+            <div style={{ height: "10px", marginBottom: "10px" }}>
+              <ProgressBar style={{ height: "10px" }}>
                 <ProgressBar
                   // variant="warning"
                   now={(watchScreen.energy / 5000) * 100}
@@ -164,7 +164,7 @@ const Tv = () => {
           </div>
           <div className="col-2">
             <div className="token-div">
-              <p className="token-mint1">Earn per tap</p>
+              <p className="token-mint1">Earn / tap</p>
               <p className="earn-p">10</p>
             </div>
           </div>
