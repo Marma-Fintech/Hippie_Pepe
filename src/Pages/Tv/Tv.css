@@ -18,6 +18,12 @@
     object-fit: contain;
 
   }
+  .progress
+  {
+height: 0.4rem !important;
+margin: 8px;
+border-radius: 0px !important;
+  }
 
   .level-div
 {
@@ -38,6 +44,14 @@ font-size: 15px;
    
     color: #E1CA00; 
 }
+.ml-10
+{
+  margin-left: 10px;
+}
+.mt5
+{
+  margin-top:5px !important;
+}
 .level-h2 .energy
 {
    
@@ -49,20 +63,31 @@ font-size: 15px;
     font-size: 15px;
     margin: 0 !important;
 }
+.phase1
+{
+  display: flex;
+    align-items: center;
+}
+.phase-p
+{
+  padding: 5px;
+  background-color: yellow;
+}
 .streak-center
 {
     display: flex;
-    align-items: baseline;
+    align-items: center;
     justify-content: center;
 }
 .text-center
 {
-    text-align: center;
+    text-align: center !important;
+    text-align: -webkit-center !important;
 }
 
 .streak-border
 {
-    padding: 10px 0px !important ;
+    /* padding: 10px 0px !important ; */
     border: 2px solid;
     border-image-slice: 1;
     border-width:1px;
@@ -105,9 +130,19 @@ font-size: 15px;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
+.booster
+{
+  padding: 10px;
+    text-align: center;
+    border: 1px solid #4E4E4E;
+    border-top: none;
+    align-items: revert;
+    text-align: center;
+    border-radius: 0px 0px 10px 10px;
+}
 .points
 {
-padding: 24px;
+padding: 22px;  
     border: 2px solid;
   border-image-slice: 1;
   border-width:1px;
@@ -125,6 +160,7 @@ border-image-source: linear-gradient(to left, #FD8D23 -1.34%, #FAE61C 10.31%, #E
 {
     background: #4E4E4E;
     padding: 3px;
+    height: 100%;
 }
 
 .earn-p
