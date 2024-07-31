@@ -13,6 +13,7 @@ const Boosters = () => {
   const [currentSlide, setCurrentSlide] = useState(2);
   const { userDetails, watchScreen, updatewatchScreenInfo, updateUserInfo } =
     useUserInfo();
+
   const [boosters, setBooster] = useState({
     levelUp: 0,
     tap: 10,
@@ -20,6 +21,8 @@ const Boosters = () => {
     "3x": 30,
     "5x": 50,
   });
+
+  const [boosterSlides, setBoosterSlides] = useState([]);
 
   var userBoosters = [
     "levelUp",
@@ -33,7 +36,7 @@ const Boosters = () => {
   ];
   var bossters = { levelUp: 0, tap: 0, "2x": 0, "3x": 0, "5x": 0 };
 
-  var allSlides;
+  var allSlides = [];
 
   useEffect(() => {
     const mapBoosters = userBoosters.map((item) => {
@@ -42,7 +45,14 @@ const Boosters = () => {
     setBooster(bossters);
   }, []);
 
-  console.log(boosters);
+  useEffect(() => {
+    const slides = Object.entries(boosters).map(([key, value], index) => ({
+      key: index,
+      content: <Card key={index} item={{ key, value }} />,
+    }));
+    setBoosterSlides(slides);
+    // console.log(JSON.stringify(slides) + "sssssssssssssssssssssssssssss");
+  }, [boosters]);
 
   const slides = [
     {
@@ -96,8 +106,8 @@ const Boosters = () => {
         }}
       >
         <Carousel
-          style={{ width: "100%" }}
-          slides={slides}
+          style={{ width: "100%", opacity: "1" }}
+          slides={boosterSlides}
           // offset={500}
           opacity={1}
           goToSlide={currentSlide}
