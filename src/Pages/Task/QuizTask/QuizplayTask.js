@@ -801,24 +801,31 @@ const QuizPlayTask = () => {
 
   return (
     <div className="quiz-play-task">
+      <ReactDatePicker
+        selected={startDate}
+        onChange={(date) => setStartDate(date)}
+        dateFormat="yyyy-MM-dd"
+      />
+
       <FaTimes
         onClick={() => {
           goToThePage(QuizTask, "QuizTask");
         }}
         className="cancel-icon"
       />
-      <h1>Quiz Game</h1>
+      <h1 className="quizgame-datetext">
+        Quiz Game {format(startDate, "PPP")}
+      </h1>
+
       {showScore ? (
-        <div className="section score-section">
-          <h2 className="phase-text1">You scored {score} points</h2>
-        </div>
+        <div className="section score-section">You scored {score} points</div>
       ) : (
         <>
+          <div className="question-count">
+            <span> YOU HAVE {currentQuestionIndex + 1}</span>/
+            {currentQuestions.length} Question
+          </div>
           <div className="question-section">
-            <div className="question-count">
-              <span> YOU HAVE {currentQuestionIndex + 1}</span>/
-              {currentQuestions.length} Question
-            </div>
             <div className="question-text">
               {currentQuestions[currentQuestionIndex]?.question}
             </div>
