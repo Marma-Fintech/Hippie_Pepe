@@ -165,16 +165,16 @@ const Tv = () => {
           </div>
           <div className="col-2">
             <div className="token-div">
-              <p className="token-mint1">Earn tap</p>
+              <p className="token-mint1">Earn / tap</p>
               <p className="earn-p">10</p>
             </div>
           </div>
         </div>
-        <div className="row streak-center" >
+        <div className="row streak-center">
           <div className="col-2 text-center">
             <img src={settings} alt="Settings" />
           </div>
-          <div className="col-8 text-center">
+          <div className="col-8 text-c">
             <div className="">
               <div className="col-7">
                 <h2 className="streak booster"> 12.00</h2>
