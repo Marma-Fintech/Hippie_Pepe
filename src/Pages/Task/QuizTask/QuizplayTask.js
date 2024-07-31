@@ -341,12 +341,12 @@ const QuizPlayTask = () => {
       setScore((prevScore) => prevScore + pointsAwarded);
 
       // Console log the results
-      console.log(
-        `Answer is ${
-          isCorrect ? "correct" : "incorrect"
-        }. Points awarded: ${pointsAwarded}`
-      );
-      console.log(`Total points: ${score + pointsAwarded}`);
+      // console.log(
+      //   `Answer is ${
+      //     isCorrect ? "correct" : "incorrect"
+      //   }. Points awarded: ${pointsAwarded}`
+      // );
+      // console.log(`Total points: ${score + pointsAwarded}`);
 
       setAnswered(true); // Prevent further selections
 
@@ -365,7 +365,7 @@ const QuizPlayTask = () => {
           JSON.stringify(result)
         );
 
-        console.log("Quiz completed. Final score:", score + pointsAwarded);
+        // console.log("Quiz completed. Final score:", score + pointsAwarded);
       }
     }
   };
@@ -396,9 +396,9 @@ const QuizPlayTask = () => {
     });
   };
 
-  useEffect(() => {
-    console.log(answered);
-  }, [answered]);
+  // useEffect(() => {
+  //   console.log(answered);
+  // }, [answered]);
 
   // useEffect(() => {
   //   const baseDate = new Date("2024-01-01");
