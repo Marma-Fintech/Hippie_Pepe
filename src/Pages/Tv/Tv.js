@@ -3,7 +3,6 @@ import "./Tv.css";
 import settings from "../../assets/images/settings.png";
 import help from "../../assets/images/help.png";
 import memetv from "../../assets/images/meme-logo.svg";
-import energy from "../../assets/images/energy.png";
 import useUserInfo from "../../Hooks/useUserInfo";
 import ProgressBar from "react-bootstrap/ProgressBar";
 
@@ -86,187 +85,113 @@ const Tv = () => {
   // );
 
   return (
-    <div className="tvContainer" style={{ height: "100%", width: "100%" }}>
+    <div
+      className="tvContainer menupointer"
+      style={{ height: "100%", width: "100%" }}
+    >
       <div className="row level-div text-center">
         <div className="col-6">
           <div className="level-h2">
-            <h2 className="level">Level 1 25/5000</h2>
-            <hr />
-          </div>
-          <div
-            className="tvContainer menupointer"
-            style={{ height: "100%", width: "100%" }}
-          >
-            <div className="row level-div text-center">
-              <div className="col-6">
-                <div className="level-h2">
-                  <h2 className="level">
-                    Level {currentLevel}{" "}
-                    {formatNumber(
-                      watchScreen.totalReward + watchScreen.tapPoints
-                    )}
-                    /{formatNumber(level[currentLevel])}
-                  </h2>
-                  <div style={{}}>
-                    <ProgressBar>
-                      <ProgressBar
-                        variant="warning"
-                        now={Number(
-                          ((watchScreen.totalReward + watchScreen.tapPoints) /
-                            level[currentLevel]) *
-                            100
-                        ).toFixed()}
-                        key={1}
-                      />
-                    </ProgressBar>
-                  </div>
-
-                  {/* <hr /> */}
-                </div>
-              </div>
-              <div className="col-6">
-                <div className="level-h2">
-                  <h2 className="energy">
-                    <img src={energy} /> Energy 15/1000
-                  </h2>
-                  <hr />
-                  <h2 className="energy">Energy {watchScreen.energy}/5000</h2>
-                  <div>
-                    <ProgressBar>
-                      <ProgressBar
-                        // variant="warning"
-                        now={(watchScreen.energy / 5000) * 100}
-                        key={1}
-                      />
-                    </ProgressBar>
-                  </div>
-                </div>
-              </div>
-              <div className="row streak-center">
-                <div className="col-2 text-center">
-                  <img src={help} />
-                  <img src={settings} alt="Settings" />
-                </div>
-                <div className="col-8 streak-border">
-                  <div className="row text-center">
-                    <div className="col-6">
-                      <h2 className="streak"> STREAK &nbsp;</h2>
-                    </div>
-                    <div className="col-6">
-                      <h2 className="streak"> PHASE &nbsp; </h2>
-                    </div>
-                  </div>
-                </div>
-                <div className="col-2 text-center">
-                  <img src={settings} />
-                  <img src={help} alt="Help" />
-                </div>
-              </div>
-              <div className="row">
-                <div className="col-2">
-                  <div className="token-div">
-                    <p className="token-mint">Token Mint</p>
-                    <p className="earn-p">1/Sec</p>
-                  </div>
-                </div>
-                <div className="col-8 points">
-                  <h2>
-                    <img src={memetv} alt="Meme TV" />
-                    <span className="txt-color">
-                      {" "}
-                      {watchScreen.totalReward + watchScreen.tapPoints}
-                    </span>
-                  </h2>
-                </div>
-                <div className="col-2">
-                  <div className="token-div">
-                    <p className="token-mint1">Earn per tap</p>
-                    <p className="earn-p">10</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="row">
-              <div className="col-12">
-                <div className="floor"></div>
-                <img
-                  src="https://i.imgur.com/pXALzSc.gif"
-                  className="woot-dance"
-                  width="328"
-                  height="272"
-                  alt="8-bit dancing Karateka guy"
-                  onClick={() => {
-                    // console.log("Pts added");
-                    updatewatchScreenInfo((prev) => {
-                      return {
-                        ...prev,
-                        ...{
-                          tapPoints: watchScreen.tapPoints + 10,
-                          energy: watchScreen.energy - 5,
-                        },
-                      };
-                    });
-                  }}
+            <h2 className="level">
+              Level {currentLevel}{" "}
+              {formatNumber(watchScreen.totalReward + watchScreen.tapPoints)}/
+              {formatNumber(level[currentLevel])}
+            </h2>
+            <div style={{}}>
+              <ProgressBar>
+                <ProgressBar
+                  variant="warning"
+                  now={Number(
+                    ((watchScreen.totalReward + watchScreen.tapPoints) /
+                      level[currentLevel]) *
+                      100
+                  ).toFixed()}
+                  key={1}
                 />
-                <div className="col-6">
-                  <div className="level-h2">
-                    <h2 className="energy">Energy 120/5000</h2>
-                    <hr />
-                  </div>
-                </div>
-                <div class="row streak-center">
-                  <div className="col-2 text-center">
-                    <img src={settings} />
-                  </div>
-                  <div class="col-8 streak-border">
-                    <div className="row text-center">
-                      <div className="col-6">
-                        <h2 className="streak"> STREAK &nbsp;</h2>
-                      </div>
-                      <div className="col-6">
-                        <h2 className="streak"> PHASE &nbsp; </h2>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="col-2 text-center">
-                    <img src={help} />
-                  </div>
-                </div>
-                <div className="row">
-                  <div className="col-2">
-                    <div className="token-div">
-                      <p className="token-mint">Token Mint</p>
-                      <p className="earn-p">1/Sec</p>
-                    </div>
-                  </div>
-                  <div className="col-8 points">
-                    <h2>
-                      <img src={memetv} />
-                      <span className="txt-color"> 100k</span>
-                    </h2>
-                  </div>
-                  <div className="col-2">
-                    <div className="token-div">
-                      <p className="token-mint1">Token Mint</p>
-                      <p className="earn-p">10</p>
-                    </div>
-                  </div>
-                </div>
+              </ProgressBar>
+            </div>
+
+            {/* <hr /> */}
+          </div>
+        </div>
+        <div className="col-6">
+          <div className="level-h2">
+            <h2 className="energy">Energy {watchScreen.energy}/5000</h2>
+            <div>
+              <ProgressBar>
+                <ProgressBar
+                  // variant="warning"
+                  now={(watchScreen.energy / 5000) * 100}
+                  key={1}
+                />
+              </ProgressBar>
+            </div>
+          </div>
+        </div>
+        <div className="row streak-center">
+          <div className="col-2 text-center">
+            <img src={settings} alt="Settings" />
+          </div>
+          <div className="col-8 streak-border">
+            <div className="row text-center">
+              <div className="col-6">
+                <h2 className="streak"> STREAK &nbsp;</h2>
               </div>
-              <div className="row">
-                <div className="col-12">
-                  <div class="floor"></div>
-                  <img
-                    src="https://i.imgur.com/pXALzSc.gif"
-                    class="woot-dance"
-                    width="328"
-                    height="272"
-                    alt="8-bit dancing Karateka guy"
-                  />
-                </div>
+              <div className="col-6">
+                <h2 className="streak"> PHASE &nbsp; </h2>
               </div>
             </div>
           </div>
+          <div className="col-2 text-center">
+            <img src={help} alt="Help" />
+          </div>
+        </div>
+        <div className="row">
+          <div className="col-2">
+            <div className="token-div">
+              <p className="token-mint">Token Mint</p>
+              <p className="earn-p">1/Sec</p>
+            </div>
+          </div>
+          <div className="col-8 points">
+            <h2>
+              <img src={memetv} alt="Meme TV" />
+              <span className="txt-color">
+                {" "}
+                {watchScreen.totalReward + watchScreen.tapPoints}
+              </span>
+            </h2>
+          </div>
+          <div className="col-2">
+            <div className="token-div">
+              <p className="token-mint1">Earn per tap</p>
+              <p className="earn-p">10</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div className="row">
+        <div className="col-12">
+          <div className="floor"></div>
+          <img
+            src="https://i.imgur.com/pXALzSc.gif"
+            className="woot-dance"
+            width="328"
+            height="272"
+            alt="8-bit dancing Karateka guy"
+            onClick={() => {
+              // console.log("Pts added");
+              updatewatchScreenInfo((prev) => {
+                return {
+                  ...prev,
+                  ...{
+                    tapPoints: watchScreen.tapPoints + 10,
+                    energy: watchScreen.energy - 5,
+                  },
+                };
+              });
+            }}
+          />
         </div>
       </div>
     </div>
