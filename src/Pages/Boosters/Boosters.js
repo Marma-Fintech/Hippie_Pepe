@@ -13,7 +13,7 @@ const Boosters = () => {
   const [currentSlide, setCurrentSlide] = useState(2);
   const { userDetails, watchScreen, updatewatchScreenInfo, updateUserInfo } =
     useUserInfo();
-
+  // console.log(JSON.stringify(watchScreen));
   const [boosters, setBooster] = useState({
     levelUp: 0,
     tap: 10,
@@ -24,22 +24,22 @@ const Boosters = () => {
 
   const [boosterSlides, setBoosterSlides] = useState([]);
 
-  var userBoosters = [
-    "levelUp",
-    "levelUp",
-    "levelUp",
-    "tap",
-    "tap",
-    "2x",
-    "3x",
-    "5x",
-  ];
+  // var userBoosters = [
+  //   "levelUp",
+  //   "levelUp",
+  //   "levelUp",
+  //   "tap",
+  //   "tap",
+  //   "2x",
+  //   "3x",
+  //   "5x",
+  // ];
   var bossters = { levelUp: 0, tap: 0, "2x": 0, "3x": 0, "5x": 0 };
 
   var allSlides = [];
 
   useEffect(() => {
-    const mapBoosters = userBoosters.map((item) => {
+    const mapBoosters = watchScreen?.boostersList.map((item) => {
       bossters[item] = bossters[item] + 1;
     });
     setBooster(bossters);

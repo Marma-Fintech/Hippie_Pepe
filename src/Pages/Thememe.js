@@ -81,7 +81,7 @@ const Thememe = () => {
 
   const getUserDetails = async (data) => {
     const userDetails = await UserDeatils(data);
-    // console.log(JSON.stringify(userDetails) + " referredIdFromUrl  ");
+    console.log(JSON.stringify(userDetails) + " referredIdFromUrl  ");
     // console.log(JSON.stringify(watchScreen) + " referredIdFromUrl  ");
 
     updateUserInfo((prev) => {

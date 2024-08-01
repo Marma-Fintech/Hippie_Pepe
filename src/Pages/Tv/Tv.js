@@ -5,6 +5,8 @@ import help from "../../assets/images/help.png";
 import memetv from "../../assets/images/meme-logo.svg";
 import useUserInfo from "../../Hooks/useUserInfo";
 import ProgressBar from "react-bootstrap/ProgressBar";
+import marketPlack from "../../assets/images/marketPlace.png";
+import leaderBoarder from "../../assets/images/leaderBoard.png";
 
 const Tv = () => {
   const { userDetails, watchScreen, updatewatchScreenInfo, updateUserInfo } =
@@ -173,7 +175,7 @@ const Tv = () => {
         </div>
         <div className="row streak-center">
           <div className="col-2 text-center">
-            <img src={settings} alt="Settings" />
+            <img src={marketPlack} alt="Settings" />
           </div>
           <div className="col-8 text-c">
             <div className="">
@@ -183,7 +185,7 @@ const Tv = () => {
             </div>
           </div>
           <div className="col-2 text-center">
-            <img src={help} alt="Help" />
+            <img src={leaderBoarder} alt="Help" />
           </div>
         </div>
       </div>
