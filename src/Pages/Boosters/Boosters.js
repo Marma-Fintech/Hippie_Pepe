@@ -79,9 +79,6 @@ const Boosters = () => {
         display: "flex",
         flexDirection: "row",
       }}
-      onClick={() => {
-        console.log("click");
-      }}
     >
       <div
         style={{

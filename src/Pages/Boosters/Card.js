@@ -9,7 +9,6 @@ import threexboost from "../../assets/images/3xturboimg.png";
 import fivexboost from "../../assets/images/5xboostimg.png";
 
 function Card(props) {
-  console.log(JSON.stringify(props.item));
   const { value, key } = props.item;
 
   const images = {
@@ -21,7 +20,12 @@ function Card(props) {
   };
 
   return (
-    <div style={{ height: "100%", width: "100%", position: "relative" }}>
+    <div
+      style={{ height: "100%", width: "100%", position: "relative" }}
+      onClick={() => {
+        console.log(value, key);
+      }}
+    >
       <div
         className="boostNumber"
         style={{ position: "absolute", top: -2, left: "42%", fontSize: 9 }}

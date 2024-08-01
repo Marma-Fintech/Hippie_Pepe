@@ -16,6 +16,8 @@ const INITIAL_STATE = {
     menuCount: 0,
     centerCount: 0,
     refererCount: 0,
+    booster: false,
+    boosterSeconds: 0,
   },
   watchScreen: {
     totalReward: 0,
