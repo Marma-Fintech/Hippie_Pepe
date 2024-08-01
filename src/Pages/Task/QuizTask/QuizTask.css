@@ -3,7 +3,6 @@
   flex-direction: column;
   align-items: center;
   margin-top: 20px;
-  font-family: myFirstFont;
 }
 
 .quiz-task h1,
@@ -28,29 +27,45 @@
   height: 45px;
   margin: 5px;
   border-radius: 10px;
-  background-color:#212121;
-  border: 2px solid #212121; /* Adding a yellow border */
+  background-color: gray;
+  border: 2px solid rgb(224, 224, 209); /* Adding a yellow border */
 }
 
 .play-status {
   margin: 10px;
   font-size: 14px;
-  border: 2px solid rgb(224, 224, 209);
+  border: 0.85px solid rgba(147, 149, 152, 1) !important;
   border-radius: 5px;
   width: 150px;
   text-align: center;
   cursor: pointer;
+  padding: 5px;
+  color: rgba(156, 156, 156, 1) !important;
 }
 
 .day-label {
-  margin: 40px;
-  font-size: 14px;
+  font-size: 18px !important;
+  background: linear-gradient(
+    180deg,
+    #fd8d23 -1.34%,
+    #fae61c 10.31%,
+    #eef73b 20.95%,
+    #4cf038 42.23%,
+    #33c6f6 65.04%,
+    #7475ff 80.74%,
+    #d457ff 100%
+  ) !important;
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
+  color: transparent !important;
+  user-select: none !important;
+  font-family: myFirstFont;
 }
 
 .cancel-container {
   display: flex;
   justify-content: flex-end;
-  margin-bottom: 10px;
+  margin-bottom: 43px;
 }
 
 .cancel-icon {
@@ -60,22 +75,16 @@
 }
 
 .cancel-icon:hover {
-  color: #f00;  
+  color: #f00;
 }
 
 .welcome-text {
-  background: linear-gradient(180deg, #EEF73B 38.45%, #79e56c 45.86%, #00c0ff 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  font-family: press;
-  font-size: 20px;
-  text-transform: uppercase;
+  color: yellow;
 }
 
 .phase-text {
   color: white;
-  font-size: 12px !important;
-  font-family: press;
+  font-size: 15px;
 }
 
 .daily-text {
