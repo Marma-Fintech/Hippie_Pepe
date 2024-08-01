@@ -72,7 +72,7 @@
   text-align: -webkit-center !important;
 }
 
-<<<<<<< HEAD
+
 .text-c
 {
     text-align: center !important;
@@ -86,7 +86,7 @@
     border-image-slice: 1;
     border-width:1px;
     border-image-source: linear-gradient(to top, #d96a00 5.66%, #b9b9b9 35.31%, #EEF73B 49.95%, #4CF038 61.23%, #33C6F6 93.04%, #ffe252 97.74%, #D457FF 100%);
-=======
+}
 .streak-border {
   /* padding: 10px 0px !important ; */
   border: 2px solid;
@@ -102,7 +102,6 @@
     #ffe252 97.74%,
     #d457ff 100%
   );
->>>>>>> 48ae54778d68fb4252f6ec550bc7bcf84a839ae8
 }
 
 .token-mint {
