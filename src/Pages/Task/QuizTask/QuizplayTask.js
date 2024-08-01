@@ -6,7 +6,6 @@ import QuizTask from "./QuizTask.js";
 import "react-datepicker/dist/react-datepicker.css";
 import { format, startOfDay, differenceInCalendarDays } from "date-fns";
 import ReactDatePicker from "react-datepicker";
-import logo from "../../../assets/images/coinlogo.png";
 const questions = [
   {
     id: 1,
@@ -296,7 +295,19 @@ const QuizPlayTask = () => {
   const [answered, setAnswered] = useState(false);
   const [startDate, setStartDate] = useState(new Date());
   const [quizComplete, setQuizComplete] = useState(false);
-
+  // useEffect(() => {
+  //   // Randomly select 5 unique questions
+  //   const selectedQuestions = [];
+  //   const indices = new Set();
+  //   while (indices.size < 5) {
+  //     const randomIndex = Math.floor(Math.random() * questions.length);
+  //     if (!indices.has(randomIndex)) {
+  //       indices.add(randomIndex);
+  //       selectedQuestions.push(questions[randomIndex]);
+  //     }
+  //   }
+  //   setCurrentQuestions(selectedQuestions);
+  // }, []);
   useEffect(() => {
     const baseDate = new Date("2024-01-01"); // Set this to a fixed starting point or the launch date of the quiz.
     const dayIndex = differenceInCalendarDays(
@@ -307,12 +318,10 @@ const QuizPlayTask = () => {
     const startIndex = dayIndex * questionsPerDay; // Calculate the start index based on the day index.
     const endIndex = startIndex + questionsPerDay; // Calculate the end index.
     const selectedQuestions = questions.slice(startIndex, endIndex); // Slice the questions array to get the questions for the day.
-
     setCurrentQuestions(selectedQuestions);
     setCurrentQuestionIndex(0); // Reset to the first question of the day.
     setAnswered(false); // Allow answers for new questions.
   }, []);
-
   //   const handleAnswerOptionClick = (option) => {
   //     if (!answered) {
   //       // Only allow selection if no answer has been submitted
@@ -327,18 +336,15 @@ const QuizPlayTask = () => {
   //       setAnswered(true); // Prevent further selections
   //     }
   //   };
-
   const handleAnswerOptionClick = (option) => {
     if (!answered) {
       // Only allow selection if no answer has been submitted
       setSelectedOption(option);
       const isCorrect =
         option === currentQuestions[currentQuestionIndex].answer;
-
       // Update the score based on whether the answer is correct
       const pointsAwarded = isCorrect ? 1000 : 500;
       setScore((prevScore) => prevScore + pointsAwarded);
-
       // Console log the results
       // console.log(
       //   `Answer is ${
@@ -346,9 +352,7 @@ const QuizPlayTask = () => {
       //   }. Points awarded: ${pointsAwarded}`
       // );
       // console.log(`Total points: ${score + pointsAwarded}`);
-
       setAnswered(true); // Prevent further selections
-
       // Check if it's the last question
       if (currentQuestionIndex + 1 === currentQuestions.length) {
         const formattedDate = format(new Date(), "yyyy-MM-dd"); // Use today's date
@@ -357,18 +361,15 @@ const QuizPlayTask = () => {
           score: score + pointsAwarded,
           completed: true,
         };
-
         // Store the result in local storage
         localStorage.setItem(
           `quizResult_${formattedDate}`,
           JSON.stringify(result)
         );
-
         // console.log("Quiz completed. Final score:", score + pointsAwarded);
       }
     }
   };
-
   const handleNextQuestion = () => {
     const nextQuestionIndex = currentQuestionIndex + 1;
     if (nextQuestionIndex < currentQuestions.length) {
@@ -379,7 +380,6 @@ const QuizPlayTask = () => {
       setShowScore(true);
     }
   };
-
   const goToThePage = (component, name) => {
     updateUserInfo((prev) => {
       return {
@@ -394,11 +394,9 @@ const QuizPlayTask = () => {
       };
     });
   };
-
   // useEffect(() => {
   //   console.log(answered);
   // }, [answered]);
-
   // useEffect(() => {
   //   const baseDate = new Date("2024-01-01");
   //   const formattedDate = format(startDate, "yyyy-MM-dd");
@@ -429,7 +427,6 @@ const QuizPlayTask = () => {
     setAnswered(false);
     setScore(0);
   }, [startDate]);
-
   const handleQuizCompletion = () => {
     const formattedDate = format(startDate, "yyyy-MM-dd");
     localStorage.setItem(formattedDate, JSON.stringify({ completed: true }));
@@ -443,33 +440,15 @@ const QuizPlayTask = () => {
         onChange={(date) => setStartDate(date)}
         dateFormat="yyyy-MM-dd"
       /> */}
-
-      <FaTimes
+      {/* <FaTimes
         onClick={() => {
           goToThePage(QuizTask, "QuizTask");
         }}
         className="cancel-icon"
-      />
-      <h1 className="quizgame-datetext">
-        Quiz Game {format(startDate, "PPP")}
-      </h1>
-
+      /> */}
+      <h1 className="welcome-text">Quiz Game</h1>
       {showScore ? (
-        <div className="cards">
-          <h1 className="title-epic">Epic Win!</h1>
-          <div className="pointsContainer">
-            <div className="pointsInnerContainer">
-              <p className="pointsLabel">POINTS EARNED </p>
-              <div className="pointsValue">
-                <img src={logo} />
-                <p className="pointsNumber">{score}</p>
-              </div>
-            </div>
-          </div>
-          <p className="bottom-text">
-            Play daily to boost your score <br /> and rack up more points!
-          </p>
-        </div>
+        <div className="section score-section">You scored {score} points</div>
       ) : (
         <>
           <div className="question-count">
@@ -502,7 +481,6 @@ const QuizPlayTask = () => {
                     }}
                   >
                     {option}
-
                     {answered ? (
                       selectedOption !== option &&
                       option ===
@@ -512,7 +490,6 @@ const QuizPlayTask = () => {
                         />
                       ) : null
                     ) : null}
-
                     {answered ? (
                       selectedOption === option ? (
                         option ===
@@ -544,5 +521,4 @@ const QuizPlayTask = () => {
     </div>
   );
 };
-
 export default QuizPlayTask;

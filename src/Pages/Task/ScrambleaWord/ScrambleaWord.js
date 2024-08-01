@@ -5,10 +5,8 @@ import useUserInfo from "../../../Hooks/useUserInfo";
 import Task from "../Task";
 import ScrambleaWordPlay from "./ScrambleaWordPlay.js";
 import wordscramble from "../../../assets/Task/wordscramble.png";
-
 const ScrambleaWord = () => {
   const { userDetails, updateUserInfo } = useUserInfo();
-
   const goToThePage = (component, name) => {
     updateUserInfo((prev) => {
       return {
@@ -54,5 +52,4 @@ const ScrambleaWord = () => {
     </div>
   );
 };
-
 export default ScrambleaWord;
