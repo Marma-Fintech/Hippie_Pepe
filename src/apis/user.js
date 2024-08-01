@@ -1,22 +1,21 @@
 import axios from "axios";
+import { Base_Url } from "./baseurl";
+// console.log(Base_Url.base_url);
 
 export const UserDeatils = async (data) => {
   try {
     // console.log(data + "datadatadatadatadata");
-    const response = await axios.post(
-      "https://memetv-backend.onrender.com/login",
-      data
-    );
+    const response = await axios.post(`${Base_Url.base_url}/login`, data);
 
     return response.data.user;
   } catch (err) {}
 };
 
-export const addBooster = async (data) => {
+export const addWatchSeconds = async (data) => {
   try {
     // console.log(data + "datadatadatadatadata");
     const response = await axios.post(
-      "https://memetv-backend.onrender.com/login",
+      `${Base_Url.base_url}/userWatchRewards`,
       data
     );
 
@@ -26,4 +25,5 @@ export const addBooster = async (data) => {
 
 export default {
   UserDeatils,
+  addWatchSeconds,
 };

@@ -92,6 +92,15 @@ const Thememe = () => {
         },
       };
     });
+
+    updatewatchScreenInfo((prev) => {
+      return {
+        ...prev,
+        ...{
+          boostersList: userDetails?.boosters,
+        },
+      };
+    });
   };
 
   const goToTheRefererPage = (component, name) => {

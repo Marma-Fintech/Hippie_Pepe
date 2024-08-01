@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import IntroImg from "../components/introImg/introImg";
 
-const INITIAL_STATE = {
+const INITIAL_USER_STATE = {
   userDetails: {
     id: 1,
     telegramDetails: {},
@@ -17,6 +17,9 @@ const INITIAL_STATE = {
     centerCount: 0,
     refererCount: 0,
   },
+};
+
+const INITIAL_STATE = {
   watchScreen: {
     totalReward: 0,
     currentLevel: 0,
@@ -26,8 +29,9 @@ const INITIAL_STATE = {
     tokenToken: 0,
     tapPoints: 0,
     booster: false,
-    boostersList: userDetails?.boosters,
+    boostersList: [],
     boosterDetails: {},
+    lastWatchSec: 0,
   },
   updatewatchScreenInfo: () => undefined,
   updateUserInfo: () => undefined,
@@ -39,7 +43,9 @@ export const UserInfoContext = React.createContext({
 
 export const UserInfoProvider = ({ children }) => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [userDetails, setUserdetails] = useState(INITIAL_STATE.userDetails);
+  const [userDetails, setUserdetails] = useState(
+    INITIAL_USER_STATE.userDetails
+  );
   const [watchScreen, setwatchScreen] = useState(INITIAL_STATE.watchScreen);
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars

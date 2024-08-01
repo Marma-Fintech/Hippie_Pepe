@@ -41,7 +41,10 @@ function Card(props) {
     <div
       style={{ height: "100%", width: "100%", position: "relative" }}
       onClick={() => {
-        boosterSelected();
+        if (value !== 0) {
+          boosterSelected();
+          console.log(value);
+        }
       }}
     >
       <div
