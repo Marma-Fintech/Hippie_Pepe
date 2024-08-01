@@ -681,7 +681,7 @@ const PickaWord = () => {
   return (
     <div className="task-page">
       <div className="">
-        <h2>Pick a Card</h2>
+        <h2 className="welcome-text mb15">Pick a Card</h2>
       </div>
       {/* <div className="cancel-container">
         <FaTimes
