@@ -356,6 +356,7 @@ import QuizTask from "./QuizTask.js";
 import "react-datepicker/dist/react-datepicker.css";
 import { format, startOfDay, differenceInCalendarDays } from "date-fns";
 import ReactDatePicker from "react-datepicker";
+import logo from "../../../assets/images/coinlogo.png";
 
 const questions = [
   {
@@ -818,7 +819,21 @@ const QuizPlayTask = () => {
       </h1>
 
       {showScore ? (
-        <div className="section score-section">You scored {score} points</div>
+        <div className="cards">
+          <h1 className="title-epic">Epic Win!</h1>
+          <div className="pointsContainer">
+            <div className="pointsInnerContainer">
+              <p className="pointsLabel">POINTS EARNED </p>
+              <div className="pointsValue">
+                <img src={logo} />
+                <p className="pointsNumber">{score}</p>
+              </div>
+            </div>
+          </div>
+          <p className="bottom-text">
+            Play daily to boost your score <br /> and rack up more points!
+          </p>
+        </div>
       ) : (
         <>
           <div className="question-count">
