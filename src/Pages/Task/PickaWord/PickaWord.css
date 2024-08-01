@@ -137,22 +137,55 @@ button {
 }
 .popup {
   position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background-color: white;
-  padding: 20px;
-  border: 2px solid black;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-  z-index: 1000;
+    /* top: 50%; */
+    /* width: 105%; */
+    border-radius: 50px 50px 0px 0px;
+    bottom: 17%;
+    /* left: 50%; */
+    /* transform: translate(-50%, -50%); */
+    background-color: black;
+    padding: 20px;
+    border: 2px solid #3f3f3f;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 }
-.popup-content {
+.epic{
+  color: #fff;
+  font-family: press;
+  font-size: 18px;
+  text-align: center;
+  margin-top: 5px;
+  margin-bottom: 15px;
+
+}
+.epic-div
+{
+  border: 2px solid #545554;
+  padding: 30px 12px;
+  margin: 20px;
+  background: #1e1e1e;
+  border-radius: 60px;
+}
+.popup-content {  
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 .popup-card-image {
-  width: 100px;
-  height: 150px;
-  margin-top: 10px;
+  width: 40%;
+  /* height: 150px; */
+  margin-top: -53px;
+  margin-bottom: 30px;
+}
+.rw-popup
+{
+  font-size: 18px;
+  color: aliceblue;
+}
+.btn-reward
+{
+  width: 80%;
+  background: #277e1e;
+  border-radius: 5px;
+  color: #fff;
+  border: 2px solid #079b16;
 }

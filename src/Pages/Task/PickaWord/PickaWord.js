@@ -374,7 +374,11 @@ const PickaWord = () => {
           <div className="popup-content">
             {playsRemaining > 0 ? (
               <>
-                <h3>You got {selectedCard}!</h3>
+               
+                <h2 className="epic">Epic Win!</h2> 
+                <div className="row text-center">
+                  <div className="col-12">
+                  <div className="epic-div">
                 {selectedCard && (
                   <img
                     src={cardImages[selectedCard]}
@@ -382,10 +386,16 @@ const PickaWord = () => {
                     className="popup-card-image"
                   />
                 )}
-                <button onClick={handleFreePick}>Free Pick</button>
+                <h3 className="rw-popup">You got {selectedCard}!</h3>
+                </div>
+                  </div>
+                </div>
+                
+               
+                <button className="btn-reward" onClick={handleFreePick}>Free Pick</button>
               </>
             ) : (
-              <button onClick={handlePlayAgain}>500 Coins</button>
+              <button className="btn-reward" onClick={handlePlayAgain}>500 Coins</button>
             )}
           </div>
         </div>
