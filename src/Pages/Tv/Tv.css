@@ -85,6 +85,12 @@ font-size: 15px;
     text-align: -webkit-center !important;
 }
 
+.text-c
+{
+    text-align: center !important;
+    text-align: -webkit-center !important;
+}
+
 .streak-border
 {
     /* padding: 10px 0px !important ; */

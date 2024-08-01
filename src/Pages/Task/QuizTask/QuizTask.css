@@ -3,6 +3,7 @@
   flex-direction: column;
   align-items: center;
   margin-top: 20px;
+  font-family: myFirstFont;
 }
 
 .quiz-task h1,
@@ -23,16 +24,16 @@
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  width: 350px;
-  height: 40px;
+  /* width: 350px; */
+  height: 45px;
   margin: 5px;
   border-radius: 10px;
-  background-color: gray;
-  border: 2px solid rgb(224, 224, 209); /* Adding a yellow border */
+  background-color:#212121;
+  border: 2px solid #212121; /* Adding a yellow border */
 }
 
 .play-status {
-  margin: 25px;
+  margin: 10px;
   font-size: 14px;
   border: 2px solid rgb(224, 224, 209);
   border-radius: 5px;
@@ -59,16 +60,22 @@
 }
 
 .cancel-icon:hover {
-  color: #f00;
+  color: #f00;  
 }
 
 .welcome-text {
-  color: yellow;
+  background: linear-gradient(180deg, #EEF73B 38.45%, #79e56c 45.86%, #00c0ff 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-family: press;
+  font-size: 20px;
+  text-transform: uppercase;
 }
 
 .phase-text {
   color: white;
-  font-size: 15px;
+  font-size: 12px !important;
+  font-family: press;
 }
 
 .daily-text {

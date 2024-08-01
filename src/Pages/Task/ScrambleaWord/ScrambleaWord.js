@@ -25,18 +25,17 @@ const ScrambleaWord = () => {
   };
   return (
     <div className="quiz-task menupointer">
-      <div className="cancel-container">
+      {/* <div className="cancel-container">
         <FaTimes
           onClick={() => {
             goToThePage(Task, "Task");
           }}
           className="cancel-icon"
         />
-      </div>
+      </div> */}
       {/* <h1 className="welcome-text">WORD SCRAMBLE</h1> */}
-      <img className="welcome-text" src={wordscramble} />
+      <h1 className="welcome-text">word scramble</h1>
       <h2 className="phase-text">Phase 1</h2>
-
       <div className="days-container">
         {Array.from({ length: 7 }, (_, i) => (
           <div key={i} className="day-box">
