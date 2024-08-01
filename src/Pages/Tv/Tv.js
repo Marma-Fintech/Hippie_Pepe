@@ -97,8 +97,9 @@ const Tv = () => {
               {formatNumber(watchScreen.totalReward + watchScreen.tapPoints)}/
               {formatNumber(level[currentLevel])}
             </h2>
-            <div style={{}}>
-              <ProgressBar className="progress">
+
+            <div style={{ height: "10px", marginBottom: "10px" }}>
+              <ProgressBar style={{ height: "10px" }}>
                 <ProgressBar
                   variant="warning"
                   now={Number(
@@ -117,8 +118,8 @@ const Tv = () => {
         <div className="col-6">
           <div className="level-h2">
             <h2 className="energy">Energy {watchScreen.energy}/5000</h2>
-            <div>
-              <ProgressBar>
+            <div style={{ height: "10px", marginBottom: "10px" }}>
+              <ProgressBar style={{ height: "10px" }}>
                 <ProgressBar
                   // variant="warning"
                   now={(watchScreen.energy / 5000) * 100}
@@ -170,13 +171,13 @@ const Tv = () => {
             </div>
           </div>
         </div>
-        <div className="row streak-center" >
+        <div className="row streak-center">
           <div className="col-2 text-center">
             <img src={settings} alt="Settings" />
           </div>
           <div className="col-8 text-c">
             <div className="">
-              <div className="col-7">
+              <div className="col-9">
                 <h2 className="streak booster"> 12.00</h2>
               </div>
             </div>
