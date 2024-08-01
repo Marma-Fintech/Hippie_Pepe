@@ -6,8 +6,7 @@ import QuizTask from "./QuizTask.js";
 import "react-datepicker/dist/react-datepicker.css";
 import { format, startOfDay, differenceInCalendarDays } from "date-fns";
 import ReactDatePicker from "react-datepicker";
-import logo from "../../../assets/Task/coinlogo.png";
-
+import logo from "../../../assets/images/coinlogo.png";
 const questions = [
   {
     id: 1,

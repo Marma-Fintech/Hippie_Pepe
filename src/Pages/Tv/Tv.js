@@ -97,8 +97,9 @@ const Tv = () => {
               {formatNumber(watchScreen.totalReward + watchScreen.tapPoints)}/
               {formatNumber(level[currentLevel])}
             </h2>
-            <div style={{}}>
-              <ProgressBar>
+
+            <div style={{ height: "10px", marginBottom: "10px" }}>
+              <ProgressBar style={{ height: "10px" }}>
                 <ProgressBar
                   variant="warning"
                   now={Number(
@@ -117,8 +118,8 @@ const Tv = () => {
         <div className="col-6">
           <div className="level-h2">
             <h2 className="energy">Energy {watchScreen.energy}/5000</h2>
-            <div>
-              <ProgressBar>
+            <div style={{ height: "10px", marginBottom: "10px" }}>
+              <ProgressBar style={{ height: "10px" }}>
                 <ProgressBar
                   // variant="warning"
                   now={(watchScreen.energy / 5000) * 100}
@@ -133,12 +134,13 @@ const Tv = () => {
             <img src={settings} alt="Settings" />
           </div>
           <div className="col-8 streak-border">
-            <div className="row text-center">
-              <div className="col-6">
+            <div className="row text-center phase1">
+              <div className="col-5">
                 <h2 className="streak"> STREAK &nbsp;</h2>
               </div>
-              <div className="col-6">
-                <h2 className="streak"> PHASE &nbsp; </h2>
+              <div className="col-2 phase-p">P1</div>
+              <div className="col-5">
+                <h2 className="streak"> STACK &nbsp; </h2>
               </div>
             </div>
           </div>
@@ -156,7 +158,7 @@ const Tv = () => {
           <div className="col-8 points">
             <h2>
               <img src={memetv} alt="Meme TV" />
-              <span className="txt-color">
+              <span className="txt-color ml-10">
                 {" "}
                 {watchScreen.totalReward + watchScreen.tapPoints}
               </span>
@@ -164,9 +166,24 @@ const Tv = () => {
           </div>
           <div className="col-2">
             <div className="token-div">
-              <p className="token-mint1">Earn per tap</p>
+              <p className="token-mint1">Earn / tap</p>
               <p className="earn-p">10</p>
             </div>
+          </div>
+        </div>
+        <div className="row streak-center">
+          <div className="col-2 text-center">
+            <img src={settings} alt="Settings" />
+          </div>
+          <div className="col-8 text-c">
+            <div className="">
+              <div className="col-9">
+                <h2 className="streak booster"> 12.00</h2>
+              </div>
+            </div>
+          </div>
+          <div className="col-2 text-center">
+            <img src={help} alt="Help" />
           </div>
         </div>
       </div>
