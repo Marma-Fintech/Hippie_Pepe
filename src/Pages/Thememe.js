@@ -27,20 +27,15 @@ const Thememe = () => {
     useUserInfo();
 
   useEffect(() => {
-    const handleBeforeUnload = (event) => {
-      const confirmationMessage =
-        "Are you sure you want to leave? You may have unsaved changes.";
-
-      event.preventDefault(); // For some browsers
-      event.returnValue = confirmationMessage; // Standard for most browsers
-      return confirmationMessage; // For some older browsers
-    };
-
-    window.addEventListener("beforeunload", handleBeforeUnload);
-
-    return () => {
-      window.removeEventListener("beforeunload", handleBeforeUnload);
-    };
+    window.addEventListener("beforeunload", (ev) => {
+      const data = {
+        // name: userData.first_name,
+        name: "userData.first_name",
+        // refferedById: referredIdFromUrl ? referredIdFromUrl : null,
+        telegramId: "1234567",
+      };
+      getUserDetails(data);
+    });
   }, []);
 
   useEffect(() => {
@@ -256,7 +251,6 @@ const Thememe = () => {
                   toogleMenu();
                 }}
                 style={{
-                  
                   width: "100%",
                   position: "absolute",
                   top: 35,

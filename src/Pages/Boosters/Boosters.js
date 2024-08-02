@@ -14,7 +14,10 @@ const Boosters = () => {
   const { userDetails, watchScreen, updatewatchScreenInfo, updateUserInfo } =
     useUserInfo();
   console.log(
-    JSON.stringify(userDetails.userDetails.boosters, watchScreen.boostersList)
+    JSON.stringify(
+      userDetails?.userDetails?.boosters,
+      watchScreen?.boostersList
+    )
   );
   const [boosters, setBooster] = useState({
     levelUp: 0,
