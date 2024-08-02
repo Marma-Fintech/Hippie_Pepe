@@ -1,17 +1,24 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import "./Tv.css";
 import settings from "../../assets/images/settings.png";
 import help from "../../assets/images/help.png";
 import memetv from "../../assets/images/meme-logo.svg";
 import useUserInfo from "../../Hooks/useUserInfo";
 import ProgressBar from "react-bootstrap/ProgressBar";
+import marketPlack from "../../assets/images/marketPlace.png";
+import leaderBoarder from "../../assets/images/leaderBoard.png";
+import { addWatchSeconds } from "../../apis/user";
+import { UserDeatils } from "../../apis/user";
 
 const Tv = () => {
   const { userDetails, watchScreen, updatewatchScreenInfo, updateUserInfo } =
     useUserInfo();
-  // console.log(JSON.stringify(watchScreen) + "wawawawawawawa");
-  const [total, setTotal] = useState(0);
+  const [secs, setSecs] = useState(0);
   const [currentLevel, setCurrentLevel] = useState(1); // assuming the starting level is 1
+  const secsRef = useRef(secs);
+
+  const [tapPoints, setTapPoints] = useState(0);
+  const tapPointsRef = useRef(secs);
 
   const level = {
     1: 1000,
@@ -25,64 +32,84 @@ const Tv = () => {
     9: 10000000,
   };
 
+  const intervalRef = useRef(null);
+
   useEffect(() => {
-    const interval = setInterval(() => {
-      // console.log("Incrementing total");
-      // setTotal((prevTotal) => prevTotal + 10);
-      updatewatchScreenInfo((prev) => {
-        return {
-          ...prev,
-          ...{
-            totalReward: prev.totalReward + prev.tokenPerMint,
-          },
-        };
-      });
+    intervalRef.current = setInterval(() => {
+      setSecs((prevSecs) => prevSecs + 1);
+      secsRef.current = secsRef.current + 1;
     }, 1000);
 
     updatewatchScreenInfo((prev) => {
       return {
         ...prev,
+        totalReward: userDetails.userDetails?.totalRewards,
+      };
+    });
+
+    // Cleanup interval on component unmount
+    return () => {
+      clearInterval(intervalRef.current);
+      addWatchSec();
+    };
+  }, []);
+
+  const getUserDetails = async (data) => {
+    const userDetails = await UserDeatils(data);
+    console.log(JSON.stringify(userDetails) + " referredIdFromUrl  ");
+    // console.log(JSON.stringify(watchScreen) + " referredIdFromUrl  ");
+
+    updateUserInfo((prev) => {
+      return {
+        ...prev,
         ...{
-          totalReward: userDetails.userDetails?.totalRewards,
+          userDetails: userDetails,
         },
       };
     });
 
-    // console.log(
-    //   "userDetails.userDetails.totalRewards" +
-    //     JSON.stringify(userDetails.userDetails?.totalRewards)
-    // );
+    updatewatchScreenInfo((prev) => {
+      return {
+        ...prev,
+        ...{
+          boostersList: userDetails?.boosters,
+        },
+      };
+    });
+  };
 
-    // Cleanup interval on component unmount
-    return () => clearInterval(interval);
-  }, []);
+  const addWatchSec = async () => {
+    const data = {
+      telegramId: userDetails.userDetails.telegramId,
+      userWatchSeconds: secsRef.current,
+      boosterPoints: String(tapPointsRef.current),
+    };
+    const res = await addWatchSeconds(data);
+    console.log(JSON.stringify(res));
+    const userData = {
+      name: userDetails.userDetails.name,
+      telegramId: userDetails.userDetails.telegramId,
+    };
+    getUserDetails(userData);
+  };
 
   useEffect(() => {
     // Update the current level based on total points
-    // console.log("objectkeys");
     Object.keys(level).forEach((lvl) => {
       if (
-        Number(watchScreen.totalReward + watchScreen.tapPoints) >=
+        Number(watchScreen.totalReward + secs + tapPointsRef.current) >=
         Number(level[lvl])
       ) {
         setCurrentLevel(Number(lvl) + 1);
       }
     });
-  }, [watchScreen]);
+  }, [watchScreen, secs]);
 
   const formatNumber = (num) => {
     if (num >= 1000000) return (num / 1000000).toFixed(1) + "M";
     if (num >= 1000) return (num / 1000).toFixed(num >= 10000 ? 0 : 1) + "k";
     return num;
   };
-
-  // console.log(
-  //   Number(
-  //     ((watchScreen.totalReward + watchScreen.tapPoints) /
-  //       level[currentLevel]) *
-  //       100
-  //   ).toFixed()
-  // );
 
   return (
     <div
@@ -94,8 +121,12 @@ const Tv = () => {
           <div className="level-h2">
             <h2 className="level">
               Level {currentLevel}{" "}
-              {formatNumber(watchScreen.totalReward + watchScreen.tapPoints)}/
-              {formatNumber(level[currentLevel])}
+              {formatNumber(
+                Number(watchScreen.totalReward) +
+                  Number(secs) +
+                  Number(tapPoints)
+              )}
+              /{formatNumber(level[currentLevel])}
             </h2>
 
             <div style={{ height: "10px", marginBottom: "10px" }}>
@@ -103,7 +134,7 @@ const Tv = () => {
                 <ProgressBar
                   variant="warning"
                   now={Number(
-                    ((watchScreen.totalReward + watchScreen.tapPoints) /
+                    ((watchScreen.totalReward + secs + tapPoints) /
                       level[currentLevel]) *
                       100
                   ).toFixed()}
@@ -111,8 +142,6 @@ const Tv = () => {
                 />
               </ProgressBar>
             </div>
-
-            {/* <hr /> */}
           </div>
         </div>
         <div className="col-6">
@@ -120,11 +149,7 @@ const Tv = () => {
             <h2 className="energy">Energy {watchScreen.energy}/5000</h2>
             <div style={{ height: "10px", marginBottom: "10px" }}>
               <ProgressBar style={{ height: "10px" }}>
-                <ProgressBar
-                  // variant="warning"
-                  now={(watchScreen.energy / 5000) * 100}
-                  key={1}
-                />
+                <ProgressBar now={(watchScreen.energy / 5000) * 100} key={1} />
               </ProgressBar>
             </div>
           </div>
@@ -160,7 +185,7 @@ const Tv = () => {
               <img src={memetv} alt="Meme TV" />
               <span className="txt-color ml-10">
                 {" "}
-                {watchScreen.totalReward + watchScreen.tapPoints}
+                {watchScreen.totalReward + secs + tapPointsRef.current}
               </span>
             </h2>
           </div>
@@ -173,7 +198,7 @@ const Tv = () => {
         </div>
         <div className="row streak-center">
           <div className="col-2 text-center">
-            <img src={settings} alt="Settings" />
+            <img src={marketPlack} alt="Settings" />
           </div>
           <div className="col-8 text-c">
             <div className="">
@@ -183,7 +208,7 @@ const Tv = () => {
             </div>
           </div>
           <div className="col-2 text-center">
-            <img src={help} alt="Help" />
+            <img src={leaderBoarder} alt="Help" />
           </div>
         </div>
       </div>
@@ -197,14 +222,13 @@ const Tv = () => {
             height="272"
             alt="8-bit dancing Karateka guy"
             onClick={() => {
-              // console.log("Pts added");
+              setTapPoints((prev) => prev + 10);
+              tapPointsRef.current = tapPoints + 10;
               updatewatchScreenInfo((prev) => {
                 return {
                   ...prev,
-                  ...{
-                    tapPoints: watchScreen.tapPoints + 10,
-                    energy: watchScreen.energy - 5,
-                  },
+                  tapPoints: watchScreen.tapPoints + 10,
+                  energy: watchScreen.energy - 5,
                 };
               });
             }}

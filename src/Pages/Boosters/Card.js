@@ -7,8 +7,12 @@ import tapBoostImg from "../../assets/images/tapboostimg.png";
 import twoxboost from "../../assets/images/2xboostimg.png";
 import threexboost from "../../assets/images/3xturboimg.png";
 import fivexboost from "../../assets/images/5xboostimg.png";
+import useUserInfo from "../../Hooks/useUserInfo";
 
 function Card(props) {
+  console.log(JSON.stringify(props.item));
+  const { userDetails, watchScreen, updatewatchScreenInfo, updateUserInfo } =
+    useUserInfo();
   const { value, key } = props.item;
 
   const images = {
@@ -19,13 +23,22 @@ function Card(props) {
     "5x": fivexboost,
   };
 
+  const boosterSelected = () => {
+    updatewatchScreenInfo((prev) => {
+      return {
+        ...prev,
+        ...{
+          booster: true,
+          boosterDetails: {
+            name: key,
+          },
+        },
+      };
+    });
+  };
+
   return (
-    <div
-      style={{ height: "100%", width: "100%", position: "relative" }}
-      onClick={() => {
-        console.log(value, key);
-      }}
-    >
+    <div style={{ height: "100%", width: "100%", position: "relative" }}>
       <div
         className="boostNumber"
         style={{ position: "absolute", top: -2, left: "42%", fontSize: 9 }}
