@@ -16,7 +16,9 @@ const Tv = () => {
   const { userDetails, watchScreen, updatewatchScreenInfo, updateUserInfo } =
     useUserInfo();
   const [secs, setSecs] = useState(0);
-  const [currentLevel, setCurrentLevel] = useState(1); // assuming the starting level is 1
+  const [currentLevel, setCurrentLevel] = useState(
+    userDetails.userDetails.level
+  ); // assuming the starting level is 1
   const secsRef = useRef(secs);
 
   const [tapPoints, setTapPoints] = useState(0);
@@ -37,9 +39,29 @@ const Tv = () => {
   const intervalRef = useRef(null);
 
   useEffect(() => {
+    if (watchScreen.booster) {
+      const boosterbehaviour = {
+        levelUp: currentLevel + 1,
+        tap: 25,
+        "2x": currentLevel * 2,
+        "3x": currentLevel * 3,
+        "5x": currentLevel * 5,
+      };
+
+      const boosterDuration = {
+        levelUp: 60,
+        tap: 60,
+        "2x": 60,
+        "3x": 120,
+        "5x": 180,
+      };
+    }
+  }, [watchScreen]);
+
+  useEffect(() => {
     intervalRef.current = setInterval(() => {
-      setSecs((prevSecs) => prevSecs + 1);
-      secsRef.current = secsRef.current + 1;
+      setSecs((prevSecs) => prevSecs + currentLevel);
+      secsRef.current = secsRef.current + currentLevel;
     }, 1000);
 
     updatewatchScreenInfo((prev) => {
@@ -194,7 +216,7 @@ const Tv = () => {
           <div className="col-2">
             <div className="token-div">
               <p className="token-mint">Token Mint</p>
-              <p className="earn-p">1/Sec</p>
+              <p className="earn-p">{currentLevel}/Sec</p>
             </div>
           </div>
           <div className="col-8 points">
@@ -222,13 +244,17 @@ const Tv = () => {
           >
             <img src={marketPlack} alt="Settings" />
           </div>
+
           <div className="col-8 text-c">
             <div className="">
               <div className="col-9">
-                <h2 className="streak booster"> 12.00</h2>
+                {watchScreen.booster ? (
+                  <h2 className="streak booster"> 12.00</h2>
+                ) : null}
               </div>
             </div>
           </div>
+
           <div
             className="col-2 text-center"
             onClick={() => {

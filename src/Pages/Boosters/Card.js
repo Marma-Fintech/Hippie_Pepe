@@ -24,8 +24,13 @@ function Card(props) {
   };
 
   const boosterSelected = () => {
-    const minsBoosterList = watchScreen.boostersList;
-    console.log(minsBoosterList + "lllklklklklklk");
+    var minsBoosterList = watchScreen.boostersList;
+    const index = minsBoosterList.indexOf(key);
+
+    if (index !== -1) {
+      minsBoosterList.splice(index, 1);
+    }
+
     updatewatchScreenInfo((prev) => {
       return {
         ...prev,
@@ -34,6 +39,7 @@ function Card(props) {
           boosterDetails: {
             name: key,
           },
+          boostersList: minsBoosterList,
         },
       };
     });
@@ -43,7 +49,9 @@ function Card(props) {
     <div
       style={{ height: "100%", width: "100%", position: "relative" }}
       onClick={() => {
-        boosterSelected();
+        if (value !== 0) {
+          boosterSelected();
+        }
       }}
     >
       <div
