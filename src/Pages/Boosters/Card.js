@@ -10,7 +10,7 @@ import fivexboost from "../../assets/images/5xboostimg.png";
 import useUserInfo from "../../Hooks/useUserInfo";
 
 function Card(props) {
-  console.log(JSON.stringify(props.item));
+  // console.log(JSON.stringify(props.item));
   const { userDetails, watchScreen, updatewatchScreenInfo, updateUserInfo } =
     useUserInfo();
   const { value, key } = props.item;

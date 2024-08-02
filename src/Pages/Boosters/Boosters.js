@@ -13,12 +13,12 @@ const Boosters = () => {
   const [currentSlide, setCurrentSlide] = useState(2);
   const { userDetails, watchScreen, updatewatchScreenInfo, updateUserInfo } =
     useUserInfo();
-  console.log(
-    JSON.stringify(
-      userDetails?.userDetails?.boosters,
-      watchScreen?.boostersList + "lkjhgsdfghkjhgfghjkjhghj"
-    )
-  );
+  // console.log(
+  //   JSON.stringify(
+  //     userDetails?.userDetails?.boosters,
+  //     watchScreen?.boostersList + "lkjhgsdfghkjhgfghjkjhghj"
+  //   )
+  // );
   const [boosters, setBooster] = useState({
     levelUp: 0,
     tap: 10,

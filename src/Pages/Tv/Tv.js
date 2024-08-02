@@ -38,6 +38,9 @@ const Tv = () => {
   };
 
   const intervalRef = useRef(null);
+  const boostIntervalRef = useRef(null);
+  const boostSecref = useRef(0);
+  const isInterval = useRef(false);
 
   useEffect(() => {
     if (watchScreen.booster) {
@@ -56,9 +59,41 @@ const Tv = () => {
         "3x": 120,
         "5x": 180,
       };
-      setBoosterSec(boosterDuration[watchScreen.boosterDetails.name]);
+      setBoosterSec(
+        boosterSec + boosterDuration[watchScreen.boosterDetails.name]
+      );
+      if (!isInterval.current) {
+        boosterInterval();
+      }
+      boostSecref.current =
+        boostSecref.current + boosterDuration[watchScreen.boosterDetails.name];
+      console.log(JSON.stringify(boostIntervalRef) + ";lkjhsdfghjlkjhgdfgh");
     }
   }, [watchScreen]);
+
+  const boosterInterval = () => {
+    boostIntervalRef.current = setInterval(() => {
+      console.log("kjhgkjhg");
+      if (boostSecref.current !== 0) {
+        isInterval.current = true;
+        boostSecref.current = boostSecref.current - 1;
+        setBoosterSec((prev) => prev - 1);
+      }
+      if (boostSecref.current === 0) {
+        isInterval.current = false;
+        updatewatchScreenInfo((prev) => {
+          return {
+            ...prev,
+            ...{
+              booster: false,
+              boosterDetails: {},
+            },
+          };
+        });
+        clearInterval(boostIntervalRef.current);
+      }
+    }, 1000);
+  };
 
   useEffect(() => {
     intervalRef.current = setInterval(() => {
