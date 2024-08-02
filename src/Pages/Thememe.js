@@ -27,15 +27,21 @@ const Thememe = () => {
     useUserInfo();
 
   useEffect(() => {
-    window.addEventListener("beforeunload", (ev) => {
+    const handleUnload = () => {
       const data = {
-        // name: userData.first_name,
         name: "userData.first_name",
-        // refferedById: referredIdFromUrl ? referredIdFromUrl : null,
         telegramId: "1234567",
       };
       getUserDetails(data);
-    });
+    };
+
+    // window.addEventListener("beforeunload", handleUnload);
+    window.Telegram.WebApp.onEvent("web_app_close", handleUnload);
+
+    return () => {
+      // window.removeEventListener("beforeunload", handleUnload);
+      window.Telegram.WebApp.offEvent("web_app_close", handleUnload);
+    };
   }, []);
 
   useEffect(() => {

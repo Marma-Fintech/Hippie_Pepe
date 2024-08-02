@@ -29,7 +29,7 @@ const Task = () => {
           goToThePage(Pickaword, "Pickaword");
         }}
       >
-        <button>Pick A Word </button>
+        <button>Pick A Card </button>
       </div>
       <div
         onClick={() => {

@@ -9,6 +9,8 @@ import marketPlack from "../../assets/images/marketPlace.png";
 import leaderBoarder from "../../assets/images/leaderBoard.png";
 import { addWatchSeconds } from "../../apis/user";
 import { UserDeatils } from "../../apis/user";
+import marketPlace from "../MarketPlace/marketPlace";
+import cheapStuff from "../CheapStuff/cheapStuff";
 
 const Tv = () => {
   const { userDetails, watchScreen, updatewatchScreenInfo, updateUserInfo } =
@@ -111,6 +113,21 @@ const Tv = () => {
     return num;
   };
 
+  const goToThePage = (component, name) => {
+    updateUserInfo((prev) => {
+      return {
+        ...prev,
+        ...{
+          currentComponent: component,
+          currentComponentText: name,
+          lastComponent: userDetails.currentComponent,
+          lastComponentText: userDetails.currentComponentText,
+          centerCount: userDetails.centerCount + 1,
+        },
+      };
+    });
+  };
+
   return (
     <div
       className="tvContainer menupointer"
@@ -165,7 +182,7 @@ const Tv = () => {
               </div>
               <div className="col-2 phase-p">P1</div>
               <div className="col-5">
-                <h2 className="streak"> STACK &nbsp; </h2>
+                <h2 className="streak"> STAKE &nbsp; </h2>
               </div>
             </div>
           </div>
@@ -197,7 +214,12 @@ const Tv = () => {
           </div>
         </div>
         <div className="row streak-center">
-          <div className="col-2 text-center">
+          <div
+            className="col-2 text-center"
+            onClick={() => {
+              goToThePage(marketPlace, "marketPlace");
+            }}
+          >
             <img src={marketPlack} alt="Settings" />
           </div>
           <div className="col-8 text-c">
@@ -207,7 +229,12 @@ const Tv = () => {
               </div>
             </div>
           </div>
-          <div className="col-2 text-center">
+          <div
+            className="col-2 text-center"
+            onClick={() => {
+              goToThePage(cheapStuff, "cheapStuff");
+            }}
+          >
             <img src={leaderBoarder} alt="Help" />
           </div>
         </div>

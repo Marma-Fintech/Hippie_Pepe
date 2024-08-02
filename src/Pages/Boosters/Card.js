@@ -24,6 +24,8 @@ function Card(props) {
   };
 
   const boosterSelected = () => {
+    const minsBoosterList = watchScreen.boostersList;
+    console.log(minsBoosterList + "lllklklklklklk");
     updatewatchScreenInfo((prev) => {
       return {
         ...prev,
@@ -38,7 +40,12 @@ function Card(props) {
   };
 
   return (
-    <div style={{ height: "100%", width: "100%", position: "relative" }}>
+    <div
+      style={{ height: "100%", width: "100%", position: "relative" }}
+      onClick={() => {
+        boosterSelected();
+      }}
+    >
       <div
         className="boostNumber"
         style={{ position: "absolute", top: -2, left: "42%", fontSize: 9 }}
