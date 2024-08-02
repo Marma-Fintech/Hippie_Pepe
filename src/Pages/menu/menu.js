@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./menu.css";
 import useUserInfo from "../../Hooks/useUserInfo";
 import AboutPage from "../About/about";
@@ -6,7 +6,7 @@ import Social from "../Social/Social";
 import Token from "../Token/Token";
 import Roadmap from "../Roadmap/Roadmap";
 import Task from "../Task/Task";
-
+import Tv from "../Tv/Tv";
 const Menu = () => {
   const { userDetails, updateUserInfo } = useUserInfo();
 
@@ -24,6 +24,14 @@ const Menu = () => {
       };
     });
   };
+
+  useEffect(() => {
+    if (userDetails.lastComponentText === "TVPage") {
+      goToThePage(Task, "Task");
+    } else {
+      goToThePage(Tv, "TVPage");
+    }
+  }, []);
 
   return (
     <div

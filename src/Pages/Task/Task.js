@@ -1,12 +1,14 @@
 import React from "react";
-import Pickaword from "./PickaWord/PickaWord";
-import Quiz from "./QuizTask/QuizTask";
-import Scramble from "./ScrambleaWord/ScrambleaWord";
+import "./task.css";
+import playacard from "../../assets/Task/pickacard.png";
+import quizImg from "../../assets/Task/Quiz.png";
+import wordscrambleImg from "../../assets/Task/word-scramble.png";
 import useUserInfo from "../../Hooks/useUserInfo";
-
+import PickaWord from "./PickaWord/PickaWord";
+import quiz from "./QuizTask/QuizTask";
+import scramble from "./ScrambleaWord/ScrambleaWord";
 const Task = () => {
   const { userDetails, updateUserInfo } = useUserInfo();
-
   const goToThePage = (component, name) => {
     updateUserInfo((prev) => {
       return {
@@ -21,33 +23,39 @@ const Task = () => {
       };
     });
   };
-
   return (
-    <div className="menupointer">
-      <div
-        onClick={() => {
-          goToThePage(Pickaword, "Pickaword");
-        }}
-      >
-        <button>Pick A Card </button>
+    <div className="task-page">
+      <div>
+        <h2 className="txt-color mb15">Games</h2>
       </div>
-      <div
-        onClick={() => {
-          goToThePage(Quiz, "Quiz");
-        }}
-      >
-        <button>Quiz</button>
-      </div>{" "}
-      <div
-        onClick={() => {
-          goToThePage(Scramble, "Scramble");
-        }}
-      >
-        {" "}
-        <button>Scramble a Word</button>
+      <div className="main-div">
+        <div
+          onClick={() => {
+            goToThePage(PickaWord, "Pickaword");
+          }}
+        >
+          <img src={playacard} alt="Play a card" className="task-image" />
+        </div>
+        <div className="image-row">
+          <img
+            onClick={() => {
+              goToThePage(quiz, "quiz");
+            }}
+            src={quizImg}
+            alt="Quiz"
+            className="task-image-small"
+          />
+          <img
+            onClick={() => {
+              goToThePage(scramble, "Scramble");
+            }}
+            src={wordscrambleImg}
+            alt="Word Scramble"
+            className="task-image-small"
+          />
+        </div>
       </div>
     </div>
   );
 };
-
 export default Task;

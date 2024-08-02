@@ -23,6 +23,7 @@ const Tv = () => {
 
   const [tapPoints, setTapPoints] = useState(0);
   const tapPointsRef = useRef(secs);
+  const [boosterSec, setBoosterSec] = useState(0);
 
   const level = {
     1: 1000,
@@ -55,6 +56,7 @@ const Tv = () => {
         "3x": 120,
         "5x": 180,
       };
+      setBoosterSec(boosterDuration[watchScreen.boosterDetails.name]);
     }
   }, [watchScreen]);
 
@@ -249,7 +251,7 @@ const Tv = () => {
             <div className="">
               <div className="col-9">
                 {watchScreen.booster ? (
-                  <h2 className="streak booster"> 12.00</h2>
+                  <h2 className="streak booster"> {boosterSec}</h2>
                 ) : null}
               </div>
             </div>
