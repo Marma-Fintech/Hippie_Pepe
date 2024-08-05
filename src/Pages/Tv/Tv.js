@@ -18,12 +18,16 @@ const Tv = () => {
   const [secs, setSecs] = useState(0);
   const [currentLevel, setCurrentLevel] = useState(
     userDetails.userDetails.level
-  ); // assuming the starting level is 1
-  const secsRef = useRef(secs);
+  );
 
+  const secsRef = useRef(secs);
   const [tapPoints, setTapPoints] = useState(0);
   const tapPointsRef = useRef(secs);
   const [boosterSec, setBoosterSec] = useState(0);
+  const energy = useRef(5000);
+  const boosterRef = useRef(false);
+  const [boosterPoints, setBoosterPoints] = useState(0);
+  const boosterPointsRef = useRef(0);
 
   const level = {
     1: 1000,
@@ -42,16 +46,11 @@ const Tv = () => {
   const boostSecref = useRef(0);
   const isInterval = useRef(false);
 
+  const [showTapPoints, setShowTapPoints] = useState(false);
+  const [tapAnimations, setTapAnimations] = useState([]);
+
   useEffect(() => {
     if (watchScreen.booster) {
-      const boosterbehaviour = {
-        levelUp: currentLevel + 1,
-        tap: 25,
-        "2x": currentLevel * 2,
-        "3x": currentLevel * 3,
-        "5x": currentLevel * 5,
-      };
-
       const boosterDuration = {
         levelUp: 60,
         tap: 60,
@@ -59,14 +58,22 @@ const Tv = () => {
         "3x": 120,
         "5x": 180,
       };
+
+      if (watchScreen.boosterDetails.name) {
+        boosterRef.current = watchScreen.boosterDetails.name;
+      }
+
       setBoosterSec(
         boosterSec + boosterDuration[watchScreen.boosterDetails.name]
       );
+
       if (!isInterval.current) {
         boosterInterval();
       }
+
       boostSecref.current =
         boostSecref.current + boosterDuration[watchScreen.boosterDetails.name];
+
       console.log(JSON.stringify(boostIntervalRef) + ";lkjhsdfghjlkjhgdfgh");
     }
   }, [watchScreen]);
@@ -81,24 +88,35 @@ const Tv = () => {
       }
       if (boostSecref.current === 0) {
         isInterval.current = false;
-        updatewatchScreenInfo((prev) => {
-          return {
-            ...prev,
-            ...{
-              booster: false,
-              boosterDetails: {},
-            },
-          };
-        });
         clearInterval(boostIntervalRef.current);
+        addWatchSec();
       }
     }, 1000);
   };
 
   useEffect(() => {
     intervalRef.current = setInterval(() => {
+      // var count = 0;
+
+      const values = {
+        levelUp: 1,
+        "2x": currentLevel * 2,
+        "3x": currentLevel * 3,
+        "5x": currentLevel * 5,
+      };
+      if (
+        boosterRef.current === "levelUp" ||
+        boosterRef.current === "2x" ||
+        boosterRef.current === "3x" ||
+        boosterRef.current === "5x"
+      ) {
+        setBoosterPoints(boosterPoints + values[boosterRef.current]);
+        boosterPointsRef.current =
+          boosterPointsRef.current + values[boosterRef.current];
+      }
+
       setSecs((prevSecs) => prevSecs + currentLevel);
-      secsRef.current = secsRef.current + currentLevel;
+      secsRef.current = secsRef.current + 1;
     }, 1000);
 
     updatewatchScreenInfo((prev) => {
@@ -140,13 +158,41 @@ const Tv = () => {
   };
 
   const addWatchSec = async () => {
-    const data = {
-      telegramId: userDetails.userDetails.telegramId,
-      userWatchSeconds: secsRef.current,
-      boosterPoints: String(tapPointsRef.current),
-    };
+    console.log(
+      JSON.stringify(boosterRef.current) + "watchScreen.boosterDetails.name"
+    );
+    var data;
+    if (boosterRef.current) {
+      data = {
+        telegramId: userDetails.userDetails.telegramId,
+        userWatchSeconds: secsRef.current,
+        boosterPoints: String(tapPointsRef.current + boosterPointsRef.current),
+        boosters: [boosterRef.current],
+      };
+    } else {
+      data = {
+        telegramId: userDetails.userDetails.telegramId,
+        userWatchSeconds: secsRef.current,
+        boosterPoints: String(tapPointsRef.current),
+        // boosters: [boosterRef.current],
+      };
+    }
+
     const res = await addWatchSeconds(data);
     console.log(JSON.stringify(res));
+
+    updatewatchScreenInfo((prev) => {
+      return {
+        ...prev,
+        ...{
+          booster: false,
+          boosterDetails: {},
+        },
+      };
+    });
+
+    boosterRef.current = false;
+
     const userData = {
       name: userDetails.userDetails.name,
       telegramId: userDetails.userDetails.telegramId,
@@ -187,6 +233,28 @@ const Tv = () => {
     });
   };
 
+  const handleTap = (e) => {
+    var num = 5;
+    if (boosterRef.current === "tap") {
+      num = 25;
+    }
+
+    setTapPoints((prev) => prev + num);
+    tapPointsRef.current = tapPoints + num;
+
+    const newAnimation = {
+      id: Date.now(),
+      x: e.clientX,
+      y: e.clientY,
+    };
+    setTapAnimations((prev) => [...prev, newAnimation]);
+    setTimeout(() => {
+      setTapAnimations((prev) =>
+        prev.filter((animation) => animation.id !== newAnimation.id)
+      );
+    }, 1000);
+  };
+
   return (
     <div
       className="tvContainer menupointer"
@@ -196,11 +264,12 @@ const Tv = () => {
         <div className="col-6">
           <div className="level-h2">
             <h2 className="level">
-              Level {currentLevel}{" "}
+              Level {currentLevel} &nbsp;
               {formatNumber(
                 Number(watchScreen.totalReward) +
                   Number(secs) +
-                  Number(tapPoints)
+                  Number(tapPoints) +
+                  Number(boosterPointsRef.current)
               )}
               /{formatNumber(level[currentLevel])}
             </h2>
@@ -210,7 +279,10 @@ const Tv = () => {
                 <ProgressBar
                   variant="warning"
                   now={Number(
-                    ((watchScreen.totalReward + secs + tapPoints) /
+                    ((watchScreen.totalReward +
+                      secs +
+                      tapPoints +
+                      Number(boosterPointsRef.current)) /
                       level[currentLevel]) *
                       100
                   ).toFixed()}
@@ -222,10 +294,10 @@ const Tv = () => {
         </div>
         <div className="col-6">
           <div className="level-h2">
-            <h2 className="energy">Energy {watchScreen.energy}/5000</h2>
+            <h2 className="energy">Energy {energy.current}/5000</h2>
             <div style={{ height: "10px", marginBottom: "10px" }}>
               <ProgressBar style={{ height: "10px" }}>
-                <ProgressBar now={(watchScreen.energy / 5000) * 100} key={1} />
+                <ProgressBar now={(energy.current / 5000) * 100} key={1} />
               </ProgressBar>
             </div>
           </div>
@@ -261,14 +333,17 @@ const Tv = () => {
               <img src={memetv} alt="Meme TV" />
               <span className="txt-color ml-10">
                 {" "}
-                {watchScreen.totalReward + secs + tapPointsRef.current}
+                {watchScreen.totalReward +
+                  secs +
+                  tapPointsRef.current +
+                  boosterPointsRef.current}
               </span>
             </h2>
           </div>
           <div className="col-2">
             <div className="token-div">
               <p className="token-mint1">Earn / tap</p>
-              <p className="earn-p">10</p>
+              <p className="earn-p">{boosterRef.current === "tap" ? 25 : 5}</p>
             </div>
           </div>
         </div>
@@ -311,18 +386,17 @@ const Tv = () => {
             width="328"
             height="272"
             alt="8-bit dancing Karateka guy"
-            onClick={() => {
-              setTapPoints((prev) => prev + 10);
-              tapPointsRef.current = tapPoints + 10;
-              updatewatchScreenInfo((prev) => {
-                return {
-                  ...prev,
-                  tapPoints: watchScreen.tapPoints + 10,
-                  energy: watchScreen.energy - 5,
-                };
-              });
-            }}
+            onClick={handleTap}
           />
+          {tapAnimations.map((animation) => (
+            <div
+              key={animation.id}
+              className="tap-points txt-color"
+              style={{ left: animation.x, top: animation.y }}
+            >
+              +5
+            </div>
+          ))}
         </div>
       </div>
     </div>

@@ -70,14 +70,22 @@ const Thememe = () => {
     } else {
       // console.log("User data not available.");
     }
+    // const data = {
+    //   name: userData.first_name,
+    //   // name: "userData.first_name",
+    //   // refferedById: referredIdFromUrl ? referredIdFromUrl : null,
+    //   telegramId: String(userData.id),
+    // };
+    // getUserDetails(data);
+    // console.log(watchScreen);
+
     const data = {
-      // name: userData.first_name,
-      name: "userData.first_name",
+      name: "userData.first_nam",
+      // name: "userData.first_name",
       // refferedById: referredIdFromUrl ? referredIdFromUrl : null,
-      telegramId: "1234567",
+      telegramId: "String",
     };
     getUserDetails(data);
-    // console.log(watchScreen);
   }, []);
 
   const getUserDetails = async (data) => {

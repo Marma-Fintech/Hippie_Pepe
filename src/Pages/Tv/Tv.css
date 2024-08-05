@@ -72,20 +72,26 @@
   text-align: -webkit-center !important;
 }
 
-
-.text-c
-{
-    text-align: center !important;
-    text-align: -webkit-center !important;
+.text-c {
+  text-align: center !important;
+  text-align: -webkit-center !important;
 }
 
-.streak-border
-{
-    /* padding: 10px 0px !important ; */
-    border: 2px solid;
-    border-image-slice: 1;
-    border-width:1px;
-    border-image-source: linear-gradient(to top, #d96a00 5.66%, #b9b9b9 35.31%, #EEF73B 49.95%, #4CF038 61.23%, #33C6F6 93.04%, #ffe252 97.74%, #D457FF 100%);
+.streak-border {
+  /* padding: 10px 0px !important ; */
+  border: 2px solid;
+  border-image-slice: 1;
+  border-width: 1px;
+  border-image-source: linear-gradient(
+    to top,
+    #d96a00 5.66%,
+    #b9b9b9 35.31%,
+    #eef73b 49.95%,
+    #4cf038 61.23%,
+    #33c6f6 93.04%,
+    #ffe252 97.74%,
+    #d457ff 100%
+  );
 }
 .streak-border {
   /* padding: 10px 0px !important ; */
@@ -208,5 +214,31 @@
   }
   100% {
     transform: translateX(calc(100vw - (290px)));
+  }
+}
+
+/* +5 animations */
+
+.tap-points {
+  position: absolute;
+  font-size: 24px;
+  color: #ff0000;
+  animation: moveUp 1s forwards, fadeOut 1s forwards;
+  z-index: 2;
+}
+@keyframes moveUp {
+  0% {
+    transform: translate(-50%, 0);
+  }
+  100% {
+    transform: translate(-50%, -100px);
+  }
+}
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
   }
 }
