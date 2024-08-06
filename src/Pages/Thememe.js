@@ -268,13 +268,13 @@ const Thememe = () => {
                   width: "100%",
                   position: "absolute",
                   top: 35,
-                  left: 18,
+                  left: 14,
                 }}
               >
                 <img
                   src={menuIcon}
                   alt="border"
-                  style={{ height: "40%", width: "40%" }}
+                  style={{ height: "40%", width: "50%" }}
                   className="bottomImg"
                 />
               </div>
