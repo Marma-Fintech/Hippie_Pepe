@@ -326,7 +326,7 @@ const Tv = () => {
           <div className="col-8 streak-border">
             <div className="row text-center phase1">
               <div className="col-5">
-                <h2 className="streak"> STREAK &nbsp;</h2>
+                <h2 className="streak"> STREAK > </h2>
               </div>
               <div className="col-2 phase-p">P1</div>
               <div
@@ -335,7 +335,7 @@ const Tv = () => {
                   goToThePage(Phase, "Phase");
                 }}
               >
-                <h2 className="streak"> STAKE &nbsp; </h2>
+                <h2 className="streak"> STAKE > </h2>
               </div>
             </div>
           </div>
