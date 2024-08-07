@@ -31,6 +31,8 @@ const INITIAL_STATE = {
     tokenToken: 0,
     tapPoints: 0,
     booster: false,
+    isBoosterStarted: false,
+    boosterSec: 0,
     boostersList: [],
     boosterDetails: {},
     lastWatchSec: 0,

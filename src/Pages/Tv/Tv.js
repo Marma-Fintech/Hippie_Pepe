@@ -10,20 +10,24 @@ import leaderBoarder from "../../assets/images/leaderBoard.png";
 import { addWatchSeconds } from "../../apis/user";
 import { UserDeatils } from "../../apis/user";
 import marketPlace from "../MarketPlace/marketPlace";
-import cheapStuff from "../CheapStuff/cheapStuff";
+// import cheapStuff from "../CheapStuff/cheapStuff";
+import TotalPoints from "../TotalPoints/TotalPoints";
+import Phase from "../PhasePage/PhasePage";
+import DoandEarn from "../DoEarn/DoEarn";
+import Info from "../PhaseDetails/PhaseDetails";
 
 const Tv = () => {
   const { userDetails, watchScreen, updatewatchScreenInfo, updateUserInfo } =
     useUserInfo();
   const [secs, setSecs] = useState(0);
   const [currentLevel, setCurrentLevel] = useState(
-    userDetails.userDetails.level
+    userDetails.userDetails?.level
   );
 
   const secsRef = useRef(secs);
   const [tapPoints, setTapPoints] = useState(0);
   const tapPointsRef = useRef(secs);
-  const [boosterSec, setBoosterSec] = useState(0);
+  const [boosterSec, setBoosterSec] = useState();
   const energy = useRef(5000);
   const boosterRef = useRef(false);
   const [boosterPoints, setBoosterPoints] = useState(0);
@@ -50,51 +54,59 @@ const Tv = () => {
   const [tapAnimations, setTapAnimations] = useState([]);
 
   useEffect(() => {
-    if (watchScreen.booster) {
-      const boosterDuration = {
-        levelUp: 60,
-        tap: 60,
-        "2x": 60,
-        "3x": 120,
-        "5x": 180,
-      };
-
-      if (watchScreen.boosterDetails.name) {
-        boosterRef.current = watchScreen.boosterDetails.name;
-      }
-
-      setBoosterSec(
-        boosterSec + boosterDuration[watchScreen.boosterDetails.name]
-      );
-
-      if (!isInterval.current) {
-        boosterInterval();
-      }
-
-      boostSecref.current =
-        boostSecref.current + boosterDuration[watchScreen.boosterDetails.name];
-
-      console.log(JSON.stringify(boostIntervalRef) + ";lkjhsdfghjlkjhgdfgh");
-    }
+    // console.log(JSON.stringify(watchScreen) + "wawawawawawawawawawawawawawaw");
+    // if (watchScreen.booster && !watchScreen.isBoosterStarted) {
+    //   const boosterDuration = {
+    //     levelUp: 60,
+    //     tap: 60,
+    //     "2x": 60,
+    //     "3x": 120,
+    //     "5x": 180,
+    //   };
+    //   // if (watchScreen.boosterDetails.name) {
+    //   boosterRef.current = watchScreen.boosterDetails.name;
+    //   // }
+    //   setBoosterSec(
+    //     boosterSec + boosterDuration[watchScreen.boosterDetails.name]
+    //   );
+    //   // if (!isInterval.current) {
+    //   // boosterInterval();
+    //   // }
+    //   boostSecref.current =
+    //     boostSecref.current + boosterDuration[watchScreen.boosterDetails.name];
+    //   // console.log(JSON.stringify(boostIntervalRef) + ";lkjhsdfghjlkjhgdfgh");
+    //   updatewatchScreenInfo((prev) => {
+    //     return {
+    //       ...prev,
+    //       boosterSec:
+    //         watchScreen.boosterSec +
+    //         boosterDuration[watchScreen.boosterDetails.name],
+    //     };
+    //   });
+    // }
+    // if(watchScreen.booster && !watchScreen.isBoosterStarted && boosterSec > 0){
+    // }
   }, [watchScreen]);
 
-  const boosterInterval = () => {
-    boostIntervalRef.current = setInterval(() => {
-      console.log("kjhgkjhg");
-      if (boostSecref.current !== 0) {
-        isInterval.current = true;
-        boostSecref.current = boostSecref.current - 1;
-        setBoosterSec((prev) => prev - 1);
-      }
-      if (boostSecref.current === 0) {
-        isInterval.current = false;
-        clearInterval(boostIntervalRef.current);
-        addWatchSec();
-      }
-    }, 1000);
-  };
+  // const boosterInterval = () => {
+  //   console.log("ghjjgvgvk");
+  //   boostIntervalRef.current = setInterval(() => {
+  //     // console.log("kjhgkjhg");
+  //     if (boostSecref.current !== 0) {
+  //       isInterval.current = true;
+  //       boostSecref.current = boostSecref.current - 1;
+  //       setBoosterSec((prev) => prev - 1);
+  //     }
+  //     if (boostSecref.current === 0) {
+  //       isInterval.current = false;
+  //       clearInterval(boostIntervalRef.current);
+  //       addWatchSec();
+  //     }
+  //   }, 1000);
+  // };
 
   useEffect(() => {
+    // setBoosterSec(watchScreen.boosterSec);
     intervalRef.current = setInterval(() => {
       // var count = 0;
 
@@ -129,13 +141,21 @@ const Tv = () => {
     // Cleanup interval on component unmount
     return () => {
       clearInterval(intervalRef.current);
-      addWatchSec();
+      // addWatchSec();
+      updatewatchScreenInfo((prev) => {
+        return {
+          ...prev,
+          ...{
+            boosterSec: boosterSec,
+          },
+        };
+      });
     };
   }, []);
 
   const getUserDetails = async (data) => {
     const userDetails = await UserDeatils(data);
-    console.log(JSON.stringify(userDetails) + " referredIdFromUrl  ");
+    // console.log(JSON.stringify(userDetails) + " referredIdFromUrl  ");
     // console.log(JSON.stringify(watchScreen) + " referredIdFromUrl  ");
 
     updateUserInfo((prev) => {
@@ -158,9 +178,6 @@ const Tv = () => {
   };
 
   const addWatchSec = async () => {
-    console.log(
-      JSON.stringify(boosterRef.current) + "watchScreen.boosterDetails.name"
-    );
     var data;
     if (boosterRef.current) {
       data = {
@@ -179,7 +196,7 @@ const Tv = () => {
     }
 
     const res = await addWatchSeconds(data);
-    console.log(JSON.stringify(res));
+    // console.log(JSON.stringify(res));
 
     updatewatchScreenInfo((prev) => {
       return {
@@ -235,7 +252,7 @@ const Tv = () => {
 
   const handleTap = (e) => {
     var num = 5;
-    if (boosterRef.current === "tap") {
+    if (watchScreen?.boosterDetails?.name === "tap" && watchScreen?.booster) {
       num = 25;
     }
 
@@ -312,12 +329,22 @@ const Tv = () => {
                 <h2 className="streak"> STREAK &nbsp;</h2>
               </div>
               <div className="col-2 phase-p">P1</div>
-              <div className="col-5">
+              <div
+                className="col-5"
+                onClick={() => {
+                  goToThePage(Phase, "Phase");
+                }}
+              >
                 <h2 className="streak"> STAKE &nbsp; </h2>
               </div>
             </div>
           </div>
-          <div className="col-2 text-center">
+          <div
+            onClick={() => {
+              goToThePage(Info, "Info");
+            }}
+            className="col-2 text-center"
+          >
             <img src={help} alt="Help" />
           </div>
         </div>
@@ -328,7 +355,12 @@ const Tv = () => {
               <p className="earn-p">{currentLevel}/Sec</p>
             </div>
           </div>
-          <div className="col-8 points">
+          <div
+            className="col-8 points"
+            onClick={() => {
+              goToThePage(TotalPoints, "TotalPoints");
+            }}
+          >
             <h2>
               <img src={memetv} alt="Meme TV" />
               <span className="txt-color ml-10">
@@ -361,7 +393,10 @@ const Tv = () => {
             <div className="">
               <div className="col-9">
                 {watchScreen.booster ? (
-                  <h2 className="streak booster"> {boosterSec}</h2>
+                  <h2 className="streak booster">
+                    {/* {boosterSec} */}
+                    {watchScreen.boosterSec}
+                  </h2>
                 ) : null}
               </div>
             </div>
@@ -370,7 +405,7 @@ const Tv = () => {
           <div
             className="col-2 text-center"
             onClick={() => {
-              goToThePage(cheapStuff, "cheapStuff");
+              goToThePage(DoandEarn, "DoandEarn");
             }}
           >
             <img src={leaderBoarder} alt="Help" />

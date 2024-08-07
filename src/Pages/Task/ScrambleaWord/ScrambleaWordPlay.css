@@ -24,6 +24,7 @@
   box-sizing: border-box;
   outline: none;
   background: black;
+  color: #fff;
 }
 .custom-search-botton {
   position: absolute;
@@ -38,6 +39,7 @@
   padding: 0 10px;
   border-radius: 5px;
   z-index: 2;
+  cursor: pointer;
 }
 .text-heading {
   font-size: 22px;
@@ -74,7 +76,7 @@
   border-radius: 3.209px;
   background-color: rgba(9, 189, 27, 0.36);
   min-height: 44px;
-  width: 41px; /* Ensuring the width is consistent */
+  width: 35px; /* Ensuring the width is consistent */
   display: flex; /* Aligns content (if any) inside the boxes */
   align-items: center; /* Center items vertically */
   justify-content: center; /* Center items horizontally */
@@ -89,6 +91,7 @@
   justify-content: center;
   font-family: myFirstFont;
   padding-top: 0px;
+  padding-bottom: 8px;
   font-size: 18px;
   color: rgba(255, 255, 255, 1);
   text-decoration: underline;
@@ -98,7 +101,8 @@
   justify-content: center;
   font-family: myFirstFont;
   padding-top: 0px;
-  font-size: 20px;
+  padding-bottom: 8px;
+  font-size: 15px;
   background: linear-gradient(180deg, #78f239 0%, #549ffb 100%);
   color: transparent;
   user-select: none;
@@ -131,4 +135,149 @@
   pointer-events: fill;
   margin-top: 50px;
   outline: none;
+}
+/* hhgg */
+.ScrambleaWordPlay .text-heading {
+  font-size: 2em;
+}
+.scramble-wordbox.disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+/* .custom-search-button {
+  padding: 10px;
+  font-size: 1em;
+  cursor: pointer;
+} */
+.custom-search-botton:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+.points-display {
+  margin-top: 20px;
+  font-size: 15px;
+  color: #0000ff;
+}
+.message {
+  color: #ff0000;
+  margin-top: 0px;
+  font-size: 12px;
+}
+.answer {
+  color: rgb(229, 218, 218);
+  margin-bottom: 52px;
+  font-size: 15px;
+}
+.chances-over {
+  margin-top: 50px;
+  color: white;
+  padding: 10px;
+  font-family: myFirstFont;
+}
+.cards {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  aspect-ratio: 0.87;
+  max-width: 342px;
+  align-items: center;
+  font-weight: 400;
+  text-transform: uppercase;
+  padding: 43px 10px 9px;
+  height: 45vh;
+  width: 100vw;
+  border: 0.85px solid rgba(57, 56, 56, 1);
+  border-radius: 25px;
+  margin-top: 10px;
+  font-family: myFirstFont;
+}
+.title-epic {
+  color: white;
+  font-size: 20px;
+  font-weight: bolder;
+}
+.bottom-text {
+  color: rgba(126, 121, 121, 1);
+  font-size: medium;
+  font-family: myFirstFont;
+  text-align: center;
+  margin-top: 10px;
+}
+.pointsInnerContainer {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  aspect-ratio: 1.77;
+  width: 100%;
+  padding: 39px 59px;
+  border: 5px solid rgba(18, 18, 18, 1);
+  border-radius: 25px;
+}
+.pointsLabel {
+  position: relative;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-image: linear-gradient(
+    180deg,
+    #fd8d23 -1.34%,
+    #fae61c 10.31%,
+    #eef73b 20.95%,
+    #4cf038 42.23%,
+    #33c6f6 65.04%,
+    #7475ff 80.74%,
+    #d457ff 100%
+  );
+  font: 14px/157% "VCR OSD Mono", -apple-system, Roboto, Helvetica, sans-serif;
+}
+.pointsValue {
+  position: relative;
+  display: flex;
+  gap: 10px;
+  font-size: 20px;
+  white-space: nowrap;
+  line-height: 180%;
+}
+.pointsIcon {
+  aspect-ratio: 1.05;
+  object-fit: auto;
+  object-position: center;
+  width: 39px;
+}
+.pointsNumber {
+  font-family: "Press Start 2P", -apple-system, Roboto, Helvetica, sans-serif;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-image: linear-gradient(
+    180deg,
+    #fd8d23 -1.34%,
+    #fae61c 10.31%,
+    #eef73b 20.95%,
+    #4cf038 42.23%,
+    #33c6f6 65.04%,
+    #7475ff 80.74%,
+    #d457ff 100%
+  );
+  margin: auto 0;
+}
+.text-headingg {
+  font-size: 22px;
+  background: linear-gradient(
+    180deg,
+    #fd8d23 -1.34%,
+    #fae61c 10.31%,
+    #eef73b 20.95%,
+    #4cf038 42.23%,
+    #33c6f6 65.04%,
+    #7475ff 80.74%,
+    #d457ff 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  user-select: none;
+  font-family: mySecondFont;
+  text-align: center;
+  justify-content: center;
 }

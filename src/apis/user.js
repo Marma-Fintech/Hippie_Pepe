@@ -4,7 +4,7 @@ import { Base_Url } from "./baseurl";
 
 export const UserDeatils = async (data) => {
   try {
-    console.log(data + "datadatadatadatadata");
+    // console.log(data + "datadatadatadatadata");
     const response = await axios.post(`${Base_Url.base_url}/login`, data);
 
     return response.data.user;

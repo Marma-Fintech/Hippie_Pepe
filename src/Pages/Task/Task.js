@@ -7,6 +7,7 @@ import useUserInfo from "../../Hooks/useUserInfo";
 import PickaWord from "./PickaWord/PickaWord";
 import quiz from "./QuizTask/QuizTask";
 import scramble from "./ScrambleaWord/ScrambleaWord";
+
 const Task = () => {
   const { userDetails, updateUserInfo } = useUserInfo();
   const goToThePage = (component, name) => {

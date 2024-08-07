@@ -63,34 +63,20 @@ const Thememe = () => {
 
       const urlParams = new URLSearchParams(window.location.search);
       const referredIdFromUrl = urlParams.get("start");
-      console.log(JSON.stringify(userData));
-
-      // console.log(referredIdFromUrl + " referredIdFromUrl  ");
-      // console.log("User data  available." + JSON.stringify(userData));
     } else {
-      // console.log("User data not available.");
     }
-    // const data = {
-    //   name: userData.first_name,
-    //   // name: "userData.first_name",
-    //   // refferedById: referredIdFromUrl ? referredIdFromUrl : null,
-    //   telegramId: String(userData.id),
-    // };
-    // getUserDetails(data);
-    // console.log(watchScreen);
 
     const data = {
       name: "userData.first_nam",
-      // name: "userData.first_name",
-      // refferedById: referredIdFromUrl ? referredIdFromUrl : null,
-      telegramId: "String",
+
+      telegramId: "Strigkkj",
     };
     getUserDetails(data);
   }, []);
 
   const getUserDetails = async (data) => {
     const userDetails = await UserDeatils(data);
-    console.log(JSON.stringify(userDetails) + " referredIdFromUrl  ");
+    // console.log(JSON.stringify(userDetails) + " referredIdFromUrl  ");
     // console.log(JSON.stringify(watchScreen) + " referredIdFromUrl  ");
 
     updateUserInfo((prev) => {
@@ -177,17 +163,58 @@ const Thememe = () => {
   const audioRef = useRef(null);
 
   useEffect(() => {
-    // console.log(JSON.stringify(userDetails));
     if (
       userDetails.centerCount === 3 &&
       userDetails.menuCount === 2 &&
       userDetails.refererCount === 5
     ) {
-      // console.log("JSON.stringify(userDetails)");
-
       audioRef.current.play();
     }
   }, [userDetails]);
+
+  const isInterval = useRef(false);
+  const boostIntervalRef = useRef(null);
+  const boostref = useRef(false);
+  const [boosterSec, setBoosterSec] = useState(0);
+
+  useEffect(() => {
+    console.log(JSON.stringify(watchScreen) + "kjhgfddfghjklkjhg");
+    if (watchScreen.booster && watchScreen.boosterSec > 0) {
+      console.log("rrrrrr");
+      boosterInterval();
+    }
+  }, [watchScreen]);
+
+  const boosterInterval = () => {
+    if (!boostref.current) {
+      boostref.current = true;
+      boostIntervalRef.current = setInterval(() => {
+        updatewatchScreenInfo((prev) => {
+          // Ensure `boosterSec` does not go below 0
+          const newBoosterSec = Math.max(prev.boosterSec - 1, 0);
+
+          if (newBoosterSec === 0) {
+            clearInterval(boostIntervalRef.current);
+            boostref.current = false;
+            updatewatchScreenInfo((prev) => {
+              return {
+                ...prev,
+                ...{
+                  booster: false,
+                  boosterDetails: {},
+                },
+              };
+            });
+          }
+
+          return {
+            ...prev,
+            boosterSec: newBoosterSec,
+          };
+        });
+      }, 1000);
+    }
+  };
 
   return (
     <div
@@ -196,7 +223,6 @@ const Thememe = () => {
         width: "100%",
         backgroundColor: "black",
         position: "fixed",
-        // overflowX: "hidden",
         overflow: "hidden",
       }}
     >
@@ -274,7 +300,7 @@ const Thememe = () => {
                 <img
                   src={menuIcon}
                   alt="border"
-                  style={{ height: "40%", width: "50%" }}
+                  style={{ width: "50%" }}
                   className="bottomImg"
                 />
               </div>
@@ -285,7 +311,6 @@ const Thememe = () => {
                 width: "60%",
                 marginBottom: "10px",
                 position: "relative",
-                // backgroundColor: "red",
               }}
               onClick={() => {
                 goToThePage(Tv, "TVPage");
@@ -433,7 +458,6 @@ const Thememe = () => {
                     justifyContent: "center",
                   }}
                 >
-                  {/* <div style={{ color: "rgba(9, 189, 27, 1)" }}>Continue</div> */}
                   <div
                     style={{
                       display: "flex",
@@ -516,131 +540,6 @@ const Thememe = () => {
         </div>
         <Tvborder />
       </div>
-      {/* <div
-        className="box"
-        style={{
-          height: "16%",
-          width: "100%",
-          display: "flex",
-          flexDirection: "row",
-          overflow: "hidden",
-          position: "relative",
-        }}
-      > */}
-      {/* <div style={{ position: "absolute", top: -10 }}>
-          <img
-            src={bottomShape}
-            alt="border"
-            style={{ height: "120%", width: "100%" }}
-            className="bottomImg"
-          />
-        </div> */}
-      {/* <div
-          style={{
-            width: "20%",
-            height: "100%",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-        >
-          <div style={{ width: "80%", height: "50%" }}>
-            <Playbutton
-              width="50%"
-              img={Invite}
-              // clickFun={goToThePage(InvitePage, "InvitePage")}
-            />
-          </div>
-        </div>
-        <div
-          style={{
-            width: "60%",
-            height: "100%",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-        >
-          <div
-            className="centerBox"
-            style={{
-              height: "70%",
-              width: "100%",
-              backgroundColor: "rgb(1, 39, 3,1)",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              padding: 5,
-            }}
-          >
-            {userDetails.id ? (
-              <CenterBox />
-            ) : (
-              <div
-                onClick={() => {
-                  if (userDetails.currentComponentText === "IntroImg") {
-                    goToThePage(IntroPage, "IntroPage");
-                  }
-                  if (userDetails.currentComponentText === "IntroPage") {
-                    goToThePage(UsernamePage, "UsernamePage");
-                  }
-                  if (userDetails.currentComponentText === "UsernamePage") {
-                    goToThePage(ProfilePicture, "ProfilePicture");
-                  }
-                  if (userDetails.currentComponentText === "ProfilePicture") {
-                    goToThePage(ExplainPage, "ExplainPage");
-                  }
-                  if (userDetails.currentComponentText === "ExplainPage") {
-                    goToThePage(Tv, "TVPage");
-                  }
-                }}
-                className="homeCenterButton"
-                style={{
-                  height: "100%",
-                  width: "100%",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                }}
-              >
-                {userDetails.currentComponentText === "IntroImg" ||
-                userDetails.currentComponentText === "UsernamePage" ||
-                userDetails.currentComponentText === "ProfilePicture"
-                  ? "CONTINUE"
-                  : ""}
-                {userDetails.currentComponentText === "IntroPage"
-                  ? "CREATE ACCOUNT"
-                  : ""}
-                {userDetails.currentComponentText === "ExplainPage"
-                  ? "LET'S START"
-                  : ""}
-              </div>
-            )}
-          </div>
-        </div>
-        <div
-          style={{
-            width: "20%",
-            height: "100%",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-        >
-          <div
-            style={{
-              width: "80%",
-              height: "50%",
-            }}
-          >
-            <Playbutton
-              img={userDetails.isMenu ? menuClose : burgerIcon}
-              width="90%"
-              clickFun={toogleMenu}
-            />
-          </div>
-        </div> */}
-      {/* </div> */}
     </div>
   );
 };

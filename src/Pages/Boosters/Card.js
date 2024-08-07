@@ -24,6 +24,14 @@ function Card(props) {
   };
 
   const boosterSelected = () => {
+    const boosterDuration = {
+      levelUp: 60,
+      tap: 60,
+      "2x": 60,
+      "3x": 120,
+      "5x": 180,
+    };
+
     var minsBoosterList = watchScreen.boostersList;
     const index = minsBoosterList.indexOf(key);
 
@@ -40,6 +48,7 @@ function Card(props) {
             name: key,
           },
           boostersList: minsBoosterList,
+          boosterSec: boosterDuration[key],
         },
       };
     });
