@@ -33,7 +33,6 @@ const Info = () => {
         }}
         onClick={() => {
           goToThePage(PhaseDetails, "PhaseDetailsPage");
-          // console.log("hihihih");
         }}
       >
         <div className="phase-details">

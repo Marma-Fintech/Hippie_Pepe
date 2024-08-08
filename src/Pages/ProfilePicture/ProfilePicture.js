@@ -17,7 +17,6 @@ const UpdateProfile = () => {
   const [selectedImage, setSelectedImage] = useState(null);
 
   const handleImageClick = (image) => {
-    // console.log("Image clicked:", image);
     setSelectedImage(image);
   };
 

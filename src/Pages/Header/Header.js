@@ -12,10 +12,7 @@ const Header = () => {
     // Parse the URL to get the referral code
     const urlParams = new URLSearchParams(window.location.search);
     const referredIdFromUrl = urlParams.get("start");
-    // if (referredIdFromUrl) {
     setRefId(referredIdFromUrl);
-    // console.log(referredIdFromUrl + " referredIdFromUrl  ");
-    // }
   }, []);
 
   useEffect(() => {
@@ -26,7 +23,6 @@ const Header = () => {
     const userData = window.Telegram.WebApp.initDataUnsafe.user;
 
     if (userData) {
-      // setUser(userData);
       updateUserInfo((prev) => {
         return {
           ...prev,
@@ -35,14 +31,10 @@ const Header = () => {
           },
         };
       });
-
-      // console.log("User data  available." + JSON.stringify(userData));
     } else {
-      // console.log("User data not available.");
     }
   }, []);
 
-  // console.log(userDetails);
   const goToThePage = (component, name) => {
     updateUserInfo((prev) => {
       return {
@@ -110,12 +102,6 @@ const Header = () => {
             </ul>
           </div>
         </div>
-        {/* style={{ color: "white", display: "flex", flexDirection: "row" }} */}
-        {/* Header */}
-        {/* <p style={{ color: "white" }}>
-          {userDetails.telegramDetails.firstName}
-        </p>
-        <p>{userDetails.telegramDetails.id}</p> */}
       </div>
     </div>
   );

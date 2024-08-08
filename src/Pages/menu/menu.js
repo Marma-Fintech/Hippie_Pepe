@@ -26,11 +26,11 @@ const Menu = () => {
   };
 
   useEffect(() => {
-    if (userDetails.lastComponentText === "TVPage") {
-      goToThePage(Task, "Task");
-    } else {
-      goToThePage(Tv, "TVPage");
-    }
+    // if (userDetails.lastComponentText === "TVPage") {
+    goToThePage(Task, "Task");
+    // } else {
+    //   goToThePage(Tv, "TVPage");
+    // }
   }, []);
 
   return (
