@@ -10,7 +10,6 @@ import fivexboost from "../../assets/images/5xboostimg.png";
 import useUserInfo from "../../Hooks/useUserInfo";
 
 function Card(props) {
-  // console.log(JSON.stringify(props.item));
   const { userDetails, watchScreen, updatewatchScreenInfo, updateUserInfo } =
     useUserInfo();
   const { value, key } = props.item;
@@ -24,6 +23,9 @@ function Card(props) {
   };
 
   const boosterSelected = () => {
+    if (watchScreen.booster && watchScreen.boosterDetails.name !== key) {
+      return false;
+    }
     const boosterDuration = {
       levelUp: 60,
       tap: 60,
@@ -48,7 +50,7 @@ function Card(props) {
             name: key,
           },
           boostersList: minsBoosterList,
-          boosterSec: boosterDuration[key],
+          boosterSec: watchScreen.boosterSec + boosterDuration[key],
         },
       };
     });

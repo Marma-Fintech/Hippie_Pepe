@@ -53,7 +53,6 @@ const Info = () => {
         <div
           onClick={() => {
             goToThePage(PhaseDetails, "PhaseDetailsPage");
-            // console.log("hihihih");
           }}
         >
           <img src={Arrow} style={{ width: "40px" }} />

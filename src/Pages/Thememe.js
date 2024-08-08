@@ -21,10 +21,23 @@ import ContinueText from "../assets/images/ContinueText.png";
 import switchOnTv from "../assets/images/switchOnTv.png";
 
 import { UserDeatils } from "../apis/user";
+import { addWatchSeconds } from "../apis/user";
 
 const Thememe = () => {
   const { userDetails, watchScreen, updatewatchScreenInfo, updateUserInfo } =
     useUserInfo();
+
+  const [current, Setcurrent] = useState("");
+
+  const latestUserDetails = useRef(userDetails);
+  const latestWatchScreen = useRef(watchScreen);
+
+  useEffect(() => {
+    latestUserDetails.current = userDetails;
+    latestWatchScreen.current = watchScreen;
+    Setcurrent(userDetails.currentComponentText);
+    // console.log(JSON.stringify(userDetails.currentComponentText) + "uuuuuu");
+  }, [userDetails, watchScreen]);
 
   useEffect(() => {
     const handleUnload = () => {
@@ -35,152 +48,119 @@ const Thememe = () => {
       getUserDetails(data);
     };
 
-    // window.addEventListener("beforeunload", handleUnload);
     window.Telegram.WebApp.onEvent("web_app_close", handleUnload);
 
     return () => {
-      // window.removeEventListener("beforeunload", handleUnload);
       window.Telegram.WebApp.offEvent("web_app_close", handleUnload);
     };
   }, []);
 
   useEffect(() => {
-    // Initialize the Telegram WebApp
     window.Telegram.WebApp.ready();
 
-    // Fetch user details
     const userData = window.Telegram.WebApp.initDataUnsafe.user;
 
     if (userData) {
-      updateUserInfo((prev) => {
-        return {
-          ...prev,
-          ...{
-            telegramDetails: userData,
-          },
-        };
-      });
+      updateUserInfo((prev) => ({
+        ...prev,
+        telegramDetails: userData,
+      }));
 
       const urlParams = new URLSearchParams(window.location.search);
       const referredIdFromUrl = urlParams.get("start");
-    } else {
     }
 
     const data = {
       name: "userData.first_nam",
-
-      telegramId: "Strigkkj",
+      telegramId: "Sthkjnkf",
     };
     getUserDetails(data);
   }, []);
 
   const getUserDetails = async (data) => {
     const userDetails = await UserDeatils(data);
-    // console.log(JSON.stringify(userDetails) + " referredIdFromUrl  ");
-    // console.log(JSON.stringify(watchScreen) + " referredIdFromUrl  ");
 
-    updateUserInfo((prev) => {
-      return {
-        ...prev,
-        ...{
-          userDetails: userDetails,
-        },
-      };
-    });
+    updateUserInfo((prev) => ({
+      ...prev,
+      userDetails: userDetails,
+    }));
 
-    updatewatchScreenInfo((prev) => {
-      return {
-        ...prev,
-        ...{
-          boostersList: userDetails?.boosters,
-        },
-      };
-    });
+    updatewatchScreenInfo((prev) => ({
+      ...prev,
+      boostersList: userDetails?.boosters,
+      totalReward: userDetails?.totalRewards,
+    }));
   };
 
   const goToTheRefererPage = (component, name) => {
-    updateUserInfo((prev) => {
-      return {
-        ...prev,
-        ...{
-          currentComponent: component,
-          currentComponentText: name,
-          lastComponent: userDetails.currentComponent,
-          lastComponentText: userDetails.currentComponentText,
-          refererCount: userDetails.refererCount + 1,
-        },
-      };
-    });
+    updateUserInfo((prev) => ({
+      ...prev,
+      currentComponent: component,
+      currentComponentText: name,
+      lastComponent: latestUserDetails.current.currentComponent,
+      lastComponentText: latestUserDetails.current.currentComponentText,
+      refererCount: latestUserDetails.current.refererCount + 1,
+    }));
   };
 
   const toogleMenu = () => {
-    if (!userDetails.isMenu) {
-      updateUserInfo((prev) => {
-        return {
-          ...prev,
-          ...{
-            isPlay: false,
-            currentComponent: Menu,
-            currentComponentText: "MenuPage",
-            lastComponent: userDetails.currentComponent,
-            lastComponentText: userDetails.currentComponentText,
-            isMenu: !userDetails.isMenu,
-            menuCount: userDetails.menuCount + 1,
-          },
-        };
-      });
-    } else {
-      updateUserInfo((prev) => {
-        return {
-          ...prev,
-          ...{
-            isPlay: false,
-            currentComponent: userDetails.lastComponent,
-            currentComponentText: userDetails.lastComponentText,
-            isMenu: !userDetails.isMenu,
-            menuCount: userDetails.menuCount + 1,
-          },
-        };
-      });
-    }
+    // console.log("kjhgf");
+    // if (!latestUserDetails.current.isMenu) {
+    updateUserInfo((prev) => ({
+      ...prev,
+      isPlay: false,
+      currentComponent: Menu,
+      currentComponentText: "MenuPage",
+      lastComponent: latestUserDetails.current.currentComponent,
+      lastComponentText: latestUserDetails.current.currentComponentText,
+      isMenu: !latestUserDetails.current.isMenu,
+      menuCount: latestUserDetails.current.menuCount + 1,
+    }));
+    // } else {
+    //   updateUserInfo((prev) => ({
+    //     ...prev,
+    //     isPlay: false,
+    //     currentComponent: latestUserDetails.current.lastComponent,
+    //     currentComponentText: latestUserDetails.current.lastComponentText,
+    //     isMenu: !latestUserDetails.current.isMenu,
+    //     menuCount: latestUserDetails.current.menuCount + 1,
+    //   }));
+    // }
   };
 
   const goToThePage = (component, name) => {
-    updateUserInfo((prev) => {
-      return {
-        ...prev,
-        ...{
-          currentComponent: component,
-          currentComponentText: name,
-          lastComponent: userDetails.currentComponent,
-          lastComponentText: userDetails.currentComponentText,
-          centerCount: userDetails.centerCount + 1,
-        },
-      };
-    });
+    updateUserInfo((prev) => ({
+      ...prev,
+      currentComponent: component,
+      currentComponentText: name,
+      lastComponent: latestUserDetails.current.currentComponent,
+      lastComponentText: latestUserDetails.current.currentComponentText,
+      centerCount: latestUserDetails.current.centerCount + 1,
+    }));
   };
 
   const audioRef = useRef(null);
 
   useEffect(() => {
     if (
-      userDetails.centerCount === 3 &&
-      userDetails.menuCount === 2 &&
-      userDetails.refererCount === 5
+      latestUserDetails.current.centerCount === 3 &&
+      latestUserDetails.current.menuCount === 2 &&
+      latestUserDetails.current.refererCount === 5
     ) {
       audioRef.current.play();
     }
   }, [userDetails]);
 
-  const isInterval = useRef(false);
   const boostIntervalRef = useRef(null);
   const boostref = useRef(false);
-  const [boosterSec, setBoosterSec] = useState(0);
 
   useEffect(() => {
-    console.log(JSON.stringify(watchScreen) + "kjhgfddfghjklkjhg");
-    if (watchScreen.booster && watchScreen.boosterSec > 0) {
-      console.log("rrrrrr");
+    // console.log(JSON.stringify(latestWatchScreen.current));
+
+    if (
+      latestWatchScreen.current.booster &&
+      latestWatchScreen.current.boosterSec > 0
+    ) {
       boosterInterval();
     }
   }, [watchScreen]);
@@ -189,22 +169,14 @@ const Thememe = () => {
     if (!boostref.current) {
       boostref.current = true;
       boostIntervalRef.current = setInterval(() => {
+        // console.log(JSON.stringify(watchScreen) + "intervel");
         updatewatchScreenInfo((prev) => {
-          // Ensure `boosterSec` does not go below 0
           const newBoosterSec = Math.max(prev.boosterSec - 1, 0);
 
           if (newBoosterSec === 0) {
+            addWatchSec();
             clearInterval(boostIntervalRef.current);
             boostref.current = false;
-            updatewatchScreenInfo((prev) => {
-              return {
-                ...prev,
-                ...{
-                  booster: false,
-                  boosterDetails: {},
-                },
-              };
-            });
           }
 
           return {
@@ -213,6 +185,53 @@ const Thememe = () => {
           };
         });
       }, 1000);
+    }
+  };
+
+  const addWatchSecapi = async (data) => {
+    const res = await addWatchSeconds(data);
+    // console.log(JSON.stringify(res));
+    updatewatchScreenInfo((prev) => ({
+      ...prev,
+      tapPoints: 0,
+      booster: false,
+      boosterSec: 0,
+      boosterPoints: 0,
+      // boostersList: [],
+      boosterDetails: {},
+      watchSec: 0,
+    }));
+    const data1 = {
+      name: "userData.first_nam",
+      telegramId: "Sthkjnkf",
+    };
+    getUserDetails(data1);
+  };
+
+  const addWatchSec = () => {
+    if (latestUserDetails.current.currentComponentText !== "TVPage") {
+      // console.log(JSON.stringify(latestWatchScreen.current));
+      var data = {};
+      if (watchScreen.booster) {
+        data = {
+          telegramId: userDetails.userDetails.telegramId,
+          userWatchSeconds: latestWatchScreen.current.watchSec,
+          boosterPoints: String(
+            latestWatchScreen.current.boosterPoints +
+              latestWatchScreen.current.tapPoints
+          ),
+          boosters: [latestWatchScreen.current.boosterDetails.name],
+        };
+      } else {
+        data = {
+          telegramId: userDetails.userDetails.telegramId,
+          userWatchSeconds: latestWatchScreen.current.watchSec,
+          boosterPoints: String(latestWatchScreen.current.tapPoints),
+          // boosters: [boosterRef.current],
+        };
+      }
+
+      addWatchSecapi(data);
     }
   };
 
@@ -230,7 +249,7 @@ const Thememe = () => {
         <source src={porotta} type="audio/mpeg" />
         Your browser does not support the audio element.
       </audio>
-      {userDetails.isHeader && (
+      {latestUserDetails.current.isHeader && (
         <div className="box" style={{ height: "7%", width: "100%" }}>
           <Header />
         </div>
@@ -275,9 +294,7 @@ const Thememe = () => {
             >
               <div
                 style={{ position: "absolute", height: "100%", width: "100%" }}
-                onClick={() => {
-                  toogleMenu();
-                }}
+                onClick={toogleMenu}
               >
                 <img
                   src={bottomLeft}
@@ -287,9 +304,7 @@ const Thememe = () => {
                 />
               </div>
               <div
-                onClick={() => {
-                  toogleMenu();
-                }}
+                onClick={toogleMenu}
                 style={{
                   width: "100%",
                   position: "absolute",
@@ -312,9 +327,7 @@ const Thememe = () => {
                 marginBottom: "10px",
                 position: "relative",
               }}
-              onClick={() => {
-                goToThePage(Tv, "TVPage");
-              }}
+              onClick={() => goToThePage(Tv, "TVPage")}
             >
               <div
                 style={{
@@ -475,18 +488,13 @@ const Thememe = () => {
                 height: "80%",
                 width: "20%",
                 position: "relative",
-
                 marginBottom: "10px",
               }}
-              onClick={() => {
-                goToTheRefererPage(ReferPage, "ReferPage");
-              }}
+              onClick={() => goToTheRefererPage(ReferPage, "ReferPage")}
             >
               <div
                 style={{ position: "absolute", height: "100%", width: "100%" }}
-                onClick={() => {
-                  goToTheRefererPage(ReferPage, "ReferPage");
-                }}
+                onClick={() => goToTheRefererPage(ReferPage, "ReferPage")}
               >
                 <img
                   src={bottomRight}
