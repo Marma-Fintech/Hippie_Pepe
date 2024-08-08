@@ -34,7 +34,6 @@
   bottom: 17% !important;
   /* padding-top: 15px; */
   border-radius: 100px;
-  border:none;
   width: 95%;
   height: 60px !important;
   background-color: #034807;
@@ -92,7 +91,6 @@
 .question-text {
   color: white;
   text-align: center;
-  margin-bottom: 10px;
 }
 button:hover {
   opacity: 0.8; /* Only allow hover effects if not answered yet */

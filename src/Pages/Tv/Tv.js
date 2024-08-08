@@ -5,8 +5,8 @@ import help from "../../assets/images/help.png";
 import memetv from "../../assets/images/meme-logo.svg";
 import useUserInfo from "../../Hooks/useUserInfo";
 import ProgressBar from "react-bootstrap/ProgressBar";
-import marketPlack from "../../assets/images/marketPlace.svg";
-import leaderBoarder from "../../assets/images/leaderBoard.svg";
+import marketPlack from "../../assets/images/marketPlace.png";
+import leaderBoarder from "../../assets/images/leaderBoard.png";
 import { addWatchSeconds } from "../../apis/user";
 import { UserDeatils } from "../../apis/user";
 import marketPlace from "../MarketPlace/marketPlace";
@@ -14,6 +14,7 @@ import TotalPoints from "../TotalPoints/TotalPoints";
 import Phase from "../PhasePage/PhasePage";
 import DoandEarn from "../DoEarn/DoEarn";
 import Info from "../PhaseDetails/PhaseDetails";
+import Streak from "../Streak/Streak";
 
 const Tv = () => {
   const { userDetails, watchScreen, updatewatchScreenInfo, updateUserInfo } =
@@ -30,6 +31,7 @@ const Tv = () => {
   const tapPointsRef = useRef(tapPoints);
   const [boosterSec, setBoosterSec] = useState();
   const energy = useRef(5000);
+  const [energyy, SetEnergy] = useState(0);
   const boosterRef = useRef(false);
   const [boosterPoints, setBoosterPoints] = useState(0);
   const boosterPointsRef = useRef(boosterPoints);
@@ -50,8 +52,51 @@ const Tv = () => {
   const [tapAnimations, setTapAnimations] = useState([]);
 
   useEffect(() => {
+    const storedData = localStorage.getItem("energyDetails");
+    console.log(storedData + " storedData");
+
+    if (storedData) {
+      try {
+        const parsedData = JSON.parse(storedData);
+        console.log(parsedData.energy + " parsedData.energy");
+        const storedDate = new Date(parsedData.date);
+        const currentDate = new Date();
+        const timeDifferenceInSeconds = Math.floor(
+          (currentDate - storedDate) / 1000
+        );
+        const energyIncrement = timeDifferenceInSeconds;
+        const newEnergy = parsedData.energy + energyIncrement;
+        if (newEnergy > 5000) {
+          SetEnergy(5000);
+          energy.current = 5000;
+        } else {
+          SetEnergy(newEnergy.toFixed());
+          energy.current = newEnergy.toFixed();
+        }
+        // setEnergyDetails(parsedData);
+        console.log(
+          parsedData.energy,
+          energyIncrement + "energyIncrementenergyIncrement"
+        );
+      } catch (error) {
+        console.error("Error parsing stored data:", error);
+      }
+    }
+    // if (storedData) {
+    //   SetEnergy(storedData);
+    //   energy.current = storedData;
+    // } else {
+    //   SetEnergy(5000);
+    //   energy.current = 5000;
+    // }
     // clearInterval(intervalRef.current);
     intervalRef.current = setInterval(() => {
+      // if (energy.current < 5000) {
+      //   SetEnergy((prev) => {
+      //     return Number(prev) + 0.25;
+      //   });
+      //   energy.current = Number(energy.current) + 0.25;
+      // }
       const values = {
         levelUp: currentLevelRef.current + 1,
         "2x": currentLevelRef.current * 2,
@@ -85,6 +130,13 @@ const Tv = () => {
     // Cleanup interval on component unmount
     return () => {
       clearInterval(intervalRef.current);
+      localStorage.setItem(
+        "energyDetails",
+        JSON.stringify({
+          energy: energy.current,
+          date: new Date(),
+        })
+      );
       addTotalPoints();
     };
   }, []);
@@ -214,11 +266,29 @@ const Tv = () => {
         return newBoosterPoints;
       });
     } else {
-      setTapPoints((prevTapPoints) => {
-        const newTapPoints = prevTapPoints + num;
-        tapPointsRef.current = newTapPoints;
-        return newTapPoints;
-      });
+      if (energyy > 0) {
+        if (energyy < num) {
+          setTapPoints((prevTapPoints) => {
+            const newTapPoints = prevTapPoints + energyy;
+            tapPointsRef.current = newTapPoints;
+            return newTapPoints;
+          });
+          SetEnergy((prev) => {
+            return 0;
+          });
+          energy.current = 0;
+        } else {
+          setTapPoints((prevTapPoints) => {
+            const newTapPoints = prevTapPoints + num;
+            tapPointsRef.current = newTapPoints;
+            return newTapPoints;
+          });
+          SetEnergy((prev) => {
+            return prev - num;
+          });
+          energy.current = energy.current - num;
+        }
+      }
     }
 
     const newAnimation = {
@@ -273,10 +343,10 @@ const Tv = () => {
         </div>
         <div className="col-6">
           <div className="level-h2">
-            <h2 className="energy">Energy {energy.current}/5000</h2>
+            <h2 className="energy">Energy {energyy}/5000</h2>
             <div style={{ height: "10px", marginBottom: "10px" }}>
               <ProgressBar style={{ height: "10px" }}>
-                <ProgressBar now={(energy.current / 5000) * 100} key={1} />
+                <ProgressBar now={(energyy / 5000) * 100} key={1} />
               </ProgressBar>
             </div>
           </div>
@@ -288,7 +358,15 @@ const Tv = () => {
           <div className="col-8 streak-border">
             <div className="row text-center phase1">
               <div className="col-5">
-                <h2 className="streak"> STREAK &nbsp;</h2>
+                <h2
+                  onClick={() => {
+                    goToThePage(Streak, "Streak");
+                  }}
+                  className="streak"
+                >
+                  {" "}
+                  STREAK &nbsp;
+                </h2>
               </div>
               <div className="col-2 phase-p">P1</div>
               <div

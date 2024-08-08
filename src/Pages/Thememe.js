@@ -20,7 +20,7 @@ import Boosters from "../Pages/Boosters/Boosters";
 import ContinueText from "../assets/images/ContinueText.png";
 import switchOnTv from "../assets/images/switchOnTv.png";
 
-import { UserDeatils } from "../apis/user";
+import user, { UserDeatils } from "../apis/user";
 import { addWatchSeconds } from "../apis/user";
 
 const Thememe = () => {
@@ -39,21 +39,41 @@ const Thememe = () => {
     // console.log(JSON.stringify(userDetails.currentComponentText) + "uuuuuu");
   }, [userDetails, watchScreen]);
 
-  useEffect(() => {
-    const handleUnload = () => {
-      const data = {
-        name: "userData.first_name",
-        telegramId: "1234567",
-      };
-      getUserDetails(data);
-    };
+  // useEffect(() => {
+  //   console.log(
+  //     JSON.stringify(window.Telegram.WebApp.isConfirmationNeededOnClose)
+  //   );
+  //   console.log("Prompting user before close");
 
-    window.Telegram.WebApp.onEvent("web_app_close", handleUnload);
+  //   // Show the confirmation prompt
+  //   // window.Telegram.WebApp.closeConfirm(true);
+  //   window.Telegram.WebApp.onEvent("web_app_close_confirm", (result) => {
+  //     if (result) {
+  //       console.log("User confirmed to close");
+  //       const data = {
+  //         name: userDetails.userDetails.name,
+  //         telegramId: String(userDetails.userDetails?.telegramId),
+  //       };
+  //       console.log("Data to send on close:", data);
+  //       getUserDetails(data);
+  //       // Now close the web app
+  //       window.Telegram.WebApp.close();
+  //     } else {
+  //       console.log("User cancelled the close action");
+  //       window.Telegram.WebApp.closeConfirm(false); // Prevent the web app from closing
+  //     }
+  //   });
 
-    return () => {
-      window.Telegram.WebApp.offEvent("web_app_close", handleUnload);
-    };
-  }, []);
+  //   return () => {
+  //     if (window.Telegram && window.Telegram.WebApp) {
+  //       console.log("Removing event listener for web_app_before_close_confirm");
+  //       window.Telegram.WebApp.offEvent(
+  //         "web_app_before_close_confirm",
+  //         handleBeforeCloseConfirm
+  //       );
+  //     }
+  //   };
+  // }, []);
 
   useEffect(() => {
     window.Telegram.WebApp.ready();
@@ -61,6 +81,13 @@ const Thememe = () => {
     const userData = window.Telegram.WebApp.initDataUnsafe.user;
 
     if (userData) {
+      console.log(JSON.stringify(userData) + "useruserdatadata");
+      const data = {
+        name: userData?.first_name,
+        telegramId: String(userData?.id),
+      };
+      getUserDetails(data);
+
       updateUserInfo((prev) => ({
         ...prev,
         telegramDetails: userData,
@@ -69,12 +96,6 @@ const Thememe = () => {
       const urlParams = new URLSearchParams(window.location.search);
       const referredIdFromUrl = urlParams.get("start");
     }
-
-    const data = {
-      name: "userData.first_nam",
-      telegramId: "Sthkjnkf",
-    };
-    getUserDetails(data);
   }, []);
 
   const getUserDetails = async (data) => {
@@ -202,8 +223,8 @@ const Thememe = () => {
       watchSec: 0,
     }));
     const data1 = {
-      name: "userData.first_nam",
-      telegramId: "Sthkjnkf",
+      name: userDetails.userDetails.name,
+      telegramId: String(userDetails.userDetails?.telegramId),
     };
     getUserDetails(data1);
   };

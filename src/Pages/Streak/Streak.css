@@ -1,0 +1,151 @@
+.streaktext {
+  font-size: 15px;
+  background: linear-gradient(
+    180deg,
+    #fd8d23 -1.34%,
+    #fae61c 10.31%,
+    #eef73b 20.95%,
+    #4cf038 42.23%,
+    #33c6f6 65.04%,
+    #7475ff 80.74%,
+    #d457ff 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  user-select: none;
+  font-family: mySecondFont;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  margin-right: 60px;
+  margin-left: 62px;
+}
+.tv-body1 {
+  pointer-events: fill;
+}
+.streakContainer {
+  display: flex;
+  align-items: center;
+}
+.questionMarkIcon {
+  width: 20px;
+  height: 20px;
+  margin-bottom: 10px;
+}
+.margintop {
+  margin-top: 10px;
+}
+.streak-btn {
+  position: fixed;
+  bottom: 17% !important;
+  /* padding-top: 15px; */
+  border-radius: 100px;
+  width: 95%;
+  height: 60px !important;
+  background-color: #034807;
+  right: 1%;
+  color: #fff;
+  font-size: 18px;
+  text-transform: uppercase;
+  color: rgba(76, 240, 56, 1);
+}
+/*  Streak */
+.cardContainer {
+  border-radius: 8px;
+  background-color: rgba(33, 33, 33, 1);
+  display: flex;
+  width: 100%;
+  font-family: myFirstFont;
+  gap: 20px;
+  justify-content: space-between;
+}
+.cardContent {
+  display: flex;
+  gap: 13px;
+  padding: 5px;
+}
+.image {
+  aspect-ratio: 0.87;
+  object-fit: contain;
+  object-position: center;
+  width: 49px;
+}
+.referInfo {
+  align-self: start;
+  display: flex;
+  flex-direction: column;
+}
+.referStreak {
+  font-size: 13px;
+  line-height: 25px;
+  text-transform: uppercase;
+  background: linear-gradient(
+    180deg,
+    #fd8d23 -1.34%,
+    #fae61c 10.31%,
+    #eef73b 20.95%,
+    #4cf038 42.23%,
+    #33c6f6 65.04%,
+    #7475ff 80.74%,
+    #d457ff 100%
+  );
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-color: linear-gradient(
+    180deg,
+    #fd8d23 -1.34%,
+    #fae61c 10.31%,
+    #eef73b 20.95%,
+    #4cf038 42.23%,
+    #33c6f6 65.04%,
+    #7475ff 80.74%,
+    #d457ff 100%
+  );
+}
+.pointContainer {
+  display: flex;
+  min-height: 27px;
+  align-items: center;
+  gap: 7px;
+  font-size: 15px;
+  color: rgba(76, 240, 56, 0.58);
+  white-space: nowrap;
+  line-height: 26px;
+  justify-content: start;
+}
+.pointImage {
+  aspect-ratio: 1.1;
+  object-fit: contain;
+  object-position: center;
+  width: 23px;
+  align-self: stretch;
+  margin: auto 0;
+}
+.pointValue {
+  align-self: stretch;
+  margin: auto 0;
+}
+.claimedLabel {
+  border-radius: 2px;
+  background-color: rgba(50, 50, 50, 1);
+  font-size: 12px;
+  color: rgba(76, 240, 56, 1);
+  white-space: nowrap;
+  text-align: center;
+  text-transform: uppercase;
+  line-height: 1;
+  margin: auto 0;
+  padding: 3px 12px;
+  border: 1px solid rgba(76, 240, 56, 1);
+  margin-right: 6px;
+}
+.claimed {
+  background-color: rgba(60, 61, 60, 1);
+  color: rgba(101, 101, 101, 1);
+  border-color: rgba(60, 61, 60, 1);
+}
+.claimedLabel:disabled {
+  cursor: not-allowed;
+}
