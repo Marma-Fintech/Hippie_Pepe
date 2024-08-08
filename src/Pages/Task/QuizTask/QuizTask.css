@@ -55,12 +55,7 @@
   color: #f00;
 }
 .welcome-text {
-  background: linear-gradient(
-    180deg,
-    #eef73b 38.45%,
-    #79e56c 45.86%,
-    #00c0ff 100%
-  );
+  background: linear-gradient(180deg, #FD8D23 -1.34%, #FAE61C 10.31%, #EEF73B 20.95%, #4CF038 42.23%, #33C6F6 65.04%, #7475FF 80.74%, #D457FF 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   font-family: press;

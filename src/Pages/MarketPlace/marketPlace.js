@@ -17,7 +17,7 @@ const marketPlace = () => {
         display: "flex",
         alignItems: "center",
         // justifyContent: "center",
-        marginTop:"15%",
+        marginTop:"13%",
         flexDirection: "column",
         pointerEvents: "all",
       }}
@@ -25,10 +25,11 @@ const marketPlace = () => {
     >
        <div className="market-place">
         <div className="market">
-        <h2 className="welcome-text mb15 text-center">Market place</h2>
+          <div className="bg-market">
+          <h2 className="welcome-text mb15 text-center">Market place</h2>
         <hr/>
-        <div className="row">
-          <div className="display-flex mb15">
+        <div className="row mt5">
+          <div className="display-flex">
           <div className="col-7">
           <p className="rewards mb0"> Watch Rewards</p>
           </div>
@@ -38,7 +39,9 @@ const marketPlace = () => {
           </div>
           
         </div>
-        <div className="row">
+          </div>
+        
+        <div className="row mt15">
           <div className="col-6">
             <div className="market-card p5">
               <div className="market-pick text-center">
