@@ -1,5 +1,6 @@
 .tv-body {
   pointer-events: fill;
+  width: 100%;
 }
 .streakBreakPointsContainer {
   display: flex;
@@ -7,6 +8,7 @@
   align-items: center;
   justify-content: center;
   height: 100vh;
+  padding: 10%;
 }
 .streakBreakText {
   font-size: 15px;
