@@ -91,12 +91,12 @@ const Tv = () => {
     // }
     // clearInterval(intervalRef.current);
     intervalRef.current = setInterval(() => {
-      // if (energy.current < 5000) {
-      //   SetEnergy((prev) => {
-      //     return Number(prev) + 0.25;
-      //   });
-      //   energy.current = Number(energy.current) + 0.25;
-      // }
+      if (energy.current < 5000) {
+        SetEnergy((prev) => {
+          return Number(prev) + 1;
+        });
+        energy.current = Number(energy.current) + 1;
+      }
       const values = {
         levelUp: currentLevelRef.current + 1,
         "2x": currentLevelRef.current * 2,
@@ -397,9 +397,9 @@ const Tv = () => {
           </div>
           <div
             className="col-8 points"
-            onClick={() => {
-              goToThePage(TotalPoints, "TotalPoints");
-            }}
+            // onClick={() => {
+            //   goToThePage(TotalPoints, "TotalPoints");
+            // }}
           >
             <h2>
               <img src={memetv} alt="Meme TV" />

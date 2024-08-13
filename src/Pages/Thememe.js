@@ -39,63 +39,91 @@ const Thememe = () => {
     // console.log(JSON.stringify(userDetails.currentComponentText) + "uuuuuu");
   }, [userDetails, watchScreen]);
 
-  // useEffect(() => {
-  //   console.log(
-  //     JSON.stringify(window.Telegram.WebApp.isConfirmationNeededOnClose)
-  //   );
-  //   console.log("Prompting user before close");
+  useEffect(() => {
+    const handleBackButtonClick = async () => {
+      console.log("Back button clicked");
 
-  //   // Show the confirmation prompt
-  //   // window.Telegram.WebApp.closeConfirm(true);
-  //   window.Telegram.WebApp.onEvent("web_app_close_confirm", (result) => {
-  //     if (result) {
-  //       console.log("User confirmed to close");
-  //       const data = {
-  //         name: userDetails.userDetails.name,
-  //         telegramId: String(userDetails.userDetails?.telegramId),
-  //       };
-  //       console.log("Data to send on close:", data);
-  //       getUserDetails(data);
-  //       // Now close the web app
-  //       window.Telegram.WebApp.close();
-  //     } else {
-  //       console.log("User cancelled the close action");
-  //       window.Telegram.WebApp.closeConfirm(false); // Prevent the web app from closing
-  //     }
-  //   });
+      const data1 = {
+        name: userDetails.userDetails.name,
+        telegramId: String(userDetails.userDetails?.telegramId),
+      };
 
-  //   return () => {
-  //     if (window.Telegram && window.Telegram.WebApp) {
-  //       console.log("Removing event listener for web_app_before_close_confirm");
-  //       window.Telegram.WebApp.offEvent(
-  //         "web_app_before_close_confirm",
-  //         handleBeforeCloseConfirm
-  //       );
-  //     }
-  //   };
-  // }, []);
+      try {
+        const data = await getUserDetails(data1); // Wait for the API response
+        if (data) {
+          window.Telegram.WebApp.close(); // Close the WebApp only after the API call completes
+        }
+      } catch (error) {
+        console.error("Error fetching user details:", error);
+        // Handle any error that might occur during the API call
+      }
+    };
+
+    if (window.Telegram && window.Telegram.WebApp) {
+      // Set up the back button to be visible
+      window.Telegram.WebApp.BackButton.show();
+
+      // Handle the back button press event
+      window.Telegram.WebApp.onEvent(
+        "backButtonClicked",
+        handleBackButtonClick
+      );
+
+      // Optionally, you can define what happens when the back button is hidden
+      return () => {
+        window.Telegram.WebApp.BackButton.hide();
+        window.Telegram.WebApp.offEvent(
+          "backButtonClicked",
+          handleBackButtonClick
+        );
+      };
+    } else {
+      console.error("Telegram WebApp API is not available");
+    }
+  }, [userDetails, watchScreen]);
 
   useEffect(() => {
     window.Telegram.WebApp.ready();
 
     const userData = window.Telegram.WebApp.initDataUnsafe.user;
-
+    const urlParams = new URLSearchParams(window.location.search);
+    const referredIdFromUrl = urlParams.get("start");
+    console.log(
+      referredIdFromUrl +
+        "khjfgdghjkljhgfdgghjhkgfsdfgg" +
+        userData +
+        "userData" +
+        urlParams
+    );
     if (userData) {
       console.log(JSON.stringify(userData) + "useruserdatadata");
-      const data = {
-        name: userData?.first_name,
-        telegramId: String(userData?.id),
-      };
+      var data;
+      if (referredIdFromUrl) {
+        data = {
+          name: userData?.first_name,
+          telegramId: String(userData?.id),
+          referredById: referredIdFromUrl,
+        };
+      } else {
+        data = {
+          name: userData?.first_name,
+          telegramId: String(userData?.id),
+          // referredById:referredIdFromUrl
+        };
+      }
+
       getUserDetails(data);
 
       updateUserInfo((prev) => ({
         ...prev,
         telegramDetails: userData,
       }));
-
-      const urlParams = new URLSearchParams(window.location.search);
-      const referredIdFromUrl = urlParams.get("start");
     }
+    // const data = {
+    //   name: "userData?.first_name",
+    //   telegramId: "String(userData?.id)",
+    // };
+    // getUserDetails(data);
   }, []);
 
   const getUserDetails = async (data) => {
@@ -111,6 +139,8 @@ const Thememe = () => {
       boostersList: userDetails?.boosters,
       totalReward: userDetails?.totalRewards,
     }));
+
+    return userDetails;
   };
 
   const goToTheRefererPage = (component, name) => {
