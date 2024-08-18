@@ -72,15 +72,36 @@
   gap: 2px;
   margin-top: 20px;
 }
-.scramble-wordbox {
+/* .scramble-wordbox {
   border-radius: 3.209px;
   background-color: rgba(9, 189, 27, 0.36);
   min-height: 44px;
-  width: 35px; /* Ensuring the width is consistent */
-  display: flex; /* Aligns content (if any) inside the boxes */
-  align-items: center; /* Center items vertically */
-  justify-content: center; /* Center items horizontally */
-  user-select: none; /* Prevents content from being selectable */
+  width: 35px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  user-select: none;
+} */
+.scramble-wordbox {
+  border-radius: 3.209px;
+  background-color: rgba(243, 213, 213, 0.453); /* Default gray background */
+  min-height: 44px;
+  width: 35px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  user-select: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease; /* Smooth transition for background color */
+}
+.scramble-wordbox.disabled {
+  background-color: rgba(9, 189, 27, 0.36) !important;
+  /* color: black !important; */
+}
+.word-s {
+  font-size: 18px;
+  font-weight: bold;
+  color: white;
 }
 .margin {
   margin-top: 40px;

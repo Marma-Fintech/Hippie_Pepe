@@ -15,6 +15,7 @@ import Phase from "../PhasePage/PhasePage";
 import DoandEarn from "../DoEarn/DoEarn";
 import Info from "../PhaseDetails/PhaseDetails";
 import Streak from "../Streak/Streak";
+import tapAudio from "../../assets/audio/tapSound.mp3";
 
 const Tv = () => {
   const { userDetails, watchScreen, updatewatchScreenInfo, updateUserInfo } =
@@ -35,6 +36,7 @@ const Tv = () => {
   const boosterRef = useRef(false);
   const [boosterPoints, setBoosterPoints] = useState(0);
   const boosterPointsRef = useRef(boosterPoints);
+  const tapSound = new Audio(tapAudio);
 
   const level = {
     1: 1000,
@@ -53,12 +55,9 @@ const Tv = () => {
 
   useEffect(() => {
     const storedData = localStorage.getItem("energyDetails");
-    console.log(storedData + " storedData");
-
     if (storedData) {
       try {
         const parsedData = JSON.parse(storedData);
-        console.log(parsedData.energy + " parsedData.energy");
         const storedDate = new Date(parsedData.date);
         const currentDate = new Date();
         const timeDifferenceInSeconds = Math.floor(
@@ -73,23 +72,11 @@ const Tv = () => {
           SetEnergy(newEnergy.toFixed());
           energy.current = newEnergy.toFixed();
         }
-        // setEnergyDetails(parsedData);
-        console.log(
-          parsedData.energy,
-          energyIncrement + "energyIncrementenergyIncrement"
-        );
       } catch (error) {
         console.error("Error parsing stored data:", error);
       }
     }
-    // if (storedData) {
-    //   SetEnergy(storedData);
-    //   energy.current = storedData;
-    // } else {
-    //   SetEnergy(5000);
-    //   energy.current = 5000;
-    // }
-    // clearInterval(intervalRef.current);
+
     intervalRef.current = setInterval(() => {
       if (energy.current < 5000) {
         SetEnergy((prev) => {
@@ -109,8 +96,6 @@ const Tv = () => {
         watchScreenRef.current?.boosterDetails?.name === "3x" ||
         watchScreenRef.current?.boosterDetails?.name === "5x"
       ) {
-        // console.log(values[watchScreenRef.current?.boosterDetails?.name]);
-
         setBoosterPoints(
           (prevBoosterPoints) =>
             prevBoosterPoints +
@@ -148,13 +133,6 @@ const Tv = () => {
       Number(tapPointsRef.current) +
       Number(boosterPointsRef.current);
 
-    console.log(
-      totalRewardPoints,
-      secsRef.current,
-      tapPointsRef.current,
-      boosterPointsRef.current
-    );
-
     updatewatchScreenInfo((prev) => ({
       ...prev,
       totalReward: totalRewardPoints,
@@ -181,22 +159,29 @@ const Tv = () => {
   const addWatchSecapi = async (data) => {
     const res = await addWatchSeconds(data);
     console.log(JSON.stringify(res));
-    // if (res) {
     updatewatchScreenInfo((prev) => ({
       ...prev,
       tapPoints: 0,
       booster: false,
       boosterSec: 0,
       boosterPoints: 0,
-      // boostersList: [],
       boosterDetails: {},
       watchSec: 0,
     }));
-    // }
   };
 
   useEffect(() => {
-    console.log(JSON.stringify(watchScreen) + "wawawawawawawawa");
+    Object.keys(level).forEach((lvl) => {
+      if (
+        Number(watchScreen.totalReward + secs + tapPoints + boosterPoints) >=
+        Number(level[lvl])
+      ) {
+        setCurrentLevel(Number(lvl) + 1);
+      }
+    });
+  }, [tapPoints, secs]);
+
+  useEffect(() => {
     watchScreenRef.current = watchScreen;
     if (watchScreen.booster && watchScreen.boosterSec === 0) {
       var data = {};
@@ -227,21 +212,11 @@ const Tv = () => {
 
       addWatchSecapi(data);
     }
-
-    // Update the current level based on total points
-    Object.keys(level).forEach((lvl) => {
-      if (
-        Number(watchScreen.totalReward + secs + tapPointsRef.current) >=
-        Number(level[lvl])
-      ) {
-        setCurrentLevel(Number(lvl) + 1);
-      }
-    });
   }, [watchScreen, secs]);
 
   const formatNumber = (num) => {
-    if (num >= 1000000) return (num / 1000000).toFixed(1) + "M";
-    if (num >= 1000) return (num / 1000).toFixed(num >= 10000 ? 0 : 1) + "k";
+    if (num >= 1000000) return Math.floor(num / 100000) / 10 + "M";
+    if (num >= 1000) return Math.floor(num / 100) / 10 + "k";
     return num;
   };
 
@@ -257,52 +232,97 @@ const Tv = () => {
   };
 
   const handleTap = (e) => {
-    var num = 5;
+    tapSound.play();
+    const touches = e.touches
+      ? Array.from(e.touches)
+      : [{ clientX: e.clientX, clientY: e.clientY }];
+    let num = 5;
+
     if (watchScreen?.boosterDetails?.name === "tap" && watchScreen?.booster) {
       num = 25;
       setBoosterPoints((prevBoosterPoints) => {
-        const newBoosterPoints = prevBoosterPoints + num;
+        const newBoosterPoints = prevBoosterPoints + num * touches.length;
         boosterPointsRef.current = newBoosterPoints;
         return newBoosterPoints;
       });
     } else {
       if (energyy > 0) {
-        if (energyy < num) {
-          setTapPoints((prevTapPoints) => {
-            const newTapPoints = prevTapPoints + energyy;
-            tapPointsRef.current = newTapPoints;
-            return newTapPoints;
-          });
-          SetEnergy((prev) => {
-            return 0;
-          });
-          energy.current = 0;
-        } else {
-          setTapPoints((prevTapPoints) => {
-            const newTapPoints = prevTapPoints + num;
-            tapPointsRef.current = newTapPoints;
-            return newTapPoints;
-          });
-          SetEnergy((prev) => {
-            return prev - num;
-          });
-          energy.current = energy.current - num;
-        }
+        const totalPoints = Math.min(energyy, num * touches.length);
+        setTapPoints((prevTapPoints) => {
+          const newTapPoints = prevTapPoints + totalPoints;
+          tapPointsRef.current = newTapPoints;
+          return newTapPoints;
+        });
+        SetEnergy((prev) => {
+          const newEnergy = prev - totalPoints;
+          energy.current = newEnergy;
+          return newEnergy;
+        });
       }
     }
 
-    const newAnimation = {
-      id: Date.now(),
-      x: e.clientX,
-      y: e.clientY,
-    };
-    setTapAnimations((prev) => [...prev, newAnimation]);
+    const newAnimations = touches.map((touch) => ({
+      id: Date.now() + Math.random(),
+      x: touch.clientX,
+      y: touch.clientY,
+    }));
+
+    setTapAnimations((prev) => [...prev, ...newAnimations]);
+
     setTimeout(() => {
       setTapAnimations((prev) =>
-        prev.filter((animation) => animation.id !== newAnimation.id)
+        prev.filter((animation) => !newAnimations.includes(animation))
       );
     }, 1000);
   };
+
+  // const handleTap = (e) => {
+  //   var num = 5;
+  //   if (watchScreen?.boosterDetails?.name === "tap" && watchScreen?.booster) {
+  //     num = 25;
+  //     setBoosterPoints((prevBoosterPoints) => {
+  //       const newBoosterPoints = prevBoosterPoints + num;
+  //       boosterPointsRef.current = newBoosterPoints;
+  //       return newBoosterPoints;
+  //     });
+  //   } else {
+  //     if (energyy > 0) {
+  //       if (energyy < num) {
+  //         setTapPoints((prevTapPoints) => {
+  //           const newTapPoints = prevTapPoints + energyy;
+  //           tapPointsRef.current = newTapPoints;
+  //           return newTapPoints;
+  //         });
+  //         SetEnergy((prev) => {
+  //           return 0;
+  //         });
+  //         energy.current = 0;
+  //       } else {
+  //         setTapPoints((prevTapPoints) => {
+  //           const newTapPoints = prevTapPoints + num;
+  //           tapPointsRef.current = newTapPoints;
+  //           return newTapPoints;
+  //         });
+  //         SetEnergy((prev) => {
+  //           return prev - num;
+  //         });
+  //         energy.current = energy.current - num;
+  //       }
+  //     }
+  //   }
+
+  //   const newAnimation = {
+  //     id: Date.now(),
+  //     x: e.clientX,
+  //     y: e.clientY,
+  //   };
+  //   setTapAnimations((prev) => [...prev, newAnimation]);
+  //   setTimeout(() => {
+  //     setTapAnimations((prev) =>
+  //       prev.filter((animation) => animation.id !== newAnimation.id)
+  //     );
+  //   }, 1000);
+  // };
 
   return (
     <div
@@ -456,6 +476,7 @@ const Tv = () => {
             width="328"
             height="272"
             alt="8-bit dancing Karateka guy"
+            onTouchStart={handleTap}
             onClick={handleTap}
           />
           {tapAnimations.map((animation) => (

@@ -45,7 +45,20 @@ const ScrambleaWordPlay = () => {
   const [chancesOver, setChancesOver] = useState(false);
   const currentGameData = gameData[scrambleIndex];
   const handleLetterClick = (letter, index) => {
-    if (!disabledLetters.includes(index)) {
+    if (disabledLetters.includes(index)) {
+      // Undo action: remove the letter from selectedLetters and inputValue
+      const letterIndex = selectedLetters.indexOf(letter);
+      if (letterIndex > -1) {
+        const newSelectedLetters = [...selectedLetters];
+        newSelectedLetters.splice(letterIndex, 1);
+        const newInputValue =
+          inputValue.slice(0, letterIndex) + inputValue.slice(letterIndex + 1);
+        setSelectedLetters(newSelectedLetters);
+        setDisabledLetters(disabledLetters.filter((i) => i !== index));
+        setInputValue(newInputValue);
+      }
+    } else {
+      // Normal action: add the letter to selectedLetters and inputValue
       setSelectedLetters([...selectedLetters, letter]);
       setDisabledLetters([...disabledLetters, index]);
       setInputValue(inputValue + letter);
@@ -109,23 +122,6 @@ const ScrambleaWordPlay = () => {
               YOU HAVE {scrambleIndex + 1}/5 SCRAMBLE
             </h3>
           </div>
-          <div className="scramble-wordbox-container">
-            {currentGameData.letters.map((letter, index) => (
-              <div
-                key={index}
-                className={`scramble-wordbox ${
-                  disabledLetters.includes(index) ? "disabled" : ""
-                }`}
-                onClick={() => handleLetterClick(letter, index)}
-              >
-                <p className="word-s">{letter}</p>
-              </div>
-            ))}
-          </div>
-          <div className="margin">
-            <h2 className="hint-text">Hint</h2>
-            <h2 className="first-cryptocurrency">{currentGameData.hint}</h2>
-          </div>
           <div>
             <div className="custom-search">
               <input
@@ -144,6 +140,23 @@ const ScrambleaWordPlay = () => {
                 Check Word
               </button>
             </div>
+          </div>
+          <div className="scramble-wordbox-container">
+            {currentGameData.letters.map((letter, index) => (
+              <div
+                key={index}
+                className={`scramble-wordbox ${
+                  disabledLetters.includes(index) ? "disabled" : ""
+                }`}
+                onClick={() => handleLetterClick(letter, index)}
+              >
+                <p className="word-s">{letter}</p>
+              </div>
+            ))}
+          </div>
+          <div className="margin">
+            <h2 className="hint-text">Hint</h2>
+            <h2 className="first-cryptocurrency">{currentGameData.hint}</h2>
           </div>
           {message && <p className="message">{message}</p>}
           {showAnswer && (

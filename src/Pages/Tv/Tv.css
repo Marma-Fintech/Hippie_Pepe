@@ -219,12 +219,23 @@
 
 /* +5 animations */
 
-.tap-points {
+/* .tap-points {
   position: absolute;
-  font-size: 24px;
-  color: #ff0000;
-  animation: moveUp 1s forwards, fadeOut 1s forwards;
-  z-index: 2;
+  font-size: 18px;
+  font-weight: bold;
+  color: #ff4500; 
+  animation: fadeUp 1s ease-out forwards;
+  pointer-events: none;
+}
+@keyframes fadeUp {
+  0% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-50px);
+  }
 }
 @keyframes moveUp {
   0% {
@@ -240,5 +251,29 @@
   }
   100% {
     opacity: 0;
+  }
+} */
+
+.tap-points {
+  position: absolute;
+  font-size: 18px;
+  font-weight: bold;
+  color: #ff4500;
+  animation: fadeUp 1.5s ease-out forwards;
+  pointer-events: none;
+  z-index: 10;
+}
+@keyframes fadeUp {
+  0% {
+    opacity: 1;
+    transform: translateY(20px);
+  }
+  50% {
+    opacity: 1;
+    transform: translateY(-80px);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-50px);
   }
 }
