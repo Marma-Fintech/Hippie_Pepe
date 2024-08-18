@@ -1,12 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import "./QuizplayTask.css";
 import { FaTimes, FaCheck } from "react-icons/fa";
 import useUserInfo from "../../../Hooks/useUserInfo";
-import QuizTask from "./QuizTask.js";
-import "react-datepicker/dist/react-datepicker.css";
 import { format, startOfDay, differenceInCalendarDays } from "date-fns";
-import ReactDatePicker from "react-datepicker";
 import logo from "../../../assets/images/coinlogo.png";
+import { userGameRewards } from "../../../apis/user";
+
 const questions = [
   {
     id: 1,
@@ -287,175 +286,119 @@ const questions = [
 ];
 
 const QuizPlayTask = () => {
-  const { userDetails, updateUserInfo } = useUserInfo();
+  const { userDetails } = useUserInfo();
+  const selectedDay = userDetails.selectedDay || 1;
+  const currentCycle = userDetails.currentCycle || 1;
+
   const [currentQuestions, setCurrentQuestions] = useState([]);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [selectedOption, setSelectedOption] = useState(null);
   const [score, setScore] = useState(0);
   const [showScore, setShowScore] = useState(false);
   const [answered, setAnswered] = useState(false);
-  const [startDate, setStartDate] = useState(new Date());
   const [quizComplete, setQuizComplete] = useState(false);
-  // useEffect(() => {
-  //   // Randomly select 5 unique questions
-  //   const selectedQuestions = [];
-  //   const indices = new Set();
-  //   while (indices.size < 5) {
-  //     const randomIndex = Math.floor(Math.random() * questions.length);
-  //     if (!indices.has(randomIndex)) {
-  //       indices.add(randomIndex);
-  //       selectedQuestions.push(questions[randomIndex]);
-  //     }
-  //   }
-  //   setCurrentQuestions(selectedQuestions);
-  // }, []);
+
+  const today = useRef(startOfDay(new Date()));
+  const baseDate = useRef(startOfDay(new Date("2024-08-10")));
+
   useEffect(() => {
-    const baseDate = new Date("2024-01-01"); // Set this to a fixed starting point or the launch date of the quiz.
-    const dayIndex = differenceInCalendarDays(
-      startOfDay(new Date()),
-      startOfDay(baseDate)
-    ); // Calculate the number of days since the base date.
-    const questionsPerDay = 5; // Number of questions to show each day.
-    const startIndex = dayIndex * questionsPerDay; // Calculate the start index based on the day index.
-    const endIndex = startIndex + questionsPerDay; // Calculate the end index.
-    const selectedQuestions = questions.slice(startIndex, endIndex); // Slice the questions array to get the questions for the day.
-    setCurrentQuestions(selectedQuestions);
-    setCurrentQuestionIndex(0); // Reset to the first question of the day.
-    setAnswered(false); // Allow answers for new questions.
-  }, []);
-  //   const handleAnswerOptionClick = (option) => {
-  //     if (!answered) {
-  //       // Only allow selection if no answer has been submitted
-  //       setSelectedOption(option);
-  //       const isCorrect =
-  //         option === currentQuestions[currentQuestionIndex].answer;
-  //       if (isCorrect) {
-  //         setScore(score + 1000);
-  //       } else {
-  //         setScore(score + 500);
-  //       }
-  //       setAnswered(true); // Prevent further selections
-  //     }
-  //   };
+    const initializeQuiz = () => {
+      const dayIndex = differenceInCalendarDays(
+        today.current,
+        baseDate.current
+      );
+
+      if (selectedDay > dayIndex + 1) {
+        setQuizComplete(true);
+        return;
+      }
+
+      const startIndex = (currentCycle - 1) * 35 + (selectedDay - 1) * 5;
+      const storedResult = localStorage.getItem(
+        `quizResult_Day_${selectedDay}_Cycle_${currentCycle}`
+      );
+
+      if (storedResult) {
+        setQuizComplete(true);
+      } else {
+        setCurrentQuestions(questions.slice(startIndex, startIndex + 5));
+        setCurrentQuestionIndex(0);
+        setSelectedOption(null);
+        setAnswered(false);
+        setScore(0);
+        setQuizComplete(false);
+      }
+    };
+
+    initializeQuiz();
+  }, [selectedDay, currentCycle]);
+
   const handleAnswerOptionClick = (option) => {
     if (!answered) {
-      // Only allow selection if no answer has been submitted
       setSelectedOption(option);
       const isCorrect =
         option === currentQuestions[currentQuestionIndex].answer;
-      // Update the score based on whether the answer is correct
       const pointsAwarded = isCorrect ? 1000 : 500;
       setScore((prevScore) => prevScore + pointsAwarded);
-      // Console log the results
-      // console.log(
-      //   `Answer is ${
-      //     isCorrect ? "correct" : "incorrect"
-      //   }. Points awarded: ${pointsAwarded}`
-      // );
-      // console.log(`Total points: ${score + pointsAwarded}`);
-      setAnswered(true); // Prevent further selections
-      // Check if it's the last question
-      if (currentQuestionIndex + 1 === currentQuestions.length) {
-        const formattedDate = format(new Date(), "yyyy-MM-dd"); // Use today's date
-        const result = {
-          date: formattedDate,
-          score: score + pointsAwarded,
-          completed: true,
-        };
-        // Store the result in local storage
-        localStorage.setItem(
-          `quizResult_${formattedDate}`,
-          JSON.stringify(result)
-        );
-        // console.log("Quiz completed. Final score:", score + pointsAwarded);
-      }
+      setAnswered(true);
     }
   };
-  const handleNextQuestion = () => {
-    const nextQuestionIndex = currentQuestionIndex + 1;
-    if (nextQuestionIndex < currentQuestions.length) {
-      setCurrentQuestionIndex(nextQuestionIndex);
+
+  const handleNextQuestion = async () => {
+    if (currentQuestionIndex + 1 < currentQuestions.length) {
+      setCurrentQuestionIndex((prevIndex) => prevIndex + 1);
       setSelectedOption(null);
-      setAnswered(false); // Allow answers for the next question
+      setAnswered(false);
     } else {
       setShowScore(true);
-    }
-  };
-  const goToThePage = (component, name) => {
-    updateUserInfo((prev) => {
-      return {
-        ...prev,
-        ...{
-          currentComponent: component,
-          currentComponentText: name,
-          lastComponent: userDetails.currentComponent,
-          lastComponentText: userDetails.currentComponentText,
-          isMenu: !userDetails.isMenu,
-        },
+      const result = {
+        telegramId: String(userDetails.userDetails?.telegramId),
+        date: format(today.current, "yyyy-MM-dd"),
+        gamePoints: String(score),
+        completed: true,
       };
-    });
-  };
-  // useEffect(() => {
-  //   console.log(answered);
-  // }, [answered]);
-  // useEffect(() => {
-  //   const baseDate = new Date("2024-01-01");
-  //   const formattedDate = format(startDate, "yyyy-MM-dd");
-  //   const storedResults = localStorage.getItem(formattedDate);
-  //   if (storedResults) {
-  //     setQuizComplete(true);
-  //     setCurrentQuestions([]);
-  //   } else {
-  //     const dayIndex = differenceInCalendarDays(
-  //       startOfDay(startDate),
-  //       startOfDay(baseDate)
-  //     );
-  //     const startIndex = (dayIndex % (questions.length / 5)) * 5;
-  //     setCurrentQuestions(questions.slice(startIndex, startIndex + 5));
-  //     setQuizComplete(false);
-  //   }
-  // }, [startDate]);
-  useEffect(() => {
-    const baseDate = new Date("2024-01-01");
-    const dayIndex = differenceInCalendarDays(
-      startOfDay(startDate),
-      startOfDay(baseDate)
-    );
-    const startIndex = (dayIndex * 5) % questions.length; // Modulo to wrap around if day index exceeds length of questions array
-    setCurrentQuestions(questions.slice(startIndex, startIndex + 5));
-    setCurrentQuestionIndex(0);
-    setSelectedOption(null);
-    setAnswered(false);
-    setScore(0);
-  }, [startDate]);
-  const handleQuizCompletion = () => {
-    const formattedDate = format(startDate, "yyyy-MM-dd");
-    localStorage.setItem(formattedDate, JSON.stringify({ completed: true }));
-    setQuizComplete(true);
+
+      localStorage.setItem(
+        `quizResult_Day_${selectedDay}_Cycle_${currentCycle}`,
+        JSON.stringify(result)
+      );
+
+      const apiData = {
+        telegramId: String(userDetails.userDetails?.telegramId),
+        gamePoints: String(score),
+      };
+      console.log("ApiData", apiData);
+
+      await userGameRewards(apiData);
+
+      const completedDays =
+        JSON.parse(localStorage.getItem("completedDays")) || [];
+      if (!completedDays.includes(selectedDay)) {
+        completedDays.push(selectedDay);
+        localStorage.setItem("completedDays", JSON.stringify(completedDays));
+      }
+    }
   };
 
   return (
     <div className="quiz-play-task">
-      {/* <ReactDatePicker
-        selected={startDate}
-        onChange={(date) => setStartDate(date)}
-        dateFormat="yyyy-MM-dd"
-      /> */}
-      {/* <FaTimes
-        onClick={() => {
-          goToThePage(QuizTask, "QuizTask");
-        }}
-        className="cancel-icon"
-      /> */}
       <h1 className="welcome-text">Quiz Game</h1>
-      {showScore ? (
+      {quizComplete ? (
+        <div className="cards">
+          <h1 className="title-epic">Come back later!</h1>
+          <p className="bottom-text">
+            You've completed this day's quiz. Please return tomorrow to
+            continue!
+          </p>
+        </div>
+      ) : showScore ? (
         <div className="cards">
           <h1 className="title-epic">Epic Win!</h1>
           <div className="pointsContainer">
             <div className="pointsInnerContainer">
               <p className="pointsLabel">POINTS EARNED </p>
               <div className="pointsValue">
-                <img src={logo} />
+                <img src={logo} alt="Points" />
                 <p className="pointsNumber">{score}</p>
               </div>
             </div>
@@ -475,58 +418,44 @@ const QuizPlayTask = () => {
               {currentQuestions[currentQuestionIndex]?.question}
             </div>
             <div className="answer-section">
-              {currentQuestions[currentQuestionIndex]?.options.map(
-                (option, index) => (
-                  <button
-                    key={option}
-                    onClick={() => handleAnswerOptionClick(option)}
-                    style={{
-                      backgroundColor:
-                        selectedOption === option
-                          ? option ===
-                            currentQuestions[currentQuestionIndex].answer
-                            ? "green"
-                            : "red"
-                          : answered &&
-                            option ===
-                              currentQuestions[currentQuestionIndex].answer
+              {currentQuestions[currentQuestionIndex]?.options.map((option) => (
+                <button
+                  key={option}
+                  onClick={() => handleAnswerOptionClick(option)}
+                  style={{
+                    backgroundColor:
+                      answered && selectedOption === option
+                        ? option ===
+                          currentQuestions[currentQuestionIndex].answer
                           ? "green"
-                          : "initial",
-                      color: "white",
-                    }}
-                  >
-                    {option}
-                    {answered ? (
-                      selectedOption !== option &&
-                      option ===
-                        currentQuestions[currentQuestionIndex].answer ? (
-                        <FaCheck
-                          style={{ marginLeft: "10px", color: "white" }}
-                        />
-                      ) : null
-                    ) : null}
-                    {answered ? (
-                      selectedOption === option ? (
-                        option ===
-                        currentQuestions[currentQuestionIndex].answer ? (
-                          <FaCheck
-                            style={{ marginLeft: "10px", color: "white" }}
-                          />
-                        ) : (
-                          <FaTimes
-                            style={{ marginLeft: "10px", color: "white" }}
-                          />
-                        )
-                      ) : null
-                    ) : null}
-                  </button>
-                )
-              )}
+                          : "red"
+                        : "initial",
+                    color: "white",
+                  }}
+                  disabled={answered}
+                >
+                  {option}
+                  {answered &&
+                    selectedOption !== option &&
+                    option ===
+                      currentQuestions[currentQuestionIndex].answer && (
+                      <FaCheck style={{ marginLeft: "10px", color: "white" }} />
+                    )}
+                  {answered &&
+                    selectedOption === option &&
+                    (option ===
+                    currentQuestions[currentQuestionIndex].answer ? (
+                      <FaCheck style={{ marginLeft: "10px", color: "white" }} />
+                    ) : (
+                      <FaTimes style={{ marginLeft: "10px", color: "white" }} />
+                    ))}
+                </button>
+              ))}
             </div>
           </div>
           <button
             onClick={handleNextQuestion}
-            disabled={!selectedOption}
+            disabled={!answered}
             className="quitz-btn"
           >
             Next
@@ -536,4 +465,5 @@ const QuizPlayTask = () => {
     </div>
   );
 };
+
 export default QuizPlayTask;

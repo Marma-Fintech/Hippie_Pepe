@@ -6,7 +6,7 @@ import Arrow from "../../assets/images/arrow.gif";
 import Currency from "../../assets/images/currency.gif";
 import Invite from "../../assets/images/Invitefriends.png";
 import { shareOnMobile } from "react-mobile-share";
-import user, { myReferrel } from "../../apis/user";
+// import user, { myReferrel } from "../../apis/user";
 import axios from "axios";
 import { Base_Url } from "../../apis/baseurl";
 const ReferPage = () => {
@@ -15,40 +15,37 @@ const ReferPage = () => {
 
   const [referrals, setReferrals] = useState([]);
 
-  const getMyReferralList = async () => {
-    const data = {
-      telegramId: String(userDetails?.userDetails?.telegramId),
-    };
-    const referrals = await myReferrel(data);
-    console.log(
-      JSON.stringify(referrals) + "referralsreferralsreferralsreferrals"
-    );
-  };
+  // const getMyReferralList = async () => {
+  //   const data = {
+  //     telegramId: String(userDetails?.userDetails?.telegramId),
+  //   };
+  //   const referrals = await myReferrel(data);
+  //   console.log(
+  //     JSON.stringify(referrals) + "referralsreferralsreferralsreferrals"
+  //   );
+  // };
 
   useEffect(() => {
     // getMyReferralList();
-
-    const fetchReferrals = async () => {
-      try {
-        const telegramId = "your-telegram-id"; // Replace with actual telegramId
-        const response = await axios.get(
-          `${Base_Url.base_url}/yourReferrals/${
-            userDetails?.userDetails?.telegramId
-          }?page=${1}&limit=${10}`
-        );
-
-        // setReferrals(response.data.referrals);
-        // setTotalPages(response.data.totalPages);
-        // setLoading(false);
-        console.log(JSON.stringify(response) + "resresres");
-      } catch (error) {
-        console.log(JSON.stringify(error) + "errrererere");
-        // setError(error.response ? error.response.data.message : error.message);
-        // setLoading(false);
-      }
-    };
-
-    fetchReferrals();
+    // const fetchReferrals = async () => {
+    //   try {
+    //     const telegramId = "your-telegram-id"; // Replace with actual telegramId
+    //     const response = await axios.get(
+    //       `${Base_Url.base_url}/yourReferrals/${
+    //         userDetails?.userDetails?.telegramId
+    //       }?page=${1}&limit=${10}`
+    //     );
+    //     // setReferrals(response.data.referrals);
+    //     // setTotalPages(response.data.totalPages);
+    //     // setLoading(false);
+    //     console.log(JSON.stringify(response) + "resresres");
+    //   } catch (error) {
+    //     console.log(JSON.stringify(error) + "errrererere");
+    //     // setError(error.response ? error.response.data.message : error.message);
+    //     // setLoading(false);
+    //   }
+    // };
+    // fetchReferrals();
   }, []);
 
   const shareToTelegram = () => {

@@ -1,49 +1,80 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "./QuizTask.css";
-import { FaTimes, FaChevronRight } from "react-icons/fa";
+import { FaChevronRight } from "react-icons/fa";
 import useUserInfo from "../../../Hooks/useUserInfo";
-import Task from "../Task";
 import QuizplayTask from "./QuizplayTask.js";
+import { differenceInCalendarDays, startOfDay } from "date-fns";
+
 const QuizTask = () => {
   const { userDetails, updateUserInfo } = useUserInfo();
-  const goToThePage = (component, name) => {
-    updateUserInfo((prev) => {
-      return {
-        ...prev,
-        ...{
-          currentComponent: component,
-          currentComponentText: name,
-          lastComponent: userDetails.currentComponent,
-          lastComponentText: userDetails.currentComponentText,
-          isMenu: !userDetails.isMenu,
-        },
-      };
-    });
+  const [completedDays, setCompletedDays] = useState([]);
+  const [currentCycle, setCurrentCycle] = useState(1); // To track which set of questions the user is on
+
+  useEffect(() => {
+    const storedCompletedDays =
+      JSON.parse(localStorage.getItem("completedDays")) || [];
+    const storedCurrentCycle =
+      parseInt(localStorage.getItem("currentCycle"), 10) || 1;
+    setCompletedDays(storedCompletedDays);
+    setCurrentCycle(storedCurrentCycle);
+  }, []);
+
+  useEffect(() => {
+    if (completedDays.length === 7) {
+      // Move to the next cycle of questions if all 7 days are completed
+      setCompletedDays([]);
+      setCurrentCycle((prevCycle) => prevCycle + 1);
+      localStorage.setItem("completedDays", JSON.stringify([]));
+      localStorage.setItem("currentCycle", currentCycle + 1);
+    }
+  }, [completedDays, currentCycle]);
+
+  const goToThePage = (component, name, day) => {
+    updateUserInfo((prev) => ({
+      ...prev,
+      currentComponent: component,
+      currentComponentText: name,
+      lastComponent: userDetails.currentComponent,
+      lastComponentText: userDetails.currentComponentText,
+      selectedDay: day, // Pass the selected day to the child component
+      currentCycle: currentCycle, // Pass the current cycle to the child component
+      isMenu: !userDetails.isMenu,
+    }));
   };
+
+  const today = startOfDay(new Date());
+  const baseDate = startOfDay(new Date("2024-08-10")); // Set base date to 10-08-2024
+  const dayIndex = differenceInCalendarDays(today, baseDate);
+
   return (
     <div className="quiz-task menupointer">
-      {/* <div className="cancel-container">
-        <FaTimes
-          onClick={() => {
-            goToThePage(Task, "Task");
-          }}
-          className="cancel-icon"
-        />
-      </div> */}
       <h1 className="welcome-text">Quiz Game</h1>
-      <h2 className="phase-text">Phase 1</h2>
-      {/* <p className="daily-text">DAILY LIMITS: 5 QUESTIONS!</p> */}
+      <h2 className="phase-text">Phase {currentCycle}</h2>{" "}
+      {/* Display the current cycle */}
       <div className="days-container">
         {Array.from({ length: 7 }, (_, i) => (
           <div key={i} className="day-box">
             <div className="day-label">Day {i + 1}</div>
             <div
               onClick={() => {
-                goToThePage(QuizplayTask, "QuizplayTask");
+                if (i <= dayIndex) {
+                  goToThePage(QuizplayTask, "QuizplayTask", i + 1);
+                }
               }}
-              className="play-status"
+              className={`play-status ${
+                i > dayIndex
+                  ? "disabled"
+                  : completedDays.includes(i + 1)
+                  ? "completed"
+                  : ""
+              }`}
             >
-              Play Game 5/5 <FaChevronRight />
+              {i > dayIndex
+                ? "Locked"
+                : completedDays.includes(i + 1)
+                ? "Completed"
+                : "Play Game 5/5"}{" "}
+              <FaChevronRight />
             </div>
           </div>
         ))}
@@ -51,4 +82,5 @@ const QuizTask = () => {
     </div>
   );
 };
+
 export default QuizTask;
