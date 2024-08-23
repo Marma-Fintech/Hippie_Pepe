@@ -198,7 +198,7 @@ const Streak = () => {
               />
             </div>
             <div className="col-7 stuff-text">
-              <h4>Boost Streak</h4>
+              <h4>Multi Streak</h4>
               <p className="stuff-p">
                 <img src={logo} /> +1,000{" "}
               </p>
