@@ -32,7 +32,7 @@ const Tv = () => {
   const tapPointsRef = useRef(tapPoints);
   const [boosterSec, setBoosterSec] = useState();
   const energy = useRef(5000);
-  const [energyy, SetEnergy] = useState(0);
+  const [energyy, SetEnergy] = useState(5000);
   const boosterRef = useRef(false);
   const [boosterPoints, setBoosterPoints] = useState(0);
   const boosterPointsRef = useRef(boosterPoints);
@@ -230,50 +230,58 @@ const Tv = () => {
       centerCount: userDetails.centerCount + 1,
     }));
   };
+  const [lastInputWasTouch, setLastInputWasTouch] = useState(false);
 
   const handleTap = (e) => {
-    tapSound.play();
-    const touches = e.touches
-      ? Array.from(e.touches)
-      : [{ clientX: e.clientX, clientY: e.clientY }];
-    let num = 5;
-
-    if (watchScreen?.boosterDetails?.name === "tap" && watchScreen?.booster) {
-      num = 25;
-      setBoosterPoints((prevBoosterPoints) => {
-        const newBoosterPoints = prevBoosterPoints + num * touches.length;
-        boosterPointsRef.current = newBoosterPoints;
-        return newBoosterPoints;
-      });
-    } else {
-      if (energyy > 0) {
-        const totalPoints = Math.min(energyy, num * touches.length);
-        setTapPoints((prevTapPoints) => {
-          const newTapPoints = prevTapPoints + totalPoints;
-          tapPointsRef.current = newTapPoints;
-          return newTapPoints;
-        });
-        SetEnergy((prev) => {
-          const newEnergy = prev - totalPoints;
-          energy.current = newEnergy;
-          return newEnergy;
-        });
+    if (energy.current > 5) {
+      // Determine if the event is from a touch or mouse
+      const isTouchEvent = e.type === "touchstart";
+      // If it's a touch event, mark it as touch
+      if (isTouchEvent) {
+        setLastInputWasTouch(true);
+      } else if (lastInputWasTouch && !isTouchEvent) {
+        // If the last input was a touch and now it's a click, ignore it
+        return;
       }
+      tapSound.play();
+      const touches = e.touches
+        ? Array.from(e.touches)
+        : [{ clientX: e.clientX, clientY: e.clientY }];
+      let num = 5;
+      if (watchScreen?.boosterDetails?.name === "tap" && watchScreen?.booster) {
+        num = 25;
+        setBoosterPoints((prevBoosterPoints) => {
+          const newBoosterPoints = prevBoosterPoints + num * touches.length;
+          boosterPointsRef.current = newBoosterPoints;
+          return newBoosterPoints;
+        });
+      } else {
+        if (energyy > 0) {
+          const totalPoints = Math.min(energyy, num * touches.length);
+          setTapPoints((prevTapPoints) => {
+            const newTapPoints = prevTapPoints + totalPoints;
+            tapPointsRef.current = newTapPoints;
+            return newTapPoints;
+          });
+          SetEnergy((prev) => {
+            const newEnergy = prev - totalPoints;
+            energy.current = newEnergy;
+            return newEnergy;
+          });
+        }
+      }
+      const newAnimations = touches.map((touch) => ({
+        id: Date.now() + Math.random(),
+        x: touch.clientX,
+        y: touch.clientY,
+      }));
+      setTapAnimations((prev) => [...prev, ...newAnimations]);
+      setTimeout(() => {
+        setTapAnimations((prev) =>
+          prev.filter((animation) => !newAnimations.includes(animation))
+        );
+      }, 1000);
     }
-
-    const newAnimations = touches.map((touch) => ({
-      id: Date.now() + Math.random(),
-      x: touch.clientX,
-      y: touch.clientY,
-    }));
-
-    setTapAnimations((prev) => [...prev, ...newAnimations]);
-
-    setTimeout(() => {
-      setTapAnimations((prev) =>
-        prev.filter((animation) => !newAnimations.includes(animation))
-      );
-    }, 1000);
   };
 
   // const handleTap = (e) => {
@@ -477,7 +485,7 @@ const Tv = () => {
             height="272"
             alt="8-bit dancing Karateka guy"
             onTouchStart={handleTap}
-            onClick={handleTap}
+            onMouseDown={handleTap}
           />
           {tapAnimations.map((animation) => (
             <div

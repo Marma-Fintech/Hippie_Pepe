@@ -13,10 +13,8 @@ import betterLuckNextTimeImg from "../../../assets/Task/nexttime.png";
 import {
   getUserDetails,
   purchaseGameCards,
-  UserDeatils,
   userGameRewards,
 } from "../../../apis/user";
-
 const cardContents = [
   "levelUp",
   "2x",
@@ -28,7 +26,6 @@ const cardContents = [
   "Better luck next time",
   "Better luck next time",
 ];
-
 const cardImages = {
   levelUp: levelUpBoostImg,
   "2x": twoXBoostImg,
@@ -39,11 +36,9 @@ const cardImages = {
   "5000 points": fiveThousandPointsImg,
   "Better luck next time": betterLuckNextTimeImg,
 };
-
 const shuffleArray = (array) => {
   let currentIndex = array.length,
     randomIndex;
-
   while (currentIndex !== 0) {
     randomIndex = Math.floor(Math.random() * currentIndex);
     currentIndex--;
@@ -54,17 +49,14 @@ const shuffleArray = (array) => {
   }
   return array;
 };
-
 const loadResults = () => {
   const results = localStorage.getItem("gameResults");
   return results ? JSON.parse(results) : { points: 0, boosts: [] };
 };
-
 const saveResults = async (results) => {
   localStorage.setItem("gameResults", JSON.stringify(results));
   console.log("Results saved:", results);
 };
-
 const PickaWord = () => {
   const [cards, setCards] = useState(Array(9).fill(null));
   const { userDetails, updateUserInfo } = useUserInfo();
@@ -75,17 +67,14 @@ const PickaWord = () => {
   const [results, setResults] = useState(loadResults());
   const [showPopup, setShowPopup] = useState(false);
   const [selectedCard, setSelectedCard] = useState(null);
-
   // Generate and shuffle random contents for the cards
   const generateCardContents = () => shuffleArray([...cardContents]);
   const [randomContents, setRandomContents] = useState(generateCardContents());
-
   const handleCardClick = async (index) => {
     if (playsRemaining <= 0) {
       setShowPopup(true);
       return;
     }
-
     if (!selected && cards[index] === null) {
       const newCards = [...cards];
       const cardContent = randomContents[index];
@@ -93,10 +82,8 @@ const PickaWord = () => {
       setCards(newCards);
       setSelected(true);
       setSelectedCard(cardContent);
-
       let newPoints = points;
       let newMessage = "";
-
       if (cardContent === "1000 points") {
         newPoints += 1000;
         newMessage = "1000 points added!";
@@ -110,41 +97,36 @@ const PickaWord = () => {
       } else {
         newMessage = `${cardContent} added!`;
       }
-
       setPoints(newPoints);
       setMessage(newMessage);
-
-      let newResults = {
-        points:
-          results.points +
-          (cardContent.includes("points")
-            ? parseInt(cardContent.split(" ")[0])
-            : 0),
-        boosts: [...results.boosts],
+      // Create a new object for the current API call
+      let currentResult = {
+        points: cardContent.includes("points")
+          ? parseInt(cardContent.split(" ")[0])
+          : 0,
+        boosts: [],
       };
-
       if (["2x", "3x", "5x", "levelUp"].includes(cardContent)) {
-        newResults.boosts.push(cardContent);
+        currentResult.boosts.push(cardContent);
       }
-
-      await saveResults(newResults);
-
-      setResults(newResults);
+      // Update the cumulative results
+      let updatedResults = {
+        points: results.points + currentResult.points,
+        boosts: [...results?.boosts, ...currentResult.boosts],
+      };
+      await saveResults(updatedResults);
+      setResults(updatedResults);
       setShowPopup(true);
-
-      // API call
+      // API call with only the current selection
       const apiData = {
         telegramId: String(userDetails.userDetails?.telegramId),
-        gamePoints: String(newResults.points),
-        boosters: newResults.boosts,
+        gamePoints: String(currentResult.points),
+        boosters: currentResult.boosts,
       };
-
       await userGameRewards(apiData);
-
-      console.log(apiData);
+      console.log("APIDATA", apiData);
     }
   };
-
   const handleFreePick = () => {
     setCards(Array(9).fill(null));
     setSelected(false);
@@ -155,7 +137,6 @@ const PickaWord = () => {
     setShowPopup(false);
     setSelectedCard(null);
   };
-
   const handlePlayAgain = async () => {
     setCards(Array(9).fill(null));
     setSelected(false);
@@ -165,17 +146,13 @@ const PickaWord = () => {
     setPlaysRemaining(1);
     setShowPopup(false);
     setSelectedCard(null);
-
     let totalPoints = await getUserDetails(userDetails.userDetails.telegramId);
-
     await purchaseGameCards({
       telegramId: String(userDetails.userDetails.telegramId),
       gamePoints: String(500),
     });
-
     console.log(totalPoints);
   };
-
   const goToThePage = (component, name) => {
     updateUserInfo((prev) => {
       return {
@@ -271,5 +248,4 @@ const PickaWord = () => {
     </div>
   );
 };
-
 export default PickaWord;

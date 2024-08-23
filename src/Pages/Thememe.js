@@ -84,7 +84,7 @@ const Thememe = () => {
 
   useEffect(() => {
     window.Telegram.WebApp.ready();
-
+    window.Telegram.WebApp.expand();
     const userData = window.Telegram.WebApp.initDataUnsafe.user;
     const urlParams = new URLSearchParams(window.location.search);
     const referredIdFromUrl = urlParams.get("start");
@@ -119,11 +119,11 @@ const Thememe = () => {
         telegramDetails: userData,
       }));
     }
-    const data1 = {
-      name: "userData?.first_name",
-      telegramId: "St(sraa?id)",
-    };
-    getUserDetails(data1);
+    // const data1 = {
+    //   name: "userData?.first_name",
+    //   telegramId: "St(sraa?id)",
+    // };
+    // getUserDetails(data1);
   }, []);
 
   const getUserDetails = async (data) => {
