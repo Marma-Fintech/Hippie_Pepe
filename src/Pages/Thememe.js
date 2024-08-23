@@ -119,11 +119,11 @@ const Thememe = () => {
         telegramDetails: userData,
       }));
     }
-    // const data1 = {
-    //   name: "userData?.first_name",
-    //   telegramId: "St(sraa?id)",
-    // };
-    // getUserDetails(data1);
+    const data1 = {
+      name: "userData?.first_name",
+      telegramId: "St(sraa?id)",
+    };
+    getUserDetails(data1);
   }, []);
 
   const getUserDetails = async (data) => {

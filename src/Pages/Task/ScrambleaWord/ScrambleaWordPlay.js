@@ -45,8 +45,8 @@ const ScrambleaWordPlay = () => {
   const [chancesOver, setChancesOver] = useState(false);
   const currentGameData = gameData[scrambleIndex];
   const handleLetterClick = (letter, index) => {
+    if (isChecked) return; // Prevent further changes if the word has been checked
     if (disabledLetters.includes(index)) {
-      // Undo action: remove the letter from selectedLetters and inputValue
       const letterIndex = selectedLetters.indexOf(letter);
       if (letterIndex > -1) {
         const newSelectedLetters = [...selectedLetters];
@@ -58,14 +58,13 @@ const ScrambleaWordPlay = () => {
         setInputValue(newInputValue);
       }
     } else {
-      // Normal action: add the letter to selectedLetters and inputValue
       setSelectedLetters([...selectedLetters, letter]);
       setDisabledLetters([...disabledLetters, index]);
       setInputValue(inputValue + letter);
     }
   };
   const checkWord = () => {
-    setIsChecked(true);
+    setIsChecked(true); // Disable further input after checking the word
     if (inputValue === currentGameData.word) {
       setPoints(points + 1000);
       setMessage("Correct! You earned 1000 points.");
@@ -81,6 +80,7 @@ const ScrambleaWordPlay = () => {
       setMessage("Please check the word first.");
       return;
     }
+    console.log(`Word: ${currentGameData.word}, Points: ${points}`);
     if (scrambleIndex >= gameData.length - 1) {
       setChancesOver(true);
       return;
@@ -165,7 +165,6 @@ const ScrambleaWordPlay = () => {
           <button className="quitz-btn" onClick={nextScramble}>
             Next
           </button>
-          {/* <h3 className="points-display">Points: {points}</h3> */}
         </>
       )}
     </div>
