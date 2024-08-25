@@ -381,7 +381,7 @@ const Tv = () => {
         </div>
         <div className="row streak-center">
           <div className="col-2 text-center">
-            <img src={settings} alt="Settings" />
+            <img src={help} alt="Settings" />
           </div>
           <div className="col-8 streak-border">
             <div className="row text-center phase1">
@@ -413,7 +413,7 @@ const Tv = () => {
             }}
             className="col-2 text-center"
           >
-            <img src={help} alt="Help" />
+            <img src={settings} alt="Help" />
           </div>
         </div>
         <div className="row">

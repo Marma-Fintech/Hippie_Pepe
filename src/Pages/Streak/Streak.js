@@ -84,6 +84,31 @@ const Streak = () => {
               className="questionMarkIcon"
             />
           </div>
+          <div class="container-fluid">
+            <div class="scrolling-wrapper row flex-row flex-nowrap">
+              <div class="col-4">
+                <div class="card card-block card-1">DAY 1</div>
+              </div>
+              <div class="col-4">
+                <div class="card card-block card-2">DAY 2</div>
+              </div>
+              <div class="col-4">
+                <div class="card card-block card-3">DAY 3</div>
+              </div>
+              <div class="col-4">
+                <div class="card card-block card-4">DAY 4</div>
+              </div>
+              <div class="col-4">
+                <div class="card card-block card-5">DAY 5</div>
+              </div>
+              <div class="col-4">
+                <div class="card card-block card-6">DAY 6</div>
+              </div>
+              <div class="col-4">
+                <div class="card card-block card-7">DAY 7</div>
+              </div>
+            </div>
+          </div>
           <div className="row mt10 cheap-stuff" style={{ width: "100%" }}>
             <div className="col-2">
               <img
@@ -105,7 +130,7 @@ const Streak = () => {
                 style={{ cursor: "pointer" }}
                 disabled={isLoginClaimed}
               >
-                {isLoginClaimed ? "CLAIMED" : "CLAIM"}
+                {isLoginClaimed ? "CLAIMED" : "CLAIM "}
               </button>
             </div>
           </div>
@@ -198,7 +223,7 @@ const Streak = () => {
               />
             </div>
             <div className="col-7 stuff-text">
-              <h4>Multi Streak</h4>
+              <h4>Boost Streak</h4>
               <p className="stuff-p">
                 <img src={logo} /> +1,000{" "}
               </p>

@@ -42,6 +42,7 @@
   height: 100%;
   font-family: myFirstFont;
   object-fit: contain;
+  color: #000;
 }
 .scroll {
   overflow: scroll !important;
@@ -50,6 +51,9 @@
   width: 20px;
   height: 20px;
   margin-bottom: 10px;
+}
+.invite-fri h2 {
+  color: #4cf038 !important;
 }
 .margintop {
   margin-top: 10px;
@@ -166,4 +170,54 @@
 }
 .claimedLabel:disabled {
   cursor: not-allowed;
+}
+.scrolling-wrapper {
+  overflow-x: auto;
+}
+.container-fluid {
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
+.card-block {
+  height: auto !important;
+  background-color: #034807 !important;
+  border: none;
+  color: #4cf038 !important;
+  background-position: center;
+  background-size: cover;
+  transition: all 0.2s ease-in-out !important;
+  border-radius: 0px !important;
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: none;
+    opacity: 0.9;
+  }
+}
+.card-1 {
+  padding: 5px;
+  text-align: center;
+}
+.card-2 {
+  padding: 5px;
+  text-align: center;
+}
+.card-3 {
+  padding: 5px;
+  text-align: center;
+}
+.card-4 {
+  padding: 5px;
+  text-align: center;
+}
+.card-5 {
+  padding: 5px;
+  text-align: center;
+}
+.card-6 {
+  padding: 5px;
+  text-align: center;
+}
+.card-7 {
+  padding: 5px;
+  text-align: center;
 }

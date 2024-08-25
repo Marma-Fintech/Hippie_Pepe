@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./ScrambleaWordPlay.css";
 import logo from "../../../assets/images/coinlogo.png";
 const gameData = [
@@ -32,8 +32,191 @@ const gameData = [
     hint: "THIRD GENERATION BLOCKCHAIN",
     answer: "CARDANO",
   },
+  {
+    word: "BITCOIN",
+    letters: ["I", "T", "B", "C", "I", "N", "O"],
+    hint: "FIRST CRYPTOCURRENCY",
+    answer: "BITCOIN",
+  },
+  {
+    word: "ETHEREUM",
+    letters: ["M", "E", "H", "R", "E", "E", "T", "U"],
+    hint: "SECOND LARGEST CRYPTOCURRENCY",
+    answer: "ETHEREUM",
+  },
+  {
+    word: "LITECOIN",
+    letters: ["E", "I", "L", "C", "I", "N", "O", "T"],
+    hint: "SILVER TO BITCOIN'S GOLD",
+    answer: "LITECOIN",
+  },
+  {
+    word: "RIPPLE",
+    letters: ["P", "L", "I", "P", "E", "R"],
+    hint: "KNOWN FOR FAST TRANSACTIONS",
+    answer: "RIPPLE",
+  },
+  {
+    word: "CARDANO",
+    letters: ["R", "C", "D", "O", "A", "A", "N"],
+    hint: "THIRD GENERATION BLOCKCHAIN",
+    answer: "CARDANO",
+  },
+  {
+    word: "BITCOIN",
+    letters: ["I", "T", "B", "C", "I", "N", "O"],
+    hint: "FIRST CRYPTOCURRENCY",
+    answer: "BITCOIN",
+  },
+  {
+    word: "ETHEREUM",
+    letters: ["M", "E", "H", "R", "E", "E", "T", "U"],
+    hint: "SECOND LARGEST CRYPTOCURRENCY",
+    answer: "ETHEREUM",
+  },
+  {
+    word: "LITECOIN",
+    letters: ["E", "I", "L", "C", "I", "N", "O", "T"],
+    hint: "SILVER TO BITCOIN'S GOLD",
+    answer: "LITECOIN",
+  },
+  {
+    word: "RIPPLE",
+    letters: ["P", "L", "I", "P", "E", "R"],
+    hint: "KNOWN FOR FAST TRANSACTIONS",
+    answer: "RIPPLE",
+  },
+  {
+    word: "CARDANO",
+    letters: ["R", "C", "D", "O", "A", "A", "N"],
+    hint: "THIRD GENERATION BLOCKCHAIN",
+    answer: "CARDANO",
+  },
+  {
+    word: "BITCOIN",
+    letters: ["I", "T", "B", "C", "I", "N", "O"],
+    hint: "FIRST CRYPTOCURRENCY",
+    answer: "BITCOIN",
+  },
+  {
+    word: "ETHEREUM",
+    letters: ["M", "E", "H", "R", "E", "E", "T", "U"],
+    hint: "SECOND LARGEST CRYPTOCURRENCY",
+    answer: "ETHEREUM",
+  },
+  {
+    word: "LITECOIN",
+    letters: ["E", "I", "L", "C", "I", "N", "O", "T"],
+    hint: "SILVER TO BITCOIN'S GOLD",
+    answer: "LITECOIN",
+  },
+  {
+    word: "RIPPLE",
+    letters: ["P", "L", "I", "P", "E", "R"],
+    hint: "KNOWN FOR FAST TRANSACTIONS",
+    answer: "RIPPLE",
+  },
+  {
+    word: "CARDANO",
+    letters: ["R", "C", "D", "O", "A", "A", "N"],
+    hint: "THIRD GENERATION BLOCKCHAIN",
+    answer: "CARDANO",
+  },
+  {
+    word: "BITCOIN",
+    letters: ["I", "T", "B", "C", "I", "N", "O"],
+    hint: "FIRST CRYPTOCURRENCY",
+    answer: "BITCOIN",
+  },
+  {
+    word: "ETHEREUM",
+    letters: ["M", "E", "H", "R", "E", "E", "T", "U"],
+    hint: "SECOND LARGEST CRYPTOCURRENCY",
+    answer: "ETHEREUM",
+  },
+  {
+    word: "LITECOIN",
+    letters: ["E", "I", "L", "C", "I", "N", "O", "T"],
+    hint: "SILVER TO BITCOIN'S GOLD",
+    answer: "LITECOIN",
+  },
+  {
+    word: "RIPPLE",
+    letters: ["P", "L", "I", "P", "E", "R"],
+    hint: "KNOWN FOR FAST TRANSACTIONS",
+    answer: "RIPPLE",
+  },
+  {
+    word: "CARDANO",
+    letters: ["R", "C", "D", "O", "A", "A", "N"],
+    hint: "THIRD GENERATION BLOCKCHAIN",
+    answer: "CARDANO",
+  },
+  {
+    word: "BITCOIN",
+    letters: ["I", "T", "B", "C", "I", "N", "O"],
+    hint: "FIRST CRYPTOCURRENCY",
+    answer: "BITCOIN",
+  },
+  {
+    word: "ETHEREUM",
+    letters: ["M", "E", "H", "R", "E", "E", "T", "U"],
+    hint: "SECOND LARGEST CRYPTOCURRENCY",
+    answer: "ETHEREUM",
+  },
+  {
+    word: "LITECOIN",
+    letters: ["E", "I", "L", "C", "I", "N", "O", "T"],
+    hint: "SILVER TO BITCOIN'S GOLD",
+    answer: "LITECOIN",
+  },
+  {
+    word: "RIPPLE",
+    letters: ["P", "L", "I", "P", "E", "R"],
+    hint: "KNOWN FOR FAST TRANSACTIONS",
+    answer: "RIPPLE",
+  },
+  {
+    word: "CARDANO",
+    letters: ["R", "C", "D", "O", "A", "A", "N"],
+    hint: "THIRD GENERATION BLOCKCHAIN",
+    answer: "CARDANO",
+  },
+  {
+    word: "BITCOIN",
+    letters: ["I", "T", "B", "C", "I", "N", "O"],
+    hint: "FIRST CRYPTOCURRENCY",
+    answer: "BITCOIN",
+  },
+  {
+    word: "ETHEREUM",
+    letters: ["M", "E", "H", "R", "E", "E", "T", "U"],
+    hint: "SECOND LARGEST CRYPTOCURRENCY",
+    answer: "ETHEREUM",
+  },
+  {
+    word: "LITECOIN",
+    letters: ["E", "I", "L", "C", "I", "N", "O", "T"],
+    hint: "SILVER TO BITCOIN'S GOLD",
+    answer: "LITECOIN",
+  },
+  {
+    word: "RIPPLE",
+    letters: ["P", "L", "I", "P", "E", "R"],
+    hint: "KNOWN FOR FAST TRANSACTIONS",
+    answer: "RIPPLE",
+  },
+  {
+    word: "CARDANO",
+    letters: ["R", "C", "D", "O", "A", "A", "N"],
+    hint: "THIRD GENERATION BLOCKCHAIN",
+    answer: "CARDANO",
+  },
 ];
-const ScrambleaWordPlay = () => {
+const ScrambleaWordPlay = ({ day }) => {
+  const startIndex = (day - 1) * 5;
+  const endIndex = startIndex + 5;
+  const dayGameData = gameData.slice(startIndex, endIndex);
   const [selectedLetters, setSelectedLetters] = useState([]);
   const [disabledLetters, setDisabledLetters] = useState([]);
   const [inputValue, setInputValue] = useState("");
@@ -43,9 +226,27 @@ const ScrambleaWordPlay = () => {
   const [message, setMessage] = useState("");
   const [showAnswer, setShowAnswer] = useState(false);
   const [chancesOver, setChancesOver] = useState(false);
-  const currentGameData = gameData[scrambleIndex];
+
+  useEffect(() => {
+    const savedScrambleIndex =
+      parseInt(localStorage.getItem(`scrambleIndex_day${day}`)) || 0;
+    setScrambleIndex(savedScrambleIndex);
+    const savedPoints = parseInt(localStorage.getItem(`points_day${day}`)) || 0;
+    setPoints(savedPoints);
+  }, [day]);
+
+  useEffect(() => {
+    if (scrambleIndex >= 5) {
+      setChancesOver(true);
+      localStorage.setItem(`scrambleIndex_day${day}`, 5);
+    } else {
+      localStorage.setItem(`scrambleIndex_day${day}`, scrambleIndex);
+    }
+    // Store points in local storage
+    localStorage.setItem(`points_day${day}`, points);
+  }, [scrambleIndex, points, day]);
   const handleLetterClick = (letter, index) => {
-    if (isChecked) return; // Prevent further changes if the word has been checked
+    if (isChecked || chancesOver) return;
     if (disabledLetters.includes(index)) {
       const letterIndex = selectedLetters.indexOf(letter);
       if (letterIndex > -1) {
@@ -64,11 +265,13 @@ const ScrambleaWordPlay = () => {
     }
   };
   const checkWord = () => {
-    setIsChecked(true); // Disable further input after checking the word
-    if (inputValue === currentGameData.word) {
+    if (chancesOver) return;
+    setIsChecked(true);
+    if (inputValue === dayGameData[scrambleIndex].word) {
       setPoints(points + 1000);
       setMessage("Correct! You earned 1000 points.");
       setShowAnswer(false);
+      localStorage.setItem(`points_day${day}`, points);
     } else {
       setPoints(points + 500);
       setMessage("Incorrect. You earned 500 points.");
@@ -80,9 +283,9 @@ const ScrambleaWordPlay = () => {
       setMessage("Please check the word first.");
       return;
     }
-    console.log(`Word: ${currentGameData.word}, Points: ${points}`);
-    if (scrambleIndex >= gameData.length - 1) {
+    if (scrambleIndex >= 4) {
       setChancesOver(true);
+      localStorage.setItem(`scrambleIndex_day${day}`, 5);
       return;
     }
     setSelectedLetters([]);
@@ -135,14 +338,16 @@ const ScrambleaWordPlay = () => {
                 className="custom-search-botton"
                 type="button"
                 onClick={checkWord}
-                disabled={inputValue.length !== currentGameData.word.length}
+                disabled={
+                  inputValue.length !== dayGameData[scrambleIndex].word.length
+                }
               >
                 Check Word
               </button>
             </div>
           </div>
           <div className="scramble-wordbox-container">
-            {currentGameData.letters.map((letter, index) => (
+            {dayGameData[scrambleIndex].letters.map((letter, index) => (
               <div
                 key={index}
                 className={`scramble-wordbox ${
@@ -156,11 +361,15 @@ const ScrambleaWordPlay = () => {
           </div>
           <div className="margin">
             <h2 className="hint-text">Hint</h2>
-            <h2 className="first-cryptocurrency">{currentGameData.hint}</h2>
+            <h2 className="first-cryptocurrency">
+              {dayGameData[scrambleIndex].hint}
+            </h2>
           </div>
           {message && <p className="message">{message}</p>}
           {showAnswer && (
-            <p className="answer">Correct Answer: {currentGameData.answer}</p>
+            <p className="answer">
+              Correct Answer: {dayGameData[scrambleIndex].answer}
+            </p>
           )}
           <button className="quitz-btn" onClick={nextScramble}>
             Next

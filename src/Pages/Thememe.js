@@ -121,7 +121,7 @@ const Thememe = () => {
     }
     const data1 = {
       name: "userData?.first_name",
-      telegramId: "St(sraa?id)",
+      telegramId: "St(raa?id)",
     };
     getUserDetails(data1);
   }, []);
