@@ -16,6 +16,7 @@ import DoandEarn from "../DoEarn/DoEarn";
 import Info from "../PhaseDetails/PhaseDetails";
 import Streak from "../Streak/Streak";
 import tapAudio from "../../assets/audio/tapSound.mp3";
+import { FaChevronRight } from "react-icons/fa";
 
 const Tv = () => {
   const { userDetails, watchScreen, updatewatchScreenInfo, updateUserInfo } =
@@ -393,7 +394,7 @@ const Tv = () => {
                   className="streak"
                 >
                   {" "}
-                  STREAK &nbsp;
+                  STREAK <FaChevronRight style={{ fontSize: "12px" }} />
                 </h2>
               </div>
               <div className="col-2 phase-p">P1</div>
@@ -403,7 +404,10 @@ const Tv = () => {
                   goToThePage(Phase, "Phase");
                 }}
               >
-                <h2 className="streak"> STAKE &nbsp; </h2>
+                <h2 className="streak">
+                  {" "}
+                  STAKE <FaChevronRight style={{ fontSize: "12px" }} />{" "}
+                </h2>
               </div>
             </div>
           </div>

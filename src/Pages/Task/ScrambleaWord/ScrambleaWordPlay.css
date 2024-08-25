@@ -174,7 +174,7 @@
   cursor: pointer;
 } */
 .custom-search-botton:disabled {
-  background-color: #ccc;
+  background-color: #6e6161;
   cursor: not-allowed;
 }
 .points-display {
