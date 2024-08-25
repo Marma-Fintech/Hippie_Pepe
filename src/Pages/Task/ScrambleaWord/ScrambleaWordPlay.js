@@ -33,61 +33,61 @@ const gameData = [
     answer: "CARDANO",
   },
   {
-    word: "BITCOIN",
-    letters: ["I", "T", "B", "C", "I", "N", "O"],
+    word: "BITCOINS",
+    letters: ["I", "T", "B", "C", "I", "N", "O", "S"],
     hint: "FIRST CRYPTOCURRENCY",
-    answer: "BITCOIN",
+    answer: "BITCOINS",
   },
   {
-    word: "ETHEREUM",
+    word: "ETHEREUm",
     letters: ["M", "E", "H", "R", "E", "E", "T", "U"],
     hint: "SECOND LARGEST CRYPTOCURRENCY",
     answer: "ETHEREUM",
   },
   {
-    word: "LITECOIN",
+    word: "LITECOIn",
     letters: ["E", "I", "L", "C", "I", "N", "O", "T"],
     hint: "SILVER TO BITCOIN'S GOLD",
     answer: "LITECOIN",
   },
   {
-    word: "RIPPLE",
+    word: "RIPPLe",
     letters: ["P", "L", "I", "P", "E", "R"],
     hint: "KNOWN FOR FAST TRANSACTIONS",
     answer: "RIPPLE",
   },
   {
-    word: "CARDANO",
+    word: "CARDAtO",
     letters: ["R", "C", "D", "O", "A", "A", "N"],
     hint: "THIRD GENERATION BLOCKCHAIN",
     answer: "CARDANO",
   },
   {
-    word: "BITCOIN",
+    word: "BITocIN",
     letters: ["I", "T", "B", "C", "I", "N", "O"],
     hint: "FIRST CRYPTOCURRENCY",
     answer: "BITCOIN",
   },
   {
-    word: "ETHEREUM",
+    word: "ETHEruUM",
     letters: ["M", "E", "H", "R", "E", "E", "T", "U"],
     hint: "SECOND LARGEST CRYPTOCURRENCY",
     answer: "ETHEREUM",
   },
   {
-    word: "LITECOIN",
+    word: "LITyuN",
     letters: ["E", "I", "L", "C", "I", "N", "O", "T"],
     hint: "SILVER TO BITCOIN'S GOLD",
     answer: "LITECOIN",
   },
   {
-    word: "RIPPLE",
+    word: "RIPleE",
     letters: ["P", "L", "I", "P", "E", "R"],
     hint: "KNOWN FOR FAST TRANSACTIONS",
     answer: "RIPPLE",
   },
   {
-    word: "CARDANO",
+    word: "CAReeO",
     letters: ["R", "C", "D", "O", "A", "A", "N"],
     hint: "THIRD GENERATION BLOCKCHAIN",
     answer: "CARDANO",
@@ -238,9 +238,9 @@ const ScrambleaWordPlay = ({ day }) => {
   useEffect(() => {
     if (scrambleIndex >= 5) {
       setChancesOver(true);
-      localStorage.setItem(`scrambleIndex_day${day}`, 5);
+      // localStorage.setItem(`scrambleIndex_day${day}`, 5);
     } else {
-      localStorage.setItem(`scrambleIndex_day${day}`, scrambleIndex);
+      // localStorage.setItem(`scrambleIndex_day${day}`, scrambleIndex);
     }
     // Store points in local storage
     localStorage.setItem(`points_day${day}`, points);
@@ -266,6 +266,7 @@ const ScrambleaWordPlay = ({ day }) => {
   };
   const checkWord = () => {
     if (chancesOver) return;
+    localStorage.setItem(`scrambleIndex_day${day}`, scrambleIndex + 1);
     setIsChecked(true);
     if (inputValue === dayGameData[scrambleIndex].word) {
       setPoints(points + 1000);

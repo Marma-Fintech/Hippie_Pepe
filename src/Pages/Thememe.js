@@ -49,8 +49,30 @@ const Thememe = () => {
       };
 
       try {
-        const data = await getUserDetails(data1); // Wait for the API response
-        if (data) {
+        // const data = await getUserDetails(data1); // Wait for the API response
+        var data = {};
+        if (watchScreen.booster) {
+          data = {
+            telegramId: userDetails.userDetails.telegramId,
+            userWatchSeconds: latestWatchScreen.current.watchSec,
+            boosterPoints: String(
+              latestWatchScreen.current.boosterPoints +
+                latestWatchScreen.current.tapPoints
+            ),
+            boosters: [latestWatchScreen.current.boosterDetails.name],
+          };
+        } else {
+          data = {
+            telegramId: userDetails.userDetails.telegramId,
+            userWatchSeconds: latestWatchScreen.current.watchSec,
+            boosterPoints: String(latestWatchScreen.current.tapPoints),
+            // boosters: [boosterRef.current],
+          };
+        }
+
+        const data1 = await addWatchSecapi(data);
+
+        if (data1) {
           window.Telegram.WebApp.close(); // Close the WebApp only after the API call completes
         }
       } catch (error) {
@@ -121,7 +143,7 @@ const Thememe = () => {
     }
     const data1 = {
       name: "userData?.first_name",
-      telegramId: "St(raa?id)",
+      telegramId: "Straaiggd",
     };
     getUserDetails(data1);
   }, []);
