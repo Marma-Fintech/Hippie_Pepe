@@ -4,6 +4,9 @@
   margin: 0;
   padding-top: 10px;
 }
+.quiz-play-task {
+  font-family: myFirstFont;
+}
 .custom-search {
   position: relative;
   /* width: 300px; */
@@ -200,7 +203,7 @@
   flex-direction: column;
   position: relative;
   aspect-ratio: 0.87;
-  max-width: 342px;
+  max-width: 300px;
   align-items: center;
   font-weight: 400;
   text-transform: uppercase;
@@ -233,6 +236,7 @@
   padding: 39px 59px;
   border: 5px solid rgba(18, 18, 18, 1);
   border-radius: 25px;
+  font-family: myFirstFont;
 }
 .pointsLabel {
   position: relative;

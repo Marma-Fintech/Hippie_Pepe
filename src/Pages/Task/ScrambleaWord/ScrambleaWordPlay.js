@@ -265,7 +265,7 @@ const ScrambleaWordPlay = ({ day }) => {
     }
   };
   const checkWord = () => {
-    if (chancesOver) return;
+    if (chancesOver || isChecked) return;
     localStorage.setItem(`scrambleIndex_day${day}`, scrambleIndex + 1);
     setIsChecked(true);
     if (inputValue === dayGameData[scrambleIndex].word) {
