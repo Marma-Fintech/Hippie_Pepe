@@ -44,15 +44,16 @@ const Tv = () => {
   const tapSound = new Audio(tapAudio);
 
   const level = {
-    1: 1000,
+    1: 500,
     2: 10000,
     3: 50000,
-    4: 100000,
-    5: 250000,
-    6: 500000,
-    7: 1000000,
-    8: 5000000,
-    9: 10000000,
+    4: 200000,
+    5: 800000,
+    6: 3000000,
+    7: 10000000,
+    8: 25000000,
+    9: 50000000,
+    10: 80000000,
   };
 
   const intervalRef = useRef(null);
@@ -194,8 +195,8 @@ const Tv = () => {
         Number(watchScreen.totalReward + secs + tapPoints + boosterPoints) >=
         Number(level[lvl])
       ) {
-        setCurrentLevel(Number(lvl) + 1);
-        currentLevelRef.current = Number(lvl) + 1;
+        setCurrentLevel(Number(lvl));
+        currentLevelRef.current = Number(lvl);
       }
     });
   }, [tapPoints, secs]);
@@ -276,7 +277,7 @@ const Tv = () => {
         : [{ clientX: e.clientX, clientY: e.clientY }];
       let num = 5;
       if (watchScreen?.boosterDetails?.name === "tap" && watchScreen?.booster) {
-        num = 25;
+        num = 10;
         setBoosterPoints((prevBoosterPoints) => {
           const newBoosterPoints = prevBoosterPoints + num * touches.length;
           boosterPointsRef.current = newBoosterPoints;
@@ -394,7 +395,7 @@ const Tv = () => {
                       secs +
                       tapPoints +
                       Number(boosterPoints)) /
-                      level[currentLevel]) *
+                      level[currentLevel + 1]) *
                       100
                   ).toFixed()}
                   key={1}
@@ -497,7 +498,7 @@ const Tv = () => {
             <div className="token-div">
               <p className="token-mint1">Earn / tap</p>
               <p className="earn-p">
-                {watchScreen.boosterDetails.name === "tap" ? 25 : 5}
+                {watchScreen.boosterDetails.name === "tap" ? 10 : 5}
               </p>
             </div>
           </div>
@@ -578,7 +579,7 @@ const Tv = () => {
               className="tap-points txt-color"
               style={{ left: animation.x, top: animation.y }}
             >
-              +{watchScreen.boosterDetails.name === "tap" ? 25 : 5}
+              +{watchScreen.boosterDetails.name === "tap" ? 10 : 5}
             </div>
           ))}
         </div>

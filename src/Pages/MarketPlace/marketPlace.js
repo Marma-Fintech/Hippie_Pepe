@@ -20,8 +20,41 @@ const MarketPlace = () => {
   );
   const [count, setCount] = useState(1);
   const [err, setErr] = useState("");
+
+  const twoxBooster = {
+    1: 12,
+    2: 24,
+    3: 36,
+    4: 48,
+    5: 60,
+    6: 72,
+    7: 84,
+    8: 96,
+    9: 108,
+    10: 120,
+  };
+
+  const threexBooster = {
+    1: 36,
+    2: 72,
+    3: 36,
+    4: 48,
+    5: 60,
+    6: 72,
+    7: 84,
+    8: 96,
+    9: 108,
+    10: 120,
+  };
+
   const handleClick1 = () => {
     setCount(count + 1);
+  };
+
+  const formatNumber = (num) => {
+    if (num >= 1000000) return Math.floor(num / 100000) / 10 + "M";
+    if (num >= 1000) return Math.floor(num / 100) / 10 + "k";
+    return num;
   };
 
   useEffect(() => {
@@ -29,9 +62,7 @@ const MarketPlace = () => {
 
     const getUserDetails = async (data) => {
       const userDetails = await UserDeatils(data);
-      console.log(
-        JSON.stringify(userDetails.watchRewards) + "userDetails.userDetails"
-      );
+      console.log(JSON.stringify(userDetails) + "userDetails.userDetails");
       setTotalReward(userDetails.watchRewards);
 
       updateUserInfo((prev) => ({
@@ -135,7 +166,7 @@ const MarketPlace = () => {
                   </div>
                   <div className="col-5 text-right market-color">
                     <p className="mb0">
-                      <img src={memetv} /> {totalReward}
+                      <img src={memetv} /> {formatNumber(totalReward)}
                     </p>
                   </div>
                 </div>
@@ -147,7 +178,7 @@ const MarketPlace = () => {
                   <div className="market-pick text-center">
                     <img src={booster} className="booster-margin" />
                     <h4 className="mb0 market-color flex">
-                      <img className="mr5" src={memetv} /> 200
+                      <img className="mr5" src={memetv} /> 10k
                     </h4>
                   </div>
                   <div className="p10">
@@ -157,7 +188,7 @@ const MarketPlace = () => {
                         setSelected({
                           booster: "tap",
                           img: booster,
-                          price: 100,
+                          price: 10000,
                         });
                       }}
                       type="button"
@@ -173,7 +204,8 @@ const MarketPlace = () => {
                   <div className="market-pick text-center">
                     <img src={ligthing} className="booster-margin" />
                     <h4 className="mb0 market-color flex">
-                      <img className="mr5" src={memetv} /> 200
+                      <img className="mr5" src={memetv} />{" "}
+                      {90 * userDetails.userDetails?.level}
                     </h4>
                   </div>
                   <div className="p10">
@@ -183,7 +215,7 @@ const MarketPlace = () => {
                         setSelected({
                           booster: "5x",
                           img: ligthing,
-                          price: 1000000,
+                          price: 90 * userDetails.userDetails?.level,
                         });
                       }}
                       type="button"
@@ -201,7 +233,8 @@ const MarketPlace = () => {
                   <div className="market-pick text-center">
                     <img src={booster2} className="booster-margin" />
                     <h4 className="mb0 market-color flex">
-                      <img className="mr5" src={memetv} /> 200
+                      <img className="mr5" src={memetv} />{" "}
+                      {12 * userDetails?.userDetails?.level}
                     </h4>
                   </div>
                   <div className="p10">
@@ -211,7 +244,7 @@ const MarketPlace = () => {
                         setSelected({
                           booster: "2x",
                           img: booster2,
-                          price: 120,
+                          price: 12 * userDetails?.userDetails?.level,
                         });
                       }}
                       type="button"
@@ -227,7 +260,8 @@ const MarketPlace = () => {
                   <div className="market-pick text-center">
                     <img src={booster3} className="booster-margin" />
                     <h4 className="mb0 market-color flex">
-                      <img className="mr5" src={memetv} /> 200
+                      <img className="mr5" src={memetv} />{" "}
+                      {36 * userDetails.userDetails.level}
                     </h4>
                   </div>
                   <div className="p10">
@@ -237,7 +271,7 @@ const MarketPlace = () => {
                         setSelected({
                           booster: "3x",
                           img: booster3,
-                          price: 120,
+                          price: 36 * userDetails.userDetails.level,
                         });
                       }}
                       type="button"
