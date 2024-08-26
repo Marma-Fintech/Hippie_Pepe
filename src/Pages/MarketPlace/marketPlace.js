@@ -17,6 +17,7 @@ const MarketPlace = () => {
   const [selected, setSelected] = useState({});
   const [totalReward, setTotalReward] = useState(watchScreen.totalReward);
   const [count, setCount] = useState(1);
+  const [err, setErr] = useState("");
   const handleClick1 = () => {
     setCount(count + 1);
   };
@@ -75,6 +76,12 @@ const MarketPlace = () => {
       setCount(1);
       getUserDetails();
       console.log(JSON.stringify(Boosters) + "BoostersBoostersBoosters");
+    } else {
+      setErr("Not Enough watch points");
+      setTimeout(() => {
+        setCount(1);
+        setShowPopup(false);
+      }, 3000);
     }
   };
 
@@ -267,8 +274,11 @@ const MarketPlace = () => {
                     purchaseCards();
                   }}
                   className="btn-reward1"
+                  style={err === "" ? {} : { color: "red" }}
                 >
-                  {selected.price * count}
+                  {err === ""
+                    ? selected.price * count
+                    : "Not Enough Watch Points"}
                 </button>
                 {/* <button className="btn-reward">Free Pick</button> */}
               </>
