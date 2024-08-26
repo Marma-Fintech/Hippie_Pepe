@@ -398,7 +398,11 @@ const Thememe = () => {
                 marginBottom: "10px",
                 position: "relative",
               }}
-              onClick={() => goToThePage(Tv, "TVPage")}
+              onClick={() => {
+                if (userDetails?.userDetails.telegramId) {
+                  goToThePage(Tv, "TVPage");
+                }
+              }}
             >
               <div
                 style={{
