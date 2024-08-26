@@ -175,6 +175,7 @@ const Tv = () => {
 
   const addWatchSecapi = async (data) => {
     const res = await addWatchSeconds(data);
+
     updatewatchScreenInfo((prev) => ({
       ...prev,
       totalReward: res.totalRewards,

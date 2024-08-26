@@ -26,7 +26,31 @@ const MarketPlace = () => {
 
   useEffect(() => {
     setTotalReward(userDetails?.userDetails?.watchRewards);
-  }, [userDetails]);
+
+    const getUserDetails = async (data) => {
+      const userDetails = await UserDeatils(data);
+      console.log(
+        JSON.stringify(userDetails.watchRewards) + "userDetails.userDetails"
+      );
+      setTotalReward(userDetails.watchRewards);
+
+      updateUserInfo((prev) => ({
+        ...prev,
+        userDetails,
+      }));
+
+      updatewatchScreenInfo((prev) => ({
+        ...prev,
+        boostersList: userDetails?.boosters,
+      }));
+    };
+    const data1 = {
+      name: userDetails?.userDetails?.name,
+      telegramId: String(userDetails?.userDetails?.telegramId),
+    };
+
+    getUserDetails(data1);
+  }, []);
   const handleClick2 = () => {
     // Counter state is decremented
     if (count === 1) {

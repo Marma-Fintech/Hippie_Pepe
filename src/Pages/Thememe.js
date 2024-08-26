@@ -260,11 +260,11 @@ const Thememe = () => {
       boosterDetails: {},
       watchSec: 0,
     }));
-    const data1 = {
-      name: userDetails.userDetails.name,
-      telegramId: String(userDetails.userDetails?.telegramId),
-    };
-    getUserDetails(data1);
+    // const data1 = {
+    //   name: userDetails.userDetails.name,
+    //   telegramId: String(userDetails.userDetails?.telegramId),
+    // };
+    // getUserDetails(data1);
   };
 
   const addWatchSec = () => {
