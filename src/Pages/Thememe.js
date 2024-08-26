@@ -141,21 +141,17 @@ const Thememe = () => {
         telegramDetails: userData,
       }));
     }
-    // const data1 = {
-    //   name: "userData?.first_name",
-    //   telegramId: "Staagd",
-    // };
-    // getUserDetails(data1);
+    const data1 = {
+      name: "userData?.first_name",
+      telegramId: "Staadkjjgh",
+    };
+    getUserDetails(data1);
   }, []);
 
   useEffect(() => {
-    console.log(
-      JSON.stringify(latestWatchScreen?.current?.watchSec) +
-        "latestWatchScreen?.current?.watchSec"
-    );
     if (latestWatchScreen?.current?.watchSec !== 0) {
       var data = {};
-      console.log(watchScreen.booster);
+      // console.log(watchScreen.booster);
       if (watchScreen.booster) {
       } else {
         data = {
@@ -170,18 +166,54 @@ const Thememe = () => {
   }, [userDetails]);
 
   const getUserDetails = async (data) => {
-    const userDetails = await UserDeatils(data);
+    const pointDetails = localStorage.getItem("pointDetails");
+    const parsedData = JSON.parse(pointDetails);
+    // console.log(JSON.stringify(parsedData) + "popopopopopopopopopopopo");
 
-    updateUserInfo((prev) => ({
-      ...prev,
-      userDetails: userDetails,
-    }));
+    var data1;
+    var userDetails;
+    console.log(parsedData?.booster);
+    if (parsedData?.watchSec) {
+      data1 = {
+        telegramId: data?.telegramId,
+        userWatchSeconds: parsedData?.watchSec,
+        boosterPoints: String(
+          Number(parsedData?.tapPoints) + Number(parsedData?.boosterPoints)
+        ),
+      };
 
-    updatewatchScreenInfo((prev) => ({
-      ...prev,
-      boostersList: userDetails?.boosters,
-      totalReward: userDetails?.totalRewards,
-    }));
+      if (parsedData?.booster[0]) {
+        data1.boosters = parsedData?.booster;
+      }
+      updateWatchSecOnly(data1).then(async () => {
+        userDetails = await UserDeatils(data);
+
+        updateUserInfo((prev) => ({
+          ...prev,
+          userDetails: userDetails,
+        }));
+
+        updatewatchScreenInfo((prev) => ({
+          ...prev,
+          boostersList: userDetails?.boosters,
+          totalReward: userDetails?.totalRewards,
+        }));
+      });
+      // console.log(JSON.stringify(data) + "dadadadada");
+    } else {
+      userDetails = await UserDeatils(data);
+
+      updateUserInfo((prev) => ({
+        ...prev,
+        userDetails: userDetails,
+      }));
+
+      updatewatchScreenInfo((prev) => ({
+        ...prev,
+        boostersList: userDetails?.boosters,
+        totalReward: userDetails?.totalRewards,
+      }));
+    }
 
     return userDetails;
   };

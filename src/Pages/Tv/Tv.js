@@ -81,7 +81,17 @@ const Tv = () => {
     }
 
     intervalRef.current = setInterval(() => {
-      console.log(secsRef.current + "cuuuuuuuuuuuuu");
+      localStorage.setItem(
+        "pointDetails",
+        JSON.stringify({
+          // totalReward: totalRewardPoints,
+          tapPoints: watchScreen.tapPoints + tapPointsRef.current,
+          watchSec: watchScreen.watchSec + secsOnlyRef.current,
+          boosterPoints: watchScreen.boosterPoints + boosterPointsRef.current,
+          booster: [watchScreenRef.current.boosterDetails.name],
+        })
+      );
+
       secsOnlyRef.current = secsOnlyRef.current + 1;
       if (energy.current < 5000) {
         SetEnergy((prev) => {
@@ -182,6 +192,7 @@ const Tv = () => {
         Number(level[lvl])
       ) {
         setCurrentLevel(Number(lvl) + 1);
+        currentLevelRef.current = Number(lvl) + 1;
       }
     });
   }, [tapPoints, secs]);
@@ -397,17 +408,22 @@ const Tv = () => {
         </div>
         <div className="col-6">
           <div className="level-h2">
-            <h2 className="energy">Energy {energyy}/5000</h2>
+            <h2 className="energy">Energy {energy.current}/5000</h2>
             <div style={{ height: "10px", marginBottom: "10px" }}>
               <ProgressBar style={{ height: "10px" }}>
-                <ProgressBar now={(energyy / 5000) * 100} key={1} />
+                <ProgressBar now={(energy.current / 5000) * 100} key={1} />
               </ProgressBar>
             </div>
           </div>
         </div>
         <div className="row streak-center">
-          <div className="col-2 text-center">
-            <img src={settings} alt="Settings" />
+          <div
+            onClick={() => {
+              goToThePage(Info, "Info");
+            }}
+            className="col-2 text-center"
+          >
+            <img src={help} alt="Help" />
           </div>
           <div className="col-8 streak-border">
             <div className="row text-center phase1">
@@ -436,20 +452,21 @@ const Tv = () => {
               </div>
             </div>
           </div>
-          <div
-            onClick={() => {
-              goToThePage(Info, "Info");
-            }}
-            className="col-2 text-center"
-          >
-            <img src={help} alt="Help" />
+
+          <div className="col-2 text-center">
+            <img src={settings} alt="Settings" />
           </div>
         </div>
         <div className="row">
           <div className="col-2">
             <div className="token-div">
               <p className="token-mint">Token Mint</p>
-              <p className="earn-p">{currentLevel}/Sec</p>
+              <p className="earn-p">
+                {watchScreen?.boosterDetails?.name === "levelUp"
+                  ? currentLevel + 1
+                  : currentLevel}
+                /Sec
+              </p>
             </div>
           </div>
           <div
@@ -461,7 +478,10 @@ const Tv = () => {
             <h2>
               <img src={memetv} alt="Meme TV" />
               <span className="txt-color ml-10">
-                {watchScreen.totalReward + secs + tapPoints + boosterPoints}
+                {watchScreen.totalReward +
+                  secsRef.current +
+                  tapPoints +
+                  boosterPoints}
               </span>
             </h2>
           </div>
