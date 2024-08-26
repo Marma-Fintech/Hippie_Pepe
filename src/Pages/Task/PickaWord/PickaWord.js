@@ -16,7 +16,6 @@ import {
   userGameRewards,
 } from "../../../apis/user";
 import cancelIcon from "../../../assets/Task/cancelicon.png";
-
 const cardContents = [
   "levelUp",
   "2x",
@@ -57,20 +56,57 @@ const loadResults = () => {
 };
 const saveResults = async (results) => {
   localStorage.setItem("gameResults", JSON.stringify(results));
+  console.log("Results saved:", results);
 };
+const loadPlaysRemaining = () => {
+  const savedPlays = localStorage.getItem("playsRemaining");
+  const lastPlayDate = localStorage.getItem("lastPlayDate");
+  const today = new Date().toISOString().split("T")[0];
+  if (lastPlayDate !== today) {
+    return 5; // Reset to 5 if a new day
+  }
+  return savedPlays ? JSON.parse(savedPlays) : 5;
+};
+const savePlaysRemaining = (remaining) => {
+  const today = new Date().toISOString().split("T")[0];
+  localStorage.setItem("playsRemaining", JSON.stringify(remaining));
+  localStorage.setItem("lastPlayDate", today);
+};
+const loadPurchasesRemaining = () => {
+  const savedPurchases = localStorage.getItem("purchasesRemaining");
+  const lastPurchaseDate = localStorage.getItem("lastPurchaseDate");
+  const today = new Date().toISOString().split("T")[0];
+  if (lastPurchaseDate !== today) {
+    return 5; // Reset to 5 if a new day
+  }
+  return savedPurchases ? JSON.parse(savedPurchases) : 5;
+};
+const savePurchasesRemaining = (remaining) => {
+  const today = new Date().toISOString().split("T")[0];
+  localStorage.setItem("purchasesRemaining", JSON.stringify(remaining));
+  localStorage.setItem("lastPurchaseDate", today);
+};
+const generateCardContents = () => shuffleArray([...cardContents]);
 const PickaWord = () => {
   const [cards, setCards] = useState(Array(9).fill(null));
   const { userDetails, updateUserInfo } = useUserInfo();
   const [selected, setSelected] = useState(false);
   const [points, setPoints] = useState(0);
   const [message, setMessage] = useState("");
-  const [playsRemaining, setPlaysRemaining] = useState(5);
+  const [playsRemaining, setPlaysRemaining] = useState(loadPlaysRemaining());
+  const [purchasesRemaining, setPurchasesRemaining] = useState(
+    loadPurchasesRemaining()
+  );
   const [results, setResults] = useState(loadResults());
   const [showPopup, setShowPopup] = useState(false);
   const [selectedCard, setSelectedCard] = useState(null);
-  // Generate and shuffle random contents for the cards
-  const generateCardContents = () => shuffleArray([...cardContents]);
   const [randomContents, setRandomContents] = useState(generateCardContents());
+  useEffect(() => {
+    savePlaysRemaining(playsRemaining); // Save playsRemaining whenever it changes
+  }, [playsRemaining]);
+  useEffect(() => {
+    savePurchasesRemaining(purchasesRemaining); // Save purchasesRemaining whenever it changes
+  }, [purchasesRemaining]);
   const handleCardClick = async (index) => {
     if (playsRemaining <= 0) {
       setShowPopup(true);
@@ -91,7 +127,7 @@ const PickaWord = () => {
       } else if (cardContent === "5000 points") {
         newPoints += 5000;
         newMessage = "5000 points added!";
-      } else if (["2x", "3x", "5x", "levelUp"].includes(cardContent)) {
+      } else if (["2x", "3x", "5x", "levelUp", "tap"].includes(cardContent)) {
         newMessage = `${cardContent} boost added!`;
       } else if (cardContent === "Better luck next time") {
         newMessage = "Better luck next time!";
@@ -100,17 +136,15 @@ const PickaWord = () => {
       }
       setPoints(newPoints);
       setMessage(newMessage);
-      // Create a new object for the current API call
       let currentResult = {
         points: cardContent.includes("points")
           ? parseInt(cardContent.split(" ")[0])
           : 0,
         boosts: [],
       };
-      if (["2x", "3x", "5x", "levelUp"].includes(cardContent)) {
+      if (["2x", "3x", "5x", "levelUp", "tap"].includes(cardContent)) {
         currentResult.boosts.push(cardContent);
       }
-      // Update the cumulative results
       let updatedResults = {
         points: results.points + currentResult.points,
         boosts: [...results?.boosts, ...currentResult.boosts],
@@ -118,13 +152,13 @@ const PickaWord = () => {
       await saveResults(updatedResults);
       setResults(updatedResults);
       setShowPopup(true);
-      // API call with only the current selection
       const apiData = {
         telegramId: String(userDetails.userDetails?.telegramId),
         gamePoints: String(currentResult.points),
         boosters: currentResult.boosts,
       };
       await userGameRewards(apiData);
+      console.log("APIDATA", apiData);
     }
   };
   const handleFreePick = () => {
@@ -138,12 +172,16 @@ const PickaWord = () => {
     setSelectedCard(null);
   };
   const handlePlayAgain = async () => {
+    if (purchasesRemaining <= 0) {
+      setMessage("Come back tomorrow for more plays!");
+      return;
+    }
     setCards(Array(9).fill(null));
     setSelected(false);
     setPoints(0);
     setMessage("");
     setRandomContents(generateCardContents());
-    setPlaysRemaining(1);
+    setPlaysRemaining(1); // Set playsRemaining to 1 after purchase
     setShowPopup(false);
     setSelectedCard(null);
     let totalPoints = await getUserDetails(userDetails.userDetails.telegramId);
@@ -151,6 +189,8 @@ const PickaWord = () => {
       telegramId: String(userDetails.userDetails.telegramId),
       gamePoints: String(500),
     });
+    setPurchasesRemaining((prev) => prev - 1); // Deduct a purchase
+    console.log(totalPoints);
   };
   const goToThePage = (component, name) => {
     updateUserInfo((prev) => {
@@ -166,7 +206,6 @@ const PickaWord = () => {
       };
     });
   };
-
   return (
     <div className="task-page">
       <div className="">
@@ -177,7 +216,9 @@ const PickaWord = () => {
           <div
             key={index}
             className={`card ${card !== null ? "flipped" : ""}`}
-            onClick={() => handleCardClick(index)}
+            onClick={
+              purchasesRemaining === 0 ? null : () => handleCardClick(index)
+            }
           >
             <div className="card-inner">
               <div className="card-front">
@@ -192,9 +233,13 @@ const PickaWord = () => {
           </div>
         ))}
       </div>
-      <h5 className="chancesleft">
-        YOU HAVE {playsRemaining}/5 CHANCES LEFT NOW
-      </h5>
+      {purchasesRemaining === 0 ? (
+        <h5 className="chancesleft">Come back tomorrow</h5>
+      ) : (
+        <h5 className="chancesleft">
+          YOU HAVE {playsRemaining}/5 CHANCES LEFT NOW
+        </h5>
+      )}
       {showPopup && (
         <div className="popup">
           <div className="popup-content">

@@ -1,48 +1,177 @@
-import React from 'react';
-import './TotalPoints.css';
-import Coin from '.././../assets/images/coin.png';
-import List from './List';
-
+import React, { useRef, useState } from "react";
+import cancelIcon from "../../../src/assets/Task/cancelicon.png";
+import StreakBreakPoints from "../StreakBreakPoints/StreakBreakPoints";
+import useUserInfo from "../../Hooks/useUserInfo";
+import logo from "../../assets/images/meme-logo.svg";
+import twitter from "../../assets/images/twitter.svg";
+import Tv from "../Tv/Tv";
+import "./TotalPoints.css";
 const TotalPoints = () => {
+  const [isLoginClaimed, setIsLoginClaimed] = useState(false);
+  const [isWatchClaimed, setIsWatchClaimed] = useState(false);
+  const [isReferClaimed, setIsReferClaimed] = useState(false);
+  const [isGameClaimed, setIsGameClaimed] = useState(false);
+  const [isBoostClaimed, setIsBoostClaimed] = useState(false);
+  const [secs, setSecs] = useState(0);
+  const secsRef = useRef(secs);
+  const [tapPoints, setTapPoints] = useState(0);
+  const tapPointsRef = useRef(tapPoints);
+  const [boosterPoints, setBoosterPoints] = useState(0);
+  const boosterPointsRef = useRef(boosterPoints);
+  const { userDetails, watchScreen, updatewatchScreenInfo, updateUserInfo } =
+    useUserInfo();
+  const goToThePage = (component, name) => {
+    updateUserInfo((prev) => {
+      return {
+        ...prev,
+        ...{
+          currentComponent: component,
+          currentComponentText: name,
+          lastComponent: userDetails.currentComponent,
+          lastComponentText: userDetails.currentComponentText,
+          centerCount: userDetails.centerCount + 1,
+        },
+      };
+    });
+  };
+  const handleLoginClaimClick = () => {
+    setIsLoginClaimed(true);
+    setTimeout(() => {
+      setIsLoginClaimed(false);
+    }, 2000);
+  };
+  const handleWatchClaimClick = () => {
+    setIsWatchClaimed(true);
+    setTimeout(() => {
+      setIsWatchClaimed(false);
+    }, 2000);
+  };
+  const handleReferClaimClick = () => {
+    setIsReferClaimed(true);
+    setTimeout(() => {
+      setIsReferClaimed(false);
+    }, 2000);
+  };
+  const handleGameClaimClick = () => {
+    setIsGameClaimed(true);
+    setTimeout(() => {
+      setIsGameClaimed(false);
+    }, 2000);
+  };
+  const handleBoostClaimClick = () => {
+    setIsBoostClaimed(true);
+    setTimeout(() => {
+      setIsBoostClaimed(false);
+    }, 2000);
+  };
   return (
     <>
-      <div className="flex flex-col items-center">
+      <div className="info-img scroll">
         <div
-          className="press-start-2p-regular p-1 mb-10"
-          style={{ width: '80%' }}
+          className="menupointer stuff-body"
+          style={{
+            height: "100%",
+            width: "100%",
+            display: "flex",
+            alignItems: "center",
+            // justifyContent: "center",
+            marginTop: "15%",
+            flexDirection: "column",
+            pointerEvents: "all",
+          }}
         >
-          <div
-            className="rounded-md border-2 h-[90px] flex justify-center items-between"
-            style={{
-              backgroundColor: 'rgba(9, 189, 27, 0.1)',
-              borderColor: '1px solid rgba(49, 50, 49, 1)',
-            }}
-          >
-            <div className="flex items-center justify-between w-full">
-              <div className="totalpoints flex flex-col justify-center text-center pr-5">
-                <div className="">TOTAL</div>
-                <div>REWARDS</div>
-              </div>
-
-              <div className="totalpoints flex items-center text-center">
-                <img
-                  style={{ height: '20%', width: '20%' }}
-                  src={Coin}
-                  alt=""
-                />
-                <span>1,00,038</span>
+          <div className="streakContainer">
+            {/* <h1 className="streaktext">Total Rewards</h1> */}
+            <img
+              onClick={() => {
+                goToThePage(Tv, "Tv");
+              }}
+              src={cancelIcon}
+              className="cancel-imgpoints"
+              style={{ cursor: "pointer" }}
+            />
+            <div className="row mt10 cheap-stuff" style={{ width: "100%" }}>
+              <h4 className="totalPointsText">Total Rewards</h4>
+              <div>
+                <p className="rewardstext">
+                  <img src={logo} />{" "}
+                  {watchScreen.totalReward +
+                    secsRef.current +
+                    tapPoints +
+                    boosterPoints}
+                </p>
               </div>
             </div>
           </div>
+          <div className="row mt10 cheap-stuff display-flex">
+            <div className="col-7">
+              <h4 className="textcolor">WATCH POINTS</h4>
+            </div>
+            <div className="col-5">
+              <button className="button-points">
+                <img className="logo-points" src={logo} />
+                {userDetails?.userDetails?.watchRewards}
+              </button>
+            </div>
+          </div>
+          <div className="row mt10 cheap-stuff display-flex">
+            <div className="col-7">
+              <h4 className="textcolor">REFERRAL POINTS</h4>
+            </div>
+            <div className="col-5">
+              <button className="button-points">
+                <img className="logo-points" src={logo} />
+                {userDetails?.userDetails?.referRewards}
+              </button>
+            </div>
+          </div>
+          <div className="row mt10 cheap-stuff display-flex">
+            <div className="col-7">
+              <h4 className="textcolor">STREAK POINTS</h4>
+            </div>
+            <div className="col-5">
+              <button className="button-points">
+                <img className="logo-points" src={logo} />
+                {userDetails?.userDetails?.streakRewards}
+              </button>
+            </div>
+          </div>
+          <div className="row mt10 cheap-stuff display-flex">
+            <div className="col-7">
+              <h4 className="textcolor">GAMING POINTS</h4>
+            </div>
+            <div className="col-5">
+              <button className="button-points">
+                <img className="logo-points" src={logo} />
+                {userDetails?.userDetails?.gameRewards?.gamePoints}
+              </button>
+            </div>
+          </div>
+          <div className="row mt10 cheap-stuff display-flex">
+            <div className="col-7">
+              <h4 className="textcolor">STAKING POINTS</h4>
+            </div>
+            <div className="col-5">
+              <button className="button-points">
+                <img className="logo-points" src={logo} />
+                {userDetails?.userDetails?.stakingRewards}
+              </button>
+            </div>
+          </div>
+          <div className="row mt10 cheap-stuff display-flex">
+            <div className="col-7">
+              <h4 className="textcolor">TASK POINTS</h4>
+            </div>
+            <div className="col-5">
+              <button className="button-points">
+                <img className="logo-points" src={logo} />
+                {userDetails?.userDetails?.taskRewards}
+              </button>
+            </div>
+          </div>
         </div>
-
-        {/* List */}
-        <List />
-        <List />
-        <List />
       </div>
     </>
   );
 };
-
 export default TotalPoints;

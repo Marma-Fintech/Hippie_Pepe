@@ -68,11 +68,11 @@ const Thememe = () => {
         telegramDetails: userData,
       }));
     }
-    // const data1 = {
-    //   name: "Karthikeyan",
-    //   telegramId: "598200249991",
-    // };
-    // getUserDetails(data1);
+    const data1 = {
+      name: "Karthikeyan",
+      telegramId: "59820jbjh9991",
+    };
+    getUserDetails(data1);
   }, []);
 
   useEffect(() => {
@@ -293,6 +293,14 @@ const Thememe = () => {
     }
   };
 
+  const reclaimUserDetails = () => {
+    const data1 = {
+      name: userDetails.userDetails.name,
+      telegramId: String(userDetails.userDetails?.telegramId),
+    };
+    getUserDetails(data1);
+  };
+
   return (
     <div
       style={{
@@ -387,6 +395,7 @@ const Thememe = () => {
               }}
               onClick={() => {
                 if (userDetails?.userDetails.telegramId) {
+                  // reclaimUserDetails();
                   goToThePage(Tv, "TVPage");
                 }
               }}
@@ -515,7 +524,13 @@ const Thememe = () => {
                       justifyContent: "center",
                     }}
                   >
-                    <img src={switchOnTv} style={{ width: "80%" }} />
+                    <img
+                      onClick={() => {
+                        reclaimUserDetails();
+                      }}
+                      src={switchOnTv}
+                      style={{ width: "80%" }}
+                    />
                   </div>
                 </div>
               ) : null}

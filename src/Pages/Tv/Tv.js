@@ -480,9 +480,9 @@ const Tv = () => {
           </div>
           <div
             className="col-8 points"
-            // onClick={() => {
-            //   goToThePage(TotalPoints, "TotalPoints");
-            // }}
+            onClick={() => {
+              goToThePage(TotalPoints, "TotalPoints");
+            }}
           >
             <h2>
               <img src={memetv} alt="Meme TV" />
