@@ -15,7 +15,7 @@ const MarketPlace = () => {
     useUserInfo();
   const [showPopup, setShowPopup] = useState(false);
   const [selected, setSelected] = useState({});
-  const [totalReward, setTotalReward] = useState(watchScreen.totalReward);
+  const [totalReward, setTotalReward] = useState(watchScreen.watchRewards);
   const [count, setCount] = useState(1);
   const [err, setErr] = useState("");
   const handleClick1 = () => {
@@ -23,8 +23,8 @@ const MarketPlace = () => {
   };
 
   useEffect(() => {
-    setTotalReward(watchScreen.totalReward);
-  }, [watchScreen.totalReward]);
+    setTotalReward(watchScreen.watchRewards);
+  }, [watchScreen]);
   const handleClick2 = () => {
     // Counter state is decremented
     if (count === 1) {
@@ -68,19 +68,17 @@ const MarketPlace = () => {
       boosterCount: count,
     };
 
-    console.log(JSON.stringify(data) + "BoostersBoostersBoosters");
-
     const Boosters = await purchaseBooster(data);
     if (Boosters?.message) {
       setShowPopup(false);
       setCount(1);
       getUserDetails();
-      console.log(JSON.stringify(Boosters) + "BoostersBoostersBoosters");
     } else {
       setErr("Not Enough watch points");
       setTimeout(() => {
         setCount(1);
         setShowPopup(false);
+        setErr("");
       }, 3000);
     }
   };

@@ -22,10 +22,7 @@ const ReferPage = () => {
     const referrals = await myReferrel(
       String(userDetails?.userDetails?.telegramId)
     );
-    console.log(
-      JSON.stringify(referrals.referrals) +
-        "referralsreferralsreferralsreferrals"
-    );
+
     setReferrals(referrals.referrals);
   };
 
@@ -104,7 +101,6 @@ const ReferPage = () => {
       <div
         className="row"
         onClick={() => {
-          console.log(JSON.stringify(userDetails.userDetails.refId));
           shareToTelegram();
         }}
       >

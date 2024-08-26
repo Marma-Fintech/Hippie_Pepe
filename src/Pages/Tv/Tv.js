@@ -23,7 +23,6 @@ import clock from "../../assets/images/clock.svg";
 const Tv = () => {
   const { userDetails, watchScreen, updatewatchScreenInfo, updateUserInfo } =
     useUserInfo();
-  console.log(JSON.stringify(userDetails.userDetails) + "useruseruser");
   const [secs, setSecs] = useState(0);
   const [currentLevel, setCurrentLevel] = useState(
     userDetails.userDetails?.level
@@ -176,7 +175,6 @@ const Tv = () => {
 
   const addWatchSecapi = async (data) => {
     const res = await addWatchSeconds(data);
-    console.log(JSON.stringify(res) + "resresresres");
     updatewatchScreenInfo((prev) => ({
       ...prev,
       totalReward: res.totalRewards,

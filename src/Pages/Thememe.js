@@ -36,7 +36,6 @@ const Thememe = () => {
     latestUserDetails.current = userDetails;
     latestWatchScreen.current = watchScreen;
     Setcurrent(userDetails.currentComponentText);
-    console.log(JSON.stringify(watchScreen) + "watchScreenwatchScreen");
   }, [userDetails, watchScreen]);
 
   useEffect(() => {
@@ -47,7 +46,6 @@ const Thememe = () => {
     const referredIdFromUrl = urlParams.get("start");
 
     if (userData) {
-      console.log(JSON.stringify(userData) + "useruserdatadata");
       var data;
       if (referredIdFromUrl) {
         data = {
@@ -80,7 +78,6 @@ const Thememe = () => {
   useEffect(() => {
     if (latestWatchScreen?.current?.watchSec !== 0) {
       var data = {};
-      // console.log(watchScreen.booster);
       if (watchScreen.booster) {
       } else {
         data = {
@@ -97,11 +94,9 @@ const Thememe = () => {
   const getUserDetails = async (data) => {
     const pointDetails = localStorage.getItem("pointDetails");
     const parsedData = JSON.parse(pointDetails);
-    // console.log(JSON.stringify(parsedData) + "popopopopopopopopopopopo");
 
     var data1;
     var userDetails;
-    console.log(parsedData?.booster);
     if (parsedData?.watchSec) {
       data1 = {
         telegramId: data?.telegramId,
@@ -129,7 +124,6 @@ const Thememe = () => {
           totalReward: userDetails?.totalRewards,
         }));
       });
-      // console.log(JSON.stringify(data) + "dadadadada");
     } else {
       userDetails = await UserDeatils(data);
 
@@ -160,7 +154,6 @@ const Thememe = () => {
   };
 
   const toogleMenu = () => {
-    // console.log("kjhgf");
     // if (!latestUserDetails.current.isMenu) {
     updateUserInfo((prev) => ({
       ...prev,
@@ -211,8 +204,6 @@ const Thememe = () => {
   const boostref = useRef(false);
 
   useEffect(() => {
-    // console.log(JSON.stringify(latestWatchScreen.current));
-
     if (
       latestWatchScreen.current.booster &&
       latestWatchScreen.current.boosterSec > 0
@@ -225,7 +216,6 @@ const Thememe = () => {
     if (!boostref.current) {
       boostref.current = true;
       boostIntervalRef.current = setInterval(() => {
-        // console.log(JSON.stringify(watchScreen) + "intervel");
         updatewatchScreenInfo((prev) => {
           const newBoosterSec = Math.max(prev.boosterSec - 1, 0);
 
@@ -246,7 +236,6 @@ const Thememe = () => {
 
   const updateWatchSecOnly = async (data) => {
     const res = await addWatchSeconds(data);
-    // console.log(JSON.stringify(res));
     updatewatchScreenInfo((prev) => ({
       ...prev,
       tapPoints: 0,
@@ -261,7 +250,6 @@ const Thememe = () => {
 
   const addWatchSecapi = async (data) => {
     const res = await addWatchSeconds(data);
-    // console.log(JSON.stringify(res));
     updatewatchScreenInfo((prev) => ({
       ...prev,
       tapPoints: 0,
@@ -281,7 +269,6 @@ const Thememe = () => {
 
   const addWatchSec = () => {
     if (latestUserDetails.current.currentComponentText !== "TVPage") {
-      // console.log(JSON.stringify(latestWatchScreen.current));
       var data = {};
       if (watchScreen.booster) {
         data = {

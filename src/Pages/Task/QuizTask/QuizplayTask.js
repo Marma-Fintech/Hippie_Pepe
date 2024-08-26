@@ -367,7 +367,6 @@ const QuizPlayTask = () => {
         telegramId: String(userDetails.userDetails?.telegramId),
         gamePoints: String(score),
       };
-      console.log("ApiData", apiData);
 
       await userGameRewards(apiData);
 

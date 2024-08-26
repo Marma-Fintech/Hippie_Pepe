@@ -57,7 +57,6 @@ const loadResults = () => {
 };
 const saveResults = async (results) => {
   localStorage.setItem("gameResults", JSON.stringify(results));
-  console.log("Results saved:", results);
 };
 const PickaWord = () => {
   const [cards, setCards] = useState(Array(9).fill(null));
@@ -126,7 +125,6 @@ const PickaWord = () => {
         boosters: currentResult.boosts,
       };
       await userGameRewards(apiData);
-      console.log("APIDATA", apiData);
     }
   };
   const handleFreePick = () => {
@@ -153,7 +151,6 @@ const PickaWord = () => {
       telegramId: String(userDetails.userDetails.telegramId),
       gamePoints: String(500),
     });
-    console.log(totalPoints);
   };
   const goToThePage = (component, name) => {
     updateUserInfo((prev) => {
