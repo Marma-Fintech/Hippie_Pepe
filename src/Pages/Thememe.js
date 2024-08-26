@@ -141,28 +141,31 @@ const Thememe = () => {
         telegramDetails: userData,
       }));
     }
-    // const data1 = {
-    //   name: "userData?.first_name",
-    //   telegramId: "Straaigd",
-    // };
-    // getUserDetails(data1);
+    const data1 = {
+      name: "userData?.first_name",
+      telegramId: "Staagd",
+    };
+    getUserDetails(data1);
   }, []);
 
   useEffect(() => {
-    console.log(JSON.stringify(watchScreen) + "");
+    console.log(
+      JSON.stringify(latestWatchScreen?.current?.watchSec) +
+        "latestWatchScreen?.current?.watchSec"
+    );
     if (latestWatchScreen?.current?.watchSec !== 0) {
       var data = {};
+      console.log(watchScreen.booster);
       if (watchScreen.booster) {
       } else {
         data = {
           telegramId: userDetails?.userDetails?.telegramId,
           userWatchSeconds: latestWatchScreen?.current?.watchSec,
-          // boosterPoints: String(latestWatchScreen.current.tapPoints),
+          boosterPoints: String(latestWatchScreen.current.tapPoints),
           // boosters: [boosterRef.current],
         };
+        updateWatchSecOnly(data);
       }
-
-      updateWatchSecOnly(data);
     }
   }, [userDetails]);
 

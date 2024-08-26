@@ -11,19 +11,18 @@
 }
 .invite-fri {
   position: fixed;
-    bottom: 17% !important;
-    /padding-top: 5px;
-    border-radius: 100px;
-    width: 95%;
-    height: 60px !important;
-    background-color: #034807;
-    text-align: center;
-    color: #fff;
-    font-size: 18px;
-    text-transform: uppercase;
+  bottom: 17% !important;
+  padding-top: 5px;
+  border-radius: 100px;
+  width: 95%;
+  height: 60px !important;
+  background-color: #034807;
+  text-align: center;
+  color: #fff;
+  font-size: 18px;
+  text-transform: uppercase;
 }
-.mb15
-{
+.mb15 {
   margin-bottom: 15px;
 }
 .cards-container {
@@ -137,35 +136,33 @@ button {
 }
 .popup {
   position: fixed;
-    /* top: 50%; */
-    /* width: 105%; */
-    border-radius: 50px 50px 0px 0px;
-    bottom: 17%;
-    /* left: 50%; */
-    /* transform: translate(-50%, -50%); */
-    background-color: black;
-    padding: 20px;
-    border: 2px solid #3f3f3f;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  /* top: 50%; */
+  /* width: 105%; */
+  border-radius: 50px 50px 0px 0px;
+  bottom: 17%;
+  /* left: 50%; */
+  /* transform: translate(-50%, -50%); */
+  background-color: black;
+  padding: 20px;
+  border: 2px solid #3f3f3f;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 }
-.epic{
+.epic {
   color: #fff;
   font-family: press;
   font-size: 18px;
   text-align: center;
   margin-top: 5px;
   margin-bottom: 15px;
-
 }
-.epic-div
-{
+.epic-div {
   border: 2px solid #545554;
   padding: 30px 12px;
   margin: 20px;
   background: #1e1e1e;
   border-radius: 60px;
 }
-.popup-content {  
+.popup-content {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -176,16 +173,20 @@ button {
   margin-top: -53px;
   margin-bottom: 30px;
 }
-.rw-popup
-{
+.rw-popup {
   font-size: 18px;
   color: aliceblue;
 }
-.btn-reward
-{
+.btn-reward {
   width: 80%;
   background: #277e1e;
   border-radius: 5px;
   color: #fff;
   border: 2px solid #079b16;
+}
+.cancel-img {
+  width: 5%;
+  position: absolute;
+  right: 25px;
+  top: 25px;
 }

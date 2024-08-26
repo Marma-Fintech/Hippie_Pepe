@@ -246,7 +246,10 @@ const Tv = () => {
   const [lastInputWasTouch, setLastInputWasTouch] = useState(false);
 
   const handleTap = (e) => {
-    if (energy.current > 5) {
+    if (
+      (watchScreen?.boosterDetails?.name === "tap" && energy.current > 25) ||
+      (watchScreen?.boosterDetails?.name !== "tap" && energy.current > 5)
+    ) {
       // Determine if the event is from a touch or mouse
       const isTouchEvent = e.type === "touchstart";
       // If it's a touch event, mark it as touch

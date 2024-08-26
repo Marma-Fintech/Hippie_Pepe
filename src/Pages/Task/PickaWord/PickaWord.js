@@ -15,6 +15,8 @@ import {
   purchaseGameCards,
   userGameRewards,
 } from "../../../apis/user";
+import cancelIcon from "../../../assets/Task/cancelicon.png";
+
 const cardContents = [
   "levelUp",
   "2x",
@@ -202,6 +204,11 @@ const PickaWord = () => {
             {playsRemaining > 1 ? (
               <>
                 <h2 className="epic">Epic Win!</h2>
+                <img
+                  src={cancelIcon}
+                  className="cancel-img"
+                  onClick={handleFreePick}
+                />
                 <div className="row text-center">
                   <div className="col-12">
                     <div className="epic-div">
