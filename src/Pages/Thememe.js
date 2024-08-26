@@ -141,12 +141,30 @@ const Thememe = () => {
         telegramDetails: userData,
       }));
     }
-    const data1 = {
-      name: "userData?.first_name",
-      telegramId: "Straaiggd",
-    };
-    getUserDetails(data1);
+    // const data1 = {
+    //   name: "userData?.first_name",
+    //   telegramId: "Straaigd",
+    // };
+    // getUserDetails(data1);
   }, []);
+
+  useEffect(() => {
+    console.log(JSON.stringify(watchScreen) + "");
+    if (latestWatchScreen?.current?.watchSec !== 0) {
+      var data = {};
+      if (watchScreen.booster) {
+      } else {
+        data = {
+          telegramId: userDetails?.userDetails?.telegramId,
+          userWatchSeconds: latestWatchScreen?.current?.watchSec,
+          // boosterPoints: String(latestWatchScreen.current.tapPoints),
+          // boosters: [boosterRef.current],
+        };
+      }
+
+      updateWatchSecOnly(data);
+    }
+  }, [userDetails]);
 
   const getUserDetails = async (data) => {
     const userDetails = await UserDeatils(data);
@@ -259,6 +277,21 @@ const Thememe = () => {
         });
       }, 1000);
     }
+  };
+
+  const updateWatchSecOnly = async (data) => {
+    const res = await addWatchSeconds(data);
+    // console.log(JSON.stringify(res));
+    updatewatchScreenInfo((prev) => ({
+      ...prev,
+      tapPoints: 0,
+      booster: false,
+      boosterSec: 0,
+      boosterPoints: 0,
+      // boostersList: [],
+      boosterDetails: {},
+      watchSec: 0,
+    }));
   };
 
   const addWatchSecapi = async (data) => {

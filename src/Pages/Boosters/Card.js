@@ -40,20 +40,36 @@ function Card(props) {
     if (index !== -1) {
       minsBoosterList.splice(index, 1);
     }
-
-    updatewatchScreenInfo((prev) => {
-      return {
-        ...prev,
-        ...{
-          booster: true,
-          boosterDetails: {
-            name: key,
+    if (key === "tap") {
+      updatewatchScreenInfo((prev) => {
+        return {
+          ...prev,
+          ...{
+            booster: true,
+            boosterDetails: {
+              name: key,
+            },
+            boostersList: minsBoosterList,
+            boosterSec: watchScreen.boosterSec + boosterDuration[key],
+            isEnergyTrigggered: true,
           },
-          boostersList: minsBoosterList,
-          boosterSec: watchScreen.boosterSec + boosterDuration[key],
-        },
-      };
-    });
+        };
+      });
+    } else {
+      updatewatchScreenInfo((prev) => {
+        return {
+          ...prev,
+          ...{
+            booster: true,
+            boosterDetails: {
+              name: key,
+            },
+            boostersList: minsBoosterList,
+            boosterSec: watchScreen.boosterSec + boosterDuration[key],
+          },
+        };
+      });
+    }
   };
 
   return (

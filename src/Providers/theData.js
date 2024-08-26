@@ -35,6 +35,7 @@ const INITIAL_STATE = {
     boostersList: [],
     boosterDetails: {},
     watchSec: 0,
+    isEnergyTrigggered: false,
   },
   updatewatchScreenInfo: () => undefined,
   updateUserInfo: () => undefined,

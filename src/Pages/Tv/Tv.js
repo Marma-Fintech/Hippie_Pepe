@@ -29,6 +29,8 @@ const Tv = () => {
   const currentLevelRef = useRef(userDetails.userDetails?.level);
 
   const secsRef = useRef(secs);
+  const secsOnlyRef = useRef(secs);
+
   const [tapPoints, setTapPoints] = useState(0);
   const tapPointsRef = useRef(tapPoints);
   const [boosterSec, setBoosterSec] = useState();
@@ -79,6 +81,8 @@ const Tv = () => {
     }
 
     intervalRef.current = setInterval(() => {
+      console.log(secsRef.current + "cuuuuuuuuuuuuu");
+      secsOnlyRef.current = secsOnlyRef.current + 1;
       if (energy.current < 5000) {
         SetEnergy((prev) => {
           return Number(prev) + 1;
@@ -138,7 +142,7 @@ const Tv = () => {
       ...prev,
       totalReward: totalRewardPoints,
       tapPoints: watchScreen.tapPoints + tapPointsRef.current,
-      watchSec: watchScreen.watchSec + secsRef.current,
+      watchSec: watchScreen.watchSec + secsOnlyRef.current,
       boosterPoints: watchScreen.boosterPoints + boosterPointsRef.current,
     }));
   };
@@ -184,6 +188,14 @@ const Tv = () => {
 
   useEffect(() => {
     watchScreenRef.current = watchScreen;
+    if (watchScreen.isEnergyTrigggered) {
+      SetEnergy(5000);
+      energy.current = 5000;
+      updatewatchScreenInfo((prev) => ({
+        ...prev,
+        isEnergyTrigggered: false,
+      }));
+    }
     if (watchScreen.booster && watchScreen.boosterSec === 0) {
       var data = {};
       if (watchScreen.booster) {
@@ -249,12 +261,22 @@ const Tv = () => {
         ? Array.from(e.touches)
         : [{ clientX: e.clientX, clientY: e.clientY }];
       let num = 5;
-      if (watchScreen?.boosterDetails?.name === "tap" && watchScreen?.booster) {
+      if (
+        watchScreen?.boosterDetails?.name === "tap" &&
+        watchScreen?.booster &&
+        energyy > 24
+      ) {
         num = 25;
         setBoosterPoints((prevBoosterPoints) => {
           const newBoosterPoints = prevBoosterPoints + num * touches.length;
           boosterPointsRef.current = newBoosterPoints;
           return newBoosterPoints;
+        });
+
+        SetEnergy((prev) => {
+          const newEnergy = prev - num * touches.length;
+          energy.current = newEnergy;
+          return newEnergy;
         });
       } else {
         if (energyy > 0) {
