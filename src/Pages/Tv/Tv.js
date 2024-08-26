@@ -23,6 +23,7 @@ import clock from "../../assets/images/clock.svg";
 const Tv = () => {
   const { userDetails, watchScreen, updatewatchScreenInfo, updateUserInfo } =
     useUserInfo();
+  console.log(JSON.stringify(userDetails.userDetails) + "useruseruser");
   const [secs, setSecs] = useState(0);
   const [currentLevel, setCurrentLevel] = useState(
     userDetails.userDetails?.level
@@ -175,9 +176,10 @@ const Tv = () => {
 
   const addWatchSecapi = async (data) => {
     const res = await addWatchSeconds(data);
-    console.log(JSON.stringify(res));
+    console.log(JSON.stringify(res) + "resresresres");
     updatewatchScreenInfo((prev) => ({
       ...prev,
+      totalReward: res.totalRewards,
       tapPoints: 0,
       booster: false,
       boosterSec: 0,
@@ -437,7 +439,9 @@ const Tv = () => {
                   STREAK <FaChevronRight style={{ fontSize: "12px" }} />
                 </h2>
               </div>
-              <div className="col-2 phase-p">P1</div>
+              <div className="col-2 phase-p">
+                P{userDetails?.userDetails?.currentPhase}
+              </div>
               <div
                 className="col-5"
                 onClick={() => {
@@ -503,7 +507,20 @@ const Tv = () => {
           <div
             className="col-2 text-center"
             onClick={() => {
-              goToThePage(marketPlace, "marketPlace");
+              if (!watchScreen.booster) {
+                var data = {
+                  telegramId: userDetails.userDetails.telegramId,
+                  userWatchSeconds: watchScreen.watchSec + secsRef.current,
+                  boosterPoints: String(
+                    watchScreen.tapPoints +
+                      tapPointsRef.current +
+                      watchScreen.boosterPoints +
+                      boosterPointsRef.current
+                  ),
+                };
+                addWatchSecapi(data);
+                goToThePage(marketPlace, "marketPlace");
+              }
             }}
           >
             <img src={marketPlack} alt="Settings" />

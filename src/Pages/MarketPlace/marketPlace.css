@@ -6,7 +6,6 @@
   font-family: mySecondFont;
   src: url("../../assets/FontFamily/PressStart.ttf");
 }
-
 .info-img {
   background-position: center;
   background-size: 100% 100%;
@@ -17,7 +16,6 @@
   font-family: myFirstFont;
   object-fit: contain;
 }
-
 hr {
   margin: 0px !important;
   color: #3e3e3e !important;
@@ -115,4 +113,62 @@ hr {
 }
 .p10 {
   padding: 5px;
+}
+.buttons {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  justify-content: center;
+}
+.count {
+  color: rgb(255, 255, 255);
+  font-size: 30px;
+  background: green;
+  margin-bottom: 0;
+  padding: 10px;
+}
+.decre {
+  background: #00ffff00;
+  border: none;
+  color: azure;
+  font-size: 35px;
+}
+.epic-market {
+  padding: 10px 10px;
+  margin: 15px;
+  width: 265px;
+  height: 100%;
+  /* background: #1e1e1eab; */
+  background-position: center;
+  background-size: 100% 100%;
+  background-image: url("../../assets/images/epic-bg.svg");
+}
+.booster1 {
+  padding: 10px;
+  /* border: 1px solid #4E4E4E; */
+  border-top: none;
+  align-items: revert;
+  text-align: center;
+  margin-bottom: 15px;
+  margin-top: -35px;
+  border-radius: 0px 0px 10px 10px;
+}
+.btn-reward1 {
+  width: 80%;
+  background: #277e1e;
+  border-radius: 5px;
+  color: #fff;
+  margin-top: 30px;
+  border: 2px solid #079b16;
+}
+.epic-m {
+  color: #fff;
+  font-family: press;
+  font-size: 18px;
+  text-align: center;
+  margin-top: 8px;
+  margin-bottom: 20px;
+}
+.mb0 {
+  margin-bottom: 0;
 }

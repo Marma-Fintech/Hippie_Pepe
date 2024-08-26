@@ -36,7 +36,7 @@ const Thememe = () => {
     latestUserDetails.current = userDetails;
     latestWatchScreen.current = watchScreen;
     Setcurrent(userDetails.currentComponentText);
-    // console.log(JSON.stringify(userDetails.currentComponentText) + "uuuuuu");
+    console.log(JSON.stringify(watchScreen) + "watchScreenwatchScreen");
   }, [userDetails, watchScreen]);
 
   useEffect(() => {
@@ -45,13 +45,7 @@ const Thememe = () => {
     const userData = window.Telegram.WebApp.initDataUnsafe.user;
     const urlParams = new URLSearchParams(window.location.search);
     const referredIdFromUrl = urlParams.get("start");
-    console.log(
-      referredIdFromUrl +
-        "khjfgdghjkljhgfdgghjhkgfsdfgg" +
-        userData +
-        "userData" +
-        urlParams
-    );
+
     if (userData) {
       console.log(JSON.stringify(userData) + "useruserdatadata");
       var data;
@@ -76,11 +70,11 @@ const Thememe = () => {
         telegramDetails: userData,
       }));
     }
-    const data1 = {
-      name: "Karthikeyan",
-      telegramId: "598200241",
-    };
-    getUserDetails(data1);
+    // const data1 = {
+    //   name: "Karthikeyan",
+    //   telegramId: "598200241",
+    // };
+    // getUserDetails(data1);
   }, []);
 
   useEffect(() => {

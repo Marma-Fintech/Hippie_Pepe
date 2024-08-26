@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import "./ScrambleaWordPlay.css";
 import logo from "../../../assets/images/coinlogo.png";
+import { userGameRewards } from "../../../apis/user";
+import useUserInfo from "../../../Hooks/useUserInfo";
 const gameData = [
   {
     word: "DOLPHIN",
@@ -1483,6 +1485,7 @@ const ScrambleaWordPlay = ({ day }) => {
   const startIndex = (day - 1) * 5;
   const endIndex = startIndex + 5;
   const dayGameData = gameData.slice(startIndex, endIndex);
+  const { userDetails, updateUserInfo } = useUserInfo();
   const [selectedLetters, setSelectedLetters] = useState([]);
   const [disabledLetters, setDisabledLetters] = useState([]);
   const [inputValue, setInputValue] = useState("");
@@ -1530,22 +1533,33 @@ const ScrambleaWordPlay = ({ day }) => {
       setInputValue(inputValue + letter);
     }
   };
-  const checkWord = () => {
+  const checkWord = async () => {
     if (chancesOver) return;
+    var gamePoints;
     setIsChecked(true);
     if (inputValue === dayGameData[scrambleIndex].word) {
-      const newPoints = points + 1000;
+      const newPoints = points + 2500;
+      gamePoints = 2500;
       setPoints(newPoints);
       setMessage("Correct! You earned 1000 points.");
       setMessageColor("green");
       setShowAnswer(false);
     } else {
+      gamePoints = 500;
       const newPoints = points + 500;
       setPoints(newPoints);
       setMessage("Incorrect! You earned 500 points.");
       setMessageColor("red");
       setShowAnswer(true);
     }
+
+    const apiData = {
+      telegramId: String(userDetails.userDetails?.telegramId),
+      gamePoints: String(gamePoints),
+      // boosters: currentResult.boosts,
+    };
+
+    await userGameRewards(apiData);
   };
   const nextScramble = () => {
     if (!isChecked) {

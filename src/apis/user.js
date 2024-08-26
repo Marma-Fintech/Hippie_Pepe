@@ -18,7 +18,7 @@ export const addWatchSeconds = async (data) => {
       `${Base_Url.base_url}/userWatchRewards`,
       data
     );
-    return response.data.user;
+    return response.data;
   } catch (err) {}
 };
 export const userGameRewards = async (data) => {
@@ -69,6 +69,18 @@ export const myReferrel = async (data) => {
   }
 };
 
+export const purchaseBooster = async (data) => {
+  try {
+    const response = await axios.post(
+      `${Base_Url.base_url}/purchaseBooster`,
+      data
+    );
+    return response.data;
+  } catch (err) {
+    console.log(err);
+  }
+};
+
 export default {
   UserDeatils,
   addWatchSeconds,
@@ -76,4 +88,5 @@ export default {
   getUserDetails,
   purchaseGameCards,
   myReferrel,
+  purchaseBooster,
 };
