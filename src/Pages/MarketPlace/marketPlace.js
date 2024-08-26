@@ -15,7 +15,9 @@ const MarketPlace = () => {
     useUserInfo();
   const [showPopup, setShowPopup] = useState(false);
   const [selected, setSelected] = useState({});
-  const [totalReward, setTotalReward] = useState(watchScreen.watchRewards);
+  const [totalReward, setTotalReward] = useState(
+    userDetails?.userDetails?.watchRewards
+  );
   const [count, setCount] = useState(1);
   const [err, setErr] = useState("");
   const handleClick1 = () => {
@@ -23,8 +25,8 @@ const MarketPlace = () => {
   };
 
   useEffect(() => {
-    setTotalReward(watchScreen.watchRewards);
-  }, [watchScreen]);
+    setTotalReward(userDetails?.userDetails?.watchRewards);
+  }, [userDetails]);
   const handleClick2 = () => {
     // Counter state is decremented
     if (count === 1) {

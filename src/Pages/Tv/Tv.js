@@ -201,14 +201,14 @@ const Tv = () => {
 
   useEffect(() => {
     watchScreenRef.current = watchScreen;
-    if (watchScreen.isEnergyTrigggered) {
-      SetEnergy(5000);
-      energy.current = 5000;
-      updatewatchScreenInfo((prev) => ({
-        ...prev,
-        isEnergyTrigggered: false,
-      }));
-    }
+    // if (watchScreen.isEnergyTrigggered) {
+    //   SetEnergy(5000);
+    //   energy.current = 5000;
+    //   updatewatchScreenInfo((prev) => ({
+    //     ...prev,
+    //     isEnergyTrigggered: false,
+    //   }));
+    // }
     if (watchScreen.booster && watchScreen.boosterSec === 0) {
       var data = {};
       if (watchScreen.booster) {

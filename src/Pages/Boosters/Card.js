@@ -51,7 +51,7 @@ function Card(props) {
             },
             boostersList: minsBoosterList,
             boosterSec: watchScreen.boosterSec + boosterDuration[key],
-            isEnergyTrigggered: true,
+            // isEnergyTrigggered: true,
           },
         };
       });
