@@ -141,11 +141,11 @@ const Thememe = () => {
         telegramDetails: userData,
       }));
     }
-    const data1 = {
-      name: "userData?.first_name",
-      telegramId: "Staagd",
-    };
-    getUserDetails(data1);
+    // const data1 = {
+    //   name: "userData?.first_name",
+    //   telegramId: "Staagd",
+    // };
+    // getUserDetails(data1);
   }, []);
 
   useEffect(() => {
