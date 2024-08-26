@@ -40,71 +40,6 @@ const Thememe = () => {
   }, [userDetails, watchScreen]);
 
   useEffect(() => {
-    const handleBackButtonClick = async () => {
-      console.log("Back button clicked");
-
-      const data1 = {
-        name: userDetails.userDetails.name,
-        telegramId: String(userDetails.userDetails?.telegramId),
-      };
-
-      try {
-        // const data = await getUserDetails(data1); // Wait for the API response
-        var data = {};
-        if (watchScreen.booster) {
-          data = {
-            telegramId: userDetails.userDetails.telegramId,
-            userWatchSeconds: latestWatchScreen.current.watchSec,
-            boosterPoints: String(
-              latestWatchScreen.current.boosterPoints +
-                latestWatchScreen.current.tapPoints
-            ),
-            boosters: [latestWatchScreen.current.boosterDetails.name],
-          };
-        } else {
-          data = {
-            telegramId: userDetails.userDetails.telegramId,
-            userWatchSeconds: latestWatchScreen.current.watchSec,
-            boosterPoints: String(latestWatchScreen.current.tapPoints),
-            // boosters: [boosterRef.current],
-          };
-        }
-
-        const data1 = await addWatchSecapi(data);
-
-        if (data1) {
-          window.Telegram.WebApp.close(); // Close the WebApp only after the API call completes
-        }
-      } catch (error) {
-        console.error("Error fetching user details:", error);
-        // Handle any error that might occur during the API call
-      }
-    };
-
-    if (window.Telegram && window.Telegram.WebApp) {
-      // Set up the back button to be visible
-      window.Telegram.WebApp.BackButton.show();
-
-      // Handle the back button press event
-      window.Telegram.WebApp.onEvent(
-        "backButtonClicked",
-        handleBackButtonClick
-      );
-
-      // Optionally, you can define what happens when the back button is hidden
-      return () => {
-        window.Telegram.WebApp.BackButton.hide();
-        window.Telegram.WebApp.offEvent(
-          "backButtonClicked",
-          handleBackButtonClick
-        );
-      };
-    } else {
-      console.error("Telegram WebApp API is not available");
-    }
-  }, [userDetails, watchScreen]);
-
-  useEffect(() => {
     window.Telegram.WebApp.ready();
     window.Telegram.WebApp.expand();
     const userData = window.Telegram.WebApp.initDataUnsafe.user;
@@ -180,12 +115,13 @@ const Thememe = () => {
         boosterPoints: String(
           Number(parsedData?.tapPoints) + Number(parsedData?.boosterPoints)
         ),
+        // boosters: [],
       };
 
       if (parsedData?.booster[0]) {
         data1.boosters = parsedData?.booster;
       }
-      updateWatchSecOnly(data1).then(async () => {
+      await updateWatchSecOnly(data1).then(async () => {
         userDetails = await UserDeatils(data);
 
         updateUserInfo((prev) => ({
