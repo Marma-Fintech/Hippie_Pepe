@@ -128,9 +128,26 @@
   left: 33px;
 }
 
+.prevact {
+  border-bottom: 4px solid #4cf038;
+  border-left: 4px solid #4cf038;
+  transform: rotate(45deg);
+  left: 33px;
+}
+
 .next {
   border-bottom: 4px solid #4cf038;
   border-left: 4px solid #4cf038;
   transform: rotate(-135deg);
   right: 33px;
+}
+.stuff-unclaim {
+  background: #2e2e2e;
+  border: 1px solid #909090;
+  border-radius: 5px;
+  height: 35px;
+  color: #909090;
+  line-height: 0;
+  font-size: 13px;
+  width: 100%;
 }

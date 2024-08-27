@@ -86,6 +86,18 @@ export const weekRewards = async (data) => {
   }
 };
 
+export const stakeRewards = async (data) => {
+  try {
+    const response = await axios.post(
+      `${Base_Url.base_url}/stakingRewards`,
+      data
+    );
+    return response.data;
+  } catch (err) {
+    console.log(err);
+  }
+};
+
 export default {
   UserDeatils,
   addWatchSeconds,

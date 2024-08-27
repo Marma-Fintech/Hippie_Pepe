@@ -68,11 +68,11 @@ const Thememe = () => {
         telegramDetails: userData,
       }));
     }
-    // const data1 = {
-    //   name: "Karthikeyan",
-    //   telegramId: "59820jbjh9991",
-    // };
-    // getUserDetails(data1);
+    const data1 = {
+      name: "Karthikeyan",
+      telegramId: "59820jbjh9991",
+    };
+    getUserDetails(data1);
   }, []);
 
   useEffect(() => {
