@@ -176,7 +176,16 @@ const Tv = () => {
 
   const addWatchSecapi = async (data) => {
     const res = await addWatchSeconds(data);
-
+    localStorage.setItem(
+      "pointDetails",
+      JSON.stringify({
+        // totalReward: totalRewardPoints,
+        tapPoints: 0,
+        watchSec: 0,
+        boosterPoints: 0,
+        booster: [0],
+      })
+    );
     updatewatchScreenInfo((prev) => ({
       ...prev,
       totalReward: res.totalRewards,
@@ -186,6 +195,7 @@ const Tv = () => {
       boosterPoints: 0,
       boosterDetails: {},
       watchSec: 0,
+      updatedWatchPoints: res?.watchRewards,
     }));
   };
 
@@ -201,39 +211,39 @@ const Tv = () => {
     });
   }, [tapPoints, secs]);
 
-  // useEffect(() => {
-  //   watchScreenRef.current = watchScreen;
+  useEffect(() => {
+    watchScreenRef.current = watchScreen;
 
-  //   if (watchScreen.booster && watchScreen.boosterSec === 0) {
-  //     var data = {};
-  //     if (watchScreen.booster) {
-  //       data = {
-  //         telegramId: userDetails.userDetails.telegramId,
-  //         userWatchSeconds: watchScreen.watchSec + secsRef.current,
-  //         boosterPoints: String(
-  //           watchScreen.tapPoints +
-  //             tapPointsRef.current +
-  //             watchScreen.boosterPoints +
-  //             boosterPointsRef.current
-  //         ),
-  //         boosters: [watchScreen.boosterDetails.name],
-  //       };
-  //     } else {
-  //       data = {
-  //         telegramId: userDetails.userDetails.telegramId,
-  //         userWatchSeconds: watchScreen.watchSec + secsRef.current,
-  //         boosterPoints: String(
-  //           watchScreen.tapPoints +
-  //             tapPointsRef.current +
-  //             watchScreen.boosterPoints +
-  //             boosterPointsRef.current
-  //         ),
-  //       };
-  //     }
+    if (watchScreen.booster && watchScreen.boosterSec === 0) {
+      var data = {};
+      if (watchScreen.booster) {
+        data = {
+          telegramId: userDetails.userDetails.telegramId,
+          userWatchSeconds: watchScreen.watchSec + secsRef.current,
+          boosterPoints: String(
+            watchScreen.tapPoints +
+              tapPointsRef.current +
+              watchScreen.boosterPoints +
+              boosterPointsRef.current
+          ),
+          boosters: [watchScreen.boosterDetails.name],
+        };
+      } else {
+        data = {
+          telegramId: userDetails.userDetails.telegramId,
+          userWatchSeconds: watchScreen.watchSec + secsRef.current,
+          boosterPoints: String(
+            watchScreen.tapPoints +
+              tapPointsRef.current +
+              watchScreen.boosterPoints +
+              boosterPointsRef.current
+          ),
+        };
+      }
 
-  //     addWatchSecapi(data);
-  //   }
-  // }, [watchScreen, secs]);
+      addWatchSecapi(data);
+    }
+  }, [watchScreen, secs]);
 
   const formatNumber = (num) => {
     if (num >= 1000000) return Math.floor(num / 100000) / 10 + "M";

@@ -28,6 +28,9 @@ hr {
   width: 100%;
   padding: 2px 45px;
 }
+.market-pick img {
+  width: 60%;
+}
 .mb0 {
   margin-bottom: 0px;
 }

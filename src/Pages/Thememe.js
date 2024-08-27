@@ -70,7 +70,7 @@ const Thememe = () => {
     }
     const data1 = {
       name: "Karthikeyan",
-      telegramId: "59820jjlkkj91",
+      telegramId: "59820jjkkuhfkj91",
     };
     getUserDetails(data1);
   }, []);
@@ -236,7 +236,16 @@ const Thememe = () => {
 
   const updateWatchSecOnly = async (data) => {
     const res = await addWatchSeconds(data);
-
+    localStorage.setItem(
+      "pointDetails",
+      JSON.stringify({
+        // totalReward: totalRewardPoints,
+        tapPoints: 0,
+        watchSec: 0,
+        boosterPoints: 0,
+        booster: [0],
+      })
+    );
     updatewatchScreenInfo((prev) => ({
       ...prev,
       tapPoints: 0,

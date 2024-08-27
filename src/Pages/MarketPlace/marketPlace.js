@@ -15,12 +15,10 @@ const MarketPlace = () => {
     useUserInfo();
   const [showPopup, setShowPopup] = useState(false);
   const [selected, setSelected] = useState({});
-  const [totalReward, setTotalReward] = useState(
-    userDetails?.userDetails?.watchRewards
-  );
+  const [totalReward, setTotalReward] = useState();
   const [count, setCount] = useState(1);
   const [err, setErr] = useState("");
-
+  const [isFirst, setIsFirst] = useState(false);
   const twoxBooster = {
     1: 12,
     2: 24,
@@ -58,12 +56,16 @@ const MarketPlace = () => {
   };
 
   useEffect(() => {
-    setTotalReward(userDetails?.userDetails?.watchRewards);
+    if (!isFirst && watchScreen?.updatedWatchPoints > 0) {
+      setTotalReward(watchScreen?.updatedWatchPoints);
+      console.log(JSON.stringify(watchScreen) + "wawawawawaw");
+      setIsFirst(true);
+    }
+  }, [watchScreen, isFirst]);
 
+  useEffect(() => {
     const getUserDetails = async (data) => {
       const userDetails = await UserDeatils(data);
-      console.log(JSON.stringify(userDetails) + "userDetails.userDetails");
-      setTotalReward(userDetails.watchRewards);
 
       updateUserInfo((prev) => ({
         ...prev,
@@ -92,7 +94,8 @@ const MarketPlace = () => {
 
   const getDetails = async (data) => {
     const userDetails = await UserDeatils(data);
-
+    setTotalReward(userDetails.watchRewards);
+    console.log(userDetails.watchRewards);
     updateUserInfo((prev) => ({
       ...prev,
       userDetails: userDetails,
