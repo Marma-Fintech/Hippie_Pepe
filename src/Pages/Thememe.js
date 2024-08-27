@@ -77,8 +77,8 @@ const Thememe = () => {
       }));
     }
     const data1 = {
-      name: "userData?.first_name",
-      telegramId: "Staagdkjgh",
+      name: "Karthikeyan",
+      telegramId: "598200241",
     };
     getUserDetails(data1);
   }, []);

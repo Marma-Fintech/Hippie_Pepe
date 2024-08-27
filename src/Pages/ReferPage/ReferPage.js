@@ -23,8 +23,10 @@ const ReferPage = () => {
       String(userDetails?.userDetails?.telegramId)
     );
     console.log(
-      JSON.stringify(referrals) + "referralsreferralsreferralsreferrals"
+      JSON.stringify(referrals.referrals) +
+        "referralsreferralsreferralsreferrals"
     );
+    setReferrals(referrals.referrals);
   };
 
   useEffect(() => {
@@ -75,7 +77,7 @@ const ReferPage = () => {
         <div className="col-9 mt-20">
           <div className="row claim-ref">
             <div className="col-8">
-              <h2 className="refer-table">My Refferal(0/5)</h2>
+              <h2 className="refer-table">My Refferals</h2>
             </div>
             <div className="col-4">
               {/* <button type="button" class="btn-success claim">
@@ -86,22 +88,15 @@ const ReferPage = () => {
 
           <table className="table table-dark">
             <tbody>
-              <tr>
-                <th scope="row">1</th>
-                <td>Abishesk</td>
-                <td>500 mtv</td>
-              </tr>
-
-              <tr>
-                <th scope="row">2</th>
-                <td>Abishesk</td>
-                <td>500 mtv</td>
-              </tr>
-              <tr>
-                <th scope="row">3</th>
-                <td>Abishesk</td>
-                <td>500 mtv</td>
-              </tr>
+              {referrals.map((item, index) => {
+                return (
+                  <tr>
+                    <th scope="row">{index + 1}</th>
+                    <td>{referrals[0].name}</td>
+                    <td>{referrals[0].totalRewards}</td>
+                  </tr>
+                );
+              })}
             </tbody>
           </table>
         </div>

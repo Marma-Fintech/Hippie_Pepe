@@ -1,11 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import "./marketPlace.css";
 import memetv from "../../assets/images/rewards.svg";
 import booster from "../../assets/images/boost-tap.png";
 import ligthing from "../../assets/images/lighting.png";
 import booster3 from "../../assets/images/3x-ligthing.png";
 import booster2 from "../../assets/images/2booster.png";
-const marketPlace = () => {
+import cancelIcon from "../../assets/Task/cancelicon.png";
+
+const MarketPlace = () => {
+  const [showPopup, setShowPopup] = useState(false);
   return (
     <div className="info-img">
       <div
@@ -15,7 +18,6 @@ const marketPlace = () => {
           width: "100%",
           display: "flex",
           alignItems: "center",
-          // justifyContent: "center",
           marginTop: "13%",
           flexDirection: "column",
           pointerEvents: "all",
@@ -50,7 +52,13 @@ const marketPlace = () => {
                     </h4>
                   </div>
                   <div className="p10">
-                    <button type="button" className="btn-card">
+                    <button
+                      onClick={() => {
+                        setShowPopup(true);
+                      }}
+                      type="button"
+                      className="btn-card"
+                    >
                       BUY
                     </button>
                   </div>
@@ -106,9 +114,34 @@ const marketPlace = () => {
             </div>
           </div>
         </div>
+        {showPopup && (
+          <div className="popup">
+            <div className="popup-content">
+              <>
+                <h2 className="epic">Epic Win!</h2>
+                <img
+                  src={cancelIcon}
+                  className="cancel-img"
+                  // onClick={handleFreePick}
+                />
+                <div className="row text-center">
+                  <div className="col-12">
+                    <div className="epic-div">
+                      {/* {selectedCard && ( */}
+                      <img src={booster} alt={booster} className="booster" />
+                      {/* )} */}
+                      <h3 className="rw-popup">You got 2x!</h3>
+                    </div>
+                  </div>
+                </div>
+                <button className="btn-reward">Free Pick</button>
+              </>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
 };
 
-export default marketPlace;
+export default MarketPlace;
