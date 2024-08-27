@@ -70,26 +70,26 @@ const Thememe = () => {
     }
     const data1 = {
       name: "Karthikeyan",
-      telegramId: "59820jjlkjhh9kj91",
+      telegramId: "59820jjlkkj91",
     };
     getUserDetails(data1);
   }, []);
 
-  useEffect(() => {
-    if (latestWatchScreen?.current?.watchSec !== 0) {
-      var data = {};
-      if (watchScreen.booster) {
-      } else {
-        data = {
-          telegramId: userDetails?.userDetails?.telegramId,
-          userWatchSeconds: latestWatchScreen?.current?.watchSec,
-          boosterPoints: String(latestWatchScreen.current.tapPoints),
-          // boosters: [boosterRef.current],
-        };
-        updateWatchSecOnly(data);
-      }
-    }
-  }, [userDetails]);
+  // useEffect(() => {
+  //   if (latestWatchScreen?.current?.watchSec !== 0) {
+  //     var data = {};
+  //     if (watchScreen.booster) {
+  //     } else {
+  //       data = {
+  //         telegramId: userDetails?.userDetails?.telegramId,
+  //         userWatchSeconds: latestWatchScreen?.current?.watchSec,
+  //         boosterPoints: String(latestWatchScreen.current.tapPoints),
+  //         // boosters: [boosterRef.current],
+  //       };
+  //       updateWatchSecOnly(data);
+  //     }
+  //   }
+  // }, [userDetails]);
 
   const getUserDetails = async (data) => {
     const pointDetails = localStorage.getItem("pointDetails");
@@ -236,6 +236,7 @@ const Thememe = () => {
 
   const updateWatchSecOnly = async (data) => {
     const res = await addWatchSeconds(data);
+
     updatewatchScreenInfo((prev) => ({
       ...prev,
       tapPoints: 0,
