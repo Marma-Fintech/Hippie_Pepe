@@ -35,16 +35,16 @@ const PhasePage = () => {
     10: "week10",
   };
 
-  const getWeeklyRewardsData = async (data) => {
+  const getWeeklyRewardsData = async () => {
+    const data = {
+      telegramId: userDetails?.userDetails?.telegramId,
+    };
     const responce = await weekRewards(data);
     setStakeDetails(responce);
   };
 
   useEffect(() => {
-    const data = {
-      telegramId: userDetails?.userDetails?.telegramId,
-    };
-    getWeeklyRewardsData(data);
+    getWeeklyRewardsData();
   }, []);
 
   useEffect(() => {
@@ -58,7 +58,11 @@ const PhasePage = () => {
 
   const updateStakeRewards = (id) => {
     const res = stakeRewards({ stakingId: String(id) });
-    console.log(JSON.stringify(res));
+    if (res) {
+      setTimeout(() => {
+        getWeeklyRewardsData();
+      }, 1500);
+    }
   };
   return (
     <>
@@ -140,7 +144,14 @@ const PhasePage = () => {
                       <button className="stuff-unclaim">STAKE</button>
                     ) : null}
                     {!item?.userStaking && item?.totalRewards > 0 ? (
-                      <button className="stuff-claim">STAKE</button>
+                      <button
+                        onClick={() => {
+                          updateStakeRewards(item._id);
+                        }}
+                        className="stuff-claim"
+                      >
+                        STAKE
+                      </button>
                     ) : null}
                   </div>
                 </div>
