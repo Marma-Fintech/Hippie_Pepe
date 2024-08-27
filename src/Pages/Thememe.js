@@ -17,8 +17,8 @@ import porotta from "../assets/audio/videoplayback.m4a";
 
 import ReferPage from "./ReferPage/ReferPage";
 import Boosters from "../Pages/Boosters/Boosters";
-import ContinueText from "../assets/images/ContinueText.png";
-import switchOnTv from "../assets/images/switchOnTv.png";
+import ContinueText from "../assets/images/continue.svg";
+import switchOnTv from "../assets/images/switch-on.svg";
 
 import user, { UserDeatils } from "../apis/user";
 import { addWatchSeconds } from "../apis/user";
@@ -78,7 +78,7 @@ const Thememe = () => {
     }
     const data1 = {
       name: "userData?.first_name",
-      telegramId: "Staadkjjgh",
+      telegramId: "Staagdkjgh",
     };
     getUserDetails(data1);
   }, []);
@@ -342,7 +342,7 @@ const Thememe = () => {
         }}
       >
         <div style={{ position: "relative", height: "100%" }}>
-          <div style={{ position: "absolute", height: "100%" }}>
+          <div style={{ position: "absolute", height: "100%", width: "100%" }}>
             <img
               src={bottomShape}
               alt="border"
@@ -555,7 +555,7 @@ const Thememe = () => {
                       justifyContent: "center",
                     }}
                   >
-                    <img src={ContinueText} style={{ width: "100%" }} />
+                    <img src={ContinueText} style={{ width: "75%" }} />
                   </div>
                 </div>
               ) : null}

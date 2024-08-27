@@ -371,7 +371,7 @@ const ScrambleaWordPlay = ({ day }) => {
                   <p className="pointsLabel">POINTS EARNED</p>
                   <div className="pointsValue1">
                     <img src={logo} alt="logo" />
-                    <p className="pointsNumber">{points}</p>
+                    <p className="pointsNumber mt5">{points}</p>
                   </div>
                 </div>
                 <p className="bottom-text">

@@ -4,8 +4,8 @@ import Carousel from "react-spring-3d-carousel";
 import boost2 from "../../assets/images/2xboost.png";
 import boost3 from "../../assets/images/3xboost.png";
 import boost5 from "../../assets/images/5xboost.png";
-import rightArrow from "../../assets/images/rightarrow.png";
-import leftArrow from "../../assets/images/leftArrow.png";
+import rightArrow from "../../assets/images/right-arrow.svg";
+import leftArrow from "../../assets/images/left-arrow.svg";
 import useUserInfo from "../../Hooks/useUserInfo";
 import Card from "./Card";
 

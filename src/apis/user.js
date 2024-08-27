@@ -56,10 +56,24 @@ export const purchaseGameCards = async (data) => {
     console.log(err);
   }
 };
+
+export const myReferrel = async (data) => {
+  try {
+    const response = await axios.get(
+      `${Base_Url.base_url}/yourReferrals/${data}?page=${1}&limit=${5}`,
+      data
+    );
+    return response.data;
+  } catch (err) {
+    console.log(err);
+  }
+};
+
 export default {
   UserDeatils,
   addWatchSeconds,
   userGameRewards,
   getUserDetails,
   purchaseGameCards,
+  myReferrel,
 };

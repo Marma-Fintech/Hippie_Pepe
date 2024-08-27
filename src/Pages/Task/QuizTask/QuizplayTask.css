@@ -151,7 +151,6 @@ button:hover {
     #7475ff 80.74%,
     #d457ff 100%
   );
-  font: 14px/157% "VCR OSD Mono", -apple-system, Roboto, Helvetica, sans-serif;
 }
 .pointsValue {
   position: relative;
@@ -168,7 +167,6 @@ button:hover {
   width: 39px;
 }
 .pointsNumber {
-  font-family: "Press Start 2P", -apple-system, Roboto, Helvetica, sans-serif;
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;

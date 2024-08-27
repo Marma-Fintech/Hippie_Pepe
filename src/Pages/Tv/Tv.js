@@ -3,10 +3,11 @@ import "./Tv.css";
 import settings from "../../assets/images/settings.png";
 import help from "../../assets/images/help.png";
 import memetv from "../../assets/images/meme-logo.svg";
+import engimg from "../../assets/images/energy.svg";
 import useUserInfo from "../../Hooks/useUserInfo";
 import ProgressBar from "react-bootstrap/ProgressBar";
-import marketPlack from "../../assets/images/marketPlace.png";
-import leaderBoarder from "../../assets/images/leaderBoard.png";
+import marketPlack from "../../assets/images/marketPlace.svg";
+import leaderBoarder from "../../assets/images/leaderBoard.svg";
 import { addWatchSeconds } from "../../apis/user";
 import { UserDeatils } from "../../apis/user";
 import marketPlace from "../MarketPlace/marketPlace";
@@ -17,6 +18,7 @@ import Info from "../PhaseDetails/PhaseDetails";
 import Streak from "../Streak/Streak";
 import tapAudio from "../../assets/audio/tapSound.mp3";
 import { FaChevronRight } from "react-icons/fa";
+import clock from "../../assets/images/clock.svg";
 
 const Tv = () => {
   const { userDetails, watchScreen, updatewatchScreenInfo, updateUserInfo } =
@@ -257,10 +259,7 @@ const Tv = () => {
   const [lastInputWasTouch, setLastInputWasTouch] = useState(false);
 
   const handleTap = (e) => {
-    if (
-      (watchScreen?.boosterDetails?.name === "tap" && energy.current > 25) ||
-      (watchScreen?.boosterDetails?.name !== "tap" && energy.current > 5)
-    ) {
+    if (energy.current > 5) {
       // Determine if the event is from a touch or mouse
       const isTouchEvent = e.type === "touchstart";
       // If it's a touch event, mark it as touch
@@ -275,11 +274,7 @@ const Tv = () => {
         ? Array.from(e.touches)
         : [{ clientX: e.clientX, clientY: e.clientY }];
       let num = 5;
-      if (
-        watchScreen?.boosterDetails?.name === "tap" &&
-        watchScreen?.booster &&
-        energyy > 24
-      ) {
+      if (watchScreen?.boosterDetails?.name === "tap" && watchScreen?.booster) {
         num = 25;
         setBoosterPoints((prevBoosterPoints) => {
           const newBoosterPoints = prevBoosterPoints + num * touches.length;
@@ -287,11 +282,11 @@ const Tv = () => {
           return newBoosterPoints;
         });
 
-        SetEnergy((prev) => {
-          const newEnergy = prev - num * touches.length;
-          energy.current = newEnergy;
-          return newEnergy;
-        });
+        // SetEnergy((prev) => {
+        //   const newEnergy = prev - num * touches.length;
+        //   energy.current = newEnergy;
+        //   return newEnergy;
+        // });
       } else {
         if (energyy > 0) {
           const totalPoints = Math.min(energyy, num * touches.length);
@@ -374,6 +369,7 @@ const Tv = () => {
       className="tvContainer menupointer"
       style={{ height: "100%", width: "100%" }}
     >
+      <div className="line arrow"></div>
       <div className="row level-div text-center">
         <div className="col-6">
           <div className="level-h2">
@@ -408,7 +404,10 @@ const Tv = () => {
         </div>
         <div className="col-6">
           <div className="level-h2">
-            <h2 className="energy">Energy {energy.current}/5000</h2>
+            <h2 className="energy">
+              <img src={engimg} style={{ paddingRight: "3px" }} />
+              Energy {energy.current}/5000
+            </h2>
             <div style={{ height: "10px", marginBottom: "10px" }}>
               <ProgressBar style={{ height: "10px" }}>
                 <ProgressBar now={(energy.current / 5000) * 100} key={1} />
@@ -494,7 +493,7 @@ const Tv = () => {
             </div>
           </div>
         </div>
-        <div className="row streak-center">
+        <div className="row streak-center" style={{ marginTop: "5px" }}>
           <div
             className="col-2 text-center"
             onClick={() => {
@@ -508,7 +507,22 @@ const Tv = () => {
             <div className="">
               <div className="col-9">
                 {watchScreen.booster ? (
-                  <h2 className="streak booster">{watchScreen.boosterSec}</h2>
+                  <>
+                    <h2
+                      className="streak booster"
+                      style={{
+                        display: "flex",
+                        // alignItems: "center",
+                        justifyContent: "center",
+                      }}
+                    >
+                      <img
+                        src={clock}
+                        style={{ paddingRight: "5px", width: "20px" }}
+                      />
+                      {watchScreen.boosterSec}
+                    </h2>
+                  </>
                 ) : null}
               </div>
             </div>

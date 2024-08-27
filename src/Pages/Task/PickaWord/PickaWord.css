@@ -134,18 +134,24 @@ button {
   margin-top: 8px;
   color: #938484;
 }
+
 .popup {
+  background-position: center;
+  background-size: 100% 100%;
+  /* background-size: cover; */
+  width: 90%;
+  /* height: 100%; */
+  background-image: url("../../../assets/Task/task-bg.png");
   position: fixed;
   /* top: 50%; */
   /* width: 105%; */
-  border-radius: 50px 50px 0px 0px;
   bottom: 17%;
   /* left: 50%; */
   /* transform: translate(-50%, -50%); */
-  background-color: black;
+  /* background-color: black; */
   padding: 20px;
-  border: 2px solid #3f3f3f;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  /* border: 2px solid #3F3F3F; */
+  /* box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); */
 }
 .epic {
   color: #fff;
@@ -156,10 +162,10 @@ button {
   margin-bottom: 15px;
 }
 .epic-div {
-  border: 2px solid #545554;
+  border: 2px solid #55545421;
   padding: 30px 12px;
   margin: 20px;
-  background: #1e1e1e;
+  background: #1e1e1eab;
   border-radius: 60px;
 }
 .popup-content {

@@ -79,6 +79,7 @@
 
 .streak-border {
   /* padding: 10px 0px !important ; */
+  z-index: 1;
   border: 2px solid;
   border-image-slice: 1;
   border-width: 1px;
@@ -276,4 +277,16 @@
     opacity: 0;
     transform: translateY(-50px);
   }
+}
+.arrow {
+  border-color: #000;
+  position: absolute;
+  top: 1%;
+}
+.line {
+  background-image: url("../../assets/images/line.svg");
+  /* transform: rotate(40deg); */
+  left: 49.5%;
+  width: 2px;
+  height: 18%;
 }
