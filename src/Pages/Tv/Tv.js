@@ -383,7 +383,7 @@ const Tv = () => {
                   Number(tapPoints) +
                   Number(boosterPoints)
               )}
-              /{formatNumber(level[currentLevel])}
+              /{formatNumber(level[currentLevel + 1])}
             </h2>
 
             <div style={{ height: "10px", marginBottom: "10px" }}>

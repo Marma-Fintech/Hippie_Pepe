@@ -75,6 +75,17 @@ export const purchaseBooster = async (data) => {
   }
 };
 
+export const weekRewards = async (data) => {
+  try {
+    const response = await axios.get(
+      `${Base_Url.base_url}/weekRewards/${data.telegramId}`
+    );
+    return response.data;
+  } catch (err) {
+    console.log(err);
+  }
+};
+
 export default {
   UserDeatils,
   addWatchSeconds,
@@ -83,4 +94,5 @@ export default {
   purchaseGameCards,
   myReferrel,
   purchaseBooster,
+  weekRewards,
 };

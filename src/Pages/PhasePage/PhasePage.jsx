@@ -1,9 +1,29 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import stakelogo from "../../assets/images/stake-logo.svg";
 import logo from "../../assets/images/main-logo.svg";
 import "./PhasePage.css";
+import { weekRewards } from "../../apis/user";
+import useUserInfo from "../../Hooks/useUserInfo";
+import { da } from "date-fns/locale";
 
 const PhasePage = () => {
+  const { userDetails, watchScreen, updatewatchScreenInfo, updateUserInfo } =
+    useUserInfo();
+
+  const [stakeDetails, setStakeDetails] = useState({});
+
+  const getWeeklyRewardsData = async (data) => {
+    const responce = await weekRewards(data);
+    setStakeDetails(responce);
+  };
+
+  useEffect(() => {
+    const data = {
+      telegramId: userDetails?.userDetails?.telegramId,
+    };
+    getWeeklyRewardsData(data);
+  }, []);
+
   return (
     <>
       <div className="info-img scroll">
