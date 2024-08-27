@@ -463,6 +463,12 @@ const Tv = () => {
               <p className="earn-p">
                 {watchScreen?.boosterDetails?.name === "levelUp"
                   ? currentLevel + 1
+                  : watchScreen?.boosterDetails?.name === "2x"
+                  ? currentLevel * 2
+                  : watchScreen?.boosterDetails?.name === "3x"
+                  ? currentLevel * 3
+                  : watchScreen?.boosterDetails?.name === "5x"
+                  ? currentLevel * 5
                   : currentLevel}
                 /Sec
               </p>
