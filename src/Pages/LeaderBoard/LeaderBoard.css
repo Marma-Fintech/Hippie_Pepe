@@ -1,0 +1,87 @@
+.carousel-container {
+  position: relative;
+  width: 80%;
+  max-width: 800px;
+  margin: 0 auto;
+  pointer-events: fill;
+}
+.carousel-content {
+  text-align: center;
+}
+.carousel-image {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+.carousel-image img {
+  max-width: 100%;
+  height: auto;
+}
+.carousel-captions {
+  font-size: 1.2em;
+  color: #333;
+  margin-top: 10px !important;
+  background: linear-gradient(
+    180deg,
+    #fd8d23 -1.34%,
+    #fae61c 10.31%,
+    #eef73b 20.95%,
+    #4cf038 42.23%,
+    #33c6f6 65.04%,
+    #7475ff 80.74%,
+    #d457ff 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  user-select: none;
+  font-family: mySecondFont;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+.carousel-button {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: transparent;
+  border: none;
+  cursor: pointer !important;
+  z-index: 10;
+}
+.carousel-button.prev {
+  cursor: pointer !important;
+  left: 40px;
+  top: 30px;
+}
+.carousel-button img {
+  width: 30px; /* Adjust as needed */
+  height: auto;
+}
+.carousel-button.next {
+  cursor: pointer !important;
+  right: 40px;
+  top: 30px;
+}
+.leaderboard-text {
+  font-size: 18px;
+  color: rgba(192, 192, 192, 1);
+}
+.cancel-imgleaderboard {
+  width: 6%;
+  position: absolute;
+  right: 1px;
+  top: 5px;
+}
+.cheap-stuff-container {
+  height: 282px;
+  overflow-y: scroll;
+}
+.cheap-stuff1 {
+  width: 100%;
+  background: #212121;
+  padding: 1px;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+}

@@ -98,6 +98,17 @@ export const stakeRewards = async (data) => {
   }
 };
 
+export const getPopularUser = async (telegramId) => {
+  try {
+    const response = await axios.get(
+      `${Base_Url.base_url}/popularUser/${telegramId}`
+    );
+    return response.data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 export default {
   UserDeatils,
   addWatchSeconds,
@@ -107,4 +118,5 @@ export default {
   myReferrel,
   purchaseBooster,
   weekRewards,
+  getPopularUser,
 };

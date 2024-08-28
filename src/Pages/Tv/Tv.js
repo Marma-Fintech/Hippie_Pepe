@@ -19,6 +19,7 @@ import Streak from "../Streak/Streak";
 import tapAudio from "../../assets/audio/tapSound.mp3";
 import { FaChevronRight } from "react-icons/fa";
 import clock from "../../assets/images/clock.svg";
+import LeaderBoard from "../LeaderBoard/LeaderBoard";
 
 const Tv = () => {
   const { userDetails, watchScreen, updatewatchScreenInfo, updateUserInfo } =
@@ -176,6 +177,7 @@ const Tv = () => {
 
   const addWatchSecapi = async (data) => {
     const res = await addWatchSeconds(data);
+    console.log(JSON.stringify(res) + "resresres");
     localStorage.setItem(
       "pointDetails",
       JSON.stringify({
@@ -197,6 +199,35 @@ const Tv = () => {
       watchSec: 0,
       updatedWatchPoints: res?.watchRewards,
     }));
+  };
+
+  const addWatchSecapiMarket = async (data) => {
+    const res = await addWatchSeconds(data);
+    console.log(JSON.stringify(res) + "resresres");
+    localStorage.setItem(
+      "pointDetails",
+      JSON.stringify({
+        // totalReward: totalRewardPoints,
+        tapPoints: 0,
+        watchSec: 0,
+        boosterPoints: 0,
+        booster: [0],
+      })
+    );
+    updatewatchScreenInfo((prev) => ({
+      ...prev,
+      totalReward: res.totalRewards,
+      tapPoints: 0,
+      booster: false,
+      boosterSec: 0,
+      boosterPoints: 0,
+      boosterDetails: {},
+      watchSec: 0,
+      updatedWatchPoints: res?.watchRewards,
+    }));
+    if (res) {
+      goToThePage(marketPlace, "marketPlace");
+    }
   };
 
   useEffect(() => {
@@ -378,7 +409,12 @@ const Tv = () => {
       <div className="row level-div text-center">
         <div className="col-6">
           <div className="level-h2">
-            <h2 className="level">
+            <h2
+              onClick={() => {
+                goToThePage(LeaderBoard, "LeaderBoard");
+              }}
+              className="level"
+            >
               Level {currentLevel} &nbsp;
               {formatNumber(
                 Number(watchScreen.totalReward) +
@@ -513,16 +549,12 @@ const Tv = () => {
               if (!watchScreen.booster) {
                 var data = {
                   telegramId: userDetails.userDetails.telegramId,
-                  userWatchSeconds: watchScreen.watchSec + secsRef.current,
+                  userWatchSeconds: secsRef.current,
                   boosterPoints: String(
-                    watchScreen.tapPoints +
-                      tapPointsRef.current +
-                      watchScreen.boosterPoints +
-                      boosterPointsRef.current
+                    tapPointsRef.current + boosterPointsRef.current
                   ),
                 };
-                addWatchSecapi(data);
-                goToThePage(marketPlace, "marketPlace");
+                addWatchSecapiMarket(data);
               }
             }}
           >

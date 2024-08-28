@@ -68,11 +68,13 @@ const Thememe = () => {
         telegramDetails: userData,
       }));
     }
-    const data1 = {
-      name: "Karthikeyan",
-      telegramId: "59820jjkkuhfkj91",
-    };
-    getUserDetails(data1);
+    // const data1 = {
+    //   name: "Karthikeyan",
+    //   telegramId: "59820jjkkuhfkj91",
+    // };
+    // getUserDetails(data1);
+
+    // localStorage.clear();
   }, []);
 
   // useEffect(() => {
@@ -308,7 +310,12 @@ const Thememe = () => {
       name: userDetails.userDetails.name,
       telegramId: String(userDetails.userDetails?.telegramId),
     };
-    getUserDetails(data1);
+    const data = getUserDetails(data1);
+    if (data) {
+      setTimeout(() => {
+        goToThePage(Tv, "TVPage");
+      }, 1000);
+    }
   };
 
   return (
@@ -404,10 +411,10 @@ const Thememe = () => {
                 position: "relative",
               }}
               onClick={() => {
-                if (userDetails?.userDetails.telegramId) {
-                  // reclaimUserDetails();
-                  goToThePage(Tv, "TVPage");
-                }
+                // if (userDetails?.userDetails.telegramId) {
+                //   // reclaimUserDetails();
+                //   goToThePage(Tv, "TVPage");
+                // }
               }}
             >
               <div
@@ -556,6 +563,12 @@ const Thememe = () => {
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "center",
+                  }}
+                  onClick={() => {
+                    if (userDetails?.userDetails.telegramId) {
+                      // reclaimUserDetails();
+                      goToThePage(Tv, "TVPage");
+                    }
                   }}
                 >
                   <div
