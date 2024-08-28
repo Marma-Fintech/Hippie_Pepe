@@ -459,7 +459,9 @@ const Tv = () => {
         <div className="row streak-center">
           <div
             onClick={() => {
-              goToThePage(Info, "Info");
+              if (!watchScreen.booster) {
+                goToThePage(Info, "Info");
+              }
             }}
             className="col-2 text-center"
           >
@@ -470,7 +472,9 @@ const Tv = () => {
               <div className="col-5">
                 <h2
                   onClick={() => {
-                    goToThePage(Streak, "Streak");
+                    if (!watchScreen.booster) {
+                      goToThePage(Streak, "Streak");
+                    }
                   }}
                   className="streak"
                 >
@@ -484,7 +488,9 @@ const Tv = () => {
               <div
                 className="col-5"
                 onClick={() => {
-                  goToThePage(Phase, "Phase");
+                  if (!watchScreen.booster) {
+                    goToThePage(Phase, "Phase");
+                  }
                 }}
               >
                 <h2 className="streak">
@@ -520,7 +526,9 @@ const Tv = () => {
           <div
             className="col-8 points"
             onClick={() => {
-              goToThePage(TotalPoints, "TotalPoints");
+              if (!watchScreen.booster) {
+                goToThePage(TotalPoints, "TotalPoints");
+              }
             }}
           >
             <h2>
@@ -589,7 +597,9 @@ const Tv = () => {
           <div
             className="col-2 text-center"
             onClick={() => {
-              goToThePage(DoandEarn, "DoandEarn");
+              if (!watchScreen.booster) {
+                goToThePage(DoandEarn, "DoandEarn");
+              }
             }}
           >
             <img src={leaderBoarder} alt="Help" />

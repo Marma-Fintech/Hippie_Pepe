@@ -306,15 +306,17 @@ const Thememe = () => {
   };
 
   const reclaimUserDetails = () => {
-    const data1 = {
-      name: userDetails.userDetails.name,
-      telegramId: String(userDetails.userDetails?.telegramId),
-    };
-    const data = getUserDetails(data1);
-    if (data) {
-      setTimeout(() => {
-        goToThePage(Tv, "TVPage");
-      }, 1000);
+    if (!watchScreen.booster) {
+      const data1 = {
+        name: userDetails.userDetails.name,
+        telegramId: String(userDetails.userDetails?.telegramId),
+      };
+      const data = getUserDetails(data1);
+      if (data) {
+        setTimeout(() => {
+          goToThePage(Tv, "TVPage");
+        }, 1000);
+      }
     }
   };
 
@@ -377,7 +379,11 @@ const Thememe = () => {
             >
               <div
                 style={{ position: "absolute", height: "100%", width: "100%" }}
-                onClick={toogleMenu}
+                onClick={() => {
+                  if (!watchScreen.booster) {
+                    toogleMenu();
+                  }
+                }}
               >
                 <img
                   src={bottomLeft}
@@ -387,7 +393,11 @@ const Thememe = () => {
                 />
               </div>
               <div
-                onClick={toogleMenu}
+                onClick={() => {
+                  if (!watchScreen.booster) {
+                    toogleMenu();
+                  }
+                }}
                 style={{
                   width: "100%",
                   position: "absolute",
@@ -565,7 +575,10 @@ const Thememe = () => {
                     justifyContent: "center",
                   }}
                   onClick={() => {
-                    if (userDetails?.userDetails.telegramId) {
+                    if (
+                      userDetails?.userDetails.telegramId &&
+                      !watchScreen.booster
+                    ) {
                       // reclaimUserDetails();
                       goToThePage(Tv, "TVPage");
                     }
@@ -590,11 +603,19 @@ const Thememe = () => {
                 position: "relative",
                 marginBottom: "10px",
               }}
-              onClick={() => goToTheRefererPage(ReferPage, "ReferPage")}
+              onClick={() => {
+                if (!watchScreen?.booster) {
+                  goToTheRefererPage(ReferPage, "ReferPage");
+                }
+              }}
             >
               <div
                 style={{ position: "absolute", height: "100%", width: "100%" }}
-                onClick={() => goToTheRefererPage(ReferPage, "ReferPage")}
+                onClick={() => {
+                  if (!watchScreen?.booster) {
+                    goToTheRefererPage(ReferPage, "ReferPage");
+                  }
+                }}
               >
                 <img
                   src={bottomRight}

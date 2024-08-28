@@ -83,10 +83,11 @@ const LeaderBoard = ({ telegramId }) => {
     updateUserInfo((prev) => ({
       ...prev,
       currentComponent: component,
-      currentComponentText: name,
+      currentComponentText: "TVPage",
       lastComponent: userDetails.currentComponent,
       lastComponentText: userDetails.currentComponentText,
       centerCount: userDetails.centerCount + 1,
+      isMenu: false,
     }));
   };
   const handleNext = () => {
