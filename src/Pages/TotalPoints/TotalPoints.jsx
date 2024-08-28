@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import cancelIcon from "../../../src/assets/Task/cancelicon.png";
 import StreakBreakPoints from "../StreakBreakPoints/StreakBreakPoints";
 import useUserInfo from "../../Hooks/useUserInfo";
@@ -6,6 +6,8 @@ import logo from "../../assets/images/meme-logo.svg";
 import twitter from "../../assets/images/twitter.svg";
 import Tv from "../Tv/Tv";
 import "./TotalPoints.css";
+import { UserDeatils } from "../../apis/user";
+
 const TotalPoints = () => {
   const [isLoginClaimed, setIsLoginClaimed] = useState(false);
   const [isWatchClaimed, setIsWatchClaimed] = useState(false);
@@ -34,6 +36,29 @@ const TotalPoints = () => {
       };
     });
   };
+
+  useEffect(() => {
+    const getUserDetails = async (data) => {
+      const userDetails = await UserDeatils(data);
+
+      updateUserInfo((prev) => ({
+        ...prev,
+        userDetails,
+      }));
+
+      updatewatchScreenInfo((prev) => ({
+        ...prev,
+        boostersList: userDetails?.boosters,
+      }));
+    };
+    const data1 = {
+      name: userDetails?.userDetails?.name,
+      telegramId: String(userDetails?.userDetails?.telegramId),
+    };
+
+    getUserDetails(data1);
+  }, []);
+
   const handleLoginClaimClick = () => {
     setIsLoginClaimed(true);
     setTimeout(() => {

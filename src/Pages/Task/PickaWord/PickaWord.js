@@ -101,11 +101,11 @@ const PickaWord = () => {
   const [showPopup, setShowPopup] = useState(false);
   const [selectedCard, setSelectedCard] = useState(null);
   const [randomContents, setRandomContents] = useState(generateCardContents());
+  // useEffect(() => {
+  //   savePlaysRemaining(playsRemaining); // Save playsRemaining whenever it changes
+  // }, [playsRemaining]);
   useEffect(() => {
-    savePlaysRemaining(playsRemaining); // Save playsRemaining whenever it changes
-  }, [playsRemaining]);
-  useEffect(() => {
-    savePurchasesRemaining(purchasesRemaining); // Save purchasesRemaining whenever it changes
+    // savePurchasesRemaining(purchasesRemaining); // Save purchasesRemaining whenever it changes
   }, [purchasesRemaining]);
   const handleCardClick = async (index) => {
     if (playsRemaining <= 0) {
@@ -158,6 +158,7 @@ const PickaWord = () => {
         boosters: currentResult.boosts,
       };
       await userGameRewards(apiData);
+      savePlaysRemaining(playsRemaining - 1);
       console.log("APIDATA", apiData);
     }
   };

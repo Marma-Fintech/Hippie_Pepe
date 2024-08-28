@@ -230,6 +230,35 @@ const Tv = () => {
     }
   };
 
+  const addWatchSecapiTotal = async (data) => {
+    const res = await addWatchSeconds(data);
+    console.log(JSON.stringify(res) + "resresres");
+    localStorage.setItem(
+      "pointDetails",
+      JSON.stringify({
+        // totalReward: totalRewardPoints,
+        tapPoints: 0,
+        watchSec: 0,
+        boosterPoints: 0,
+        booster: [0],
+      })
+    );
+    updatewatchScreenInfo((prev) => ({
+      ...prev,
+      totalReward: res.totalRewards,
+      tapPoints: 0,
+      booster: false,
+      boosterSec: 0,
+      boosterPoints: 0,
+      boosterDetails: {},
+      watchSec: 0,
+      updatedWatchPoints: res?.watchRewards,
+    }));
+    if (res) {
+      goToThePage(TotalPoints, "TotalPoints");
+    }
+  };
+
   useEffect(() => {
     Object.keys(level).forEach((lvl) => {
       if (
@@ -527,7 +556,17 @@ const Tv = () => {
             className="col-8 points"
             onClick={() => {
               if (!watchScreen.booster) {
-                goToThePage(TotalPoints, "TotalPoints");
+                if (!watchScreen.booster) {
+                  var data = {
+                    telegramId: userDetails.userDetails.telegramId,
+                    userWatchSeconds: secsRef.current,
+                    boosterPoints: String(
+                      tapPointsRef.current + boosterPointsRef.current
+                    ),
+                  };
+                  addWatchSecapiTotal(data);
+                }
+                // goToThePage(TotalPoints, "TotalPoints");
               }
             }}
           >
