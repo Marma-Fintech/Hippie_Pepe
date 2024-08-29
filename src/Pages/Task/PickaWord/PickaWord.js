@@ -151,7 +151,9 @@ const PickaWord = () => {
       };
       await saveResults(updatedResults);
       setResults(updatedResults);
-      setShowPopup(true);
+      setTimeout(() => {
+        setShowPopup(true);
+      }, 1000);
       const apiData = {
         telegramId: String(userDetails.userDetails?.telegramId),
         gamePoints: String(currentResult.points),

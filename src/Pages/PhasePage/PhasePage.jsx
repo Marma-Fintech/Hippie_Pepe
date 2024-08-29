@@ -13,6 +13,7 @@ const PhasePage = () => {
   const [currentLevel, setCurrentLevel] = useState(
     userDetails?.userDetails?.currentPhase
   );
+  const [TotalRewards, setTotalRewards] = useState(0);
 
   const formatNumber = (num) => {
     if (num >= 1000000) return Math.floor(num / 100000) / 10 + "M";
@@ -52,9 +53,20 @@ const PhasePage = () => {
       const currWeek = week[currentLevel];
       const res = stakeDetails[currWeek];
       setCurrentStake(res);
-      console.log(JSON.stringify(res) + "resresresresresres");
     }
   }, [stakeDetails, currentLevel]);
+
+  useEffect(() => {
+    console.log(
+      JSON.stringify(currentStake?.rewardsForWeek) + "resresresresresres"
+    );
+
+    const value = currentStake?.rewardsForWeek?.reduce((acc, item) => {
+      return item.userStaking ? acc + item.totalRewards : acc;
+    }, 0);
+
+    setTotalRewards(value);
+  }, [currentStake]);
 
   const updateStakeRewards = (id) => {
     const res = stakeRewards({ stakingId: String(id) });
@@ -115,7 +127,7 @@ const PhasePage = () => {
                 </div>
                 <div className="col-4">
                   <p className="phase-para">
-                    <img src={logo} /> 234K{" "}
+                    <img src={logo} /> {formatNumber(TotalRewards)}
                   </p>
                 </div>
               </div>

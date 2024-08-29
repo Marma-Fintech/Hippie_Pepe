@@ -89,8 +89,8 @@ const ReferPage = () => {
                 return (
                   <tr>
                     <th scope="row">{index + 1}</th>
-                    <td>{referrals[0].name}</td>
-                    <td>{referrals[0].totalRewards}</td>
+                    <td>{item.name}</td>
+                    <td>{item.totalRewards}</td>
                   </tr>
                 );
               })}
