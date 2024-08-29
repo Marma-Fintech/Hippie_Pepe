@@ -105,7 +105,7 @@ const PickaWord = () => {
   //   savePlaysRemaining(playsRemaining); // Save playsRemaining whenever it changes
   // }, [playsRemaining]);
   useEffect(() => {
-    // savePurchasesRemaining(purchasesRemaining); // Save purchasesRemaining whenever it changes
+    savePurchasesRemaining(purchasesRemaining); // Save purchasesRemaining whenever it changes
   }, [purchasesRemaining]);
   const handleCardClick = async (index) => {
     if (playsRemaining <= 0) {

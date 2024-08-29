@@ -58,6 +58,11 @@ const TotalPoints = () => {
 
     getUserDetails(data1);
   }, []);
+  useEffect(() => {
+    console.log(
+      JSON.stringify(userDetails.userDetails.totalRewards) + "useriuser"
+    );
+  }, [userDetails]);
 
   const handleLoginClaimClick = () => {
     setIsLoginClaimed(true);
@@ -119,11 +124,7 @@ const TotalPoints = () => {
               <h4 className="totalPointsText">Total Rewards</h4>
               <div>
                 <p className="rewardstext">
-                  <img src={logo} />{" "}
-                  {watchScreen.totalReward +
-                    secsRef.current +
-                    tapPoints +
-                    boosterPoints}
+                  <img src={logo} /> {userDetails.userDetails.totalRewards}
                 </p>
               </div>
             </div>

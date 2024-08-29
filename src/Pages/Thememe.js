@@ -70,7 +70,7 @@ const Thememe = () => {
     }
     // const data1 = {
     //   name: "Karthikeyan",
-    //   telegramId: "59820jcghjhukygjjkfkj91",
+    //   telegramId: "59820jcghjhugjjkfkj91",
     // };
     // getUserDetails(data1);
 
