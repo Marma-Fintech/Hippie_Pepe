@@ -19,11 +19,14 @@
   justify-content: center;
   text-align: center;
 }
+.pb0 {
+  margin-bottom: 0px !important;
+}
 .cancel-imgpoints {
-  width: 5%;
+  width: 6%;
   position: absolute;
-  right: 56px;
-  top: 37px;
+  right: 12%;
+  top: 7%;
 }
 .rewardstext {
   text-align: center;
@@ -42,6 +45,11 @@
   color: transparent;
   user-select: none;
   font-family: mySecondFont;
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
 }
 .textcolor {
   background: linear-gradient(
@@ -58,12 +66,12 @@
   background-clip: text;
   color: transparent;
   user-select: none;
+  margin-bottom: 0;
   font-family: myFirstFont;
-  margin-left: 30px;
+  margin-left: 5px;
   font-size: 14px;
 }
 .button-points {
-  border: 0.95px solid rgba(58, 56, 56, 1);
   padding-left: 2px;
   border-radius: 5px;
   height: 35px;
@@ -85,9 +93,15 @@
   background-clip: text;
   color: transparent;
   user-select: none;
+  border: none;
   font-family: myFirstFont;
 }
 .logo-points {
   width: 20px;
   padding-right: 3px;
+}
+.btn-bg {
+  background-color: #000;
+  border: 0.95px solid rgba(58, 56, 56, 1);
+  border-radius: 5px;
 }

@@ -20,6 +20,7 @@ import cancelIcon from "../../../src/assets/Task/cancelicon.png";
 import { getPopularUser } from "../../apis/user";
 import Tv from "../Tv/Tv";
 import axios from "axios";
+
 const images = [
   { src: fruitfly, name: "Fruitfly" },
   { src: ant, name: "Ant" },
@@ -39,7 +40,6 @@ const LeaderBoard = ({ telegramId }) => {
   const [currentLevel, setCurrentLevel] = useState(
     userDetails.userDetails?.level
   );
-
   const [secs, setSecs] = useState(0);
   const [tapPoints, setTapPoints] = useState(0);
   const tapPointsRef = useRef(tapPoints);
@@ -78,7 +78,6 @@ const LeaderBoard = ({ telegramId }) => {
     9: 50000000,
     10: 80000000,
   };
-
   const goToThePage = (component, name) => {
     updateUserInfo((prev) => ({
       ...prev,
@@ -175,36 +174,33 @@ const LeaderBoard = ({ telegramId }) => {
             <h3 className="leaderboard-text">OVERALL LEADERBOARD</h3>
           </div>
           <div className="cheap-stuff-container">
-            <div className="row mt10 cheap-stuff1" style={{ width: "100%" }}>
-              <div className="col-7 stuff-text">
+            <div className="row mt0 cheap-stuff1" style={{ width: "100%" }}>
+              <div className="col-9 stuff-text1 leader-color">
                 <h4>{userDetail?.name}</h4>
                 <p className="stuff-p">
-                  <img src={logo} /> <span>{userDetail?.totalRewards} </span>
+                  <img src={logo} className="w20" />
+                  <span>{userDetail?.totalRewards}</span>
                 </p>
               </div>
               <div className="col-3">
-                <button className="stuff-claim" type="button">
-                  {userDetail?.rank}
-                </button>
+                <div className="rankbg">
+                  <h3>{userDetail?.rank}</h3>
+                </div>
               </div>
             </div>
             {topUsers.map((item, index) => {
               return (
                 userDetail.rank !== item.rank && (
-                  <div
-                    className="row mt10 cheap-stuff1"
-                    style={{ width: "100%" }}
-                  >
-                    <div className="col-7 stuff-text">
+                  <div className="row cheap-stuff1" style={{ width: "100%" }}>
+                    <div className="col-9 stuff-text1 leader-color">
                       <h4>{item?.name}</h4>
                       <p className="stuff-p">
-                        <img src={logo} /> <span>{item?.totalRewards} </span>
+                        <img src={logo} className="w20" />{" "}
+                        <span>{item?.totalRewards} </span>
                       </p>
                     </div>
-                    <div className="col-3">
-                      <button className="stuff-claim" type="button">
-                        {item?.rank}
-                      </button>
+                    <div className="col-3 rankbg">
+                      <h3>{item?.rank}</h3>
                     </div>
                   </div>
                 )

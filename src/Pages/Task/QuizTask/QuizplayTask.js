@@ -317,12 +317,13 @@ const QuizPlayTask = () => {
       const storedResult = localStorage.getItem(
         `quizResult_Day_${selectedDay}_Cycle_${currentCycle}`
       );
+      var data = JSON.parse(storedResult);
 
-      if (storedResult) {
+      if (data?.remain === 0) {
         setQuizComplete(true);
       } else {
         setCurrentQuestions(questions.slice(startIndex, startIndex + 5));
-        setCurrentQuestionIndex(0);
+        setCurrentQuestionIndex(data?.remain ? 5 - data?.remain : 0);
         setSelectedOption(null);
         setAnswered(false);
         setScore(0);
@@ -335,6 +336,18 @@ const QuizPlayTask = () => {
 
   const handleAnswerOptionClick = (option) => {
     if (!answered) {
+      const result = {
+        telegramId: String(userDetails.userDetails?.telegramId),
+        date: format(today.current, "yyyy-MM-dd"),
+        gamePoints: String(score),
+        completed: false,
+        remain: 5 - (currentQuestionIndex + 1),
+      };
+
+      localStorage.setItem(
+        `quizResult_Day_${selectedDay}_Cycle_${currentCycle}`,
+        JSON.stringify(result)
+      );
       setSelectedOption(option);
       const isCorrect =
         option === currentQuestions[currentQuestionIndex].answer;

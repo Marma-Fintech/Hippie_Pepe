@@ -74,7 +74,7 @@ const ReferPage = () => {
         <div className="col-9 mt-20">
           <div className="row claim-ref">
             <div className="col-8">
-              <h2 className="refer-table">My Refferals</h2>
+              <h2 className="refer-table text-color">My Referral</h2>
             </div>
             <div className="col-4">
               {/* <button type="button" class="btn-success claim">

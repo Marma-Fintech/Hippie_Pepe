@@ -255,7 +255,39 @@ const Tv = () => {
       updatedWatchPoints: res?.watchRewards,
     }));
     if (res) {
-      goToThePage(TotalPoints, "TotalPoints");
+      setTimeout(() => {
+        goToThePage(TotalPoints, "TotalPoints");
+      }, 500);
+    }
+  };
+
+  const addWatchSecapiStake = async (data) => {
+    const res = await addWatchSeconds(data);
+
+    console.log(JSON.stringify(res) + "resresres");
+    localStorage.setItem(
+      "pointDetails",
+      JSON.stringify({
+        // totalReward: totalRewardPoints,
+        tapPoints: 0,
+        watchSec: 0,
+        boosterPoints: 0,
+        booster: [0],
+      })
+    );
+    updatewatchScreenInfo((prev) => ({
+      ...prev,
+      totalReward: res.totalRewards ? res.totalRewards : 0,
+      tapPoints: 0,
+      booster: false,
+      boosterSec: 0,
+      boosterPoints: 0,
+      boosterDetails: {},
+      watchSec: 0,
+      updatedWatchPoints: res?.watchRewards ? res?.watchRewards : 0,
+    }));
+    if (res) {
+      goToThePage(Phase, "Phase");
     }
   };
 
@@ -518,7 +550,14 @@ const Tv = () => {
                 className="col-5"
                 onClick={() => {
                   if (!watchScreen.booster) {
-                    goToThePage(Phase, "Phase");
+                    var data = {
+                      telegramId: userDetails.userDetails.telegramId,
+                      userWatchSeconds: secsRef.current,
+                      boosterPoints: String(
+                        tapPointsRef.current + boosterPointsRef.current
+                      ),
+                    };
+                    addWatchSecapiStake(data);
                   }
                 }}
               >
@@ -556,16 +595,15 @@ const Tv = () => {
             className="col-8 points"
             onClick={() => {
               if (!watchScreen.booster) {
-                if (!watchScreen.booster) {
-                  var data = {
-                    telegramId: userDetails.userDetails.telegramId,
-                    userWatchSeconds: secsRef.current,
-                    boosterPoints: String(
-                      tapPointsRef.current + boosterPointsRef.current
-                    ),
-                  };
-                  addWatchSecapiTotal(data);
-                }
+                var data = {
+                  telegramId: userDetails.userDetails.telegramId,
+                  userWatchSeconds: secsRef.current,
+                  boosterPoints: String(
+                    tapPointsRef.current + boosterPointsRef.current
+                  ),
+                };
+                addWatchSecapiTotal(data);
+
                 // goToThePage(TotalPoints, "TotalPoints");
               }
             }}

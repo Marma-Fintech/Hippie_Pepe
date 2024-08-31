@@ -1541,7 +1541,7 @@ const ScrambleaWordPlay = ({ day }) => {
       const newPoints = points + 2500;
       gamePoints = 2500;
       setPoints(newPoints);
-      setMessage("Correct! You earned 1000 points.");
+      setMessage("Correct! You earned 2500 points.");
       setMessageColor("green");
       setShowAnswer(false);
     } else {

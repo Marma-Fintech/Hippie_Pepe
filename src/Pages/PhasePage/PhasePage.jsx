@@ -102,7 +102,9 @@ const PhasePage = () => {
           <div
             class="arrows next"
             onClick={() => {
-              setCurrentLevel(currentLevel + 1);
+              if (currentLevel < 10) {
+                setCurrentLevel(currentLevel + 1);
+              }
             }}
           ></div>
           <div className="phase">

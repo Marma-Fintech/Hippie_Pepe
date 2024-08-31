@@ -152,7 +152,8 @@ const MarketPlace = () => {
           width: "100%",
           display: "flex",
           alignItems: "center",
-          marginTop: "13%",
+          justifyContent: "center",
+          marginTop: "3%",
           flexDirection: "column",
           pointerEvents: "all",
         }}

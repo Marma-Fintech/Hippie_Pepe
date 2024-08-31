@@ -174,27 +174,62 @@ const PickaWord = () => {
     setShowPopup(false);
     setSelectedCard(null);
   };
+  // const handlePlayAgain = async () => {
+  //   if (purchasesRemaining <= 0) {
+  //     setMessage("Come back tomorrow for more plays!");
+  //     return;
+  //   }
+  //   setCards(Array(9).fill(null));
+  //   setSelected(false);
+  //   setPoints(0);
+  //   setMessage("");
+  //   setRandomContents(generateCardContents());
+  //   setPlaysRemaining(1); // Set playsRemaining to 1 after purchase
+  //   setShowPopup(false);
+  //   setSelectedCard(null);
+  //   let totalPoints = await getUserDetails(userDetails.userDetails.telegramId);
+  //   const res = await purchaseGameCards({
+  //     telegramId: String(userDetails.userDetails.telegramId),
+  //     gamePoints: String(500),
+  //   });
+
+  //   setPurchasesRemaining((prev) => prev - 1); // Deduct a purchase
+  //   console.log(totalPoints);
+  // };
+
   const handlePlayAgain = async () => {
     if (purchasesRemaining <= 0) {
       setMessage("Come back tomorrow for more plays!");
       return;
     }
+
+    // Deduct the purchase first to ensure it's done before anything else
+    setPurchasesRemaining((prev) => prev - 1); // Deduct a purchase
+    setPlaysRemaining(1); // Set playsRemaining to 1 after purchase
+
+    // Save plays remaining immediately
+    savePlaysRemaining(1);
+
+    // Fetch user details and make the purchase
+    let totalPoints = await getUserDetails(userDetails.userDetails.telegramId);
+    const res = await purchaseGameCards({
+      telegramId: String(userDetails.userDetails.telegramId),
+      gamePoints: String(500),
+    });
+
+    // Reset the game state
     setCards(Array(9).fill(null));
     setSelected(false);
     setPoints(0);
     setMessage("");
     setRandomContents(generateCardContents());
-    setPlaysRemaining(1); // Set playsRemaining to 1 after purchase
     setShowPopup(false);
     setSelectedCard(null);
-    let totalPoints = await getUserDetails(userDetails.userDetails.telegramId);
-    await purchaseGameCards({
-      telegramId: String(userDetails.userDetails.telegramId),
-      gamePoints: String(500),
-    });
-    setPurchasesRemaining((prev) => prev - 1); // Deduct a purchase
-    console.log(totalPoints);
+
+    console.log("totalPoints", totalPoints);
+    console.log("Remaining purchases:", purchasesRemaining - 1);
   };
+
   const goToThePage = (component, name) => {
     updateUserInfo((prev) => {
       return {
@@ -275,6 +310,11 @@ const PickaWord = () => {
             ) : (
               <>
                 <h2 className="epic">Epic Win!</h2>
+                <img
+                  src={cancelIcon}
+                  className="cancel-img"
+                  onClick={handleFreePick}
+                />
                 <div className="row text-center">
                   <div className="col-12">
                     <div className="epic-div">
@@ -285,7 +325,11 @@ const PickaWord = () => {
                           className="popup-card-image"
                         />
                       )}
-                      <h3 className="rw-popup">You got {selectedCard}!</h3>
+                      {selectedCard ? (
+                        <h3 className="rw-popup">You got {selectedCard}!</h3>
+                      ) : (
+                        <h3 className="rw-popup">Pay 500 for one Pick</h3>
+                      )}
                     </div>
                   </div>
                 </div>
