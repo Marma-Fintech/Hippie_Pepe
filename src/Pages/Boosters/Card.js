@@ -1,7 +1,5 @@
-import Styles from "./Card.module.css";
-import React, { useState } from "react";
-import { useSpring, animated } from "react-spring";
-import Button from "./Button";
+import React from "react";
+
 import levelupBoostImg from "../../assets/images/levelupImg.png";
 import tapBoostImg from "../../assets/images/tapboostimg.png";
 import twoxboost from "../../assets/images/2xboostimg.png";
@@ -51,7 +49,6 @@ function Card(props) {
             },
             boostersList: minsBoosterList,
             boosterSec: watchScreen.boosterSec + boosterDuration[key],
-            // isEnergyTrigggered: true,
           },
         };
       });

@@ -1,27 +1,13 @@
 import React, { useEffect, useRef, useState } from "react";
 import cancelIcon from "../../../src/assets/Task/cancelicon.png";
-import StreakBreakPoints from "../StreakBreakPoints/StreakBreakPoints";
 import useUserInfo from "../../Hooks/useUserInfo";
 import logo from "../../assets/images/meme-logo.svg";
-import twitter from "../../assets/images/twitter.svg";
 import Tv from "../Tv/Tv";
 import "./TotalPoints.css";
 import { UserDeatils } from "../../apis/user";
 
 const TotalPoints = () => {
-  const [isLoginClaimed, setIsLoginClaimed] = useState(false);
-  const [isWatchClaimed, setIsWatchClaimed] = useState(false);
-  const [isReferClaimed, setIsReferClaimed] = useState(false);
-  const [isGameClaimed, setIsGameClaimed] = useState(false);
-  const [isBoostClaimed, setIsBoostClaimed] = useState(false);
-  const [secs, setSecs] = useState(0);
-  const secsRef = useRef(secs);
-  const [tapPoints, setTapPoints] = useState(0);
-  const tapPointsRef = useRef(tapPoints);
-  const [boosterPoints, setBoosterPoints] = useState(0);
-  const boosterPointsRef = useRef(boosterPoints);
-  const { userDetails, watchScreen, updatewatchScreenInfo, updateUserInfo } =
-    useUserInfo();
+  const { userDetails, updatewatchScreenInfo, updateUserInfo } = useUserInfo();
   const goToThePage = (component, name) => {
     updateUserInfo((prev) => {
       return {
@@ -58,42 +44,7 @@ const TotalPoints = () => {
 
     getUserDetails(data1);
   }, []);
-  useEffect(() => {
-    console.log(
-      JSON.stringify(userDetails.userDetails.totalRewards) + "useriuser"
-    );
-  }, [userDetails]);
 
-  const handleLoginClaimClick = () => {
-    setIsLoginClaimed(true);
-    setTimeout(() => {
-      setIsLoginClaimed(false);
-    }, 2000);
-  };
-  const handleWatchClaimClick = () => {
-    setIsWatchClaimed(true);
-    setTimeout(() => {
-      setIsWatchClaimed(false);
-    }, 2000);
-  };
-  const handleReferClaimClick = () => {
-    setIsReferClaimed(true);
-    setTimeout(() => {
-      setIsReferClaimed(false);
-    }, 2000);
-  };
-  const handleGameClaimClick = () => {
-    setIsGameClaimed(true);
-    setTimeout(() => {
-      setIsGameClaimed(false);
-    }, 2000);
-  };
-  const handleBoostClaimClick = () => {
-    setIsBoostClaimed(true);
-    setTimeout(() => {
-      setIsBoostClaimed(false);
-    }, 2000);
-  };
   return (
     <>
       <div className="info-img scroll">
@@ -105,13 +56,11 @@ const TotalPoints = () => {
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
-            // marginTop: "15%",
             flexDirection: "column",
             pointerEvents: "all",
           }}
         >
           <div className="streakContainer">
-            {/* <h1 className="streaktext">Total Rewards</h1> */}
             <img
               onClick={() => {
                 goToThePage(Tv, "Tv");

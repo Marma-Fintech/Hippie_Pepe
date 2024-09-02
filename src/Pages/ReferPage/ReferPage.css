@@ -10,7 +10,6 @@
 .info-img {
   background-position: center;
   background-size: 100% 100%;
-  /* background-size: cover; */
   width: 100%;
   height: 100%;
   background-image: url("../../assets/images/rise-bg.png");
@@ -48,7 +47,6 @@ tr {
   height: 90px;
   background-color: #034807;
   text-align: center;
-  /* width: 90%; */
 }
 .invite-fri h2 {
   color: #fff;

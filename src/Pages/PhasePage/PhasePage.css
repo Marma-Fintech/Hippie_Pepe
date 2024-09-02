@@ -15,7 +15,6 @@
 }
 .press-start-2p-regular {
   font-family: "Press Start 2P", system-ui;
-  /* font-weight: 400; */
   font-style: normal;
 }
 .phaseContainer {
@@ -86,7 +85,6 @@
   align-items: center;
   background: #7475ff;
   padding: 4px;
-  /* border: 2px solid #000; */
   border-radius: 0px 0px 5px 5px;
 }
 .stake-display h2 {

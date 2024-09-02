@@ -73,25 +73,7 @@ button {
   background-color: rgb(243, 95, 95);
   font: bolder;
 }
-/*
-.next-button {
-  margin-top: 20px;
-  padding: 10px 20px;
-  font-size: 1rem;
-  color: white;
-  background-color: #4CAF50;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s;
-}
-.next-button:hover {
-  background-color: #45A049;
-}
-.next-button.disabled {
-  background-color: #9E9E9E;
-  cursor: not-allowed;
-} */
+
 .task-message {
   margin-top: 20px;
   color: red;
@@ -116,7 +98,6 @@ button {
   height: 100%;
 }
 .cancel-icon {
-  /* position: absolute; */
   top: 10px;
   right: 10px;
   font-size: 22px;
@@ -138,20 +119,11 @@ button {
 .popup {
   background-position: center;
   background-size: 100% 100%;
-  /* background-size: cover; */
   width: 90%;
-  /* height: 100%; */
   background-image: url("../../../assets/Task/task-bg.png");
   position: fixed;
-  /* top: 50%; */
-  /* width: 105%; */
   bottom: 17%;
-  /* left: 50%; */
-  /* transform: translate(-50%, -50%); */
-  /* background-color: black; */
   padding: 20px;
-  /* border: 2px solid #3F3F3F; */
-  /* box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); */
 }
 .epic {
   color: #fff;
@@ -175,7 +147,6 @@ button {
 }
 .popup-card-image {
   width: 40%;
-  /* height: 150px; */
   margin-top: -53px;
   margin-bottom: 30px;
 }

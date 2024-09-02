@@ -1,9 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { v4 as uuidv4 } from "uuid";
 import Carousel from "react-spring-3d-carousel";
-import boost2 from "../../assets/images/2xboost.png";
-import boost3 from "../../assets/images/3xboost.png";
-import boost5 from "../../assets/images/5xboost.png";
 import rightArrow from "../../assets/images/right-arrow.svg";
 import leftArrow from "../../assets/images/left-arrow.svg";
 import useUserInfo from "../../Hooks/useUserInfo";
@@ -24,25 +20,9 @@ const Boosters = () => {
 
   const [boosterSlides, setBoosterSlides] = useState([]);
 
-  // var userBoosters = [
-  //   "levelUp",
-  //   "levelUp",
-  //   "levelUp",
-  //   "tap",
-  //   "tap",
-  //   "2x",
-  //   "3x",
-  //   "5x",
-  // ];
-
   var bossters = { levelUp: 0, tap: 0, "2x": 0, "3x": 0, "5x": 0 };
 
-  var allSlides = [];
-
   useEffect(() => {
-    const mapBoosters = watchScreen?.boostersList?.map((item) => {
-      bossters[item] = bossters[item] + 1;
-    });
     setBooster(bossters);
   }, [watchScreen]);
 
@@ -53,13 +33,6 @@ const Boosters = () => {
     }));
     setBoosterSlides(slides);
   }, [boosters]);
-
-  const slides = [
-    {
-      key: 1,
-      content: <Card />,
-    },
-  ];
 
   return (
     <div

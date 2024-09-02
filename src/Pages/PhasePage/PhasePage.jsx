@@ -4,12 +4,9 @@ import logo from "../../assets/images/main-logo.svg";
 import "./PhasePage.css";
 import { weekRewards, stakeRewards } from "../../apis/user";
 import useUserInfo from "../../Hooks/useUserInfo";
-import { da } from "date-fns/locale";
-import { set } from "date-fns";
 
 const PhasePage = () => {
-  const { userDetails, watchScreen, updatewatchScreenInfo, updateUserInfo } =
-    useUserInfo();
+  const { userDetails } = useUserInfo();
   const [currentLevel, setCurrentLevel] = useState(
     userDetails?.userDetails?.currentPhase
   );
@@ -57,10 +54,6 @@ const PhasePage = () => {
   }, [stakeDetails, currentLevel]);
 
   useEffect(() => {
-    console.log(
-      JSON.stringify(currentStake?.rewardsForWeek) + "resresresresresres"
-    );
-
     const value = currentStake?.rewardsForWeek?.reduce((acc, item) => {
       return item.userStaking ? acc + item.totalRewards : acc;
     }, 0);

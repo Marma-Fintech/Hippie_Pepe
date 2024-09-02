@@ -1,24 +1,14 @@
 import React, { useEffect, useState } from "react";
 import "./ReferPage.css";
 import useUserInfo from "../../Hooks/useUserInfo";
-import PhaseDetails from "../PhaseDetails/PhaseDetails";
-import Arrow from "../../assets/images/arrow.gif";
-import Currency from "../../assets/images/currency.gif";
 import Invite from "../../assets/images/Invitefriends.png";
-import { shareOnMobile } from "react-mobile-share";
 import { myReferrel } from "../../apis/user";
-import axios from "axios";
-import { Base_Url } from "../../apis/baseurl";
 const ReferPage = () => {
-  const { userDetails, watchScreen, updatewatchScreenInfo, updateUserInfo } =
-    useUserInfo();
+  const { userDetails } = useUserInfo();
 
   const [referrals, setReferrals] = useState([]);
 
   const getMyReferralList = async () => {
-    const data = {
-      telegramId: String(userDetails?.userDetails?.telegramId),
-    };
     const referrals = await myReferrel(
       String(userDetails?.userDetails?.telegramId)
     );
@@ -76,11 +66,7 @@ const ReferPage = () => {
             <div className="col-8">
               <h2 className="refer-table text-color">My Referral</h2>
             </div>
-            <div className="col-4">
-              {/* <button type="button" class="btn-success claim">
-                Claim
-              </button> */}
-            </div>
+            <div className="col-4"></div>
           </div>
 
           <table className="table table-dark">

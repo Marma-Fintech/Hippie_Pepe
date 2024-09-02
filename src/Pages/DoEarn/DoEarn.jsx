@@ -1,8 +1,5 @@
 import React from "react";
 import "./DoEarn.css";
-// import DoEarnImg from "../../assets/images/doearn.png";
-import X from "../../assets/images/x.png";
-import Coin from "../../assets/images/coin.png";
 import earn from "../../assets/images/earn-txt.png";
 import twitter from "../../assets/images/twitter.svg";
 import logo from "../../assets/images/meme-logo.svg";
@@ -20,7 +17,6 @@ const DoEarn = () => {
           width: "100%",
           display: "flex",
           alignItems: "center",
-          // justifyContent: "center",
           marginTop: "7%",
           flexDirection: "column",
           pointerEvents: "all",

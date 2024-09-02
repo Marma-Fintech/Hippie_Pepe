@@ -58,7 +58,7 @@ body {
   top: 30px;
 }
 .carousel-button img {
-  width: 30px; /* Adjust as needed */
+  width: 30px;
   height: auto;
 }
 .carousel-button.next {
@@ -83,9 +83,7 @@ body {
 .cheap-stuff1 {
   background-image: url("../../assets/images/leaderbg.svg");
   width: 100%;
-  /* background: #212121; */
   padding: 8px;
-  /* border-radius: 5px; */
   background-position: center;
   background-repeat: no-repeat;
   background-size: 100% 100%;
@@ -95,9 +93,7 @@ body {
 .rankbg {
   background-image: url("../../assets/images/leaderrank.svg");
   width: 100%;
-  /* background: #212121; */
   padding: 13px;
-  /* border-radius: 5px; */
   background-position: center;
   background-repeat: no-repeat;
   background-size: 100% 100%;

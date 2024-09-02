@@ -19,31 +19,6 @@ const MarketPlace = () => {
   const [count, setCount] = useState(1);
   const [err, setErr] = useState("");
   const [isFirst, setIsFirst] = useState(false);
-  const twoxBooster = {
-    1: 12,
-    2: 24,
-    3: 36,
-    4: 48,
-    5: 60,
-    6: 72,
-    7: 84,
-    8: 96,
-    9: 108,
-    10: 120,
-  };
-
-  const threexBooster = {
-    1: 36,
-    2: 72,
-    3: 36,
-    4: 48,
-    5: 60,
-    6: 72,
-    7: 84,
-    8: 96,
-    9: 108,
-    10: 120,
-  };
 
   const handleClick1 = () => {
     setCount(count + 1);
@@ -58,7 +33,6 @@ const MarketPlace = () => {
   useEffect(() => {
     if (!isFirst && watchScreen?.updatedWatchPoints > 0) {
       setTotalReward(watchScreen?.updatedWatchPoints);
-      console.log(JSON.stringify(watchScreen) + "wawawawawaw");
       setIsFirst(true);
     }
   }, [watchScreen, isFirst]);
@@ -85,7 +59,6 @@ const MarketPlace = () => {
     getUserDetails(data1);
   }, []);
   const handleClick2 = () => {
-    // Counter state is decremented
     if (count === 1) {
     } else {
       setCount(count - 1);
@@ -95,7 +68,6 @@ const MarketPlace = () => {
   const getDetails = async (data) => {
     const userDetails = await UserDeatils(data);
     setTotalReward(userDetails.watchRewards);
-    console.log(userDetails.watchRewards);
     updateUserInfo((prev) => ({
       ...prev,
       userDetails: userDetails,
@@ -120,7 +92,6 @@ const MarketPlace = () => {
   };
 
   const purchaseCards = async () => {
-    // const result = Array.from({ length: count }, () => selected.booster);
     const data = {
       telegramId: userDetails?.userDetails?.telegramId,
       boosterPoints: String(selected.price * count),

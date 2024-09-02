@@ -14,20 +14,17 @@ import boosterText from "../assets/images/boostText.png";
 import menuIcon from "../assets/images/menuIcon.png";
 import referIcon from "../assets/images/referIcon.png";
 import porotta from "../assets/audio/videoplayback.m4a";
-
 import ReferPage from "./ReferPage/ReferPage";
 import Boosters from "../Pages/Boosters/Boosters";
 import ContinueText from "../assets/images/continue.svg";
 import switchOnTv from "../assets/images/switch-on.svg";
 
-import user, { UserDeatils } from "../apis/user";
+import { UserDeatils } from "../apis/user";
 import { addWatchSeconds } from "../apis/user";
 
 const Thememe = () => {
   const { userDetails, watchScreen, updatewatchScreenInfo, updateUserInfo } =
     useUserInfo();
-
-  const [current, Setcurrent] = useState("");
 
   const latestUserDetails = useRef(userDetails);
   const latestWatchScreen = useRef(watchScreen);
@@ -35,7 +32,6 @@ const Thememe = () => {
   useEffect(() => {
     latestUserDetails.current = userDetails;
     latestWatchScreen.current = watchScreen;
-    Setcurrent(userDetails.currentComponentText);
   }, [userDetails, watchScreen]);
 
   useEffect(() => {
@@ -57,7 +53,6 @@ const Thememe = () => {
         data = {
           name: userData?.first_name,
           telegramId: String(userData?.id),
-          // referredById:referredIdFromUrl
         };
       }
 
@@ -68,30 +63,14 @@ const Thememe = () => {
         telegramDetails: userData,
       }));
     }
-    // const data1 = {
-    //   name: "Karthikeyan",
-    //   telegramId: "ljiujzkjggfhjk",
-    // };
-    // getUserDetails(data1);
+    const data1 = {
+      name: "Karthikeyan",
+      telegramId: "ljiujzkjggfhjk",
+    };
+    getUserDetails(data1);
 
     // localStorage.clear();
   }, []);
-
-  // useEffect(() => {
-  //   if (latestWatchScreen?.current?.watchSec !== 0) {
-  //     var data = {};
-  //     if (watchScreen.booster) {
-  //     } else {
-  //       data = {
-  //         telegramId: userDetails?.userDetails?.telegramId,
-  //         userWatchSeconds: latestWatchScreen?.current?.watchSec,
-  //         boosterPoints: String(latestWatchScreen.current.tapPoints),
-  //         // boosters: [boosterRef.current],
-  //       };
-  //       updateWatchSecOnly(data);
-  //     }
-  //   }
-  // }, [userDetails]);
 
   const getUserDetails = async (data) => {
     const pointDetails = localStorage.getItem("pointDetails");
@@ -106,7 +85,6 @@ const Thememe = () => {
         boosterPoints: String(
           Number(parsedData?.tapPoints) + Number(parsedData?.boosterPoints)
         ),
-        // boosters: [],
       };
 
       if (parsedData?.booster[0]) {
@@ -156,7 +134,6 @@ const Thememe = () => {
   };
 
   const toogleMenu = () => {
-    // if (!latestUserDetails.current.isMenu) {
     updateUserInfo((prev) => ({
       ...prev,
       isPlay: false,
@@ -167,16 +144,6 @@ const Thememe = () => {
       isMenu: !latestUserDetails.current.isMenu,
       menuCount: latestUserDetails.current.menuCount + 1,
     }));
-    // } else {
-    //   updateUserInfo((prev) => ({
-    //     ...prev,
-    //     isPlay: false,
-    //     currentComponent: latestUserDetails.current.lastComponent,
-    //     currentComponentText: latestUserDetails.current.lastComponentText,
-    //     isMenu: !latestUserDetails.current.isMenu,
-    //     menuCount: latestUserDetails.current.menuCount + 1,
-    //   }));
-    // }
   };
 
   const goToThePage = (component, name) => {
@@ -241,7 +208,6 @@ const Thememe = () => {
     localStorage.setItem(
       "pointDetails",
       JSON.stringify({
-        // totalReward: totalRewardPoints,
         tapPoints: 0,
         watchSec: 0,
         boosterPoints: 0,
@@ -254,7 +220,6 @@ const Thememe = () => {
       booster: false,
       boosterSec: 0,
       boosterPoints: 0,
-      // boostersList: [],
       boosterDetails: {},
       watchSec: 0,
     }));
@@ -268,15 +233,9 @@ const Thememe = () => {
       booster: false,
       boosterSec: 0,
       boosterPoints: 0,
-      // boostersList: [],
       boosterDetails: {},
       watchSec: 0,
     }));
-    // const data1 = {
-    //   name: userDetails.userDetails.name,
-    //   telegramId: String(userDetails.userDetails?.telegramId),
-    // };
-    // getUserDetails(data1);
   };
 
   const addWatchSec = () => {
@@ -297,7 +256,6 @@ const Thememe = () => {
           telegramId: userDetails.userDetails.telegramId,
           userWatchSeconds: latestWatchScreen.current.watchSec,
           boosterPoints: String(latestWatchScreen.current.tapPoints),
-          // boosters: [boosterRef.current],
         };
       }
 
@@ -419,12 +377,6 @@ const Thememe = () => {
                 width: "60%",
                 marginBottom: "10px",
                 position: "relative",
-              }}
-              onClick={() => {
-                // if (userDetails?.userDetails.telegramId) {
-                //   // reclaimUserDetails();
-                //   goToThePage(Tv, "TVPage");
-                // }
               }}
             >
               <div
@@ -579,7 +531,6 @@ const Thememe = () => {
                       userDetails?.userDetails.telegramId &&
                       !watchScreen.booster
                     ) {
-                      // reclaimUserDetails();
                       goToThePage(Tv, "TVPage");
                     }
                   }}

@@ -1,8 +1,8 @@
 import React from "react";
 import "./task.css";
-import playacard from "../../assets/Task/pickacard.svg";
-import quizImg from "../../assets/Task/Quiz.svg";
-import wordscrambleImg from "../../assets/Task/word-scramble.svg";
+import playacard from "../../assets/Task/pickacard.png";
+import quizImg from "../../assets/Task/Quiz.png";
+import wordscrambleImg from "../../assets/Task/word-scramble.png";
 import useUserInfo from "../../Hooks/useUserInfo";
 import PickaWord from "./PickaWord/PickaWord";
 import quiz from "./QuizTask/QuizTask";

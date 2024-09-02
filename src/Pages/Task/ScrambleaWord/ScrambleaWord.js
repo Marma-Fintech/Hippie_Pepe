@@ -7,10 +7,8 @@ const ScrambleaWord = () => {
   const { userDetails, updateUserInfo } = useUserInfo();
   const [scrambleProgress, setScrambleProgress] = useState([]);
   const startDate = new Date("2024-08-29");
-  const endDate = new Date("2024-11-15"); // End date is 84 days after the start date
   const totalDays = 84; // Total days from startDate to endDate
   const daysInPhase = 7; // Number of days per phase
-  const totalPhases = 12; // Total number of phases
   const totalScramblesPerDay = 5;
 
   // Function to simulate the current day based on the start date
@@ -22,7 +20,6 @@ const ScrambleaWord = () => {
   };
   const simulatedDay = calculateSimulatedDay();
   const currentPhase = Math.ceil(simulatedDay / daysInPhase);
-  const currentDayInPhase = simulatedDay % daysInPhase || daysInPhase;
 
   useEffect(() => {
     if (simulatedDay > totalDays) {

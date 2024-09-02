@@ -20,6 +20,7 @@ import tapAudio from "../../assets/audio/tapSound.mp3";
 import { FaChevronRight } from "react-icons/fa";
 import clock from "../../assets/images/clock.svg";
 import LeaderBoard from "../LeaderBoard/LeaderBoard";
+import beatAudio from "../../assets/audio/MemetvAudio.mp3";
 
 const Tv = () => {
   const { userDetails, watchScreen, updatewatchScreenInfo, updateUserInfo } =
@@ -36,14 +37,39 @@ const Tv = () => {
 
   const [tapPoints, setTapPoints] = useState(0);
   const tapPointsRef = useRef(tapPoints);
-  const [boosterSec, setBoosterSec] = useState();
   const energy = useRef(5000);
   const [energyy, SetEnergy] = useState(5000);
-  const boosterRef = useRef(false);
   const [boosterPoints, setBoosterPoints] = useState(0);
   const boosterPointsRef = useRef(boosterPoints);
   const tapSound = new Audio(tapAudio);
 
+  const audioRef = useRef(new Audio(beatAudio));
+
+  useEffect(() => {
+    // Set the volume low
+    audioRef.current.volume = 0.1;
+    // Function to control audio based on visibility
+    const handleVisibilityChange = () => {
+      if (document.visibilityState === "hidden") {
+        audioRef.current.pause();
+      } else {
+        audioRef.current.play();
+      }
+    };
+    // Play audio when the component mounts
+    audioRef.current.play();
+    // Event listeners for tab changes and window close
+    document.addEventListener("visibilitychange", handleVisibilityChange);
+    window.addEventListener("beforeunload", () => audioRef.current.pause());
+    return () => {
+      // Cleanup listeners and pause audio when the component unmounts
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
+      window.removeEventListener("beforeunload", () =>
+        audioRef.current.pause()
+      );
+      audioRef.current.pause();
+    };
+  }, []);
   const level = {
     1: 500,
     2: 10000,
@@ -161,20 +187,6 @@ const Tv = () => {
     }));
   };
 
-  const getUserDetails = async (data) => {
-    const userDetails = await UserDeatils(data);
-
-    updateUserInfo((prev) => ({
-      ...prev,
-      userDetails,
-    }));
-
-    updatewatchScreenInfo((prev) => ({
-      ...prev,
-      boostersList: userDetails?.boosters,
-    }));
-  };
-
   const addWatchSecapi = async (data) => {
     const res = await addWatchSeconds(data);
     console.log(JSON.stringify(res) + "resresres");
@@ -203,11 +215,9 @@ const Tv = () => {
 
   const addWatchSecapiMarket = async (data) => {
     const res = await addWatchSeconds(data);
-    console.log(JSON.stringify(res) + "resresres");
     localStorage.setItem(
       "pointDetails",
       JSON.stringify({
-        // totalReward: totalRewardPoints,
         tapPoints: 0,
         watchSec: 0,
         boosterPoints: 0,
@@ -232,11 +242,9 @@ const Tv = () => {
 
   const addWatchSecapiTotal = async (data) => {
     const res = await addWatchSeconds(data);
-    console.log(JSON.stringify(res) + "resresres");
     localStorage.setItem(
       "pointDetails",
       JSON.stringify({
-        // totalReward: totalRewardPoints,
         tapPoints: 0,
         watchSec: 0,
         boosterPoints: 0,
@@ -264,11 +272,9 @@ const Tv = () => {
   const addWatchSecapiStake = async (data) => {
     const res = await addWatchSeconds(data);
 
-    console.log(JSON.stringify(res) + "resresres");
     localStorage.setItem(
       "pointDetails",
       JSON.stringify({
-        // totalReward: totalRewardPoints,
         tapPoints: 0,
         watchSec: 0,
         boosterPoints: 0,
@@ -357,6 +363,9 @@ const Tv = () => {
 
   const handleTap = (e) => {
     if (energy.current > 5) {
+      if (navigator.vibrate) {
+        navigator.vibrate(100);
+      }
       // Determine if the event is from a touch or mouse
       const isTouchEvent = e.type === "touchstart";
       // If it's a touch event, mark it as touch
@@ -378,12 +387,6 @@ const Tv = () => {
           boosterPointsRef.current = newBoosterPoints;
           return newBoosterPoints;
         });
-
-        // SetEnergy((prev) => {
-        //   const newEnergy = prev - num * touches.length;
-        //   energy.current = newEnergy;
-        //   return newEnergy;
-        // });
       } else {
         if (energyy > 0) {
           const totalPoints = Math.min(energyy, num * touches.length);
@@ -412,54 +415,6 @@ const Tv = () => {
       }, 1000);
     }
   };
-
-  // const handleTap = (e) => {
-  //   var num = 5;
-  //   if (watchScreen?.boosterDetails?.name === "tap" && watchScreen?.booster) {
-  //     num = 25;
-  //     setBoosterPoints((prevBoosterPoints) => {
-  //       const newBoosterPoints = prevBoosterPoints + num;
-  //       boosterPointsRef.current = newBoosterPoints;
-  //       return newBoosterPoints;
-  //     });
-  //   } else {
-  //     if (energyy > 0) {
-  //       if (energyy < num) {
-  //         setTapPoints((prevTapPoints) => {
-  //           const newTapPoints = prevTapPoints + energyy;
-  //           tapPointsRef.current = newTapPoints;
-  //           return newTapPoints;
-  //         });
-  //         SetEnergy((prev) => {
-  //           return 0;
-  //         });
-  //         energy.current = 0;
-  //       } else {
-  //         setTapPoints((prevTapPoints) => {
-  //           const newTapPoints = prevTapPoints + num;
-  //           tapPointsRef.current = newTapPoints;
-  //           return newTapPoints;
-  //         });
-  //         SetEnergy((prev) => {
-  //           return prev - num;
-  //         });
-  //         energy.current = energy.current - num;
-  //       }
-  //     }
-  //   }
-
-  //   const newAnimation = {
-  //     id: Date.now(),
-  //     x: e.clientX,
-  //     y: e.clientY,
-  //   };
-  //   setTapAnimations((prev) => [...prev, newAnimation]);
-  //   setTimeout(() => {
-  //     setTapAnimations((prev) =>
-  //       prev.filter((animation) => animation.id !== newAnimation.id)
-  //     );
-  //   }, 1000);
-  // };
 
   return (
     <div
@@ -603,8 +558,6 @@ const Tv = () => {
                   ),
                 };
                 addWatchSecapiTotal(data);
-
-                // goToThePage(TotalPoints, "TotalPoints");
               }
             }}
           >
@@ -655,7 +608,6 @@ const Tv = () => {
                       className="streak booster"
                       style={{
                         display: "flex",
-                        // alignItems: "center",
                         justifyContent: "center",
                       }}
                     >
@@ -683,7 +635,12 @@ const Tv = () => {
           </div>
         </div>
       </div>
-      <div className="row">
+      <div
+        className="row"
+        style={{ height: "500px" }}
+        onTouchStart={handleTap}
+        onMouseDown={handleTap}
+      >
         <div className="col-12">
           <div className="floor"></div>
           <img
@@ -692,8 +649,6 @@ const Tv = () => {
             width="328"
             height="272"
             alt="8-bit dancing Karateka guy"
-            onTouchStart={handleTap}
-            onMouseDown={handleTap}
           />
           {tapAnimations.map((animation) => (
             <div

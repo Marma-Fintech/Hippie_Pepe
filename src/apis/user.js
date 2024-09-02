@@ -109,6 +109,143 @@ export const getPopularUser = async (telegramId) => {
   }
 };
 
+export const getUserStreaks = async (telegramId) => {
+  try {
+    const response = await axios.get(
+      `${Base_Url.base_url}/userStreaks/${telegramId}`
+    );
+    console.log(response.data);
+    return response.data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+export const calculateStreak = async (data) => {
+  try {
+    // console.log(data + "datadatadatadatadata");
+    const response = await axios.post(`${Base_Url.base_url}/streak`, data);
+    return response.data;
+  } catch (err) {}
+};
+export const calculateStreakOfStreak = async (data) => {
+  try {
+    // console.log(data + "datadatadatadatadata");
+    const response = await axios.post(`${Base_Url.base_url}/streakOfStreak`, {
+      telegramId: data,
+    });
+    return response.data;
+  } catch (err) {
+    if (err.response) {
+      // Extract the backend-defined error message
+      return err.response.data;
+    } else {
+      return err;
+    }
+  }
+};
+export const loginStreakRewardClaim = async (data) => {
+  try {
+    // console.log(data + "datadatadatadatadata");
+    const response = await axios.post(
+      `${Base_Url.base_url}/loginStreakRewardClaim`,
+      data
+    );
+    return response.data;
+  } catch (err) {
+    if (err.response) {
+      // Extract the backend-defined error message
+      return err.response.data;
+    } else {
+      return err;
+    }
+  }
+};
+export const watchStreakRewardClaim = async (data) => {
+  try {
+    // console.log(data + "datadatadatadatadata");
+    const response = await axios.post(
+      `${Base_Url.base_url}/watchStreakRewardClaim`,
+      data
+    );
+    return response.data;
+  } catch (err) {
+    if (err.response) {
+      // Extract the backend-defined error message
+      return err.response.data;
+    } else {
+      return err;
+    }
+  }
+};
+export const referStreakRewardClaim = async (data) => {
+  try {
+    // console.log(data + "datadatadatadatadata");
+    const response = await axios.post(
+      `${Base_Url.base_url}/referStreakRewardClaim`,
+      data
+    );
+    return response.data;
+  } catch (err) {
+    if (err.response) {
+      // Extract the backend-defined error message
+      return err.response.data;
+    } else {
+      return err;
+    }
+  }
+};
+export const taskStreakRewardClaim = async (data) => {
+  try {
+    // console.log(data + "datadatadatadatadata");
+    const response = await axios.post(
+      `${Base_Url.base_url}/taskStreakRewardClaim`,
+      data
+    );
+    return response.data;
+  } catch (err) {
+    if (err.response) {
+      // Extract the backend-defined error message
+      return err.response.data;
+    } else {
+      return err;
+    }
+  }
+};
+export const multiStreakRewardClaim = async (data) => {
+  try {
+    // console.log(data + "datadatadatadatadata");
+    const response = await axios.post(
+      `${Base_Url.base_url}/multiStreakRewardClaim`,
+      data
+    );
+    return response.data;
+  } catch (err) {
+    if (err.response) {
+      // Extract the backend-defined error message
+      return err.response.data;
+    } else {
+      return err;
+    }
+  }
+};
+export const streakOfStreakRewardClaim = async (data) => {
+  try {
+    // console.log(data + "datadatadatadatadata");
+    const response = await axios.post(
+      `${Base_Url.base_url}/streakOfStreakRewardClaim`,
+      data
+    );
+    return response.data;
+  } catch (err) {
+    if (err.response) {
+      // Extract the backend-defined error message
+      return err.response.data;
+    } else {
+      return err;
+    }
+  }
+};
+
 export default {
   UserDeatils,
   addWatchSeconds,
@@ -119,4 +256,13 @@ export default {
   purchaseBooster,
   weekRewards,
   getPopularUser,
+  getUserStreaks,
+  calculateStreak,
+  calculateStreakOfStreak,
+  loginStreakRewardClaim,
+  watchStreakRewardClaim,
+  referStreakRewardClaim,
+  taskStreakRewardClaim,
+  multiStreakRewardClaim,
+  streakOfStreakRewardClaim,
 };

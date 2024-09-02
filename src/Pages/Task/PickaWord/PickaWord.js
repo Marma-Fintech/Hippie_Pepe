@@ -56,7 +56,6 @@ const loadResults = () => {
 };
 const saveResults = async (results) => {
   localStorage.setItem("gameResults", JSON.stringify(results));
-  console.log("Results saved:", results);
 };
 const loadPlaysRemaining = () => {
   const savedPlays = localStorage.getItem("playsRemaining");
@@ -101,9 +100,7 @@ const PickaWord = () => {
   const [showPopup, setShowPopup] = useState(false);
   const [selectedCard, setSelectedCard] = useState(null);
   const [randomContents, setRandomContents] = useState(generateCardContents());
-  // useEffect(() => {
-  //   savePlaysRemaining(playsRemaining); // Save playsRemaining whenever it changes
-  // }, [playsRemaining]);
+
   useEffect(() => {
     savePurchasesRemaining(purchasesRemaining); // Save purchasesRemaining whenever it changes
   }, [purchasesRemaining]);
@@ -174,28 +171,6 @@ const PickaWord = () => {
     setShowPopup(false);
     setSelectedCard(null);
   };
-  // const handlePlayAgain = async () => {
-  //   if (purchasesRemaining <= 0) {
-  //     setMessage("Come back tomorrow for more plays!");
-  //     return;
-  //   }
-  //   setCards(Array(9).fill(null));
-  //   setSelected(false);
-  //   setPoints(0);
-  //   setMessage("");
-  //   setRandomContents(generateCardContents());
-  //   setPlaysRemaining(1); // Set playsRemaining to 1 after purchase
-  //   setShowPopup(false);
-  //   setSelectedCard(null);
-  //   let totalPoints = await getUserDetails(userDetails.userDetails.telegramId);
-  //   const res = await purchaseGameCards({
-  //     telegramId: String(userDetails.userDetails.telegramId),
-  //     gamePoints: String(500),
-  //   });
-
-  //   setPurchasesRemaining((prev) => prev - 1); // Deduct a purchase
-  //   console.log(totalPoints);
-  // };
 
   const handlePlayAgain = async () => {
     if (purchasesRemaining <= 0) {

@@ -1,9 +1,6 @@
 import React from "react";
 import "./Token.css";
 import LogoImg from "../../components/logoImg/logoImg";
-import twitter from "../../assets/images/twitter.png";
-import youtube from "../../assets/images/yt.png";
-import telegram from "../../assets/images/telegram.png";
 
 const Token = () => {
   return (
@@ -26,7 +23,7 @@ const Token = () => {
             className="Tokenintro"
             style={{ width: "100%", paddingLeft: "10px" }}
           >
-            <p style={{ textAlign: "start", fontSize:"15px" }}>Token supply</p>
+            <p style={{ textAlign: "start", fontSize: "15px" }}>Token supply</p>
             <p className="tokenstyle" style={{ textAlign: "start" }}>
               999,999,999,999,999 HPTV
             </p>
