@@ -11,7 +11,6 @@ function Card(props) {
   const { userDetails, watchScreen, updatewatchScreenInfo, updateUserInfo } =
     useUserInfo();
   const { value, key } = props.item;
-
   const images = {
     levelUp: levelupBoostImg,
     tap: tapBoostImg,

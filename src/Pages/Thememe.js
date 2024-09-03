@@ -528,7 +528,7 @@ const Thememe = () => {
                   }}
                   onClick={() => {
                     if (
-                      userDetails?.userDetails.telegramId &&
+                      userDetails?.userDetails?.telegramId &&
                       !watchScreen.booster
                     ) {
                       goToThePage(Tv, "TVPage");

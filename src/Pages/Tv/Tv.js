@@ -283,7 +283,7 @@ const Tv = () => {
     );
     updatewatchScreenInfo((prev) => ({
       ...prev,
-      totalReward: res.totalRewards ? res.totalRewards : 0,
+      totalReward: res?.totalRewards ? res?.totalRewards : 0,
       tapPoints: 0,
       booster: false,
       boosterSec: 0,
@@ -300,7 +300,7 @@ const Tv = () => {
   useEffect(() => {
     Object.keys(level).forEach((lvl) => {
       if (
-        Number(watchScreen.totalReward + secs + tapPoints + boosterPoints) >=
+        Number(watchScreen?.totalReward + secs + tapPoints + boosterPoints) >=
         Number(level[lvl])
       ) {
         setCurrentLevel(Number(lvl));
@@ -316,7 +316,7 @@ const Tv = () => {
       var data = {};
       if (watchScreen.booster) {
         data = {
-          telegramId: userDetails.userDetails.telegramId,
+          telegramId: userDetails.userDetails?.telegramId,
           userWatchSeconds: watchScreen.watchSec + secsRef.current,
           boosterPoints: String(
             watchScreen.tapPoints +
@@ -328,7 +328,7 @@ const Tv = () => {
         };
       } else {
         data = {
-          telegramId: userDetails.userDetails.telegramId,
+          telegramId: userDetails.userDetails?.telegramId,
           userWatchSeconds: watchScreen.watchSec + secsRef.current,
           boosterPoints: String(
             watchScreen.tapPoints +
