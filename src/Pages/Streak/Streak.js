@@ -372,7 +372,7 @@ const Streak = () => {
             <div class="scrolling-wrapper row flex-row flex-nowrap">
               <div class="col-4">
                 <div class="card card-block card-1">
-                  <button
+                  <button className="btn-none"
                     onClick={() => {
                       dayCheck(1);
                     }}
@@ -385,7 +385,7 @@ const Streak = () => {
               </div>
               <div class="col-4">
                 <div class="card card-block card-2">
-                  <button
+                  <button className="btn-none"
                     onClick={() => {
                       dayCheck(2);
                     }}
@@ -399,7 +399,7 @@ const Streak = () => {
               <div class="col-4">
                 <div class="card card-block card-3">
                   {" "}
-                  <button
+                  <button className="btn-none"
                     onClick={() => {
                       dayCheck(3);
                     }}
@@ -413,7 +413,7 @@ const Streak = () => {
               <div class="col-4">
                 <div class="card card-block card-4">
                   {" "}
-                  <button
+                  <button className="btn-none"
                     onClick={() => {
                       dayCheck(4);
                     }}
@@ -427,7 +427,7 @@ const Streak = () => {
               <div class="col-4">
                 <div class="card card-block card-5">
                   {" "}
-                  <button
+                  <button className="btn-none"
                     onClick={() => {
                       dayCheck(5);
                     }}
@@ -440,7 +440,7 @@ const Streak = () => {
               </div>
               <div class="col-4">
                 <div class="card card-block card-6">
-                  <button
+                  <button className="btn-none"
                     onClick={() => {
                       dayCheck(6);
                     }}
@@ -453,7 +453,7 @@ const Streak = () => {
               </div>
               <div class="col-4">
                 <div class="card card-block card-7">
-                  <button
+                  <button className="btn-none"
                     onClick={() => {
                       dayCheck(7);
                     }}
@@ -632,7 +632,7 @@ const Streak = () => {
                   : claimedMultiDays[normalDay - 1]
                   ? `+${multiStreakRewardArray[day - 1]}`
                   : `+${multiStreakReward}`}{" "}
-              </p>
+              </p>  
             </div>
             <div className="col-3">
               <button
@@ -653,7 +653,7 @@ const Streak = () => {
           </div>
           <div class="invite-fri">
             {/* <h2 >STREAK OF STEAK</h2> */}
-            <button
+            <button className="btn-none sos"
               // className={`stuff-claim ${claimedMultiDays[normalDay - 1] ? "claimed" : ""}`}
               onClick={handleSOSClaimClick}
               style={{ cursor: "pointer" }}
