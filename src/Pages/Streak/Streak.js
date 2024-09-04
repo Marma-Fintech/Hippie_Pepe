@@ -57,6 +57,13 @@ const Streak = () => {
 
   const [startDay, setStartDay] = useState(0);
 
+  const referStreakRewardArray = [1000, 2000, 3000, 5000, 10000, 15000, 25000];
+  const login_watch_taskStreakRewardArray = [
+    100, 200, 400, 800, 1600, 3200, 6400,
+  ];
+
+  const multiStreakRewardArray = [1300, 2100, 4200, 8400, 16800, 33600, 67200];
+
   //function to check day cnd change the day, if they start in a middle day
   const dayCheck = async (n) => {
     setNormalDay(n);
@@ -149,7 +156,7 @@ const Streak = () => {
 
   useEffect(() => {
     calculateReward();
-  }, []);
+  }, [day]);
 
   const handleLoginClaimClick = async () => {
     setLoginStreakReward(
@@ -368,7 +375,6 @@ const Streak = () => {
                   <button
                     onClick={() => {
                       dayCheck(1);
-                      calculateReward();
                     }}
                     disabled={startDay > 1 ? true : false}
                   >
@@ -382,7 +388,6 @@ const Streak = () => {
                   <button
                     onClick={() => {
                       dayCheck(2);
-                      calculateReward();
                     }}
                     disabled={startDay > 2 ? true : false}
                   >
@@ -397,7 +402,6 @@ const Streak = () => {
                   <button
                     onClick={() => {
                       dayCheck(3);
-                      calculateReward();
                     }}
                     disabled={startDay > 3 ? true : false}
                   >
@@ -412,7 +416,6 @@ const Streak = () => {
                   <button
                     onClick={() => {
                       dayCheck(4);
-                      calculateReward();
                     }}
                     disabled={startDay > 4 ? true : false}
                   >
@@ -427,7 +430,6 @@ const Streak = () => {
                   <button
                     onClick={() => {
                       dayCheck(5);
-                      calculateReward();
                     }}
                     disabled={startDay > 5 ? true : false}
                   >
@@ -441,7 +443,6 @@ const Streak = () => {
                   <button
                     onClick={() => {
                       dayCheck(6);
-                      calculateReward();
                     }}
                     disabled={startDay > 6 ? true : false}
                   >
@@ -455,7 +456,6 @@ const Streak = () => {
                   <button
                     onClick={() => {
                       dayCheck(7);
-                      calculateReward();
                     }}
                     disabled={startDay > 7 ? true : false}
                   >
@@ -481,8 +481,8 @@ const Streak = () => {
                 {loginStreakReward === undefined
                   ? "0"
                   : claimedLoginDays[normalDay - 1]
-                  ? "0"
-                  : +loginStreakReward}{" "}
+                  ? `+${login_watch_taskStreakRewardArray[day - 1]}`
+                  : `+${loginStreakReward}`}{" "}
               </p>
             </div>
             <div className="col-3">
@@ -517,8 +517,8 @@ const Streak = () => {
                 {watchStreakReward === undefined
                   ? "0"
                   : claimedWatchDays[normalDay - 1]
-                  ? "0"
-                  : +watchStreakReward}{" "}
+                  ? `+${login_watch_taskStreakRewardArray[day - 1]}`
+                  : `+${watchStreakReward}`}{" "}
               </p>
             </div>
             <div className="col-3">
@@ -554,8 +554,8 @@ const Streak = () => {
                 {referStreakReward === undefined
                   ? "0"
                   : claimedReferDays[normalDay - 1]
-                  ? "0"
-                  : +referStreakReward}{" "}
+                  ? `+${referStreakRewardArray[day - 1]}`
+                  : `+${referStreakReward}`}{" "}
               </p>
             </div>
             <div className="col-3">
@@ -593,8 +593,8 @@ const Streak = () => {
                 {taskStreakReward === undefined
                   ? "0"
                   : claimedTaskDays[normalDay - 1]
-                  ? "0"
-                  : +taskStreakReward}{" "}
+                  ? `+${login_watch_taskStreakRewardArray[day - 1]}`
+                  : `+${taskStreakReward}`}{" "}
               </p>
             </div>
             <div className="col-3">
@@ -630,8 +630,8 @@ const Streak = () => {
                 {multiStreakReward === undefined
                   ? "0"
                   : claimedMultiDays[normalDay - 1]
-                  ? "0"
-                  : +multiStreakReward}{" "}
+                  ? `+${multiStreakRewardArray[day - 1]}`
+                  : `+${multiStreakReward}`}{" "}
               </p>
             </div>
             <div className="col-3">
