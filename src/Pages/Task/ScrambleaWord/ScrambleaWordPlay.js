@@ -1497,6 +1497,7 @@ const ScrambleaWordPlay = ({ day }) => {
   const [showAnswer, setShowAnswer] = useState(false);
   const [chancesOver, setChancesOver] = useState(false);
   const [showCompletionPopup, setShowCompletionPopup] = useState(false);
+
   useEffect(() => {
     const savedScrambleIndex =
       parseInt(localStorage.getItem(`scrambleIndex_day${day}`)) || 0;
@@ -1504,6 +1505,7 @@ const ScrambleaWordPlay = ({ day }) => {
     const savedPoints = parseInt(localStorage.getItem(`points_day${day}`)) || 0;
     setPoints(savedPoints);
   }, [day]);
+
   useEffect(() => {
     if (scrambleIndex >= 5) {
       setChancesOver(true);
@@ -1514,6 +1516,7 @@ const ScrambleaWordPlay = ({ day }) => {
     }
     localStorage.setItem(`points_day${day}`, points);
   }, [scrambleIndex, points, day]);
+
   const handleLetterClick = (letter, index) => {
     if (isChecked || chancesOver) return;
     if (disabledLetters.includes(index)) {
@@ -1533,6 +1536,7 @@ const ScrambleaWordPlay = ({ day }) => {
       setInputValue(inputValue + letter);
     }
   };
+
   const checkWord = async () => {
     if (chancesOver) return;
     var gamePoints;
@@ -1542,7 +1546,7 @@ const ScrambleaWordPlay = ({ day }) => {
       gamePoints = 2500;
       setPoints(newPoints);
       setMessage("Correct! You earned 2500 points.");
-      setMessageColor("green");
+      setMessageColor("grey");
       setShowAnswer(false);
     } else {
       gamePoints = 500;
@@ -1560,8 +1564,19 @@ const ScrambleaWordPlay = ({ day }) => {
     };
 
     await userGameRewards(apiData);
+
+    if (scrambleIndex >= 5) {
+      setChancesOver(true);
+      setShowCompletionPopup(true); // Trigger the completion pop-up
+      localStorage.setItem(`scrambleIndex_day${day}`, 5);
+    } else {
+      localStorage.setItem(`scrambleIndex_day${day}`, scrambleIndex + 1);
+    }
+    localStorage.setItem(`points_day${day}`, points);
   };
+
   const nextScramble = () => {
+    var gamePoints;
     if (!isChecked) {
       setMessage("Please check the word first.");
       return;
@@ -1572,6 +1587,7 @@ const ScrambleaWordPlay = ({ day }) => {
       localStorage.setItem(`scrambleIndex_day${day}`, 5);
       return;
     }
+
     setSelectedLetters([]);
     setDisabledLetters([]);
     setInputValue("");
@@ -1580,6 +1596,7 @@ const ScrambleaWordPlay = ({ day }) => {
     setMessage("");
     setShowAnswer(false);
   };
+
   return (
     <div className="quiz-play-task">
       <div className="ScrambleaWordPlay">
