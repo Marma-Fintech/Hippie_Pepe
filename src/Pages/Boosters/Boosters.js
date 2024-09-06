@@ -46,7 +46,7 @@ const Boosters = () => {
       bossters[item] = bossters[item] + 1;
     });
     setBooster(bossters);
-  }, []);
+  }, [watchScreen]);
 
   useEffect(() => {
     const slides = Object.entries(boosters).map(([key, value], index) => ({

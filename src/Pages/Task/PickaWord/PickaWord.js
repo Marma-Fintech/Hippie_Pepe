@@ -64,6 +64,10 @@ const loadPlaysRemaining = () => {
   if (lastPlayDate !== today) {
     return 5; // Reset to 5 if a new day
   }
+  console.log(
+    JSON.stringify(savedPlays > 1) + "savedPlayssavedPlayssavedPlays"
+  );
+
   return savedPlays ? JSON.parse(savedPlays) : 5;
 };
 const savePlaysRemaining = (remaining) => {
@@ -78,6 +82,8 @@ const loadPurchasesRemaining = () => {
   if (lastPurchaseDate !== today) {
     return 5; // Reset to 5 if a new day
   }
+
+  console.log(savedPurchases + "savedPurchasessavedPurchases");
   return savedPurchases ? JSON.parse(savedPurchases) : 5;
 };
 const savePurchasesRemaining = (remaining) => {
@@ -178,6 +184,16 @@ const PickaWord = () => {
       return;
     }
 
+    const res = await purchaseGameCards({
+      telegramId: String(userDetails.userDetails.telegramId),
+      gamePoints: String(500),
+    });
+    if (res === "Not enough points available") {
+      setMessage("Not enough points available");
+      setShowPopup(false);
+      return;
+    }
+
     // Deduct the purchase first to ensure it's done before anything else
     setPurchasesRemaining((prev) => prev - 1); // Deduct a purchase
     setPlaysRemaining(1); // Set playsRemaining to 1 after purchase
@@ -186,11 +202,6 @@ const PickaWord = () => {
     savePlaysRemaining(1);
 
     // Fetch user details and make the purchase
-    let totalPoints = await getUserDetails(userDetails.userDetails.telegramId);
-    const res = await purchaseGameCards({
-      telegramId: String(userDetails.userDetails.telegramId),
-      gamePoints: String(500),
-    });
 
     // Reset the game state
     setCards(Array(9).fill(null));
@@ -201,7 +212,7 @@ const PickaWord = () => {
     setShowPopup(false);
     setSelectedCard(null);
 
-    console.log("totalPoints", totalPoints);
+    // console.log("totalPoints", totalPoints);
     console.log("Remaining purchases:", purchasesRemaining - 1);
   };
 
@@ -230,7 +241,9 @@ const PickaWord = () => {
             key={index}
             className={`card ${card !== null ? "flipped" : ""}`}
             onClick={
-              purchasesRemaining === 0 ? null : () => handleCardClick(index)
+              purchasesRemaining === 0 && playsRemaining === 0
+                ? null
+                : () => handleCardClick(index)
             }
           >
             <div className="card-inner">
@@ -246,8 +259,10 @@ const PickaWord = () => {
           </div>
         ))}
       </div>
-      {purchasesRemaining === 0 ? (
+      {purchasesRemaining === 0 && playsRemaining === 0 ? (
         <h5 className="chancesleft">Come back tomorrow</h5>
+      ) : message === "Not enough points available" ? (
+        <h5 className="chancesleft">Not enough points available</h5>
       ) : (
         <h5 className="chancesleft">
           YOU HAVE {playsRemaining}/5 CHANCES LEFT NOW
@@ -308,9 +323,16 @@ const PickaWord = () => {
                     </div>
                   </div>
                 </div>
-                <button className="btn-reward" onClick={handlePlayAgain}>
-                  500 Coins
-                </button>
+                {purchasesRemaining !== 0 ? (
+                  <button
+                    className="btn-reward"
+                    onClick={() => {
+                      handlePlayAgain();
+                    }}
+                  >
+                    500 Coins
+                  </button>
+                ) : null}
               </>
             )}
           </div>

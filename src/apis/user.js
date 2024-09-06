@@ -47,7 +47,7 @@ export const purchaseGameCards = async (data) => {
     );
     return response.data.user;
   } catch (err) {
-    console.log(err);
+    return err.response.data.message;
   }
 };
 
@@ -122,14 +122,12 @@ export const getUserStreaks = async (telegramId) => {
 };
 export const calculateStreak = async (data) => {
   try {
-    // console.log(data + "datadatadatadatadata");
     const response = await axios.post(`${Base_Url.base_url}/streak`, data);
     return response.data;
   } catch (err) {}
 };
 export const calculateStreakOfStreak = async (data) => {
   try {
-    // console.log(data + "datadatadatadatadata");
     const response = await axios.post(`${Base_Url.base_url}/streakOfStreak`, {
       telegramId: data,
     });
@@ -145,7 +143,6 @@ export const calculateStreakOfStreak = async (data) => {
 };
 export const loginStreakRewardClaim = async (data) => {
   try {
-    // console.log(data + "datadatadatadatadata");
     const response = await axios.post(
       `${Base_Url.base_url}/loginStreakRewardClaim`,
       data
@@ -162,7 +159,6 @@ export const loginStreakRewardClaim = async (data) => {
 };
 export const watchStreakRewardClaim = async (data) => {
   try {
-    // console.log(data + "datadatadatadatadata");
     const response = await axios.post(
       `${Base_Url.base_url}/watchStreakRewardClaim`,
       data
@@ -179,7 +175,6 @@ export const watchStreakRewardClaim = async (data) => {
 };
 export const referStreakRewardClaim = async (data) => {
   try {
-    // console.log(data + "datadatadatadatadata");
     const response = await axios.post(
       `${Base_Url.base_url}/referStreakRewardClaim`,
       data
@@ -196,7 +191,6 @@ export const referStreakRewardClaim = async (data) => {
 };
 export const taskStreakRewardClaim = async (data) => {
   try {
-    // console.log(data + "datadatadatadatadata");
     const response = await axios.post(
       `${Base_Url.base_url}/taskStreakRewardClaim`,
       data
@@ -213,7 +207,6 @@ export const taskStreakRewardClaim = async (data) => {
 };
 export const multiStreakRewardClaim = async (data) => {
   try {
-    // console.log(data + "datadatadatadatadata");
     const response = await axios.post(
       `${Base_Url.base_url}/multiStreakRewardClaim`,
       data
@@ -230,7 +223,6 @@ export const multiStreakRewardClaim = async (data) => {
 };
 export const streakOfStreakRewardClaim = async (data) => {
   try {
-    // console.log(data + "datadatadatadatadata");
     const response = await axios.post(
       `${Base_Url.base_url}/streakOfStreakRewardClaim`,
       data

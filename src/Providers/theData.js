@@ -18,6 +18,7 @@ const INITIAL_USER_STATE = {
     refererCount: 0,
     booster: false,
     boosterSeconds: 0,
+    selectedDay: 1,
   },
 };
 

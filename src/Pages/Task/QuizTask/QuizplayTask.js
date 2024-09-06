@@ -299,7 +299,44 @@ const QuizPlayTask = () => {
   const [quizComplete, setQuizComplete] = useState(false);
 
   const today = useRef(startOfDay(new Date()));
-  const baseDate = useRef(startOfDay(new Date("2024-08-10")));
+  const baseDate = useRef(startOfDay(new Date("2024-08-27")));
+
+  const startDate = new Date("2024-08-27");
+  const totalDays = 84; // Total days from startDate to endDate
+  const daysInPhase = 7; // Number of days per phase
+  const totalQuizzesPerDay = 5;
+  const [quizProgress, setQuizProgress] = useState([]);
+
+  // Function to simulate the current day based on the start date
+  const calculateSimulatedDay = () => {
+    const today = new Date(); // This will be used to simulate the current day
+    const diffTime = Math.abs(today - startDate);
+    const simulatedDay = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+    return simulatedDay > 0 ? simulatedDay : 1; // Ensure that Day 1 is correctly set
+  };
+  const simulatedDay = calculateSimulatedDay();
+  const currentPhase = Math.ceil(simulatedDay / daysInPhase);
+
+  useEffect(() => {
+    if (simulatedDay > totalDays) {
+      setQuizProgress([]);
+    } else {
+      const progress = Array.from({ length: daysInPhase }, (_, i) => {
+        const day = (currentPhase - 1) * daysInPhase + i + 1;
+        const completedIndex =
+          parseInt(localStorage.getItem(`quizIndex_day${day}`)) || 0;
+        const quizzesRemaining = totalQuizzesPerDay - completedIndex;
+        if (day <= simulatedDay && quizzesRemaining > 0) {
+          return ` Play Game ${quizzesRemaining}/5 `;
+        } else if (completedIndex >= totalQuizzesPerDay) {
+          return "Completed";
+        } else {
+          return "Locked";
+        }
+      });
+      setQuizProgress(progress);
+    }
+  }, [currentPhase, simulatedDay]);
 
   useEffect(() => {
     const initializeQuiz = () => {
@@ -315,10 +352,10 @@ const QuizPlayTask = () => {
 
       const startIndex = (currentCycle - 1) * 35 + (selectedDay - 1) * 5;
       const storedResult = localStorage.getItem(
-        `quizResult_Day_${selectedDay}_Cycle_${currentCycle}`
+        `quizResult_Day_${selectedDay}_Cycle_${currentPhase}`
       );
       var data = JSON.parse(storedResult);
-
+      console.log(JSON.stringify(data) + "dsdadada");
       if (data?.remain === 0) {
         setQuizComplete(true);
       } else {
@@ -334,18 +371,18 @@ const QuizPlayTask = () => {
     initializeQuiz();
   }, [selectedDay, currentCycle]);
 
-  const handleAnswerOptionClick = (option) => {
+  const handleAnswerOptionClick = async (option) => {
     if (!answered) {
       const result = {
         telegramId: String(userDetails.userDetails?.telegramId),
         date: format(today.current, "yyyy-MM-dd"),
         gamePoints: String(score),
-        completed: false,
+        completed: 5 - (currentQuestionIndex + 1) === 0 ? true : false,
         remain: 5 - (currentQuestionIndex + 1),
       };
 
       localStorage.setItem(
-        `quizResult_Day_${selectedDay}_Cycle_${currentCycle}`,
+        `quizResult_Day_${selectedDay}_Cycle_${currentPhase}`,
         JSON.stringify(result)
       );
       setSelectedOption(option);
@@ -354,6 +391,13 @@ const QuizPlayTask = () => {
       const pointsAwarded = isCorrect ? 1000 : 500;
       setScore((prevScore) => prevScore + pointsAwarded);
       setAnswered(true);
+
+      const apiData = {
+        telegramId: String(userDetails?.userDetails?.telegramId),
+        gamePoints: String(pointsAwarded),
+      };
+      console.log(JSON.stringify(userDetails) + "gfdsdfghjhgfdgh");
+      await userGameRewards(apiData);
     }
   };
 
@@ -364,24 +408,24 @@ const QuizPlayTask = () => {
       setAnswered(false);
     } else {
       setShowScore(true);
-      const result = {
-        telegramId: String(userDetails.userDetails?.telegramId),
-        date: format(today.current, "yyyy-MM-dd"),
-        gamePoints: String(score),
-        completed: true,
-      };
+      // const result = {
+      //   telegramId: String(userDetails.userDetails?.telegramId),
+      //   date: format(today.current, "yyyy-MM-dd"),
+      //   gamePoints: String(score),
+      //   completed: true,
+      // };
 
-      localStorage.setItem(
-        `quizResult_Day_${selectedDay}_Cycle_${currentCycle}`,
-        JSON.stringify(result)
-      );
+      // localStorage.setItem(
+      //   `quizResult_Day_${selectedDay}_Cycle_${currentCycle}`,
+      //   JSON.stringify(result)
+      // );
 
-      const apiData = {
-        telegramId: String(userDetails.userDetails?.telegramId),
-        gamePoints: String(score),
-      };
-
-      await userGameRewards(apiData);
+      // const apiData = {
+      //   telegramId: String(userDetails?.userDetails?.telegramId),
+      //   gamePoints: String(score),
+      // };
+      // console.log(JSON.stringify(userDetails) + "gfdsdfghjhgfdgh");
+      // await userGameRewards(apiData);
 
       const completedDays =
         JSON.parse(localStorage.getItem("completedDays")) || [];

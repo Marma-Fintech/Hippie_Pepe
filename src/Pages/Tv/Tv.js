@@ -47,6 +47,7 @@ const Tv = () => {
 
   useEffect(() => {
     // Set the volume low
+    audioRef.current.loop = true;
     audioRef.current.volume = 0.1;
     // Function to control audio based on visibility
     const handleVisibilityChange = () => {

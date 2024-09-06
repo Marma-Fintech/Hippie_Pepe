@@ -23,6 +23,8 @@ import { UserDeatils } from "../apis/user";
 import { addWatchSeconds } from "../apis/user";
 
 const Thememe = () => {
+  console.log(JSON.stringify(new Date()) + "jhfsfgdfhjkj");
+
   const { userDetails, watchScreen, updatewatchScreenInfo, updateUserInfo } =
     useUserInfo();
 
@@ -43,7 +45,8 @@ const Thememe = () => {
 
     if (userData) {
       var data;
-      if (referredIdFromUrl) {
+      console.log(typeof referredIdFromUrl, referredIdFromUrl + "jgjhhfn");
+      if (referredIdFromUrl && referredIdFromUrl !== "undefined") {
         data = {
           name: userData?.first_name,
           telegramId: String(userData?.id),
@@ -63,11 +66,11 @@ const Thememe = () => {
         telegramDetails: userData,
       }));
     }
-    const data1 = {
-      name: "Karthikeyan",
-      telegramId: "ljiujzkjggfhjk",
-    };
-    getUserDetails(data1);
+    // const data1 = {
+    //   name: "Karthikeyan",
+    //   telegramId: "9854356577er67",
+    // };
+    // getUserDetails(data1);
 
     // localStorage.clear();
   }, []);

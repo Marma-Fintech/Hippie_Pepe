@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import "./marketPlace.css";
 import memetv from "../../assets/images/rewards.svg";
 import booster from "../../assets/images/boost-tap.png";
@@ -19,6 +19,7 @@ const MarketPlace = () => {
   const [count, setCount] = useState(1);
   const [err, setErr] = useState("");
   const [isFirst, setIsFirst] = useState(false);
+  const timeoutRef = useRef(null); // To store the timeout ID
 
   const handleClick1 = () => {
     setCount(count + 1);
@@ -106,12 +107,19 @@ const MarketPlace = () => {
       getUserDetails();
     } else {
       setErr("Not Enough watch points");
-      setTimeout(() => {
+      timeoutRef.current = setTimeout(() => {
         setCount(1);
         setShowPopup(false);
         setErr("");
-      }, 3000);
+      }, 2500);
     }
+  };
+
+  const closePopUp = () => {
+    clearTimeout(timeoutRef.current);
+    setCount(1);
+    setErr("");
+    setShowPopup(false);
   };
 
   return (
@@ -269,7 +277,7 @@ const MarketPlace = () => {
                   src={cancelIcon}
                   className="cancel-img"
                   onClick={() => {
-                    setShowPopup(false);
+                    closePopUp();
                   }}
                 />
                 <div className="row text-center">
