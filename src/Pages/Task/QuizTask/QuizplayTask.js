@@ -298,7 +298,9 @@ const QuizPlayTask = () => {
   const [answered, setAnswered] = useState(false);
   const [quizComplete, setQuizComplete] = useState(false);
 
-  const today = useRef(startOfDay(new Date()));
+  const today = useRef(
+    startOfDay(new Date(userDetails?.userDetails?.lastLogin))
+  );
   const baseDate = useRef(startOfDay(new Date("2024-08-27")));
 
   const startDate = new Date("2024-08-27");
@@ -315,7 +317,7 @@ const QuizPlayTask = () => {
     return simulatedDay > 0 ? simulatedDay : 1; // Ensure that Day 1 is correctly set
   };
   const simulatedDay = calculateSimulatedDay();
-  const currentPhase = Math.ceil(simulatedDay / daysInPhase);
+  const currentPhase = userDetails?.userDetails?.currentPhase;
 
   useEffect(() => {
     if (simulatedDay > totalDays) {
@@ -355,7 +357,6 @@ const QuizPlayTask = () => {
         `quizResult_Day_${selectedDay}_Cycle_${currentPhase}`
       );
       var data = JSON.parse(storedResult);
-      console.log(JSON.stringify(data) + "dsdadada");
       if (data?.remain === 0) {
         setQuizComplete(true);
       } else {
@@ -380,7 +381,6 @@ const QuizPlayTask = () => {
         completed: 5 - (currentQuestionIndex + 1) === 0 ? true : false,
         remain: 5 - (currentQuestionIndex + 1),
       };
-
       localStorage.setItem(
         `quizResult_Day_${selectedDay}_Cycle_${currentPhase}`,
         JSON.stringify(result)
@@ -396,7 +396,6 @@ const QuizPlayTask = () => {
         telegramId: String(userDetails?.userDetails?.telegramId),
         gamePoints: String(pointsAwarded),
       };
-      console.log(JSON.stringify(userDetails) + "gfdsdfghjhgfdgh");
       await userGameRewards(apiData);
     }
   };
@@ -408,24 +407,6 @@ const QuizPlayTask = () => {
       setAnswered(false);
     } else {
       setShowScore(true);
-      // const result = {
-      //   telegramId: String(userDetails.userDetails?.telegramId),
-      //   date: format(today.current, "yyyy-MM-dd"),
-      //   gamePoints: String(score),
-      //   completed: true,
-      // };
-
-      // localStorage.setItem(
-      //   `quizResult_Day_${selectedDay}_Cycle_${currentCycle}`,
-      //   JSON.stringify(result)
-      // );
-
-      // const apiData = {
-      //   telegramId: String(userDetails?.userDetails?.telegramId),
-      //   gamePoints: String(score),
-      // };
-      // console.log(JSON.stringify(userDetails) + "gfdsdfghjhgfdgh");
-      // await userGameRewards(apiData);
 
       const completedDays =
         JSON.parse(localStorage.getItem("completedDays")) || [];

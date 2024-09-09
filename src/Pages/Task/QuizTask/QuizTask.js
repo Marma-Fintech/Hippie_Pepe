@@ -14,7 +14,7 @@ const QuizTask = () => {
 
   // Function to simulate the current day based on the start date
   const calculateSimulatedDay = () => {
-    const today = new Date(); // This will be used to simulate the current day
+    const today = new Date(userDetails?.userDetails?.lastLogin); // This will be used to simulate the current day
     const diffTime = Math.abs(today - startDate);
     const simulatedDay = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
     return simulatedDay > 0 ? simulatedDay : 1; // Ensure that Day 1 is correctly set
@@ -77,10 +77,7 @@ const QuizTask = () => {
                   `quizResult_Day_${i + 1}_Cycle_${currentPhase}`
                 )
               );
-              console.log(
-                JSON.stringify(storedCompletedDays) +
-                  "storedCompletedDaysstoredCompletedDays"
-              );
+
               return (
                 <div key={i} className="day-box">
                   <div className="day-label">Day {i + 1}</div>

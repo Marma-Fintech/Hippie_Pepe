@@ -114,7 +114,6 @@ export const getUserStreaks = async (telegramId) => {
     const response = await axios.get(
       `${Base_Url.base_url}/userStreaks/${telegramId}`
     );
-    console.log(response.data);
     return response.data;
   } catch (error) {
     console.log(error);

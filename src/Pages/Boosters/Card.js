@@ -33,7 +33,6 @@ function Card(props) {
 
     var minsBoosterList = watchScreen.boostersList;
     const index = minsBoosterList.indexOf(key);
-    console.log(minsBoosterList, index + "audioRef.current.loop = true;");
     if (index !== -1) {
       minsBoosterList.splice(index, 1);
     }

@@ -56,7 +56,6 @@ const LeaderBoard = ({ telegramId }) => {
         const response = await getPopularUser(
           userDetails.userDetails.telegramId
         );
-        console.log(response.topUsers);
         // Update the state with the data
         setTopUsers(response.topUsers);
         setUserDetail(response.yourDetail);

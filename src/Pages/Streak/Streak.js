@@ -9,6 +9,8 @@ import Tv from "../Tv/Tv";
 import ReferPage from "../ReferPage/ReferPage";
 import Task from "../Task/Task";
 import {
+  UserDeatils,
+  addWatchSeconds,
   getUserStreaks,
   calculateStreak,
   calculateStreakOfStreak,
@@ -52,10 +54,11 @@ const Streak = () => {
         ...prev,
         ...{
           currentComponent: component,
-          currentComponentText: name,
+          currentComponentText: "TVPage",
           lastComponent: userDetails.currentComponent,
           lastComponentText: userDetails.currentComponentText,
           centerCount: userDetails.centerCount + 1,
+          isMenu: false,
         },
       };
     });
@@ -70,6 +73,83 @@ const Streak = () => {
   ];
 
   const multiStreakRewardArray = [1300, 2100, 4200, 8400, 16800, 33600, 67200];
+
+  const data = {
+    name: "Ash",
+    telegramId: userDetails?.userDetails?.telegramId,
+  };
+
+  const getUserDetails = async (data) => {
+    const pointDetails = localStorage.getItem("pointDetails");
+    const parsedData = JSON.parse(pointDetails);
+
+    var data1;
+    var userDetails;
+    if (parsedData?.watchSec) {
+      data1 = {
+        telegramId: data?.telegramId,
+        userWatchSeconds: parsedData?.watchSec,
+        boosterPoints: String(
+          Number(parsedData?.tapPoints) + Number(parsedData?.boosterPoints)
+        ),
+      };
+
+      if (parsedData?.booster[0]) {
+        data1.boosters = parsedData?.booster;
+      }
+      await updateWatchSecOnly(data1).then(async () => {
+        userDetails = await UserDeatils(data);
+
+        updateUserInfo((prev) => ({
+          ...prev,
+          userDetails: userDetails,
+        }));
+
+        updatewatchScreenInfo((prev) => ({
+          ...prev,
+          boostersList: userDetails?.boosters,
+          totalReward: userDetails?.totalRewards,
+        }));
+      });
+    } else {
+      userDetails = await UserDeatils(data);
+
+      updateUserInfo((prev) => ({
+        ...prev,
+        userDetails: userDetails,
+      }));
+
+      updatewatchScreenInfo((prev) => ({
+        ...prev,
+        boostersList: userDetails?.boosters,
+        totalReward: userDetails?.totalRewards,
+      }));
+    }
+
+    return userDetails;
+  };
+
+  const updateWatchSecOnly = async (data) => {
+    const res = await addWatchSeconds(data);
+    localStorage.setItem(
+      "pointDetails",
+      JSON.stringify({
+        tapPoints: 0,
+        watchSec: 0,
+        boosterPoints: 0,
+        booster: [0],
+      })
+    );
+    updatewatchScreenInfo((prev) => ({
+      ...prev,
+      tapPoints: 0,
+      booster: false,
+      boosterSec: 0,
+      boosterPoints: 0,
+      boosterDetails: {},
+      watchSec: 0,
+    }));
+  };
 
   //function to check day cnd change the day, if they start in a middle day
   const dayCheck = async (n) => {
@@ -187,7 +267,6 @@ const Streak = () => {
       streakData.loginStreak.loginStreakReward[dayRef.current - 1] != undefined
     ) {
       const response = await loginStreakRewardClaim(data);
-      console.log(response);
       setLoginStreakReward(0);
       calculateReward();
     }
@@ -203,7 +282,6 @@ const Streak = () => {
     };
     if (streakData.watchStreak.watchStreakReward[day - 1] != undefined) {
       const response = await watchStreakRewardClaim(data);
-      console.log(response);
       setWatchStreakReward(0);
       calculateReward();
     }
@@ -219,7 +297,6 @@ const Streak = () => {
     };
     if (streakData.referStreak.referStreakReward[day - 1] != undefined) {
       const response = await referStreakRewardClaim(data);
-      console.log(response);
       setReferStreakReward(0);
       calculateReward();
     }
@@ -237,7 +314,6 @@ const Streak = () => {
       streakData.taskStreak.taskStreakReward[dayRef.current - 1] != undefined
     ) {
       const response = await taskStreakRewardClaim(data);
-      console.log(response);
       setTaskStreakReward(0);
       calculateReward();
     }
@@ -263,7 +339,6 @@ const Streak = () => {
         ] != undefined
       ) {
         const response = await multiStreakRewardClaim(data);
-        console.log(response);
         setMultiStreakReward(0);
         calculateReward();
       }
@@ -297,7 +372,6 @@ const Streak = () => {
         ] != undefined
       ) {
         const response = await streakOfStreakRewardClaim(data);
-        console.log(response);
         setMultiStreakReward(0);
         calculateReward();
       }
@@ -306,7 +380,7 @@ const Streak = () => {
 
   useEffect(() => {
     dayCheck(currentDay); // You can provide any other value here based on your requirement
-  }, [userDetails.userDetails.telegramId]); // Empty dependency array ensures this runs only on initial render
+  }, [currentDay]); // Empty dependency array ensures this runs only on initial render
 
   useEffect(() => {
     const fetchStreakData = async () => {
@@ -363,193 +437,181 @@ const Streak = () => {
 
   return (
     <>
-      <div className="info-img scroll">
-        <div
-          className="menupointer stuff-body"
-          style={{
-            height: "100%",
-            width: "100%",
-            display: "flex",
-            alignItems: "center",
-            // justifyContent: "center",
-            marginTop: "15%",
-            flexDirection: "column",
-            pointerEvents: "all",
-          }}
-        >
-          <div className="streakContainer">
-            <h1 className="streaktext">STREAK</h1>
-            <img
-              onMouseEnter={() => {
-                goToThePage(StreakBreakPoints, "streakBreakPoints");
-              }}
-              src={questionMarkIcon}
-              alt="Question Mark Icon"
-              className="questionMarkIcon"
-            />
-          </div>
-          <div class="container-fluid">
-            <div class="scrolling-wrapper row flex-row flex-nowrap">
-              <div class="col-4">
-                <div
-                  class={
-                    startDay > 1
-                      ? "card-block1 card card-1 com-days"
-                      : currentDay === 1
-                      ? "card card-block2 card-1"
-                      : "card card-block card-1"
-                  }
-                >
-                  <button
-                    className="btn-none"
-                    onClick={() => {
-                      dayCheck(1);
-                    }}
-                    disabled={startDay > 1 ? true : false}
-                  >
-                    {" "}
-                    DAY 1{" "}
-                  </button>
-                </div>
-              </div>
-              <div class="col-4">
-                <div
-                  class={
-                    startDay > 2
-                      ? "card-block1 card card-1 com-days"
-                      : currentDay === 2
-                      ? "card card-block2 card-1"
-                      : "card card-block card-1"
-                  }
-                >
-                  <button
-                    className="btn-none"
-                    onClick={() => {
-                      dayCheck(2);
-                    }}
-                    disabled={startDay > 2 ? true : false}
-                  >
-                    {" "}
-                    DAY 2{" "}
-                  </button>
-                </div>
-              </div>
-              <div class="col-4">
-                <div
-                  class={
-                    startDay > 3
-                      ? "card-block1 card card-1 com-days"
-                      : currentDay === 3
-                      ? "card card-block2 card-1"
-                      : "card card-block card-1"
-                  }
+      <div className=" menupointer">
+        <div className="streakContainer">
+          <h1 className="streaktext">STREAK</h1>
+          <img
+            onMouseEnter={() => {
+              goToThePage(StreakBreakPoints, "streakBreakPoints");
+            }}
+            src={questionMarkIcon}
+            alt="Question Mark Icon"
+            className="questionMarkIcon"
+          />
+        </div>
+        <div class="container-fluid" style={{ maxWidth: "300px" }}>
+          <div class="scrolling-wrapper row flex-row flex-nowrap">
+            <div class="col-4">
+              <div
+                class={
+                  startDay > 1
+                    ? "card-block1 card card-1 com-days"
+                    : currentDay === 1
+                    ? "card card-block2 card-1"
+                    : "card card-block card-1"
+                }
+              >
+                <button
+                  className="btn-none"
+                  onClick={() => {
+                    dayCheck(1);
+                  }}
+                  disabled={startDay > 1 ? true : false}
                 >
                   {" "}
-                  <button
-                    className="btn-none"
-                    onClick={() => {
-                      dayCheck(3);
-                    }}
-                    disabled={startDay > 3 ? true : false}
-                  >
-                    {" "}
-                    DAY 3{" "}
-                  </button>
-                </div>
+                  DAY 1{" "}
+                </button>
               </div>
-              <div class="col-4">
-                <div
-                  class={
-                    startDay > 4
-                      ? "card-block1 card card-1 com-days"
-                      : currentDay === 4
-                      ? "card card-block2 card-1"
-                      : "card card-block card-1"
-                  }
+            </div>
+            <div class="col-4">
+              <div
+                class={
+                  startDay > 2
+                    ? "card-block1 card card-1 com-days"
+                    : currentDay === 2
+                    ? "card card-block2 card-1"
+                    : "card card-block card-1"
+                }
+              >
+                <button
+                  className="btn-none"
+                  onClick={() => {
+                    dayCheck(2);
+                  }}
+                  disabled={startDay > 2 ? true : false}
                 >
                   {" "}
-                  <button
-                    className="btn-none"
-                    onClick={() => {
-                      dayCheck(4);
-                    }}
-                    disabled={startDay > 4 ? true : false}
-                  >
-                    {" "}
-                    DAY 4{" "}
-                  </button>
-                </div>
+                  DAY 2{" "}
+                </button>
               </div>
-              <div class="col-4">
-                <div
-                  class={
-                    startDay > 5
-                      ? "card-block1 card card-1 com-days"
-                      : currentDay === 5
-                      ? "card card-block2 card-1"
-                      : "card card-block card-1"
-                  }
+            </div>
+            <div class="col-4">
+              <div
+                class={
+                  startDay > 3
+                    ? "card-block1 card card-1 com-days"
+                    : currentDay === 3
+                    ? "card card-block2 card-1"
+                    : "card card-block card-1"
+                }
+              >
+                {" "}
+                <button
+                  className="btn-none"
+                  onClick={() => {
+                    dayCheck(3);
+                  }}
+                  disabled={startDay > 3 ? true : false}
                 >
                   {" "}
-                  <button
-                    className="btn-none"
-                    onClick={() => {
-                      dayCheck(5);
-                    }}
-                    disabled={startDay > 5 ? true : false}
-                  >
-                    {" "}
-                    DAY 5{" "}
-                  </button>
-                </div>
+                  DAY 3{" "}
+                </button>
               </div>
-              <div class="col-4">
-                <div
-                  class={
-                    startDay > 6
-                      ? "card-block1 card card-1 com-days"
-                      : currentDay === 6
-                      ? "card card-block2 card-1"
-                      : "card card-block card-1"
-                  }
+            </div>
+            <div class="col-4">
+              <div
+                class={
+                  startDay > 4
+                    ? "card-block1 card card-1 com-days"
+                    : currentDay === 4
+                    ? "card card-block2 card-1"
+                    : "card card-block card-1"
+                }
+              >
+                {" "}
+                <button
+                  className="btn-none"
+                  onClick={() => {
+                    dayCheck(4);
+                  }}
+                  disabled={startDay > 4 ? true : false}
                 >
-                  <button
-                    className="btn-none"
-                    onClick={() => {
-                      dayCheck(6);
-                    }}
-                    disabled={startDay > 6 ? true : false}
-                  >
-                    {" "}
-                    DAY 6{" "}
-                  </button>
-                </div>
+                  {" "}
+                  DAY 4{" "}
+                </button>
               </div>
-              <div class="col-4">
-                <div
-                  class={
-                    startDay > 7
-                      ? "card-block1 card card-1 com-days"
-                      : currentDay === 7
-                      ? "card card-block2 card-1"
-                      : "card card-block card-1"
-                  }
+            </div>
+            <div class="col-4">
+              <div
+                class={
+                  startDay > 5
+                    ? "card-block1 card card-1 com-days"
+                    : currentDay === 5
+                    ? "card card-block2 card-1"
+                    : "card card-block card-1"
+                }
+              >
+                {" "}
+                <button
+                  className="btn-none"
+                  onClick={() => {
+                    dayCheck(5);
+                  }}
+                  disabled={startDay > 5 ? true : false}
                 >
-                  <button
-                    className="btn-none"
-                    onClick={() => {
-                      dayCheck(7);
-                    }}
-                    disabled={startDay > 7 ? true : false}
-                  >
-                    {" "}
-                    DAY 7{" "}
-                  </button>{" "}
-                </div>
+                  {" "}
+                  DAY 5{" "}
+                </button>
+              </div>
+            </div>
+            <div class="col-4">
+              <div
+                class={
+                  startDay > 6
+                    ? "card-block1 card card-1 com-days"
+                    : currentDay === 6
+                    ? "card card-block2 card-1"
+                    : "card card-block card-1"
+                }
+              >
+                <button
+                  className="btn-none"
+                  onClick={() => {
+                    dayCheck(6);
+                  }}
+                  disabled={startDay > 6 ? true : false}
+                >
+                  {" "}
+                  DAY 6{" "}
+                </button>
+              </div>
+            </div>
+            <div class="col-4">
+              <div
+                class={
+                  startDay > 7
+                    ? "card-block1 card card-1 com-days"
+                    : currentDay === 7
+                    ? "card card-block2 card-1"
+                    : "card card-block card-1"
+                }
+              >
+                <button
+                  className="btn-none"
+                  onClick={() => {
+                    dayCheck(7);
+                  }}
+                  disabled={startDay > 7 ? true : false}
+                >
+                  {" "}
+                  DAY 7{" "}
+                </button>{" "}
               </div>
             </div>
           </div>
-          <div className="row mt10 cheap-stuff" style={{ width: "100%" }}>
+        </div>
+        <div className="scrollableContainer">
+          <div className="row mt10 cheap-stuff">
             <div className="col-2">
               <img
                 src="https://cdn.builder.io/api/v1/image/assets/TEMP/a32d4767f07e35eed25cbb58c62b6e3e02828c9e572ce8ea3b6670916cbe8671?apiKey=da9eb044cac44bb1ab1471c98df94a03&&apiKey=da9eb044cac44bb1ab1471c98df94a03"
@@ -590,7 +652,7 @@ const Streak = () => {
               </button>
             </div>
           </div>
-          <div className="row mt10 cheap-stuff" style={{ width: "100%" }}>
+          <div className="row mt10 cheap-stuff">
             <div className="col-2">
               <img
                 src="https://cdn.builder.io/api/v1/image/assets/TEMP/2b5a03a049db265cb188f96311f2011c0d512a033e5d53ad816443dd4ad0eec1?apiKey=da9eb044cac44bb1ab1471c98df94a03&&apiKey=da9eb044cac44bb1ab1471c98df94a03"
@@ -621,7 +683,10 @@ const Streak = () => {
                   if (watchStreakReward > 0) {
                     handleWatchClaimClick();
                   } else if (currentDay >= day + startDay - 1) {
-                    goToThePage(Tv, "Tv");
+                    const userDetails = getUserDetails(data);
+                    if (userDetails != undefined) {
+                      goToThePage(Tv, "TV");
+                    }
                   }
                 }}
                 style={{ cursor: "pointer" }}
@@ -637,7 +702,7 @@ const Streak = () => {
               </button>
             </div>
           </div>
-          <div className="row mt10 cheap-stuff" style={{ width: "100%" }}>
+          <div className="row mt10 cheap-stuff">
             <div className="col-2">
               <img
                 loading="lazy"
@@ -685,7 +750,7 @@ const Streak = () => {
               </button>
             </div>
           </div>
-          <div className="row mt10 cheap-stuff" style={{ width: "100%" }}>
+          <div className="row mt10 cheap-stuff">
             <div className="col-2">
               <img
                 loading="lazy"
@@ -735,7 +800,7 @@ const Streak = () => {
               </button>
             </div>
           </div>
-          <div className="row mt10 cheap-stuff" style={{ width: "100%" }}>
+          <div className="row mt10 cheap-stuff">
             <div className="col-2">
               <img
                 loading="lazy"
@@ -779,31 +844,31 @@ const Streak = () => {
               </button>
             </div>
           </div>
-          <div
-            class={
-              streakOfStreakReward === 0 || streakOfStreakReward === undefined
-                ? "invite-fri-sos"
-                : "invite-fri"
-            }
-          >
-            <button
-              className={
-                streakOfStreakReward === 0 || streakOfStreakReward === undefined
-                  ? "btn-none sos-none"
-                  : "btn-none sos"
-              }
-              onClick={handleSOSClaimClick}
-              style={{ cursor: "pointer" }}
-              disabled={
-                streakOfStreakReward === 0 || streakOfStreakReward === undefined
-                  ? true
-                  : false
-              }
-            >
-              STREAK OF STREAK
-            </button>
-          </div>
         </div>
+      </div>
+      <div
+        class={
+          streakOfStreakReward === 0 || streakOfStreakReward === undefined
+            ? "invite-fri-sos"
+            : "invite-fri"
+        }
+      >
+        <button
+          className={
+            streakOfStreakReward === 0 || streakOfStreakReward === undefined
+              ? "btn-none sos-none"
+              : "btn-none sos"
+          }
+          onClick={handleSOSClaimClick}
+          style={{ cursor: "pointer" }}
+          disabled={
+            streakOfStreakReward === 0 || streakOfStreakReward === undefined
+              ? true
+              : false
+          }
+        >
+          STREAK OF STREAK
+        </button>
       </div>
     </>
   );
