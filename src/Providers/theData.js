@@ -19,6 +19,8 @@ const INITIAL_USER_STATE = {
     booster: false,
     boosterSeconds: 0,
     selectedDay: 1,
+    streakData: {},
+    streakOfStreakData: {},
   },
 };
 

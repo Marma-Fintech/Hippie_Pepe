@@ -19,7 +19,11 @@ import Boosters from "../Pages/Boosters/Boosters";
 import ContinueText from "../assets/images/continue.svg";
 import switchOnTv from "../assets/images/switch-on.svg";
 
-import { UserDeatils } from "../apis/user";
+import {
+  UserDeatils,
+  calculateStreak,
+  calculateStreakOfStreak,
+} from "../apis/user";
 import { addWatchSeconds } from "../apis/user";
 
 const Thememe = () => {
@@ -66,11 +70,35 @@ const Thememe = () => {
         telegramDetails: userData,
       }));
     }
-    // const data1 = {
-    //   name: "Karthikeyan",
-    //   telegramId: "9854356577er67",
-    // };
-    // getUserDetails(data1);
+    const data1 = {
+      name: "Karthikeyan",
+      telegramId: "9854356577er67",
+    };
+    getUserDetails(data1);
+
+    const calculateReward = async () => {
+      const data24 = {
+        telegramId: data1.telegramId,
+        userWatchSeconds: 0,
+      };
+      // Calculate streak data and update the state
+      const calculatedStreakData = await calculateStreak(data24);
+      userDetails.userDetails.streakData = calculatedStreakData;
+      if (
+        calculatedStreakData.login &&
+        calculatedStreakData.watch &&
+        calculatedStreakData.refer &&
+        calculatedStreakData.task
+      ) {
+        // Calculate and update streak of streak data if needed
+        const calculatedStreakOfStreakData = await calculateStreakOfStreak(
+          data24.telegramId
+        );
+        userDetails.userDetails.streakOfStreakData =
+          calculatedStreakOfStreakData;
+      }
+    };
+    calculateReward();
 
     // localStorage.clear();
   }, []);

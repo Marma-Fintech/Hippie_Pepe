@@ -21,16 +21,31 @@
   margin-right: 60px;
   margin-left: 62px;
 }
-.sos
-{
+.sos {
   color: #4cf038;
 }
-.btn-none
-{
+.sos-none {
+  color: #081706;
+  background: grey;
+  border: none;
+}
+.btn-none {
   background: none;
   border: none;
+  /* color: #fff; */
   padding: 2px;
-
+}
+.com-days {
+  color: #363636;
+}
+.card-block button {
+  color: #ffffff;
+}
+.complete-btn {
+  background-color: none;
+  border: none;
+  color: #262626;
+  padding: 2px;
 }
 .stuff-text h4 {
   color: beige;
@@ -65,6 +80,19 @@
 }
 .invite-fri h2 {
   color: #4cf038 !important;
+}
+.invite-fri-sos {
+  background-color: rgba(60, 61, 60, 1);
+  position: fixed;
+  bottom: 17% !important;
+  padding-top: 15px;
+  border-radius: 100px;
+  width: 95%;
+  height: 60px !important;
+  text-align: center;
+  color: #fff;
+  font-size: 18px;
+  text-transform: uppercase;
 }
 .margintop {
   margin-top: 10px;
@@ -194,6 +222,16 @@
   background-color: #034807 !important;
   border: none;
   color: #4cf038 !important;
+  background-position: center;
+  background-size: cover;
+  transition: all 0.2s ease-in-out !important;
+  border-radius: 0px !important;
+}
+.card-block1 {
+  height: auto !important;
+  background-color: #363636 !important;
+  border: none;
+  color: #505050 !important;
   background-position: center;
   background-size: cover;
   transition: all 0.2s ease-in-out !important;

@@ -28,18 +28,21 @@ const Streak = () => {
   const [claimedReferDays, setClaimedReferDays] = useState([]);
   const [claimedTaskDays, setClaimedTaskDays] = useState([]);
   const [claimedMultiDays, setClaimedMultiDays] = useState([]);
-
-  const [isStreakOfStreakClaimed, setIsStreakOfStreakClaimed] = useState(false);
-  const [streakData, setStreakData] = useState();
-  const [streakOfStreakData, setStreakOfStreakData] = useState({});
+  const { userDetails, watchScreen, updatewatchScreenInfo, updateUserInfo } =
+    useUserInfo();
+  const [streakData, setStreakData] = useState(
+    userDetails.userDetails.streakData
+  );
+  const [streakOfStreakData, setStreakOfStreakData] = useState(
+    userDetails.userDetails.streakOfStreakData
+  );
   const [loginStreakReward, setLoginStreakReward] = useState(0);
   const [watchStreakReward, setWatchStreakReward] = useState(0);
   const [referStreakReward, setReferStreakReward] = useState(0);
   const [taskStreakReward, setTaskStreakReward] = useState(0);
   const [multiStreakReward, setMultiStreakReward] = useState(0);
   const [streakOfStreakReward, setStreakOfStreakReward] = useState(0);
-  const { userDetails, watchScreen, updatewatchScreenInfo, updateUserInfo } =
-    useUserInfo();
+
   const goToThePage = (component, name) => {
     updateUserInfo((prev) => {
       return {
@@ -93,14 +96,13 @@ const Streak = () => {
   const calculateReward = async () => {
     const data = {
       telegramId: userDetails.userDetails.telegramId,
-      userWatchSeconds: 180,
+      userWatchSeconds: 0,
     };
     // Calculate streak data and update the state
     const calculatedStreakData = await calculateStreak(data);
     setStreakData(calculatedStreakData);
     //Fetch streak data using get api
     const getStreakData = await getUserStreaks(data.telegramId);
-    console.log("Fetched Streak Data:", getStreakData);
     if (getStreakData) {
       setClaimedLoginDays(getStreakData.claimedLoginDays);
       setClaimedWatchDays(getStreakData.claimedWatchDays);
@@ -132,10 +134,20 @@ const Streak = () => {
             dayRef.current - 1
           ]
         );
-        console.log(
-          "Calculated Streak of Streak Data:",
-          calculatedStreakOfStreakData
-        );
+        let rewardAmount = 0;
+        for (
+          let i =
+            calculatedStreakOfStreakData.streakOfStreak.streakOfStreakRewards
+              .length - 1;
+          i >= 0;
+          i--
+        ) {
+          rewardAmount +=
+            calculatedStreakOfStreakData.streakOfStreak.streakOfStreakRewards[
+              i
+            ];
+        }
+        setStreakOfStreakReward(rewardAmount);
       } else {
         console.log("Error: " + calculatedStreakOfStreakData.message);
       }
@@ -260,14 +272,17 @@ const Streak = () => {
       streakData.refer &&
       streakData.task
     ) {
-      setStreakOfStreakReward(
-        streakOfStreakData.streakOfStreak.streakOfStreakRewards[0]
-      );
-      console.log(
-        streakOfStreakData.streakOfStreak.streakOfStreakRewards[
-          streakOfStreakData.streakOfStreak.streakOfStreakRewards.length - 1
-        ]
-      );
+      let rewardAmount = 0;
+      for (
+        let i =
+          streakOfStreakData.streakOfStreak.streakOfStreakRewards.length - 1;
+        i >= 0;
+        i--
+      ) {
+        rewardAmount +=
+          streakOfStreakData.streakOfStreak.streakOfStreakRewards[i];
+      }
+      setStreakOfStreakReward(rewardAmount);
       const data = {
         telegramId: userDetails.userDetails.telegramId,
       };
@@ -289,7 +304,7 @@ const Streak = () => {
       try {
         const data = {
           telegramId: userDetails.userDetails.telegramId,
-          userWatchSeconds: 180,
+          userWatchSeconds: 0,
         };
         // Fetch streak data using get api
         const getStreakData = await getUserStreaks(data.telegramId);
@@ -306,7 +321,6 @@ const Streak = () => {
         // Calculate streak data and update the state
         const calculatedStreakData = await calculateStreak(data);
         setStreakData(calculatedStreakData);
-        console.log("Calculated Streak Data:", calculatedStreakData);
         if (
           calculatedStreakData.login &&
           calculatedStreakData.watch &&
@@ -325,10 +339,6 @@ const Streak = () => {
           ) {
             // Update state only if there is no error
             setStreakOfStreakData(calculatedStreakOfStreakData);
-            console.log(
-              "Calculated Streak of Streak Data:",
-              calculatedStreakOfStreakData
-            );
           } else {
             console.log("Error: " + calculatedStreakOfStreakData.message);
           }
@@ -371,8 +381,15 @@ const Streak = () => {
           <div class="container-fluid">
             <div class="scrolling-wrapper row flex-row flex-nowrap">
               <div class="col-4">
-                <div class="card card-block card-1">
-                  <button className="btn-none"
+                <div
+                  class={
+                    startDay > 1
+                      ? "card-block1 card card-1 com-days"
+                      : "card card-block card-1"
+                  }
+                >
+                  <button
+                    className="btn-none"
                     onClick={() => {
                       dayCheck(1);
                     }}
@@ -384,8 +401,15 @@ const Streak = () => {
                 </div>
               </div>
               <div class="col-4">
-                <div class="card card-block card-2">
-                  <button className="btn-none"
+                <div
+                  class={
+                    startDay > 2
+                      ? "card-block1 card card-1 com-days"
+                      : "card card-block card-1"
+                  }
+                >
+                  <button
+                    className="btn-none"
                     onClick={() => {
                       dayCheck(2);
                     }}
@@ -397,9 +421,16 @@ const Streak = () => {
                 </div>
               </div>
               <div class="col-4">
-                <div class="card card-block card-3">
+                <div
+                  class={
+                    startDay > 3
+                      ? "card-block1 card card-1 com-days"
+                      : "card card-block card-1"
+                  }
+                >
                   {" "}
-                  <button className="btn-none"
+                  <button
+                    className="btn-none"
                     onClick={() => {
                       dayCheck(3);
                     }}
@@ -411,9 +442,16 @@ const Streak = () => {
                 </div>
               </div>
               <div class="col-4">
-                <div class="card card-block card-4">
+                <div
+                  class={
+                    startDay > 4
+                      ? "card-block1 card card-1 com-days"
+                      : "card card-block card-1"
+                  }
+                >
                   {" "}
-                  <button className="btn-none"
+                  <button
+                    className="btn-none"
                     onClick={() => {
                       dayCheck(4);
                     }}
@@ -425,9 +463,16 @@ const Streak = () => {
                 </div>
               </div>
               <div class="col-4">
-                <div class="card card-block card-5">
+                <div
+                  class={
+                    startDay > 5
+                      ? "card-block1 card card-1 com-days"
+                      : "card card-block card-1"
+                  }
+                >
                   {" "}
-                  <button className="btn-none"
+                  <button
+                    className="btn-none"
                     onClick={() => {
                       dayCheck(5);
                     }}
@@ -439,8 +484,15 @@ const Streak = () => {
                 </div>
               </div>
               <div class="col-4">
-                <div class="card card-block card-6">
-                  <button className="btn-none"
+                <div
+                  class={
+                    startDay > 6
+                      ? "card-block1 card card-1 com-days"
+                      : "card card-block card-1"
+                  }
+                >
+                  <button
+                    className="btn-none"
                     onClick={() => {
                       dayCheck(6);
                     }}
@@ -452,8 +504,15 @@ const Streak = () => {
                 </div>
               </div>
               <div class="col-4">
-                <div class="card card-block card-7">
-                  <button className="btn-none"
+                <div
+                  class={
+                    startDay > 7
+                      ? "card-block1 card card-1 com-days"
+                      : "card card-block card-1"
+                  }
+                >
+                  <button
+                    className="btn-none"
                     onClick={() => {
                       dayCheck(7);
                     }}
@@ -631,8 +690,10 @@ const Streak = () => {
                   ? "0"
                   : claimedMultiDays[normalDay - 1]
                   ? `+${multiStreakRewardArray[day - 1]}`
+                  : multiStreakReward === 0
+                  ? `${multiStreakReward}`
                   : `+${multiStreakReward}`}{" "}
-              </p>  
+              </p>
             </div>
             <div className="col-3">
               <button
@@ -651,13 +712,26 @@ const Streak = () => {
               </button>
             </div>
           </div>
-          <div class="invite-fri">
-            {/* <h2 >STREAK OF STEAK</h2> */}
-            <button className="btn-none sos"
-              // className={`stuff-claim ${claimedMultiDays[normalDay - 1] ? "claimed" : ""}`}
+          <div
+            class={
+              streakOfStreakReward === 0 || streakOfStreakReward === undefined
+                ? "invite-fri-sos"
+                : "invite-fri"
+            }
+          >
+            <button
+              className={
+                streakOfStreakReward === 0 || streakOfStreakReward === undefined
+                  ? "btn-none sos-none"
+                  : "btn-none sos"
+              }
               onClick={handleSOSClaimClick}
               style={{ cursor: "pointer" }}
-              disabled={false}
+              disabled={
+                streakOfStreakReward === 0 || streakOfStreakReward === undefined
+                  ? true
+                  : false
+              }
             >
               STREAK OF STREAK
             </button>

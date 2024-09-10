@@ -1545,14 +1545,14 @@ const ScrambleaWordPlay = ({ day }) => {
       const newPoints = points + 2500;
       gamePoints = 2500;
       setPoints(newPoints);
-      setMessage("Correct! You earned 2500 points.");
+      setMessage("** Correct! You earned 2500 points **");
       setMessageColor("grey");
       setShowAnswer(false);
     } else {
       gamePoints = 500;
       const newPoints = points + 500;
       setPoints(newPoints);
-      setMessage("Incorrect! You earned 500 points.");
+      setMessage("** Incorrect! You earned 500 points **");
       setMessageColor("red");
       setShowAnswer(true);
     }
@@ -1578,7 +1578,8 @@ const ScrambleaWordPlay = ({ day }) => {
   const nextScramble = () => {
     var gamePoints;
     if (!isChecked) {
-      setMessage("Please check the word first.");
+      setMessage("** Please check the word first **");
+      setMessageColor("red");
       return;
     }
     if (scrambleIndex >= 4) {
