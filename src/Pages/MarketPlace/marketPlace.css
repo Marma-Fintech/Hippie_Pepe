@@ -27,9 +27,9 @@ hr {
   width: 100%;
   padding: 2px 45px;
 }
-.market-pick img {
+/* .market-pick img {
   width: 60%;
-}
+} */
 .mb0 {
   margin-bottom: 0px;
 }
@@ -92,8 +92,9 @@ hr {
 }
 .flex {
   padding-top: 10px;
-  display: inline-flex;
+  display: flex;
   align-items: self-end;
+  justify-content: center;
 }
 .booster-margin {
   margin-top: -35px;

@@ -45,7 +45,7 @@
   color: antiquewhite;
   margin: 0 !important;
   font-family: mySecondFont;
-  font-size: 15px;
+  font-size: 13px;
   text-align: right;
 }
 .stake-days {
@@ -75,7 +75,7 @@
 .phase-para {
   margin-bottom: 0;
   color: #ffffff;
-  font-size: 20px;
+  font-size: 16px;
 }
 .phase-para img {
   width: 20%;
@@ -88,7 +88,7 @@
   border-radius: 0px 0px 5px 5px;
 }
 .stake-display h2 {
-  font-size: 18px;
+  font-size: 16px;
   color: white;
   margin: 0;
 }

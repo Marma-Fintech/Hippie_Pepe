@@ -449,7 +449,10 @@ const Streak = () => {
             className="questionMarkIcon"
           />
         </div>
-        <div class="container-fluid" style={{ maxWidth: "300px" }}>
+        <div
+          class="container-fluid"
+          style={{ maxWidth: "300px", marginBottom: "10px" }}
+        >
           <div class="scrolling-wrapper row flex-row flex-nowrap">
             <div class="col-4">
               <div

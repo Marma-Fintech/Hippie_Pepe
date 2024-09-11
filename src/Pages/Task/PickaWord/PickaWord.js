@@ -17,6 +17,8 @@ import {
 } from "../../../apis/user";
 import cancelIcon from "../../../assets/Task/cancelicon.png";
 // import useUserInfo from "../../../Hooks/useUserInfo";
+import Tv from "../../Tv/Tv";
+import Menu from "../../menu/menu";
 
 const cardContents = [
   "levelUp",
@@ -219,22 +221,29 @@ const PickaWord = () => {
     setSelectedCard(null);
   };
 
-  const goToThePage = (component, name) => {
-    updateUserInfo((prev) => {
-      return {
-        ...prev,
-        ...{
-          currentComponent: component,
-          currentComponentText: name,
-          lastComponent: userDetails.currentComponent,
-          lastComponentText: userDetails.currentComponentText,
-          isMenu: !userDetails.isMenu,
-        },
-      };
-    });
+  const toogleMenu = () => {
+    updateUserInfo((prev) => ({
+      ...prev,
+      isPlay: false,
+      currentComponent: Menu,
+      currentComponentText: "MenuPage",
+      lastComponent: userDetails?.userDetails.currentComponent,
+      lastComponentText: userDetails?.userDetails.currentComponentText,
+      isMenu: true,
+      menuCount: userDetails?.userDetails?.menuCount + 1,
+    }));
   };
+
   return (
     <div className="task-page">
+      <img
+        onClick={() => {
+          toogleMenu(Tv, "Tv");
+        }}
+        src={cancelIcon}
+        className="cancel-imgpoints"
+        style={{ cursor: "pointer" }}
+      />
       <div className="">
         <h2 className="welcome-text mb15">Pick a Card</h2>
       </div>
