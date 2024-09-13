@@ -3,10 +3,14 @@ import "./ScrambleaWord.css";
 import { FaChevronRight } from "react-icons/fa";
 import useUserInfo from "../../../Hooks/useUserInfo";
 import ScrambleaWordPlay from "./ScrambleaWordPlay.js";
+import Menu from "../../menu/menu";
+import Tv from "../../Tv/Tv";
+import cancelIcon from "../../../assets/Task/cancelicon.png";
+
 const ScrambleaWord = () => {
   const { userDetails, updateUserInfo } = useUserInfo();
   const [scrambleProgress, setScrambleProgress] = useState([]);
-  const startDate = new Date("2024-08-27");
+  const startDate = new Date("2024-08-23");
   const totalDays = 84; // Total days from startDate to endDate
   const daysInPhase = 7; // Number of days per phase
   const totalScramblesPerDay = 5;
@@ -54,8 +58,29 @@ const ScrambleaWord = () => {
     }));
   };
 
+  const toogleMenu = () => {
+    updateUserInfo((prev) => ({
+      ...prev,
+      isPlay: false,
+      currentComponent: Menu,
+      currentComponentText: "MenuPage",
+      lastComponent: userDetails?.userDetails.currentComponent,
+      lastComponentText: userDetails?.userDetails.currentComponentText,
+      isMenu: true,
+      menuCount: userDetails?.userDetails?.menuCount + 1,
+    }));
+  };
+
   return (
     <div className="quiz-task menupointer">
+      <img
+        onClick={() => {
+          toogleMenu(Tv, "Tv");
+        }}
+        src={cancelIcon}
+        className="cancel-imgpoints"
+        style={{ cursor: "pointer" }}
+      />
       {simulatedDay > totalDays ? (
         <div className="completion-message">
           <h1>All phases completed!</h1>

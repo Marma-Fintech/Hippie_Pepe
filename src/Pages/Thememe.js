@@ -76,6 +76,7 @@ const Thememe = () => {
 
     const calculateReward = async () => {
       const data24 = {
+        // telegramId: String(userData?.id),
         telegramId: data1.telegramId,
         userWatchSeconds: 0,
       };
@@ -415,14 +416,21 @@ const Thememe = () => {
                 style={{
                   width: "100%",
                   position: "absolute",
-                  top: "38%",
-                  left: 14,
+                  display: "flex",
+                  top: "35%",
+                  left: "-3%",
+                  justifyContent: "center",
+                  alignItems: "center",
                 }}
               >
                 <img
                   src={menuIcon}
                   alt="border"
-                  style={{ width: "50%" }}
+                  style={{
+                    width: "50%",
+                    // marginLeft: "10px",
+                    // marginTop: "-10px",
+                  }}
                   className="bottomImg"
                 />
               </div>
