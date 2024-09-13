@@ -363,21 +363,9 @@ const Streak = () => {
 
   return (
     <>
-      <div className="info-img scroll">
-        <div
-          className="menupointer stuff-body"
-          style={{
-            height: "100%",
-            width: "100%",
-            display: "flex",
-            alignItems: "center",
-            // justifyContent: "center",
-            marginTop: "15%",
-            flexDirection: "column",
-            pointerEvents: "all",
-          }}
-        >
-          <div className="streakContainer">
+      
+      <div className=" menupointer">
+        <div className="streakContainer">
             <h1 className="streaktext">STREAK</h1>
             <img
               onMouseEnter={() => {
@@ -388,7 +376,7 @@ const Streak = () => {
               className="questionMarkIcon"
             />
           </div>
-          <div class="container-fluid">
+          <div class="container-fluid" style={{maxWidth:"300px"}}>
             <div class="scrolling-wrapper row flex-row flex-nowrap">
               <div class="col-4">
                 <div
@@ -549,7 +537,8 @@ const Streak = () => {
               </div>
             </div>
           </div>
-          <div className="row mt10 cheap-stuff" style={{ width: "100%" }}>
+          <div className="scrollableContainer">
+          <div className="row mt10 cheap-stuff">
             <div className="col-2">
               <img
                 src="https://cdn.builder.io/api/v1/image/assets/TEMP/a32d4767f07e35eed25cbb58c62b6e3e02828c9e572ce8ea3b6670916cbe8671?apiKey=da9eb044cac44bb1ab1471c98df94a03&&apiKey=da9eb044cac44bb1ab1471c98df94a03"
@@ -590,7 +579,7 @@ const Streak = () => {
               </button>
             </div>
           </div>
-          <div className="row mt10 cheap-stuff" style={{ width: "100%" }}>
+          <div className="row mt10 cheap-stuff">
             <div className="col-2">
               <img
                 src="https://cdn.builder.io/api/v1/image/assets/TEMP/2b5a03a049db265cb188f96311f2011c0d512a033e5d53ad816443dd4ad0eec1?apiKey=da9eb044cac44bb1ab1471c98df94a03&&apiKey=da9eb044cac44bb1ab1471c98df94a03"
@@ -637,7 +626,7 @@ const Streak = () => {
               </button>
             </div>
           </div>
-          <div className="row mt10 cheap-stuff" style={{ width: "100%" }}>
+          <div className="row mt10 cheap-stuff">
             <div className="col-2">
               <img
                 loading="lazy"
@@ -685,7 +674,7 @@ const Streak = () => {
               </button>
             </div>
           </div>
-          <div className="row mt10 cheap-stuff" style={{ width: "100%" }}>
+          <div className="row mt10 cheap-stuff">
             <div className="col-2">
               <img
                 loading="lazy"
@@ -735,7 +724,7 @@ const Streak = () => {
               </button>
             </div>
           </div>
-          <div className="row mt10 cheap-stuff" style={{ width: "100%" }}>
+          <div className="row mt10 cheap-stuff">
             <div className="col-2">
               <img
                 loading="lazy"
@@ -779,7 +768,11 @@ const Streak = () => {
               </button>
             </div>
           </div>
-          <div
+          </div>
+
+       
+      </div>
+      <div
             class={
               streakOfStreakReward === 0 || streakOfStreakReward === undefined
                 ? "invite-fri-sos"
@@ -803,8 +796,6 @@ const Streak = () => {
               STREAK OF STREAK
             </button>
           </div>
-        </div>
-      </div>
     </>
   );
 };

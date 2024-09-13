@@ -315,8 +315,10 @@ const Thememe = () => {
         height: "100vh",
         width: "100%",
         backgroundColor: "black",
-        position: "fixed",
+        // position: "fixed",
         overflow: "hidden",
+        maxWidth:"480px",
+        margin:"0 auto",
       }}
     >
       <audio ref={audioRef}>
@@ -336,6 +338,8 @@ const Thememe = () => {
           width: "100%",
           bottom: 0,
           overflow: "hidden",
+          maxWidth:"480px",
+          margin:"0 auto",
         }}
       >
         <div style={{ position: "relative", height: "100%" }}>

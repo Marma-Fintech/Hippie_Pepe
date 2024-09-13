@@ -62,6 +62,7 @@
 .streakContainer {
   display: flex;
   align-items: center;
+  justify-content: center;
 }
 .info-img {
   background-position: center;
@@ -81,6 +82,10 @@
   height: 20px;
   margin-bottom: 10px;
 }
+.cheap-stuff
+{
+  max-width: 300px;
+}
 .invite-fri h2 {
   color: #4cf038 !important;
 }
@@ -88,7 +93,7 @@
   background-color: rgba(60, 61, 60, 1);
   position: fixed;
   bottom: 17% !important;
-  padding-top: 15px;
+  padding-top: 10px;
   border-radius: 100px;
   width: 95%;
   height: 60px !important;

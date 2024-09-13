@@ -24,12 +24,17 @@ hr {
   opacity: 1 !important;
 }
 .market-place {
+
   width: 100%;
-  padding: 2px 45px;
+    display: flex;
+    align-items: center;
+    /* margin-top: 5%; */
+    flex-direction: column;
+    pointer-events: all;
 }
-.market-pick img {
+/* .market-pick img {
   width: 60%;
-}
+} */
 .mb0 {
   margin-bottom: 0px;
 }
@@ -90,16 +95,19 @@ hr {
 .p5 {
   padding: 5px;
 }
-.flex {
+.flex
+ {
   padding-top: 10px;
-  display: inline-flex;
-  align-items: self-end;
+    display: flex;
+    align-items: self-end;
+    justify-content: center;
 }
 .booster-margin {
   margin-top: -35px;
 }
+
 .mr5 {
-  margin-right: 10px;
+  margin-right:5px;
 }
 .btn-card {
   width: 100%;
