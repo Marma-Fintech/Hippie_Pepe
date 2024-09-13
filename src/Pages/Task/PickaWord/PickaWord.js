@@ -16,6 +16,10 @@ import {
   userGameRewards,
 } from "../../../apis/user";
 import cancelIcon from "../../../assets/Task/cancelicon.png";
+// import useUserInfo from "../../../Hooks/useUserInfo";
+import Tv from "../../Tv/Tv";
+import Menu from "../../menu/menu";
+
 const cardContents = [
   "levelUp",
   "2x",
@@ -57,50 +61,49 @@ const loadResults = () => {
 const saveResults = async (results) => {
   localStorage.setItem("gameResults", JSON.stringify(results));
 };
-const loadPlaysRemaining = () => {
+const loadPlaysRemaining = (date) => {
   const savedPlays = localStorage.getItem("playsRemaining");
   const lastPlayDate = localStorage.getItem("lastPlayDate");
-  const today = new Date().toISOString().split("T")[0];
+  const today = new Date(date).toISOString().split("T")[0];
   if (lastPlayDate !== today) {
     return 5; // Reset to 5 if a new day
   }
-  console.log(
-    JSON.stringify(savedPlays > 1) + "savedPlayssavedPlayssavedPlays"
-  );
 
   return savedPlays ? JSON.parse(savedPlays) : 5;
 };
-const savePlaysRemaining = (remaining) => {
-  const today = new Date().toISOString().split("T")[0];
+const savePlaysRemaining = (remaining, date) => {
+  const today = new Date(date).toISOString().split("T")[0];
   localStorage.setItem("playsRemaining", JSON.stringify(remaining));
   localStorage.setItem("lastPlayDate", today);
 };
-const loadPurchasesRemaining = () => {
+const loadPurchasesRemaining = (date) => {
   const savedPurchases = localStorage.getItem("purchasesRemaining");
   const lastPurchaseDate = localStorage.getItem("lastPurchaseDate");
-  const today = new Date().toISOString().split("T")[0];
+  const today = new Date(date).toISOString().split("T")[0];
   if (lastPurchaseDate !== today) {
     return 5; // Reset to 5 if a new day
   }
 
-  console.log(savedPurchases + "savedPurchasessavedPurchases");
   return savedPurchases ? JSON.parse(savedPurchases) : 5;
 };
-const savePurchasesRemaining = (remaining) => {
-  const today = new Date().toISOString().split("T")[0];
+const savePurchasesRemaining = (remaining, date) => {
+  const today = new Date(date).toISOString().split("T")[0];
   localStorage.setItem("purchasesRemaining", JSON.stringify(remaining));
   localStorage.setItem("lastPurchaseDate", today);
 };
 const generateCardContents = () => shuffleArray([...cardContents]);
+
 const PickaWord = () => {
   const [cards, setCards] = useState(Array(9).fill(null));
   const { userDetails, updateUserInfo } = useUserInfo();
   const [selected, setSelected] = useState(false);
   const [points, setPoints] = useState(0);
   const [message, setMessage] = useState("");
-  const [playsRemaining, setPlaysRemaining] = useState(loadPlaysRemaining());
+  const [playsRemaining, setPlaysRemaining] = useState(
+    loadPlaysRemaining(userDetails?.userDetails?.lastLogin)
+  );
   const [purchasesRemaining, setPurchasesRemaining] = useState(
-    loadPurchasesRemaining()
+    loadPurchasesRemaining(userDetails?.userDetails?.lastLogin)
   );
   const [results, setResults] = useState(loadResults());
   const [showPopup, setShowPopup] = useState(false);
@@ -108,7 +111,10 @@ const PickaWord = () => {
   const [randomContents, setRandomContents] = useState(generateCardContents());
 
   useEffect(() => {
-    savePurchasesRemaining(purchasesRemaining); // Save purchasesRemaining whenever it changes
+    savePurchasesRemaining(
+      purchasesRemaining,
+      userDetails?.userDetails?.lastLogin
+    ); // Save purchasesRemaining whenever it changes
   }, [purchasesRemaining]);
   const handleCardClick = async (index) => {
     if (playsRemaining <= 0) {
@@ -163,8 +169,10 @@ const PickaWord = () => {
         boosters: currentResult.boosts,
       };
       await userGameRewards(apiData);
-      savePlaysRemaining(playsRemaining - 1);
-      console.log("APIDATA", apiData);
+      savePlaysRemaining(
+        playsRemaining - 1,
+        userDetails?.userDetails?.lastLogin
+      );
     }
   };
   const handleFreePick = () => {
@@ -199,7 +207,7 @@ const PickaWord = () => {
     setPlaysRemaining(1); // Set playsRemaining to 1 after purchase
 
     // Save plays remaining immediately
-    savePlaysRemaining(1);
+    savePlaysRemaining(1, userDetails?.userDetails?.lastLogin);
 
     // Fetch user details and make the purchase
 
@@ -211,27 +219,31 @@ const PickaWord = () => {
     setRandomContents(generateCardContents());
     setShowPopup(false);
     setSelectedCard(null);
-
-    // console.log("totalPoints", totalPoints);
-    console.log("Remaining purchases:", purchasesRemaining - 1);
   };
 
-  const goToThePage = (component, name) => {
-    updateUserInfo((prev) => {
-      return {
-        ...prev,
-        ...{
-          currentComponent: component,
-          currentComponentText: name,
-          lastComponent: userDetails.currentComponent,
-          lastComponentText: userDetails.currentComponentText,
-          isMenu: !userDetails.isMenu,
-        },
-      };
-    });
+  const toogleMenu = () => {
+    updateUserInfo((prev) => ({
+      ...prev,
+      isPlay: false,
+      currentComponent: Menu,
+      currentComponentText: "MenuPage",
+      lastComponent: userDetails?.userDetails.currentComponent,
+      lastComponentText: userDetails?.userDetails.currentComponentText,
+      isMenu: true,
+      menuCount: userDetails?.userDetails?.menuCount + 1,
+    }));
   };
+
   return (
     <div className="task-page">
+      <img
+        onClick={() => {
+          toogleMenu(Tv, "Tv");
+        }}
+        src={cancelIcon}
+        className="cancel-imgpoints"
+        style={{ cursor: "pointer" }}
+      />
       <div className="">
         <h2 className="welcome-text mb15">Pick a Card</h2>
       </div>

@@ -21,6 +21,8 @@ import { FaChevronRight } from "react-icons/fa";
 import clock from "../../assets/images/clock.svg";
 import LeaderBoard from "../LeaderBoard/LeaderBoard";
 import beatAudio from "../../assets/audio/MemetvAudio.mp3";
+import inviteFriends from "../../assets/images/invitetv.svg";
+import ReferPage from "../ReferPage/ReferPage";
 
 const Tv = () => {
   const { userDetails, watchScreen, updatewatchScreenInfo, updateUserInfo } =
@@ -172,6 +174,17 @@ const Tv = () => {
     };
   }, []);
 
+  const goToTheRefererPage = (component, name) => {
+    updateUserInfo((prev) => ({
+      ...prev,
+      currentComponent: component,
+      currentComponentText: name,
+      lastComponent: userDetails.userDetails.currentComponent,
+      lastComponentText: userDetails.userDetails.currentComponentText,
+      refererCount: userDetails.userDetails.refererCount + 1,
+    }));
+  };
+
   const addTotalPoints = () => {
     const totalRewardPoints =
       Number(watchScreen.totalReward) +
@@ -190,7 +203,6 @@ const Tv = () => {
 
   const addWatchSecapi = async (data) => {
     const res = await addWatchSeconds(data);
-    console.log(JSON.stringify(res) + "resresres");
     localStorage.setItem(
       "pointDetails",
       JSON.stringify({
@@ -586,18 +598,11 @@ const Tv = () => {
             className="col-2 text-center"
             onClick={() => {
               if (!watchScreen.booster) {
-                var data = {
-                  telegramId: userDetails.userDetails.telegramId,
-                  userWatchSeconds: secsRef.current,
-                  boosterPoints: String(
-                    tapPointsRef.current + boosterPointsRef.current
-                  ),
-                };
-                addWatchSecapiMarket(data);
+                goToTheRefererPage(ReferPage, "ReferPage");
               }
             }}
           >
-            <img src={marketPlack} alt="Settings" />
+            <img src={inviteFriends} alt="Settings" />
           </div>
 
           <div className="col-8 text-c">

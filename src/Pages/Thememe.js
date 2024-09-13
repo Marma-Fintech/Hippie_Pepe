@@ -6,18 +6,19 @@ import Menu from "./menu/menu";
 import Tv from "./Tv/Tv";
 import Header from "./Header/Header";
 import bottomShape from "../assets/images/bottomshapemain.png";
-import bottomLeft from "../assets/images/RectangleLeft.png";
-import bottomRight from "../assets/images/RectangleRight.png";
+import bottomLeft from "../assets/images/RectangleLeft.svg";
+import bottomRight from "../assets/images/RectangleRight.svg";
 import bottomcenter from "../assets/images/bottomcenter.png";
 import greenLineBottom from "../assets/images/greenLinebottom.png";
 import boosterText from "../assets/images/boostText.png";
-import menuIcon from "../assets/images/menuIcon.png";
-import referIcon from "../assets/images/referIcon.png";
+import menuIcon from "../assets/images/gameIcon.svg";
+import referIcon from "../assets/images/marketp.svg";
 import porotta from "../assets/audio/videoplayback.m4a";
 import ReferPage from "./ReferPage/ReferPage";
 import Boosters from "../Pages/Boosters/Boosters";
 import ContinueText from "../assets/images/continue.svg";
 import switchOnTv from "../assets/images/switch-on.svg";
+import marketPlace from "./MarketPlace/marketPlace";
 
 import {
   UserDeatils,
@@ -27,8 +28,6 @@ import {
 import { addWatchSeconds } from "../apis/user";
 
 const Thememe = () => {
-  console.log(JSON.stringify(new Date()) + "jhfsfgdfhjkj");
-
   const { userDetails, watchScreen, updatewatchScreenInfo, updateUserInfo } =
     useUserInfo();
 
@@ -49,7 +48,6 @@ const Thememe = () => {
 
     if (userData) {
       var data;
-      console.log(typeof referredIdFromUrl, referredIdFromUrl + "jgjhhfn");
       if (referredIdFromUrl && referredIdFromUrl !== "undefined") {
         data = {
           name: userData?.first_name,
@@ -72,12 +70,13 @@ const Thememe = () => {
     }
     const data1 = {
       name: "Karthikeyan",
-      telegramId: "62655kjkh8918",
+      telegramId: "62655loiukjkh8jnjln918",
     };
     getUserDetails(data1);
 
     const calculateReward = async () => {
       const data24 = {
+        // telegramId: String(userData?.id),
         telegramId: data1.telegramId,
         userWatchSeconds: 0,
       };
@@ -121,7 +120,17 @@ const Thememe = () => {
       if (parsedData?.booster[0]) {
         data1.boosters = parsedData?.booster;
       }
-      await updateWatchSecOnly(data1).then(async () => {
+      const res = await updateWatchSecOnly(data1).then(async (res) => {
+        localStorage.setItem(
+          "pointDetails",
+          JSON.stringify({
+            tapPoints: 0,
+            watchSec: 0,
+            boosterPoints: 0,
+            booster: [0],
+          })
+        );
+
         userDetails = await UserDeatils(data);
 
         updateUserInfo((prev) => ({
@@ -133,6 +142,12 @@ const Thememe = () => {
           ...prev,
           boostersList: userDetails?.boosters,
           totalReward: userDetails?.totalRewards,
+          tapPoints: 0,
+          booster: false,
+          boosterSec: 0,
+          boosterPoints: 0,
+          boosterDetails: {},
+          watchSec: 0,
         }));
       });
     } else {
@@ -236,24 +251,8 @@ const Thememe = () => {
 
   const updateWatchSecOnly = async (data) => {
     const res = await addWatchSeconds(data);
-    localStorage.setItem(
-      "pointDetails",
-      JSON.stringify({
-        tapPoints: 0,
-        watchSec: 0,
-        boosterPoints: 0,
-        booster: [0],
-      })
-    );
-    updatewatchScreenInfo((prev) => ({
-      ...prev,
-      tapPoints: 0,
-      booster: false,
-      boosterSec: 0,
-      boosterPoints: 0,
-      boosterDetails: {},
-      watchSec: 0,
-    }));
+
+    return res;
   };
 
   const addWatchSecapi = async (data) => {
@@ -306,6 +305,33 @@ const Thememe = () => {
           goToThePage(Tv, "TVPage");
         }, 1000);
       }
+    }
+  };
+
+  const addWatchSecapiMarket = async (data) => {
+    const res = await addWatchSeconds(data);
+    localStorage.setItem(
+      "pointDetails",
+      JSON.stringify({
+        tapPoints: 0,
+        watchSec: 0,
+        boosterPoints: 0,
+        booster: [0],
+      })
+    );
+    updatewatchScreenInfo((prev) => ({
+      ...prev,
+      totalReward: res.totalRewards,
+      tapPoints: 0,
+      booster: false,
+      boosterSec: 0,
+      boosterPoints: 0,
+      boosterDetails: {},
+      watchSec: 0,
+      updatedWatchPoints: res?.watchRewards,
+    }));
+    if (res) {
+      goToThePage(marketPlace, "marketPlace");
     }
   };
 
@@ -394,14 +420,21 @@ const Thememe = () => {
                 style={{
                   width: "100%",
                   position: "absolute",
-                  top: "38%",
-                  left: 14,
+                  display: "flex",
+                  top: "35%",
+                  left: "-3%",
+                  justifyContent: "center",
+                  alignItems: "center",
                 }}
               >
                 <img
                   src={menuIcon}
                   alt="border"
-                  style={{ width: "50%" }}
+                  style={{
+                    width: "50%",
+                    // marginLeft: "10px",
+                    // marginTop: "-10px",
+                  }}
                   className="bottomImg"
                 />
               </div>
@@ -591,17 +624,22 @@ const Thememe = () => {
               }}
               onClick={() => {
                 if (!watchScreen?.booster) {
-                  goToTheRefererPage(ReferPage, "ReferPage");
+                  const values = JSON.parse(
+                    localStorage.getItem("pointDetails")
+                  );
+                  var data = {
+                    telegramId: userDetails.userDetails.telegramId,
+                    userWatchSeconds: values.watchSec + 1,
+                    boosterPoints: String(values.tapPoints),
+                  };
+                  addWatchSecapiMarket(data);
+                  // goToTheRefererPage(ReferPage, "ReferPage");
                 }
               }}
             >
               <div
                 style={{ position: "absolute", height: "100%", width: "100%" }}
-                onClick={() => {
-                  if (!watchScreen?.booster) {
-                    goToTheRefererPage(ReferPage, "ReferPage");
-                  }
-                }}
+                onClick={() => {}}
               >
                 <img
                   src={bottomRight}
@@ -624,7 +662,7 @@ const Thememe = () => {
                 <img
                   src={referIcon}
                   alt="border"
-                  style={{ width: "50%", objectFit: "contain" }}
+                  style={{ width: "30%", objectFit: "contain" }}
                   className="bottomImg"
                 />
               </div>

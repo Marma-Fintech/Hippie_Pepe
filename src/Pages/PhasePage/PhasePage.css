@@ -45,7 +45,7 @@
   color: antiquewhite;
   margin: 0 !important;
   font-family: mySecondFont;
-  font-size: 15px;
+  font-size: 13px;
   text-align: right;
 }
 .stake-days {
@@ -62,7 +62,7 @@
 }
 .stuff-body1 {
   margin-bottom: 20%;
-  padding: 10px 50px;
+  padding: 10px 65px;
 }
 .phase-stuff {
   width: 100%;
@@ -75,7 +75,7 @@
 .phase-para {
   margin-bottom: 0;
   color: #ffffff;
-  font-size: 20px;
+  font-size: 16px;
 }
 .phase-para img {
   width: 20%;
@@ -88,7 +88,7 @@
   border-radius: 0px 0px 5px 5px;
 }
 .stake-display h2 {
-  font-size: 18px;
+  font-size: 16px;
   color: white;
   margin: 0;
 }
@@ -130,14 +130,14 @@
   border-bottom: 4px solid #4cf038;
   border-left: 4px solid #4cf038;
   transform: rotate(45deg);
-  left: 33px;
+  left: 43px;
 }
 
 .next {
   border-bottom: 4px solid #4cf038;
   border-left: 4px solid #4cf038;
   transform: rotate(-135deg);
-  right: 33px;
+  right: 43px;
 }
 .stuff-unclaim {
   background: #2e2e2e;

@@ -34,7 +34,7 @@ const Menu = () => {
       style={{
         height: "100%",
         width: "100%",
-        display: "flex",
+        display: "none",
         alignItems: "center",
         justifyContent: "center",
         flexDirection: "column",

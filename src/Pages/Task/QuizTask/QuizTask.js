@@ -3,18 +3,21 @@ import "./QuizTask.css";
 import { FaChevronRight } from "react-icons/fa";
 import useUserInfo from "../../../Hooks/useUserInfo";
 import QuizplayTask from "./QuizplayTask.js";
+import Menu from "../../menu/menu";
+import Tv from "../../Tv/Tv";
+import cancelIcon from "../../../assets/Task/cancelicon.png";
 
 const QuizTask = () => {
   const { userDetails, updateUserInfo } = useUserInfo();
   const [quizProgress, setQuizProgress] = useState([]);
-  const startDate = new Date("2024-08-27");
+  const startDate = new Date("2024-08-23");
   const totalDays = 84; // Total days from startDate to endDate
   const daysInPhase = 7; // Number of days per phase
   const totalQuizzesPerDay = 5;
 
   // Function to simulate the current day based on the start date
   const calculateSimulatedDay = () => {
-    const today = new Date(); // This will be used to simulate the current day
+    const today = new Date(userDetails?.userDetails?.lastLogin); // This will be used to simulate the current day
     const diffTime = Math.abs(today - startDate);
     const simulatedDay = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
     return simulatedDay > 0 ? simulatedDay : 1; // Ensure that Day 1 is correctly set
@@ -56,8 +59,29 @@ const QuizTask = () => {
     }));
   };
 
+  const toogleMenu = () => {
+    updateUserInfo((prev) => ({
+      ...prev,
+      isPlay: false,
+      currentComponent: Menu,
+      currentComponentText: "MenuPage",
+      lastComponent: userDetails?.userDetails.currentComponent,
+      lastComponentText: userDetails?.userDetails.currentComponentText,
+      isMenu: true,
+      menuCount: userDetails?.userDetails?.menuCount + 1,
+    }));
+  };
+
   return (
     <div className="quiz-task menupointer">
+      <img
+        onClick={() => {
+          toogleMenu(Tv, "Tv");
+        }}
+        src={cancelIcon}
+        className="cancel-imgpoints"
+        style={{ cursor: "pointer" }}
+      />
       {simulatedDay > totalDays ? (
         <div className="completion-message">
           <h1>All phases completed!</h1>
@@ -77,10 +101,7 @@ const QuizTask = () => {
                   `quizResult_Day_${i + 1}_Cycle_${currentPhase}`
                 )
               );
-              console.log(
-                JSON.stringify(storedCompletedDays) +
-                  "storedCompletedDaysstoredCompletedDays"
-              );
+
               return (
                 <div key={i} className="day-box">
                   <div className="day-label">Day {i + 1}</div>

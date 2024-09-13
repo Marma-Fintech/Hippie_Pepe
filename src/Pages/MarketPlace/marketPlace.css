@@ -98,9 +98,15 @@ hr {
 .flex
  {
   padding-top: 10px;
+<<<<<<< HEAD
     display: flex;
     align-items: self-end;
     justify-content: center;
+=======
+  display: flex;
+  align-items: self-end;
+  justify-content: center;
+>>>>>>> ba5d989da8a5d7a490c881685341fd42a130e841
 }
 .booster-margin {
   margin-top: -35px;

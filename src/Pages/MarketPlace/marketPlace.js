@@ -161,11 +161,18 @@ const MarketPlace = () => {
                   <div className="market-pick text-center">
                     <img src={booster} className="booster-margin" />
                     <div className="row">
+<<<<<<< HEAD
                     <h4 className="mb0 market-color flex">
                       <img className="mr5" src={memetv} /> 10k
                     </h4>
                     </div>
                     
+=======
+                      <h4 className="mb0 market-color flex">
+                        <img className="mr5" src={memetv} /> 10k
+                      </h4>
+                    </div>
+>>>>>>> ba5d989da8a5d7a490c881685341fd42a130e841
                   </div>
                   <div className="p10">
                     <button
@@ -190,10 +197,18 @@ const MarketPlace = () => {
                   <div className="market-pick text-center">
                     <img src={ligthing} className="booster-margin" />
                     <div className="row">
+<<<<<<< HEAD
                     <h4 className="mb0 market-color flex">
                       <img className="mr5" src={memetv} />{" "}
                       {90 * userDetails.userDetails?.level}
                     </h4> </div>
+=======
+                      <h4 className="mb0 market-color flex">
+                        <img className="mr5" src={memetv} />{" "}
+                        {90 * userDetails.userDetails?.level}
+                      </h4>{" "}
+                    </div>
+>>>>>>> ba5d989da8a5d7a490c881685341fd42a130e841
                   </div>
                   <div className="p10">
                     <button
@@ -220,10 +235,17 @@ const MarketPlace = () => {
                   <div className="market-pick text-center">
                     <img src={booster2} className="booster-margin" />
                     <div className="row">
+<<<<<<< HEAD
                     <h4 className="mb0 market-color flex">
                       <img className="mr5" src={memetv} />{" "}
                       {12 * userDetails?.userDetails?.level}
                     </h4>
+=======
+                      <h4 className="mb0 market-color flex">
+                        <img className="mr5" src={memetv} />{" "}
+                        {12 * userDetails?.userDetails?.level}
+                      </h4>
+>>>>>>> ba5d989da8a5d7a490c881685341fd42a130e841
                     </div>
                   </div>
                   <div className="p10">
@@ -249,10 +271,17 @@ const MarketPlace = () => {
                   <div className="market-pick text-center">
                     <img src={booster3} className="booster-margin" />
                     <div className="row">
+<<<<<<< HEAD
                     <h4 className="mb0 market-color flex">
                       <img className="mr5" src={memetv} />{" "}
                       {36 * userDetails.userDetails.level}
                     </h4>
+=======
+                      <h4 className="mb0 market-color flex">
+                        <img className="mr5" src={memetv} />{" "}
+                        {36 * userDetails.userDetails.level}
+                      </h4>
+>>>>>>> ba5d989da8a5d7a490c881685341fd42a130e841
                     </div>
                   </div>
                   <div className="p10">
