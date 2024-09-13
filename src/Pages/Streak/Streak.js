@@ -5,6 +5,9 @@ import StreakBreakPoints from "../StreakBreakPoints/StreakBreakPoints";
 import useUserInfo from "../../Hooks/useUserInfo";
 import logo from "../../assets/images/meme-logo.svg";
 import twitter from "../../assets/images/twitter.svg";
+import Tv from "../Tv/Tv";
+import ReferPage from "../ReferPage/ReferPage";
+import Task from "../Task/Task";
 import {
   getUserStreaks,
   calculateStreak,
@@ -59,6 +62,7 @@ const Streak = () => {
   };
 
   const [startDay, setStartDay] = useState(0);
+  const [currentDay, setCurrentDay] = useState(0);
 
   const referStreakRewardArray = [1000, 2000, 3000, 5000, 10000, 15000, 25000];
   const login_watch_taskStreakRewardArray = [
@@ -103,6 +107,7 @@ const Streak = () => {
     setStreakData(calculatedStreakData);
     //Fetch streak data using get api
     const getStreakData = await getUserStreaks(data.telegramId);
+    setCurrentDay(getStreakData.currentDay);
     if (getStreakData) {
       setClaimedLoginDays(getStreakData.claimedLoginDays);
       setClaimedWatchDays(getStreakData.claimedWatchDays);
@@ -300,6 +305,10 @@ const Streak = () => {
   };
 
   useEffect(() => {
+    dayCheck(currentDay); // You can provide any other value here based on your requirement
+  }, [userDetails.userDetails.telegramId]); // Empty dependency array ensures this runs only on initial render
+
+  useEffect(() => {
     const fetchStreakData = async () => {
       try {
         const data = {
@@ -317,6 +326,7 @@ const Streak = () => {
         }
         //updating startDay (use state)
         setStartDay(getStreakData.startDay);
+        setCurrentDay(getStreakData.currentDay);
 
         // Calculate streak data and update the state
         const calculatedStreakData = await calculateStreak(data);
@@ -385,6 +395,8 @@ const Streak = () => {
                   class={
                     startDay > 1
                       ? "card-block1 card card-1 com-days"
+                      : currentDay === 1
+                      ? "card card-block2 card-1"
                       : "card card-block card-1"
                   }
                 >
@@ -405,6 +417,8 @@ const Streak = () => {
                   class={
                     startDay > 2
                       ? "card-block1 card card-1 com-days"
+                      : currentDay === 2
+                      ? "card card-block2 card-1"
                       : "card card-block card-1"
                   }
                 >
@@ -425,6 +439,8 @@ const Streak = () => {
                   class={
                     startDay > 3
                       ? "card-block1 card card-1 com-days"
+                      : currentDay === 3
+                      ? "card card-block2 card-1"
                       : "card card-block card-1"
                   }
                 >
@@ -446,6 +462,8 @@ const Streak = () => {
                   class={
                     startDay > 4
                       ? "card-block1 card card-1 com-days"
+                      : currentDay === 4
+                      ? "card card-block2 card-1"
                       : "card card-block card-1"
                   }
                 >
@@ -467,6 +485,8 @@ const Streak = () => {
                   class={
                     startDay > 5
                       ? "card-block1 card card-1 com-days"
+                      : currentDay === 5
+                      ? "card card-block2 card-1"
                       : "card card-block card-1"
                   }
                 >
@@ -488,6 +508,8 @@ const Streak = () => {
                   class={
                     startDay > 6
                       ? "card-block1 card card-1 com-days"
+                      : currentDay === 6
+                      ? "card card-block2 card-1"
                       : "card card-block card-1"
                   }
                 >
@@ -508,6 +530,8 @@ const Streak = () => {
                   class={
                     startDay > 7
                       ? "card-block1 card card-1 com-days"
+                      : currentDay === 7
+                      ? "card card-block2 card-1"
                       : "card card-block card-1"
                   }
                 >
@@ -547,7 +571,10 @@ const Streak = () => {
             <div className="col-3">
               <button
                 className={`stuff-claim ${
-                  claimedLoginDays[normalDay - 1] ? "claimed" : ""
+                  claimedLoginDays[normalDay - 1] ||
+                  currentDay < day + startDay - 1
+                    ? "claimed"
+                    : ""
                 }`}
                 onClick={handleLoginClaimClick}
                 style={{ cursor: "pointer" }}
@@ -557,6 +584,8 @@ const Streak = () => {
                   ? "CLAIMED"
                   : loginStreakReward > 0
                   ? "CLAIM"
+                  : currentDay < day + startDay - 1
+                  ? "LOCKED"
                   : "GO"}
               </button>
             </div>
@@ -583,9 +612,18 @@ const Streak = () => {
             <div className="col-3">
               <button
                 className={`stuff-claim ${
-                  claimedWatchDays[normalDay - 1] ? "claimed" : ""
+                  claimedWatchDays[normalDay - 1] ||
+                  currentDay < day + startDay - 1
+                    ? "claimed"
+                    : ""
                 }`}
-                onClick={handleWatchClaimClick}
+                onClick={() => {
+                  if (watchStreakReward > 0) {
+                    handleWatchClaimClick();
+                  } else if (currentDay >= day + startDay - 1) {
+                    goToThePage(Tv, "Tv");
+                  }
+                }}
                 style={{ cursor: "pointer" }}
                 disabled={claimedWatchDays[normalDay - 1]}
               >
@@ -593,6 +631,8 @@ const Streak = () => {
                   ? "CLAIMED"
                   : watchStreakReward > 0
                   ? "CLAIM"
+                  : currentDay < day + startDay - 1
+                  ? "LOCKED"
                   : "GO"}
               </button>
             </div>
@@ -620,9 +660,18 @@ const Streak = () => {
             <div className="col-3">
               <button
                 className={`stuff-claim ${
-                  claimedReferDays[normalDay - 1] ? "claimed" : ""
+                  claimedReferDays[normalDay - 1] ||
+                  currentDay < day + startDay - 1
+                    ? "claimed"
+                    : ""
                 }`}
-                onClick={handleReferClaimClick}
+                onClick={() => {
+                  if (referStreakReward > 0) {
+                    handleReferClaimClick();
+                  } else if (currentDay >= day + startDay - 1) {
+                    goToThePage(ReferPage, "ReferPage");
+                  }
+                }}
                 style={{ cursor: "pointer" }}
                 disabled={claimedReferDays[normalDay - 1]}
               >
@@ -630,6 +679,8 @@ const Streak = () => {
                   ? "CLAIMED"
                   : referStreakReward > 0
                   ? "CLAIM"
+                  : currentDay < day + startDay - 1
+                  ? "LOCKED"
                   : "GO"}
               </button>
             </div>
@@ -659,9 +710,18 @@ const Streak = () => {
             <div className="col-3">
               <button
                 className={`stuff-claim ${
-                  claimedTaskDays[normalDay - 1] ? "claimed" : ""
+                  claimedTaskDays[normalDay - 1] ||
+                  currentDay < day + startDay - 1
+                    ? "claimed"
+                    : ""
                 }`}
-                onClick={handleGameClaimClick}
+                onClick={() => {
+                  if (referStreakReward > 0) {
+                    handleGameClaimClick();
+                  } else if (currentDay >= day + startDay - 1) {
+                    goToThePage(Task, "Task");
+                  }
+                }}
                 style={{ cursor: "pointer" }}
                 disabled={claimedTaskDays[normalDay - 1]}
               >
@@ -669,6 +729,8 @@ const Streak = () => {
                   ? "CLAIMED"
                   : taskStreakReward > 0
                   ? "CLAIM"
+                  : currentDay < day + startDay - 1
+                  ? "LOCKED"
                   : "GO"}
               </button>
             </div>
@@ -698,7 +760,10 @@ const Streak = () => {
             <div className="col-3">
               <button
                 className={`stuff-claim ${
-                  claimedMultiDays[normalDay - 1] ? "claimed" : ""
+                  claimedMultiDays[normalDay - 1] ||
+                  currentDay < day + startDay - 1
+                    ? "claimed"
+                    : ""
                 }`}
                 onClick={handleMultiClaimClick}
                 style={{ cursor: "pointer" }}
@@ -708,6 +773,8 @@ const Streak = () => {
                   ? "CLAIMED"
                   : multiStreakReward > 0
                   ? "CLAIM"
+                  : currentDay < day + startDay - 1
+                  ? "LOCKED"
                   : "GO"}
               </button>
             </div>

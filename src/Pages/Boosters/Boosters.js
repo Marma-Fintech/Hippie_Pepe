@@ -13,9 +13,7 @@ const Boosters = () => {
   const [currentSlide, setCurrentSlide] = useState(2);
   const { userDetails, watchScreen, updatewatchScreenInfo, updateUserInfo } =
     useUserInfo();
-  console.log(
-    JSON.stringify(userDetails.userDetails.boosters, watchScreen.boostersList)
-  );
+
   const [boosters, setBooster] = useState({
     levelUp: 0,
     tap: 10,
@@ -54,7 +52,6 @@ const Boosters = () => {
       content: <Card key={index} item={{ key, value }} />,
     }));
     setBoosterSlides(slides);
-    // console.log(JSON.stringify(slides) + "sssssssssssssssssssssssssssss");
   }, [boosters]);
 
   const slides = [

@@ -41,6 +41,9 @@
 .card-block button {
   color: #ffffff;
 }
+.card-block2 button {
+  color: greenyellow;
+}
 .complete-btn {
   background-color: none;
   border: none;
@@ -232,6 +235,16 @@
   background-color: #363636 !important;
   border: none;
   color: #505050 !important;
+  background-position: center;
+  background-size: cover;
+  transition: all 0.2s ease-in-out !important;
+  border-radius: 0px !important;
+}
+.card-block2 {
+  height: auto !important;
+  background-color: #034807 !important;
+  border: none;
+  color: #4cf038 !important;
   background-position: center;
   background-size: cover;
   transition: all 0.2s ease-in-out !important;
