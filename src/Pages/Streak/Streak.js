@@ -22,6 +22,7 @@ import {
   streakOfStreakRewardClaim,
 } from "../../apis/user";
 import { differenceInDays } from "date-fns";
+import cancelIcon from "../../assets/Task/cancelicon.png";
 
 const Streak = () => {
   const [day, setDay] = useState(1);
@@ -435,9 +436,30 @@ const Streak = () => {
     fetchStreakData();
   }, [userDetails.userDetails.telegramId]); // Dependency array to run the effect when telegramId changes
 
+  const toogleMenu = () => {
+    updateUserInfo((prev) => ({
+      ...prev,
+      isPlay: false,
+      currentComponent: Tv,
+      currentComponentText: "TVPage",
+      lastComponent: userDetails?.userDetails.currentComponent,
+      lastComponentText: userDetails?.userDetails.currentComponentText,
+      isMenu: true,
+      menuCount: userDetails?.userDetails?.menuCount + 1,
+    }));
+  };
+
   return (
     <>
       <div className=" menupointer">
+        <img
+          onClick={() => {
+            toogleMenu(Tv, "Tv");
+          }}
+          src={cancelIcon}
+          className="cancel-imgpoints"
+          style={{ cursor: "pointer", zIndex: 1000000, pointerEvents: "all" }}
+        />
         <div className="streakContainer">
           <h1 className="streaktext">STREAK</h1>
           <img

@@ -62,7 +62,7 @@
 }
 .stuff-body1 {
   margin-bottom: 20%;
-  padding: 10px 50px;
+  padding: 10px 65px;
 }
 .phase-stuff {
   width: 100%;
@@ -130,14 +130,14 @@
   border-bottom: 4px solid #4cf038;
   border-left: 4px solid #4cf038;
   transform: rotate(45deg);
-  left: 33px;
+  left: 43px;
 }
 
 .next {
   border-bottom: 4px solid #4cf038;
   border-left: 4px solid #4cf038;
   transform: rotate(-135deg);
-  right: 33px;
+  right: 43px;
 }
 .stuff-unclaim {
   background: #2e2e2e;

@@ -4,9 +4,12 @@ import logo from "../../assets/images/main-logo.svg";
 import "./PhasePage.css";
 import { weekRewards, stakeRewards } from "../../apis/user";
 import useUserInfo from "../../Hooks/useUserInfo";
+import Menu from "../menu/menu";
+import Tv from "../Tv/Tv";
+import cancelIcon from "../../assets/Task/cancelicon.png";
 
 const PhasePage = () => {
-  const { userDetails } = useUserInfo();
+  const { userDetails, updateUserInfo } = useUserInfo();
   const [currentLevel, setCurrentLevel] = useState(
     userDetails?.userDetails?.currentPhase
   );
@@ -69,9 +72,29 @@ const PhasePage = () => {
       }, 1500);
     }
   };
+  const toogleMenu = () => {
+    updateUserInfo((prev) => ({
+      ...prev,
+      isPlay: false,
+      currentComponent: Tv,
+      currentComponentText: "TVPage",
+      lastComponent: userDetails?.userDetails.currentComponent,
+      lastComponentText: userDetails?.userDetails.currentComponentText,
+      isMenu: true,
+      menuCount: userDetails?.userDetails?.menuCount + 1,
+    }));
+  };
   return (
     <>
       <div className="info-img scroll">
+        <img
+          onClick={() => {
+            toogleMenu(Tv, "Tv");
+          }}
+          src={cancelIcon}
+          className="cancel-imgpoints"
+          style={{ cursor: "pointer", zIndex: 1000000, pointerEvents: "all" }}
+        />
         <div
           className="menupointer stuff-body1"
           style={{

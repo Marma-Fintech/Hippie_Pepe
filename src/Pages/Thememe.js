@@ -135,13 +135,13 @@ const Thememe = () => {
 
         updateUserInfo((prev) => ({
           ...prev,
-          userDetails: res,
+          userDetails: userDetails,
         }));
 
         updatewatchScreenInfo((prev) => ({
           ...prev,
-          boostersList: res?.boosters,
-          totalReward: res?.totalRewards,
+          boostersList: userDetails?.boosters,
+          totalReward: userDetails?.totalRewards,
           tapPoints: 0,
           booster: false,
           boosterSec: 0,
@@ -303,7 +303,7 @@ const Thememe = () => {
       if (data) {
         setTimeout(() => {
           goToThePage(Tv, "TVPage");
-        }, 500);
+        }, 1000);
       }
     }
   };
