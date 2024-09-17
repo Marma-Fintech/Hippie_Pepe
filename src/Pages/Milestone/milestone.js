@@ -1,6 +1,7 @@
 import React from "react";
 import "./milestone.css";
 import logo from "../../assets/images/meme-logo.svg";
+import Cup from "../../assets/images/cup.svg";
 
 const Milestone = () => {
   
@@ -12,17 +13,20 @@ const Milestone = () => {
         <h3>Here’s how it works</h3>
       </div>
       <div className="phase-para1">
-        <p className="font-2">Start Watching</p>
+        <p className="font-2">Create Your Unique Referral Link</p>
         <p>
-          Simply click the "Watch" button to access a TV-like interface filled
-          with entertaining meme videos.
+        Click the "Invite" button to generate 
+        your personalized referral link.
+        <hr style={{margin:"10px",paddingBottom:"0px"}} />
         </p>
+       
       </div>
+     
       <div className="container" style={{maxWidth:"320px"}}>
       <div className="row mt10 cheap-stuff">
             <div className="col-2">
               <img
-                src="https://cdn.builder.io/api/v1/image/assets/TEMP/a32d4767f07e35eed25cbb58c62b6e3e02828c9e572ce8ea3b6670916cbe8671?apiKey=da9eb044cac44bb1ab1471c98df94a03&&apiKey=da9eb044cac44bb1ab1471c98df94a03"
+                src={Cup}
                 alt="Login streak icon"
                 className="image"
               />
@@ -31,7 +35,7 @@ const Milestone = () => {
               <h4>Login Streak</h4>
               <p className="stuff-p">
                 <img src={logo} />{" "}
-                
+                +958
               </p>
             </div>
             <div className="col-3">
@@ -42,10 +46,11 @@ const Milestone = () => {
               
             </div>
           </div>
+          
           <div className="row mt10 cheap-stuff">
             <div className="col-2">
               <img
-                src="https://cdn.builder.io/api/v1/image/assets/TEMP/a32d4767f07e35eed25cbb58c62b6e3e02828c9e572ce8ea3b6670916cbe8671?apiKey=da9eb044cac44bb1ab1471c98df94a03&&apiKey=da9eb044cac44bb1ab1471c98df94a03"
+                 src={Cup}
                 alt="Login streak icon"
                 className="image"
               />
@@ -54,7 +59,7 @@ const Milestone = () => {
               <h4>Login Streak</h4>
               <p className="stuff-p">
                 <img src={logo} />{" "}
-                
+                +958
               </p>
             </div>
             <div className="col-3">
@@ -65,10 +70,11 @@ const Milestone = () => {
               
             </div>
           </div>
+
           <div className="row mt10 cheap-stuff">
             <div className="col-2">
               <img
-                src="https://cdn.builder.io/api/v1/image/assets/TEMP/a32d4767f07e35eed25cbb58c62b6e3e02828c9e572ce8ea3b6670916cbe8671?apiKey=da9eb044cac44bb1ab1471c98df94a03&&apiKey=da9eb044cac44bb1ab1471c98df94a03"
+                 src={Cup}
                 alt="Login streak icon"
                 className="image"
               />
@@ -77,7 +83,7 @@ const Milestone = () => {
               <h4>Login Streak</h4>
               <p className="stuff-p">
                 <img src={logo} />{" "}
-                
+                +958
               </p>
             </div>
             <div className="col-3">
