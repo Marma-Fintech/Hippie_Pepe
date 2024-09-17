@@ -93,12 +93,12 @@
 
 .font-2 {
   font-family: mySecondFont;
-  background: linear-gradient(
+  /* background: linear-gradient(
     180deg,
     #fd8d23 -1.34%,
     #fae61c 50%,
     #eef73b 100%
-  ) !important;
+  ) !important; */
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   font-size: 12px !important;

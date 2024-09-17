@@ -1,13 +1,15 @@
-import React, { useState, useEffect, useRef } from "react";
+
+import React, { useState, useEffect, useRef, useMemo } from "react";
 import "./Streak.css";
 import questionMarkIcon from "../../assets/Task/ReferImg.png";
-import StreakBreakPoints from "../StreakBreakPoints/StreakBreakPoints";
-import useUserInfo from "../../Hooks/useUserInfo";
+import StreakBreakPoints from "../StreakBreakPoints/StreakBreakPoints";import useUserInfo from "../../Hooks/useUserInfo";
 import logo from "../../assets/images/meme-logo.svg";
 import twitter from "../../assets/images/twitter.svg";
 import Tv from "../Tv/Tv";
 import ReferPage from "../ReferPage/ReferPage";
 import Task from "../Task/Task";
+import Spinner from "./Spinner"; // Import the spinner component
+
 import {
   UserDeatils,
   addWatchSeconds,
@@ -22,7 +24,6 @@ import {
   streakOfStreakRewardClaim,
 } from "../../apis/user";
 import { differenceInDays } from "date-fns";
-import cancelIcon from "../../assets/Task/cancelicon.png";
 
 const Streak = () => {
   const [day, setDay] = useState(1);
@@ -48,6 +49,13 @@ const Streak = () => {
   const [taskStreakReward, setTaskStreakReward] = useState(0);
   const [multiStreakReward, setMultiStreakReward] = useState(0);
   const [streakOfStreakReward, setStreakOfStreakReward] = useState(0);
+
+  //loader
+  const [isLoginClaimLoading, setIsLoginClaimLoading] = useState(false);
+  const [isWatchClaimLoading, setIsWatchClaimLoading] = useState(false);
+  const [isReferClaimLoading, setIsReferClaimLoading] = useState(false);
+  const [isTaskClaimLoading, setIsTaskClaimLoading] = useState(false);
+  const [isMultiClaimLoading, setIsMultiClaimLoading] = useState(false);
 
   const goToThePage = (component, name) => {
     updateUserInfo((prev) => {
@@ -183,19 +191,20 @@ const Streak = () => {
       telegramId: userDetails.userDetails.telegramId,
       userWatchSeconds: 0,
     };
-    // Calculate streak data and update the state
-    const calculatedStreakData = await calculateStreak(data);
+    // Fetch streak data
+    const [calculatedStreakData, getStreakData] = await Promise.all([
+      calculateStreak(data),
+      getUserStreaks(data.telegramId)
+    ]);
+
+    // Update basic streak data
     setStreakData(calculatedStreakData);
-    //Fetch streak data using get api
-    const getStreakData = await getUserStreaks(data.telegramId);
     setCurrentDay(getStreakData.currentDay);
-    if (getStreakData) {
-      setClaimedLoginDays(getStreakData.claimedLoginDays);
-      setClaimedWatchDays(getStreakData.claimedWatchDays);
-      setClaimedReferDays(getStreakData.claimedReferDays);
-      setClaimedTaskDays(getStreakData.claimedTaskDays);
-      setClaimedMultiDays(getStreakData.claimedMultiDays);
-    }
+    setClaimedLoginDays(getStreakData.claimedLoginDays);
+    setClaimedWatchDays(getStreakData.claimedWatchDays);
+    setClaimedReferDays(getStreakData.claimedReferDays);
+    setClaimedTaskDays(getStreakData.claimedTaskDays);
+    setClaimedMultiDays(getStreakData.claimedMultiDays);
 
     if (
       calculatedStreakData.login &&
@@ -252,99 +261,215 @@ const Streak = () => {
     );
   };
 
+  // Memoize login streak reward
+  const memoizedLoginStreakReward = useMemo(() => {
+    return streakData?.loginStreak?.loginStreakReward[dayRef.current - 1] || 0;
+  }, [streakData, dayRef.current]);
+
+  // Memoize watch streak reward
+  const memoizedWatchStreakReward = useMemo(() => {
+    return streakData?.watchStreak?.watchStreakReward[dayRef.current - 1] || 0;
+  }, [streakData, dayRef.current]);
+
+  // Memoize refer streak reward
+  const memoizedReferStreakReward = useMemo(() => {
+    return streakData?.referStreak?.referStreakReward[dayRef.current - 1] || 0;
+  }, [streakData, dayRef.current]);
+
+  // Memoize task streak reward
+  const memoizedTaskStreakReward = useMemo(() => {
+    return streakData?.taskStreak?.taskStreakReward[dayRef.current - 1] || 0;
+  }, [streakData, dayRef.current]);
+
+  // Memoize multi streak reward
+  const memoizedMultiStreakReward = useMemo(() => {
+    return streakData?.multiStreak?.multiStreakReward[dayRef.current - 1] || 0;
+  }, [streakData, dayRef.current]);
+
   useEffect(() => {
     calculateReward();
   }, [day]);
 
   const handleLoginClaimClick = async () => {
+    // Set the login streak reward from the current streak data
     setLoginStreakReward(
       streakData.loginStreak.loginStreakReward[dayRef.current - 1]
     );
+  
     const data = {
-      telegramId: userDetails.userDetails.telegramId,
-      index: day - 1,
+      telegramId: userDetails.userDetails.telegramId, // Assuming telegramId is in userDetails
+      index: day - 1, // Adjust index based on current day
     };
-    if (
-      streakData.loginStreak.loginStreakReward[dayRef.current - 1] != undefined
-    ) {
-      const response = await loginStreakRewardClaim(data);
-      setLoginStreakReward(0);
-      calculateReward();
+  
+    // Check if the login streak reward is not undefined
+    if (streakData.loginStreak.loginStreakReward[dayRef.current - 1] !== undefined) {
+      try {
+        setIsLoginClaimLoading(true); // Start loading
+  
+        // Call the loginStreakRewardClaim function and pass the data
+        const response = await loginStreakRewardClaim(data);
+
+        // Update claimedLoginDays immediately
+        const updatedClaimedLoginDays = [...claimedLoginDays];
+        updatedClaimedLoginDays[normalDay - 1] = true; // Mark the current day as claimed
+        setClaimedLoginDays(updatedClaimedLoginDays); // Update the state immediately
+        // Reset the reward or perform other actions
+        setLoginStreakReward(0);
+        calculateReward();
+        
+      } catch (error) {
+        console.error("Error during claim:", error);
+      } finally {
+        setIsLoginClaimLoading(false); // End loading
+      }
     }
   };
 
   const handleWatchClaimClick = async () => {
+    // Set the watch streak reward from the current streak data
     setWatchStreakReward(
       streakData.watchStreak.watchStreakReward[dayRef.current - 1]
     );
+  
     const data = {
-      telegramId: userDetails.userDetails.telegramId,
-      index: day - 1,
+      telegramId: userDetails.userDetails.telegramId, // Assuming telegramId is in userDetails
+      index: day - 1, // Adjust index based on current day
     };
-    if (streakData.watchStreak.watchStreakReward[day - 1] != undefined) {
-      const response = await watchStreakRewardClaim(data);
-      setWatchStreakReward(0);
-      calculateReward();
-    }
-  };
+  
+    // Check if the watch streak reward is not undefined
+    if (streakData.watchStreak.watchStreakReward[dayRef.current - 1] !== undefined) {
+      try {
+        setIsWatchClaimLoading(true); // Start loading
+    
+        // Call the watchStreakRewardClaim function and pass the data
+        const response = await watchStreakRewardClaim(data);
+        // Update claimedWatchDays immediately
+        const updatedClaimedWatchDays = [...claimedWatchDays];
+        updatedClaimedWatchDays[normalDay - 1] = true; // Mark the current day as claimed
+        setClaimedWatchDays(updatedClaimedWatchDays); // Update the state immediately
 
-  const handleReferClaimClick = async () => {
-    setReferStreakReward(
-      streakData.referStreak.referStreakReward[dayRef.current - 1]
-    );
-    const data = {
-      telegramId: userDetails.userDetails.telegramId,
-      index: day - 1,
-    };
-    if (streakData.referStreak.referStreakReward[day - 1] != undefined) {
-      const response = await referStreakRewardClaim(data);
-      setReferStreakReward(0);
-      calculateReward();
-    }
-  };
-
-  const handleGameClaimClick = async () => {
-    setTaskStreakReward(
-      streakData.taskStreak.taskStreakReward[dayRef.current - 1]
-    );
-    const data = {
-      telegramId: userDetails.userDetails.telegramId,
-      index: day - 1,
-    };
-    if (
-      streakData.taskStreak.taskStreakReward[dayRef.current - 1] != undefined
-    ) {
-      const response = await taskStreakRewardClaim(data);
-      setTaskStreakReward(0);
-      calculateReward();
-    }
-  };
-
-  const handleMultiClaimClick = async () => {
-    if (
-      streakData.login &&
-      streakData.watch &&
-      streakData.refer &&
-      streakData.task
-    ) {
-      setMultiStreakReward(
-        streakOfStreakData.streakOfStreak.multiStreakReward[dayRef.current - 1]
-      );
-      const data = {
-        telegramId: userDetails.userDetails.telegramId,
-        index: day - 1,
-      };
-      if (
-        streakOfStreakData.streakOfStreak.multiStreakReward[
-          dayRef.current - 1
-        ] != undefined
-      ) {
-        const response = await multiStreakRewardClaim(data);
-        setMultiStreakReward(0);
-        calculateReward();
+        // Reset the reward or perform other actions
+        setWatchStreakReward(0);
+        calculateReward(); // Update any further reward calculations
+          
+      } catch (error) {
+        console.error("Error during watch claim:", error);
+      } finally {
+        setIsWatchClaimLoading(false); // End loading
       }
     }
   };
+  
+
+  const handleReferClaimClick = async () => {
+    // Set the refer streak reward from the current streak data
+    setReferStreakReward(
+      streakData.referStreak.referStreakReward[dayRef.current - 1]
+    );
+  
+    const data = {
+      telegramId: userDetails.userDetails.telegramId, // Assuming telegramId is in userDetails
+      index: day - 1, // Adjust index based on current day
+    };
+  
+    // Check if the refer streak reward is not undefined
+    if (streakData.referStreak.referStreakReward[dayRef.current - 1] !== undefined) {
+      try {
+        setIsReferClaimLoading(true); // Start loading
+    
+        // Call the referStreakRewardClaim function and pass the data
+        const response = await referStreakRewardClaim(data);
+        // Update claimedReferDays immediately
+        const updatedClaimedReferDays = [...claimedReferDays];
+        updatedClaimedReferDays[normalDay - 1] = true; // Mark the current day as claimed
+        setClaimedReferDays(updatedClaimedReferDays); // Update the state immediately
+
+        // Reset the reward or perform other actions
+        setReferStreakReward(0);
+        calculateReward(); // Update any further reward calculations
+          
+      } catch (error) {
+        console.error("Error during refer claim:", error);
+      } finally {
+        setIsReferClaimLoading(false); // End loading
+      }
+    }
+  };
+  
+
+  const handleGameClaimClick = async () => {
+    // Set the task streak reward from the current streak data
+    setTaskStreakReward(
+      streakData.taskStreak.taskStreakReward[dayRef.current - 1]
+    );
+  
+    const data = {
+      telegramId: userDetails.userDetails.telegramId, // Assuming telegramId is in userDetails
+      index: day - 1, // Adjust index based on current day
+    };
+  
+    // Check if the task streak reward is not undefined
+    if (streakData.taskStreak.taskStreakReward[dayRef.current - 1] !== undefined) {
+      try {
+        setIsTaskClaimLoading(true); // Start loading
+  
+        // Call the taskStreakRewardClaim function and pass the data
+        const response = await taskStreakRewardClaim(data);
+        // Update claimedTaskDays immediately
+        const updatedClaimedTaskDays = [...claimedTaskDays];
+        updatedClaimedTaskDays[normalDay - 1] = true; // Mark the current day as claimed
+        setClaimedTaskDays(updatedClaimedTaskDays); // Update the state immediately
+
+        // Reset the reward or perform other actions
+        setTaskStreakReward(0);
+        calculateReward(); // Update any further reward calculations
+      } catch (error) {
+        console.error("Error during task claim:", error);
+      } finally {
+        setIsTaskClaimLoading(false); // End loading
+      }
+    }
+  };
+  
+
+  const handleMultiClaimClick = async () => {
+  // Check if all necessary streak data is available
+  if (streakData.login && streakData.watch && streakData.refer && streakData.task) {
+    // Set the multi streak reward from the current streak data
+    setMultiStreakReward(
+      streakOfStreakData.streakOfStreak.multiStreakReward[dayRef.current - 1]
+    );
+
+    const data = {
+      telegramId: userDetails.userDetails.telegramId, // Assuming telegramId is in userDetails
+      index: day - 1, // Adjust index based on current day
+    };
+
+    // Check if the multi streak reward is not undefined
+    if (streakOfStreakData.streakOfStreak.multiStreakReward[dayRef.current - 1] !== undefined) {
+      try {
+        setIsMultiClaimLoading(true); // Start loading
+
+        // Call the multiStreakRewardClaim function and pass the data
+        const response = await multiStreakRewardClaim(data);
+        // Update claimedMultiDays immediately
+        const updatedClaimedMultiDays = [...claimedMultiDays];
+        updatedClaimedMultiDays[dayRef.current - 1] = true; // Mark the current day as claimed
+        setClaimedMultiDays(updatedClaimedMultiDays); // Update the state immediately
+
+        // Reset the reward or perform other actions
+        setMultiStreakReward(0);
+        calculateReward(); // Update any further reward calculations
+
+      } catch (error) {
+        console.error("Error during multi claim:", error);
+      } finally {
+        setIsMultiClaimLoading(false); // End loading
+      }
+    }
+  }
+};
+
 
   const handleSOSClaimClick = async () => {
     if (
@@ -436,100 +561,9 @@ const Streak = () => {
     fetchStreakData();
   }, [userDetails.userDetails.telegramId]); // Dependency array to run the effect when telegramId changes
 
-  const toogleMenu = () => {
-    updateUserInfo((prev) => ({
-      ...prev,
-      isPlay: false,
-      currentComponent: Tv,
-      currentComponentText: "TVPage",
-      lastComponent: userDetails?.userDetails.currentComponent,
-      lastComponentText: userDetails?.userDetails.currentComponentText,
-      isMenu: true,
-      menuCount: userDetails?.userDetails?.menuCount + 1,
-    }));
-  };
-
   return (
     <>
-<<<<<<< HEAD
-      
       <div className=" menupointer">
-        <div className="streakContainer">
-            <h1 className="streaktext">STREAK</h1>
-            <img
-              onMouseEnter={() => {
-                goToThePage(StreakBreakPoints, "streakBreakPoints");
-              }}
-              src={questionMarkIcon}
-              alt="Question Mark Icon"
-              className="questionMarkIcon"
-            />
-          </div>
-          <div class="container-fluid" style={{maxWidth:"300px"}}>
-            <div class="scrolling-wrapper row flex-row flex-nowrap">
-              <div class="col-4">
-                <div
-                  class={
-                    startDay > 1
-                      ? "card-block1 card card-1 com-days"
-                      : currentDay === 1
-                      ? "card card-block2 card-1"
-                      : "card card-block card-1"
-                  }
-                >
-                  <button
-                    className="btn-none"
-                    onClick={() => {
-                      dayCheck(1);
-                    }}
-                    disabled={startDay > 1 ? true : false}
-                  >
-                    {" "}
-                    DAY 1{" "}
-                  </button>
-                </div>
-              </div>
-              <div class="col-4">
-                <div
-                  class={
-                    startDay > 2
-                      ? "card-block1 card card-1 com-days"
-                      : currentDay === 2
-                      ? "card card-block2 card-1"
-                      : "card card-block card-1"
-                  }
-                >
-                  <button
-                    className="btn-none"
-                    onClick={() => {
-                      dayCheck(2);
-                    }}
-                    disabled={startDay > 2 ? true : false}
-                  >
-                    {" "}
-                    DAY 2{" "}
-                  </button>
-                </div>
-              </div>
-              <div class="col-4">
-                <div
-                  class={
-                    startDay > 3
-                      ? "card-block1 card card-1 com-days"
-                      : currentDay === 3
-                      ? "card card-block2 card-1"
-                      : "card card-block card-1"
-                  }
-=======
-      <div className=" menupointer">
-        <img
-          onClick={() => {
-            toogleMenu(Tv, "Tv");
-          }}
-          src={cancelIcon}
-          className="cancel-imgpoints"
-          style={{ cursor: "pointer", zIndex: 1000000, pointerEvents: "all" }}
-        />
         <div className="streakContainer">
           <h1 className="streaktext">STREAK</h1>
           <img
@@ -562,7 +596,6 @@ const Streak = () => {
                     dayCheck(1);
                   }}
                   disabled={startDay > 1 ? true : false}
->>>>>>> ba5d989da8a5d7a490c881685341fd42a130e841
                 >
                   {" "}
                   DAY 1{" "}
@@ -705,12 +738,8 @@ const Streak = () => {
               </div>
             </div>
           </div>
-<<<<<<< HEAD
-          <div className="scrollableContainer">
-=======
         </div>
         <div className="scrollableContainer">
->>>>>>> ba5d989da8a5d7a490c881685341fd42a130e841
           <div className="row mt10 cheap-stuff">
             <div className="col-2">
               <img
@@ -723,15 +752,18 @@ const Streak = () => {
               <h4>Login Streak</h4>
               <p className="stuff-p">
                 <img src={logo} />{" "}
-                {loginStreakReward === undefined
-                  ? "0"
+                {memoizedLoginStreakReward === undefined
+                  ? "+0"
                   : claimedLoginDays[normalDay - 1]
                   ? `+${login_watch_taskStreakRewardArray[day - 1]}`
-                  : `+${loginStreakReward}`}{" "}
+                  : `+${memoizedLoginStreakReward}`}{" "}
               </p>
             </div>
             <div className="col-3">
-              <button
+              {/* If loading is true, show the loader */}
+              {isLoginClaimLoading ? (
+                <Spinner />
+              ) :(<button
                 className={`stuff-claim ${
                   claimedLoginDays[normalDay - 1] ||
                   currentDay < day + startDay - 1
@@ -749,7 +781,8 @@ const Streak = () => {
                   : currentDay < day + startDay - 1
                   ? "LOCKED"
                   : "GO"}
-              </button>
+              </button>)}
+              
             </div>
           </div>
           <div className="row mt10 cheap-stuff">
@@ -764,14 +797,17 @@ const Streak = () => {
               <h4>Watch Streak</h4>
               <p className="stuff-p">
                 <img src={logo} />{" "}
-                {watchStreakReward === undefined
-                  ? "0"
+                {memoizedWatchStreakReward === undefined
+                  ? "+0"
                   : claimedWatchDays[normalDay - 1]
                   ? `+${login_watch_taskStreakRewardArray[day - 1]}`
-                  : `+${watchStreakReward}`}{" "}
+                  : `+${memoizedWatchStreakReward}`}{" "}
               </p>
             </div>
             <div className="col-3">
+            {isWatchClaimLoading ? (
+                <Spinner />
+              ) :(
               <button
                 className={`stuff-claim ${
                   claimedWatchDays[normalDay - 1] ||
@@ -799,7 +835,8 @@ const Streak = () => {
                   : currentDay < day + startDay - 1
                   ? "LOCKED"
                   : "GO"}
-              </button>
+              </button>)
+            }
             </div>
           </div>
           <div className="row mt10 cheap-stuff">
@@ -815,14 +852,17 @@ const Streak = () => {
               <h4>Refer streak</h4>
               <p className="stuff-p">
                 <img src={logo} />{" "}
-                {referStreakReward === undefined
-                  ? "0"
+                {memoizedReferStreakReward  === undefined
+                  ? "+0"
                   : claimedReferDays[normalDay - 1]
                   ? `+${referStreakRewardArray[day - 1]}`
                   : `+${referStreakReward}`}{" "}
               </p>
             </div>
             <div className="col-3">
+            {isReferClaimLoading ? (
+                <Spinner />
+              ) :(
               <button
                 className={`stuff-claim ${
                   claimedReferDays[normalDay - 1] ||
@@ -847,7 +887,7 @@ const Streak = () => {
                   : currentDay < day + startDay - 1
                   ? "LOCKED"
                   : "GO"}
-              </button>
+              </button>)}
             </div>
           </div>
           <div className="row mt10 cheap-stuff">
@@ -865,14 +905,17 @@ const Streak = () => {
               <h4>Game Streak</h4>
               <p className="stuff-p">
                 <img src={logo} />{" "}
-                {taskStreakReward === undefined
-                  ? "0"
+                {memoizedTaskStreakReward === undefined
+                  ? "+0"
                   : claimedTaskDays[normalDay - 1]
                   ? `+${login_watch_taskStreakRewardArray[day - 1]}`
                   : `+${taskStreakReward}`}{" "}
               </p>
             </div>
             <div className="col-3">
+            {isTaskClaimLoading ? (
+                <Spinner />
+              ) :(
               <button
                 className={`stuff-claim ${
                   claimedTaskDays[normalDay - 1] ||
@@ -881,7 +924,7 @@ const Streak = () => {
                     : ""
                 }`}
                 onClick={() => {
-                  if (referStreakReward > 0) {
+                  if (taskStreakReward > 0) {
                     handleGameClaimClick();
                   } else if (currentDay >= day + startDay - 1) {
                     goToThePage(Task, "Task");
@@ -897,7 +940,7 @@ const Streak = () => {
                   : currentDay < day + startDay - 1
                   ? "LOCKED"
                   : "GO"}
-              </button>
+              </button>)}
             </div>
           </div>
           <div className="row mt10 cheap-stuff">
@@ -914,7 +957,7 @@ const Streak = () => {
               <p className="stuff-p">
                 <img src={logo} />{" "}
                 {multiStreakReward === undefined
-                  ? "0"
+                  ? "+0"
                   : claimedMultiDays[normalDay - 1]
                   ? `+${multiStreakRewardArray[day - 1]}`
                   : multiStreakReward === 0
@@ -923,6 +966,9 @@ const Streak = () => {
               </p>
             </div>
             <div className="col-3">
+            {isMultiClaimLoading ? (
+                <Spinner />
+              ) :(
               <button
                 className={`stuff-claim ${
                   claimedMultiDays[normalDay - 1] ||
@@ -941,39 +987,9 @@ const Streak = () => {
                   : currentDay < day + startDay - 1
                   ? "LOCKED"
                   : "GO"}
-              </button>
+              </button>)}
             </div>
           </div>
-<<<<<<< HEAD
-          </div>
-
-       
-      </div>
-      <div
-            class={
-              streakOfStreakReward === 0 || streakOfStreakReward === undefined
-                ? "invite-fri-sos"
-                : "invite-fri"
-            }
-          >
-            <button
-              className={
-                streakOfStreakReward === 0 || streakOfStreakReward === undefined
-                  ? "btn-none sos-none"
-                  : "btn-none sos"
-              }
-              onClick={handleSOSClaimClick}
-              style={{ cursor: "pointer" }}
-              disabled={
-                streakOfStreakReward === 0 || streakOfStreakReward === undefined
-                  ? true
-                  : false
-              }
-            >
-              STREAK OF STREAK
-            </button>
-          </div>
-=======
         </div>
       </div>
       <div
@@ -1000,7 +1016,6 @@ const Streak = () => {
           STREAK OF STREAK
         </button>
       </div>
->>>>>>> ba5d989da8a5d7a490c881685341fd42a130e841
     </>
   );
 };

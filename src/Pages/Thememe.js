@@ -343,7 +343,7 @@ const Thememe = () => {
         backgroundColor: "black",
         // position: "fixed",
         overflow: "hidden",
-        maxWidth:"480px",
+        // maxWidth:"480px",
         margin:"0 auto",
       }}
     >
@@ -364,7 +364,7 @@ const Thememe = () => {
           width: "100%",
           bottom: 0,
           overflow: "hidden",
-          maxWidth:"480px",
+          // maxWidth:"480px",
           margin:"0 auto",
         }}
       >

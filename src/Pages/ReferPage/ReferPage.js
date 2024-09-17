@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from "react";
 import "./ReferPage.css";
 import useUserInfo from "../../Hooks/useUserInfo";
-import Invite from "../../assets/images/Invitefriends.png";
+import Invite from "../../assets/images/Invitefriends.png"; 
 import { myReferrel } from "../../apis/user";
+import Milestonepage from "../Milestone/milestone"
 const ReferPage = () => {
-  const { userDetails } = useUserInfo();
+  const { userDetails , updateUserInfo} = useUserInfo();
 
   const [referrals, setReferrals] = useState([]);
+  
 
   const getMyReferralList = async () => {
     const referrals = await myReferrel(
@@ -28,6 +30,17 @@ const ReferPage = () => {
     const telegramUrl = `https://t.me/share/url?url=${url}&text=${text}`;
 
     window.open(telegramUrl, "_blank");
+  };
+
+  const goToThePage = (component, name) => {
+    updateUserInfo((prev) => ({
+      ...prev,
+      currentComponent: component,
+      currentComponentText: name,
+      lastComponent: userDetails.currentComponent,
+      lastComponentText: userDetails.currentComponentText,
+      centerCount: userDetails.centerCount + 1,
+    }));
   };
 
   return (
@@ -58,7 +71,11 @@ const ReferPage = () => {
             <p className="refer-earn">
               Get a 10,000 MTV and 5 Booster for each referral
             </p>
-            <p className="works-p">HoW IT’S WORK</p>
+            <p className="works-p" onClick={ ()=>
+              {
+                goToThePage(Milestonepage, "milestone");
+              }
+            }>HoW IT’S WORK</p>
           </div>
         </div>
         <div className="col-9 mt-20">

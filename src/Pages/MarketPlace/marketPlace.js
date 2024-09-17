@@ -9,7 +9,6 @@ import cancelIcon from "../../assets/Task/cancelicon.png";
 import { purchaseBooster } from "../../apis/user";
 import useUserInfo from "../../Hooks/useUserInfo";
 import { UserDeatils } from "../../apis/user";
-
 const MarketPlace = () => {
   const { userDetails, watchScreen, updatewatchScreenInfo, updateUserInfo } =
     useUserInfo();
@@ -20,33 +19,27 @@ const MarketPlace = () => {
   const [err, setErr] = useState("");
   const [isFirst, setIsFirst] = useState(false);
   const timeoutRef = useRef(null); // To store the timeout ID
-
   const handleClick1 = () => {
     setCount(count + 1);
   };
-
   const formatNumber = (num) => {
     if (num >= 1000000) return Math.floor(num / 100000) / 10 + "M";
     if (num >= 1000) return Math.floor(num / 100) / 10 + "k";
     return num;
   };
-
   useEffect(() => {
     if (!isFirst && watchScreen?.updatedWatchPoints > 0) {
       setTotalReward(watchScreen?.updatedWatchPoints);
       setIsFirst(true);
     }
   }, [watchScreen, isFirst]);
-
   useEffect(() => {
     const getUserDetails = async (data) => {
       const userDetails = await UserDeatils(data);
-
       updateUserInfo((prev) => ({
         ...prev,
         userDetails,
       }));
-
       updatewatchScreenInfo((prev) => ({
         ...prev,
         boostersList: userDetails?.boosters,
@@ -56,7 +49,6 @@ const MarketPlace = () => {
       name: userDetails?.userDetails?.name,
       telegramId: String(userDetails?.userDetails?.telegramId),
     };
-
     getUserDetails(data1);
   }, []);
   const handleClick2 = () => {
@@ -65,7 +57,6 @@ const MarketPlace = () => {
       setCount(count - 1);
     }
   };
-
   const getDetails = async (data) => {
     const userDetails = await UserDeatils(data);
     setTotalReward(userDetails.watchRewards);
@@ -73,25 +64,20 @@ const MarketPlace = () => {
       ...prev,
       userDetails: userDetails,
     }));
-
     updatewatchScreenInfo((prev) => ({
       ...prev,
       boostersList: userDetails?.boosters,
       totalReward: userDetails?.totalRewards,
     }));
-
     return userDetails;
   };
-
   const getUserDetails = () => {
     const data = {
       name: userDetails.userDetails?.name,
       telegramId: userDetails?.userDetails?.telegramId,
     };
-
     getDetails(data);
   };
-
   const purchaseCards = async () => {
     const data = {
       telegramId: userDetails?.userDetails?.telegramId,
@@ -99,7 +85,6 @@ const MarketPlace = () => {
       booster: selected.booster,
       boosterCount: count,
     };
-
     const Boosters = await purchaseBooster(data);
     if (Boosters?.message) {
       setShowPopup(false);
@@ -114,14 +99,12 @@ const MarketPlace = () => {
       }, 2500);
     }
   };
-
   const closePopUp = () => {
     clearTimeout(timeoutRef.current);
     setCount(1);
     setErr("");
     setShowPopup(false);
   };
-
   return (
     <div className="info-img">
       <div
@@ -161,18 +144,10 @@ const MarketPlace = () => {
                   <div className="market-pick text-center">
                     <img src={booster} className="booster-margin" />
                     <div className="row">
-<<<<<<< HEAD
-                    <h4 className="mb0 market-color flex">
-                      <img className="mr5" src={memetv} /> 10k
-                    </h4>
-                    </div>
-                    
-=======
                       <h4 className="mb0 market-color flex">
                         <img className="mr5" src={memetv} /> 10k
                       </h4>
                     </div>
->>>>>>> ba5d989da8a5d7a490c881685341fd42a130e841
                   </div>
                   <div className="p10">
                     <button
@@ -197,18 +172,11 @@ const MarketPlace = () => {
                   <div className="market-pick text-center">
                     <img src={ligthing} className="booster-margin" />
                     <div className="row">
-<<<<<<< HEAD
-                    <h4 className="mb0 market-color flex">
-                      <img className="mr5" src={memetv} />{" "}
-                      {90 * userDetails.userDetails?.level}
-                    </h4> </div>
-=======
                       <h4 className="mb0 market-color flex">
                         <img className="mr5" src={memetv} />{" "}
                         {90 * userDetails.userDetails?.level}
                       </h4>{" "}
                     </div>
->>>>>>> ba5d989da8a5d7a490c881685341fd42a130e841
                   </div>
                   <div className="p10">
                     <button
@@ -235,17 +203,10 @@ const MarketPlace = () => {
                   <div className="market-pick text-center">
                     <img src={booster2} className="booster-margin" />
                     <div className="row">
-<<<<<<< HEAD
-                    <h4 className="mb0 market-color flex">
-                      <img className="mr5" src={memetv} />{" "}
-                      {12 * userDetails?.userDetails?.level}
-                    </h4>
-=======
                       <h4 className="mb0 market-color flex">
                         <img className="mr5" src={memetv} />{" "}
                         {12 * userDetails?.userDetails?.level}
                       </h4>
->>>>>>> ba5d989da8a5d7a490c881685341fd42a130e841
                     </div>
                   </div>
                   <div className="p10">
@@ -271,17 +232,10 @@ const MarketPlace = () => {
                   <div className="market-pick text-center">
                     <img src={booster3} className="booster-margin" />
                     <div className="row">
-<<<<<<< HEAD
-                    <h4 className="mb0 market-color flex">
-                      <img className="mr5" src={memetv} />{" "}
-                      {36 * userDetails.userDetails.level}
-                    </h4>
-=======
                       <h4 className="mb0 market-color flex">
                         <img className="mr5" src={memetv} />{" "}
                         {36 * userDetails.userDetails.level}
                       </h4>
->>>>>>> ba5d989da8a5d7a490c881685341fd42a130e841
                     </div>
                   </div>
                   <div className="p10">
