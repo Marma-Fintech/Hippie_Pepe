@@ -16,10 +16,10 @@
   object-fit: contain;
 }
 hr {
-  margin: 0px !important;
+  margin: 10px !important;
   color: #3E3E3E !important;
   border: 1px solid #fff;
-  padding-bottom: 5px;
+  /* padding-bottom: 5px; */
   border-top: var(--bs-border-width) solid;
   opacity: 1 !important;
 }

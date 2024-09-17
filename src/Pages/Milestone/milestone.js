@@ -2,13 +2,38 @@ import React from "react";
 import "./milestone.css";
 import logo from "../../assets/images/meme-logo.svg";
 import Cup from "../../assets/images/cup.svg";
+import cancelIcon from "../../../src/assets/Task/cancelicon.png";
+import useUserInfo from "../../Hooks/useUserInfo";
+import Tv from "../Tv/Tv";
 
 const Milestone = () => {
   
+
+  const { userDetails,updateUserInfo } =
+    useUserInfo();
+
+  const goToThePage = (component, name) => {
+    updateUserInfo((prev) => ({
+      ...prev,
+      currentComponent: component,
+      currentComponentText: "TVPage",
+      lastComponent: userDetails.currentComponent,
+      lastComponentText: userDetails.currentComponentText,
+      centerCount: userDetails.centerCount + 1,
+      isMenu: false,
+    }));
+  };
   return (
  
-    <div
-      className=" menupointer" style={{maxWidth:"380px"}}>
+    <div className=" menupointer" style={{maxWidth:"380px"}}>
+      <img
+        onClick={() => {
+          goToThePage(Tv, "Tv");
+        }}
+        src={cancelIcon}
+        className="cancel-imgpoints"
+        style={{ cursor: "pointer" }}
+      />
       <div className="phase-details">
         <h3>Here’s how it works</h3>
       </div>
@@ -16,7 +41,7 @@ const Milestone = () => {
         <p className="font-2">Create Your Unique Referral Link</p>
         <p>
         Click the "Invite" button to generate 
-        your personalized referral link.
+        your personalized referral link.  
         <hr style={{margin:"10px",paddingBottom:"0px"}} />
         </p>
        
@@ -27,12 +52,12 @@ const Milestone = () => {
             <div className="col-2">
               <img
                 src={Cup}
-                alt="Login streak icon"
+                alt="milestone"
                 className="image"
               />
             </div>
             <div className="col-7 stuff-text">
-              <h4>Login Streak</h4>
+              <h4>INVITE 3 FRIENDS</h4>
               <p className="stuff-p">
                 <img src={logo} />{" "}
                 +958
@@ -51,12 +76,12 @@ const Milestone = () => {
             <div className="col-2">
               <img
                  src={Cup}
-                alt="Login streak icon"
+                alt="milestone"
                 className="image"
               />
             </div>
             <div className="col-7 stuff-text">
-              <h4>Login Streak</h4>
+              <h4>INVITE 5 FRIENDS</h4>
               <p className="stuff-p">
                 <img src={logo} />{" "}
                 +958
@@ -75,12 +100,12 @@ const Milestone = () => {
             <div className="col-2">
               <img
                  src={Cup}
-                alt="Login streak icon"
+                alt="milestone"
                 className="image"
               />
             </div>
             <div className="col-7 stuff-text">
-              <h4>Login Streak</h4>
+              <h4>INVITE 10 FRIENDS</h4>
               <p className="stuff-p">
                 <img src={logo} />{" "}
                 +958

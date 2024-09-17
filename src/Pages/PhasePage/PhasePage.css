@@ -62,7 +62,7 @@
 }
 .stuff-body1 {
   margin-bottom: 20%;
-  padding: 10px 65px;
+  padding: 10px 50px;
 }
 .phase-stuff {
   width: 100%;
@@ -112,12 +112,11 @@
   font-size: 20px;
 }
 .arrows {
-  width: 15px;
-  height: 15px;
-  border-color: #ffffff;
-  position: absolute;
-  top: 50%;
-  margin-top: -31px;
+  width: 13px;
+    height: 13px;
+    border-color: #ffffff;
+    position: absolute;
+    top: 50%;
 }
 .prev {
   border-bottom: 4px solid #282828;
@@ -130,14 +129,14 @@
   border-bottom: 4px solid #4cf038;
   border-left: 4px solid #4cf038;
   transform: rotate(45deg);
-  left: 43px;
+  left: 9%
 }
 
 .next {
   border-bottom: 4px solid #4cf038;
   border-left: 4px solid #4cf038;
   transform: rotate(-135deg);
-  right: 43px;
+  right: 9%;
 }
 .stuff-unclaim {
   background: #2e2e2e;

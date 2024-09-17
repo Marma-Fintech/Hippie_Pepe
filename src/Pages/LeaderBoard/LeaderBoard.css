@@ -1,7 +1,7 @@
 .carousel-container {
   position: relative;
   width: 80%;
-  max-width: 800px;
+  max-width: 320px;
   margin: 0 auto;
   pointer-events: fill;
 }
@@ -71,10 +71,10 @@ body {
   color: rgba(192, 192, 192, 1);
 }
 .cancel-imgleaderboard {
-  width: 7%;
-  position: absolute;
-  right: 5%;
-  top: -2%;
+  width: 5%;
+  position: fixed;
+  right: 12%;
+  top: 7%;
 }
 .cheap-stuff-container {
   height: 300px;
