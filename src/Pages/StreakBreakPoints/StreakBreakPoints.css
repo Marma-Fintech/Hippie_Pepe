@@ -212,7 +212,6 @@
 }
 .coinIcon {
   width: 20px;
-  height: 20px;
   margin-left: auto;
 }
 .streakDropdownText {
@@ -230,5 +229,5 @@
   max-height: 400px;
   overflow-y: auto;
   width: 100%;
-  margin-bottom: "10%";
+  margin-bottom: 10%;
 }

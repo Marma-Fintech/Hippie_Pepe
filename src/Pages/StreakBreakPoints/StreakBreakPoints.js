@@ -5,6 +5,8 @@ import cancelIcon from "../../assets/Task/cancelicon.png";
 import useUserInfo from "../../Hooks/useUserInfo";
 import Streak from "../Streak/Streak";
 import coinImg from "../../assets/images/coinlogo.png";
+import booster3 from "./booster3.png";
+import booster5 from "./booster5.png";
 
 const streakData = [
   { type: "LOGIN STREAK", coins: [100, 200, 300, 400, 500, 600, 700] },
@@ -23,6 +25,14 @@ const streakData = [
     coins: [0, 2100, 6300, 14700, 31500, 65100, 132300],
   },
 ];
+
+const boosters = {
+  login: [1, 2, 3, 4, 5, 6, 7], // Number of 3x boosters for login
+  watch: [1, 2, 3, 4, 5, 6, 7], // Number of 3x boosters for watch
+  refer: [1, 2, 3, 4, 5, 6, 7], // Number of 3x boosters for refer
+  task: [1, 2, 3, 4, 5, 6, 7], // Number of 3x boosters for tasks
+  multi: [1, 2, 3, 4, 5, 6, 7], // Number of 5x boosters for multi streak
+};
 
 const StreakBreakPoints = () => {
   const { userDetails, updateUserInfo } = useUserInfo();
@@ -68,12 +78,13 @@ const StreakBreakPoints = () => {
         <span className="pointsText">BREAKDOWN</span>
         <div className="scrollableContainer">
           <h3 className="additionalText">
-            LOG IN DAILY WITHOUT FAIL TO COMPLETE
+            Login daily to unlock the <b>STREAK OF STREAK</b> bonus and keep
+            your SOS alive throughout the entire reward cycle!
           </h3>
           <h3 className="additionalText1">
-            ALL TASKS AND EARN "STREAK OF STREAKS"
+            Complete your daily tasks to win Streaks and unlock rewards at every
+            new phase!
           </h3>
-          <h3 className="additionalText2">POINTS AS A BONUS.</h3>
           <h1 className="check-text">check out the point system</h1>
           {Array.from({ length: 7 }).map((_, dayIndex) => (
             <div className="containerbox-main" key={dayIndex}>
@@ -94,12 +105,64 @@ const StreakBreakPoints = () => {
                 <div className="dropdown">
                   {streakData.map((streak, streakIndex) => (
                     <div key={streakIndex} className="dropdownItem">
-                      <span className="streakDropdownText">{streak.type}</span>
+                      {streak.type === "STREAK OF STREAK" ? (
+                        <span className="check-text">{streak.type}</span>
+                      ) : (
+                        <span className="streakDropdownText">
+                          {streak.type}
+                        </span>
+                      )}
+
                       <img src={coinImg} alt="Coin Icon" className="coinIcon" />
                       {/* Display coins for the specific day */}
-                      <span className="coinsText">
-                        {streak.coins[dayIndex]} Coins
-                      </span>
+                      {streak.type === "STREAK OF STREAK" ? (
+                        <span className="coinsText">
+                          {streak.coins[dayIndex]}
+                        </span>
+                      ) : (
+                        <span className="coinsText">
+                          {streak.coins[dayIndex]} +
+                        </span>
+                      )}
+
+                      {/* Display boosters for the specific streak */}
+                      {streak.type === "MULTI STREAK" ? (
+                        <div style={{ lineHeight: "10px" }}>
+                          <span className="coinsText">
+                            {boosters.multi[dayIndex]} x
+                          </span>
+                          <img
+                            src={booster5}
+                            alt="Coin Icon"
+                            className="coinIcon"
+                          />
+                        </div>
+                      ) : (
+                        <>
+                          {[
+                            "LOGIN STREAK",
+                            "WATCH STREAK",
+                            "REFER STREAK",
+                            "TASK STREAK",
+                          ].includes(streak.type) && (
+                            <div style={{ lineHeight: "10px" }}>
+                              <span className="coinsText">
+                                {
+                                  boosters[
+                                    streak.type.toLowerCase().split(" ")[0]
+                                  ][dayIndex]
+                                }{" "}
+                                x
+                              </span>
+                              <img
+                                src={booster3}
+                                alt="Coin Icon"
+                                className="coinIcon"
+                              />
+                            </div>
+                          )}
+                        </>
+                      )}
                     </div>
                   ))}
                 </div>
