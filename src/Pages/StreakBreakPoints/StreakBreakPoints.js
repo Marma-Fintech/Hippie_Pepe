@@ -55,12 +55,10 @@ const StreakBreakPoints = () => {
         <span className="pointsText">BREAKDOWN</span>
         <div className="scrollableContainer">
           <h3 className="additionalText">
-            LOG IN DAILY WITHOUT FAIL TO COMPLETE
+        Login daily to unlock the Streak of Streaks bonus and keep your SOS alive throughout the entire reward cycle!
+          Accomplish your daily tasks and see your streaks reset with each new phase!
           </h3>
-          <h3 className="additionalText1">
-            ALL TASKS AND EARN "STREAK OF STREAKS"
-          </h3>
-          <h3 className="additionalText2">POINTS AS A BONUS.</h3>
+          {/* <h3 className="additionalText2">POINTS AS A BONUS.</h3> */}
           <h1 className="check-text">check out the point system</h1>
           {Array.from({ length: 7 }).map((_, index) => (
             <div className="containerbox-main">
@@ -85,6 +83,7 @@ const StreakBreakPoints = () => {
                       <span className="streakDropdownText">{streak.type}</span>
                       <img src={coinImg} alt="Coin Icon" className="coinIcon" />
                       <span className="coinsText">{streak.coins} </span>
+                      {/* <span className="coinText">3X Booster</span> */}
                     </div>
                   ))}
                 </div>

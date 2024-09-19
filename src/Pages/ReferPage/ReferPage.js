@@ -46,7 +46,7 @@ const ReferPage = () => {
   return (
     <div className="info-img menupointer">
       <div
-        className="menupointer"
+        className="menupointer "
         style={{
           height: "100%",
           width: "100%",
@@ -55,19 +55,20 @@ const ReferPage = () => {
           justifyContent: "flex-start",
           flexDirection: "column",
           pointerEvents: "all",
-          marginTop: "60px",
+          marginTop: "10%",
         }}
       >
-        <div className="col-9 phasediv">
+        <div className="refer-res" style={{
+          maxWidth:"300px"
+        }}>
+        <div className="col-12 phasediv">
           <h3>
             <img src={Invite} />
           </h3>
         </div>
         <div
-          className="row d-flex align-items-center justify-content-center 
-            "
-        >
-          <div className="col-7 refer-head">
+          className="row d-flex align-items-center justify-content-center">
+          <div className="col-9 refer-head">
             <p className="refer-earn">
               Get a 10,000 MTV and 5 Booster for each referral
             </p>
@@ -78,7 +79,10 @@ const ReferPage = () => {
             }>HoW IT’S WORK</p>
           </div>
         </div>
-        <div className="col-9 mt-20">
+        </div>
+        
+       
+        <div className="col-12 mt-20 refer">
           <div className="row claim-ref">
             <div className="col-8">
               <h2 className="refer-table text-color">My Referral</h2>

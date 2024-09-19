@@ -435,7 +435,16 @@ const Tv = () => {
       style={{ height: "100%", width: "100%" }}
     >
       <div className="line arrow"></div>
-      <div className="row level-div text-center">
+      <div className="row level-div text-center"
+      style={
+        {
+          marginTop:"55px",
+          marginRight:"35px",
+          marginBottom:"55px",
+          marginLeft:"35px"
+
+        }
+      }>
         <div className="col-6">
           <div className="level-h2">
             <h2

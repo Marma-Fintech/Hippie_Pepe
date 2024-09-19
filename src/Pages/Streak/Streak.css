@@ -50,9 +50,13 @@
   color: #262626;
   padding: 2px;
 }
+.mb12
+{
+  margin-bottom: 13%;
+}
 .stuff-text h4 {
   color: beige;
-  font-size: 14px;
+  font-size: 13px;
   margin-bottom: 0;
 }
 .tv-body1 {

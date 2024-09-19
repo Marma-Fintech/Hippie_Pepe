@@ -65,8 +65,8 @@ const Milestone = () => {
             </div>
             <div className="col-3">
              <button
-                className="stuff-claim" style={{ cursor: "pointer" }} >
-               CLAIM
+                className="stuff-go" style={{ cursor: "pointer" }} >
+               CLAIMED
               </button>
               
             </div>
@@ -89,8 +89,8 @@ const Milestone = () => {
             </div>
             <div className="col-3">
              <button
-                className="stuff-claim" style={{ cursor: "pointer" }} >
-               CLAIM
+                className="stuff-go" style={{ cursor: "pointer" }} >
+               CLAIMED
               </button>
               
             </div>
@@ -113,8 +113,8 @@ const Milestone = () => {
             </div>
             <div className="col-3">
              <button
-                className="stuff-claim" style={{ cursor: "pointer" }} >
-               CLAIM
+                className="stuff-go" style={{ cursor: "pointer" }} >
+               CLAIMED
               </button>
               
             </div>

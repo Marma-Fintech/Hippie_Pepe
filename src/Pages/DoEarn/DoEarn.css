@@ -45,7 +45,7 @@
 }
 
 .earn-img {
-  padding: 50px 60px;
+  padding: 55px 60px;
 }
 .cheap-stuff {
   width: 100%;
@@ -91,8 +91,11 @@
   height: 35px;
   color: #989898;
   line-height: 0;
-  font-size: 15px;
+  font-size: 14px;
   width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .mt10 {
   margin-top: 10px !important;

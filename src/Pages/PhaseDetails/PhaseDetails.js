@@ -35,6 +35,7 @@ const Info = () => {
           goToThePage(PhaseDetails, "PhaseDetailsPage");
         }}
       >
+        <div className="phase-res">
         <div className="phase-details">
           <h3>Here’s how it works</h3>
         </div>
@@ -57,6 +58,8 @@ const Info = () => {
             innovative approach to combining fun with rewards.
           </p>
         </div>
+        </div>
+        
       </div>
     </div>
   );

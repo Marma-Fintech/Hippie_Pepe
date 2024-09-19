@@ -25,7 +25,7 @@ const DoEarn = () => {
         <div className="row">
           <div className="col-12">
             <div className="doearn-img">
-              <img className="stuff-gif" src={dobottom} />
+              {/* <img className="stuff-gif" src={dobottom} /> */}
               <div className="earn-img">
                 <img src={earn} />
               </div>
