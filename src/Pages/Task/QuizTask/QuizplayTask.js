@@ -5,6 +5,8 @@ import useUserInfo from "../../../Hooks/useUserInfo";
 import { format, startOfDay, differenceInCalendarDays } from "date-fns";
 import logo from "../../../assets/images/coinlogo.png";
 import { userGameRewards } from "../../../apis/user";
+import quiz from "./QuizTask";
+import cancelIcon from "../../../assets/Task/cancelicon.png";
 
 const questions = [
   {
@@ -286,7 +288,7 @@ const questions = [
 ];
 
 const QuizPlayTask = () => {
-  const { userDetails } = useUserInfo();
+  const { userDetails, updateUserInfo } = useUserInfo();
   const selectedDay = userDetails.selectedDay || 1;
   const currentCycle = userDetails.currentCycle || 1;
 
@@ -417,8 +419,29 @@ const QuizPlayTask = () => {
     }
   };
 
+  const toogleMenu = () => {
+    updateUserInfo((prev) => ({
+      ...prev,
+      isPlay: false,
+      currentComponent: quiz,
+      currentComponentText: "quiz",
+      lastComponent: userDetails?.userDetails.currentComponent,
+      lastComponentText: userDetails?.userDetails.currentComponentText,
+      isMenu: true,
+      menuCount: userDetails?.userDetails?.menuCount + 1,
+    }));
+  };
+
   return (
     <div className="quiz-play-task">
+      <img
+        onClick={() => {
+          toogleMenu();
+        }}
+        src={cancelIcon}
+        className="cancel-imgpoints"
+        style={{ cursor: "pointer" }}
+      />
       <h1 className="welcome-text">Quiz Game</h1>
       {quizComplete ? (
         <div className="cards">

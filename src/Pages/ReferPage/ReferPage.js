@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from "react";
 import "./ReferPage.css";
 import useUserInfo from "../../Hooks/useUserInfo";
-import Invite from "../../assets/images/Invitefriends.png"; 
+import Invite from "../../assets/images/Invitefriends.png";
 import { myReferrel } from "../../apis/user";
-import Milestonepage from "../Milestone/milestone"
+import Milestone from "../Milestone/milestone";
 const ReferPage = () => {
-  const { userDetails , updateUserInfo} = useUserInfo();
+  const { userDetails, updateUserInfo } = useUserInfo();
 
   const [referrals, setReferrals] = useState([]);
-  
 
   const getMyReferralList = async () => {
     const referrals = await myReferrel(
@@ -32,21 +31,21 @@ const ReferPage = () => {
     window.open(telegramUrl, "_blank");
   };
 
-  const goToThePage = (component, name) => {
+  const goToTheMilstonePage = (component, name) => {
     updateUserInfo((prev) => ({
       ...prev,
       currentComponent: component,
       currentComponentText: name,
-      lastComponent: userDetails.currentComponent,
-      lastComponentText: userDetails.currentComponentText,
-      centerCount: userDetails.centerCount + 1,
+      lastComponent: userDetails?.userDetails?.currentComponent,
+      lastComponentText: userDetails?.userDetails?.currentComponentText,
+      refererCount: userDetails?.userDetails?.refererCount + 1,
     }));
   };
 
   return (
     <div className="info-img menupointer">
       <div
-        className="menupointer "
+        className="menupointer"
         style={{
           height: "100%",
           width: "100%",
@@ -55,34 +54,33 @@ const ReferPage = () => {
           justifyContent: "flex-start",
           flexDirection: "column",
           pointerEvents: "all",
-          marginTop: "10%",
+          marginTop: "60px",
         }}
       >
-        <div className="refer-res" style={{
-          maxWidth:"300px"
-        }}>
-        <div className="col-12 phasediv">
+        <div className="col-9 phasediv">
           <h3>
             <img src={Invite} />
           </h3>
         </div>
         <div
-          className="row d-flex align-items-center justify-content-center">
-          <div className="col-9 refer-head">
+          className="row d-flex align-items-center justify-content-center 
+            "
+        >
+          <div className="col-7 refer-head">
             <p className="refer-earn">
               Get a 10,000 MTV and 5 Booster for each referral
             </p>
-            <p className="works-p" onClick={ ()=>
-              {
-                goToThePage(Milestonepage, "milestone");
-              }
-            }>HoW IT’S WORK</p>
+            <p
+              className="works-p"
+              onClick={() => {
+                goToTheMilstonePage(Milestone, "Milestone");
+              }}
+            >
+              HoW IT’S WORK
+            </p>
           </div>
         </div>
-        </div>
-        
-       
-        <div className="col-12 mt-20 refer">
+        <div className="col-9 mt-20">
           <div className="row claim-ref">
             <div className="col-8">
               <h2 className="refer-table text-color">My Referral</h2>

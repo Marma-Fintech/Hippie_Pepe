@@ -15,6 +15,7 @@ export const addWatchSeconds = async (data) => {
       `${Base_Url.base_url}/userWatchRewards`,
       data
     );
+
     return response.data;
   } catch (err) {}
 };
@@ -24,6 +25,9 @@ export const userGameRewards = async (data) => {
       `${Base_Url.base_url}/userGameRewards`,
       data
     );
+    if (response.data) {
+      calculateStreak({ telegramId: data.telegramId, userWatchSeconds: 0 });
+    }
     return response.data.user;
   } catch (err) {
     console.log(err);
@@ -34,11 +38,25 @@ export const getUserDetails = async (telegramId) => {
     const response = await axios.get(
       `${Base_Url.base_url}/userDetails}/${telegramId}`
     );
+
     return response.data.user;
   } catch (error) {
     console.log(error);
   }
 };
+
+export const getUserDetails1 = async (telegramId) => {
+  try {
+    const response = await axios.get(
+      `${Base_Url.base_url}/userDetails/${telegramId}`
+    );
+
+    return response.data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 export const purchaseGameCards = async (data) => {
   try {
     const response = await axios.post(
@@ -237,6 +255,23 @@ export const streakOfStreakRewardClaim = async (data) => {
   }
 };
 
+export const cheapStuff = async (data) => {
+  try {
+    const response = await axios.post(
+      `${Base_Url.base_url}/userTaskRewards`,
+      data
+    );
+    return response.data;
+  } catch (err) {
+    if (err.response) {
+      // Extract the backend-defined error message
+      return err.response.data;
+    } else {
+      return err;
+    }
+  }
+};
+
 export default {
   UserDeatils,
   addWatchSeconds,
@@ -256,4 +291,6 @@ export default {
   taskStreakRewardClaim,
   multiStreakRewardClaim,
   streakOfStreakRewardClaim,
+  cheapStuff,
+  getUserDetails1,
 };

@@ -25,7 +25,7 @@ import {
   calculateStreak,
   calculateStreakOfStreak,
 } from "../apis/user";
-import { addWatchSeconds } from "../apis/user";
+import { addWatchSeconds, getUserDetails1 } from "../apis/user";
 
 const Thememe = () => {
   const { userDetails, watchScreen, updatewatchScreenInfo, updateUserInfo } =
@@ -70,9 +70,17 @@ const Thememe = () => {
     }
     const data1 = {
       name: "Karthikeyan",
-      telegramId: "62655loiukjkh8jnjln918",
+      telegramId: "62655jln9lugkyu18",
     };
     getUserDetails(data1);
+
+    const storedData1 = localStorage.getItem("watchStreak");
+    const parsedData1 = storedData1 ? JSON.parse(storedData1) : 0;
+
+    if (parsedData1 && parsedData1 !== 0 && parsedData1.watchSec > 180) {
+      // postWatchStreak(String(userData?.id));
+      postWatchStreak(data1.telegramId);
+    }
 
     const calculateReward = async () => {
       const data24 = {
@@ -102,12 +110,22 @@ const Thememe = () => {
     // localStorage.clear();
   }, []);
 
+  const postWatchStreak = async (id) => {
+    console.log("jhgfdsdfghj");
+    const calculatedStreakData = await calculateStreak({
+      telegramId: id,
+      userWatchSeconds: 180,
+    });
+  };
+
   const getUserDetails = async (data) => {
     const pointDetails = localStorage.getItem("pointDetails");
     const parsedData = JSON.parse(pointDetails);
 
-    var data1;
-    var userDetails;
+    let data1;
+    let userDetails;
+
+    // If there are watch seconds, prepare data and make the update call
     if (parsedData?.watchSec) {
       data1 = {
         telegramId: data?.telegramId,
@@ -120,19 +138,30 @@ const Thememe = () => {
       if (parsedData?.booster[0]) {
         data1.boosters = parsedData?.booster;
       }
-      const res = await updateWatchSecOnly(data1).then(async (res) => {
-        localStorage.setItem(
-          "pointDetails",
-          JSON.stringify({
-            tapPoints: 0,
-            watchSec: 0,
-            boosterPoints: 0,
-            booster: [0],
-          })
-        );
+
+      // Use Promise.all to parallelize the API calls and updates
+      try {
+        await Promise.all([
+          updateWatchSecOnly(data1),
+          localStorage.setItem(
+            "pointDetails",
+            JSON.stringify({
+              tapPoints: 0,
+              watchSec: 0,
+              boosterPoints: 0,
+              booster: [0],
+            })
+          ),
+        ]);
 
         userDetails = await UserDeatils(data);
+        console.log(JSON.stringify(userDetails) + "kjhgfds");
+      } catch (error) {
+        console.error("Error in updating or fetching user details:", error);
+      }
 
+      // Update state after both async calls are completed
+      if (userDetails) {
         updateUserInfo((prev) => ({
           ...prev,
           userDetails: userDetails,
@@ -149,24 +178,132 @@ const Thememe = () => {
           boosterDetails: {},
           watchSec: 0,
         }));
-      });
+      }
     } else {
-      userDetails = await UserDeatils(data);
+      // If no watch seconds, fetch user details only
+      try {
+        userDetails = await UserDeatils(data);
+      } catch (error) {
+        console.error("Error in fetching user details:", error);
+      }
 
+      // Update state after fetching user details
+      if (userDetails) {
+        updateUserInfo((prev) => ({
+          ...prev,
+          userDetails: userDetails,
+        }));
+
+        updatewatchScreenInfo((prev) => ({
+          ...prev,
+          boostersList: userDetails?.boosters,
+          totalReward: userDetails?.totalRewards,
+        }));
+      }
+    }
+
+    return userDetails;
+  };
+
+  const getUserDetailsOnly = async () => {
+    let userDetails1;
+
+    try {
+      userDetails1 = await getUserDetails1(userDetails.userDetails?.telegramId);
+      console.log(JSON.stringify(userDetails) + "ppp");
+    } catch (error) {
+      console.error("Error in updating or fetching user details:", error);
+    }
+
+    // Update state after both async calls are completed
+    if (userDetails) {
       updateUserInfo((prev) => ({
         ...prev,
-        userDetails: userDetails,
+        userDetails: userDetails1,
       }));
 
       updatewatchScreenInfo((prev) => ({
         ...prev,
-        boostersList: userDetails?.boosters,
-        totalReward: userDetails?.totalRewards,
+        boostersList: userDetails1?.boosters,
+        totalReward: userDetails1?.totalRewards,
+        tapPoints: 0,
+        booster: false,
+        boosterSec: 0,
+        boosterPoints: 0,
+        boosterDetails: {},
+        watchSec: 0,
       }));
     }
 
     return userDetails;
   };
+
+  // const getUserDetails = async (data) => {
+  //   const pointDetails = localStorage.getItem("pointDetails");
+  //   const parsedData = JSON.parse(pointDetails);
+
+  //   var data1;
+  //   var userDetails;
+  //   if (parsedData?.watchSec) {
+  //     data1 = {
+  //       telegramId: data?.telegramId,
+  //       userWatchSeconds: parsedData?.watchSec,
+  //       boosterPoints: String(
+  //         Number(parsedData?.tapPoints) + Number(parsedData?.boosterPoints)
+  //       ),
+  //     };
+
+  //     if (parsedData?.booster[0]) {
+  //       data1.boosters = parsedData?.booster;
+  //     }
+  //     const res = await updateWatchSecOnly(data1).then(async (res) => {
+  //       localStorage.setItem(
+  //         "pointDetails",
+  //         JSON.stringify({
+  //           tapPoints: 0,
+  //           watchSec: 0,
+  //           boosterPoints: 0,
+  //           booster: [0],
+  //         })
+  //       );
+
+  //       userDetails = await UserDeatils(data);
+
+  //       updateUserInfo((prev) => ({
+  //         ...prev,
+  //         userDetails: userDetails,
+  //       }));
+
+  //       updatewatchScreenInfo((prev) => ({
+  //         ...prev,
+  //         boostersList: userDetails?.boosters,
+  //         totalReward: userDetails?.totalRewards,
+  //         tapPoints: 0,
+  //         booster: false,
+  //         boosterSec: 0,
+  //         boosterPoints: 0,
+  //         boosterDetails: {},
+  //         watchSec: 0,
+  //       }));
+  //     });
+  //     return userDetails;
+  //   } else {
+  //     userDetails = await UserDeatils(data);
+
+  //     updateUserInfo((prev) => ({
+  //       ...prev,
+  //       userDetails: userDetails,
+  //     }));
+
+  //     updatewatchScreenInfo((prev) => ({
+  //       ...prev,
+  //       boostersList: userDetails?.boosters,
+  //       totalReward: userDetails?.totalRewards,
+  //     }));
+  //   }
+
+  //   return userDetails;
+  // };
 
   const goToTheRefererPage = (component, name) => {
     updateUserInfo((prev) => ({
@@ -179,17 +316,19 @@ const Thememe = () => {
     }));
   };
 
-  const toogleMenu = () => {
-    updateUserInfo((prev) => ({
-      ...prev,
-      isPlay: false,
-      currentComponent: Menu,
-      currentComponentText: "MenuPage",
-      lastComponent: latestUserDetails.current.currentComponent,
-      lastComponentText: latestUserDetails.current.currentComponentText,
-      isMenu: !latestUserDetails.current.isMenu,
-      menuCount: latestUserDetails.current.menuCount + 1,
-    }));
+  const toogleMenu = async () => {
+    await addWatchSecMenu().then(() => {
+      updateUserInfo((prev) => ({
+        ...prev,
+        isPlay: false,
+        currentComponent: Menu,
+        currentComponentText: "MenuPage",
+        lastComponent: latestUserDetails.current.currentComponent,
+        lastComponentText: latestUserDetails.current.currentComponentText,
+        isMenu: !latestUserDetails.current.isMenu,
+        menuCount: latestUserDetails.current.menuCount + 1,
+      }));
+    });
   };
 
   const goToThePage = (component, name) => {
@@ -235,9 +374,9 @@ const Thememe = () => {
           const newBoosterSec = Math.max(prev.boosterSec - 1, 0);
 
           if (newBoosterSec === 0) {
-            addWatchSec();
             clearInterval(boostIntervalRef.current);
             boostref.current = false;
+            addWatchSec();
           }
 
           return {
@@ -293,18 +432,36 @@ const Thememe = () => {
     }
   };
 
+  const addWatchSecMenu = async () => {
+    // if (latestUserDetails.current.currentComponentText !== "TVPage") {
+    var data = {};
+    if (watchScreen.booster) {
+      data = {
+        telegramId: userDetails.userDetails.telegramId,
+        userWatchSeconds: latestWatchScreen.current.watchSec,
+        boosterPoints: String(
+          latestWatchScreen.current.boosterPoints +
+            latestWatchScreen.current.tapPoints
+        ),
+        boosters: [latestWatchScreen.current.boosterDetails.name],
+      };
+    } else {
+      data = {
+        telegramId: userDetails.userDetails.telegramId,
+        userWatchSeconds: latestWatchScreen.current.watchSec,
+        boosterPoints: String(latestWatchScreen.current.tapPoints),
+      };
+    }
+
+    return await addWatchSecapi(data);
+    // }
+  };
+
   const reclaimUserDetails = () => {
     if (!watchScreen.booster) {
-      const data1 = {
-        name: userDetails.userDetails.name,
-        telegramId: String(userDetails.userDetails?.telegramId),
-      };
-      const data = getUserDetails(data1);
-      if (data) {
-        setTimeout(() => {
-          goToThePage(Tv, "TVPage");
-        }, 1000);
-      }
+      const data = getUserDetailsOnly().then(() => {
+        goToThePage(Tv, "TVPage");
+      });
     }
   };
 
@@ -341,10 +498,8 @@ const Thememe = () => {
         height: "100vh",
         width: "100%",
         backgroundColor: "black",
-        // position: "fixed",
+        position: "fixed",
         overflow: "hidden",
-        // maxWidth:"480px",
-        margin:"0 auto",
       }}
     >
       <audio ref={audioRef}>
@@ -364,8 +519,6 @@ const Thememe = () => {
           width: "100%",
           bottom: 0,
           overflow: "hidden",
-          // maxWidth:"480px",
-          margin:"0 auto",
         }}
       >
         <div style={{ position: "relative", height: "100%" }}>

@@ -274,7 +274,7 @@ const PickaWord = () => {
       {purchasesRemaining === 0 && playsRemaining === 0 ? (
         <h5 className="chancesleft">Come back tomorrow</h5>
       ) : message === "Not enough points available" ? (
-        <h5 className="chancesleft">Not enough points available</h5>
+        <h5 className="chancesleft">Not enough Game points available</h5>
       ) : (
         <h5 className="chancesleft">
           YOU HAVE {playsRemaining}/5 CHANCES LEFT NOW
@@ -285,7 +285,9 @@ const PickaWord = () => {
           <div className="popup-content">
             {playsRemaining > 1 ? (
               <>
-                <h2 className="epic">Epic Win!</h2>
+                <h2 className="epic">
+                  {selectedCard !== "Better luck next time" && "Epic Win!"}
+                </h2>
                 <img
                   src={cancelIcon}
                   className="cancel-img"
@@ -311,7 +313,7 @@ const PickaWord = () => {
               </>
             ) : (
               <>
-                <h2 className="epic">Epic Win!</h2>
+                <h2 className="epic">{selectedCard && "Epic Win!"}</h2>
                 <img
                   src={cancelIcon}
                   className="cancel-img"

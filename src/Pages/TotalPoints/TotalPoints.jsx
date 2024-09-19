@@ -7,7 +7,8 @@ import "./TotalPoints.css";
 import { UserDeatils } from "../../apis/user";
 
 const TotalPoints = () => {
-  const { userDetails, updatewatchScreenInfo, updateUserInfo } = useUserInfo();
+  const { userDetails, updatewatchScreenInfo, updateUserInfo, watchScreen } =
+    useUserInfo();
   const goToThePage = (component, name) => {
     updateUserInfo((prev) => {
       return {
@@ -61,19 +62,19 @@ const TotalPoints = () => {
           }}
         >
           <div className="streakContainer">
-            <img
+            {/* <img
               onClick={() => {
                 goToThePage(Tv, "Tv");
               }}
               src={cancelIcon}
               className="cancel-imgpoints"
               style={{ cursor: "pointer" }}
-            />
+            /> */}
             <div className="row mt10 cheap-stuff" style={{ width: "100%" }}>
               <h4 className="totalPointsText">Total Rewards</h4>
               <div>
                 <p className="rewardstext pb0">
-                  <img src={logo} /> {userDetails.userDetails.totalRewards}
+                  <img src={logo} /> {watchScreen.allrewards}
                 </p>
               </div>
             </div>
@@ -151,7 +152,7 @@ const TotalPoints = () => {
               <div className="btn-bg">
                 <button className="button-points">
                   <img className="logo-points" src={logo} />
-                  {userDetails?.userDetails?.taskRewards}
+                  {userDetails?.userDetails?.taskRewards?.taskPoints}
                 </button>
               </div>
             </div>

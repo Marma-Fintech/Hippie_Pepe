@@ -40,6 +40,7 @@ const INITIAL_STATE = {
     watchSec: 0,
     isEnergyTrigggered: false,
     updatedWatchPoints: 0,
+    allrewards: 0,
   },
   updatewatchScreenInfo: () => undefined,
   updateUserInfo: () => undefined,

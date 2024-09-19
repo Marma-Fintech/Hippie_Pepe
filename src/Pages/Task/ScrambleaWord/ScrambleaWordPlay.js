@@ -3,6 +3,9 @@ import "./ScrambleaWordPlay.css";
 import logo from "../../../assets/images/coinlogo.png";
 import { userGameRewards } from "../../../apis/user";
 import useUserInfo from "../../../Hooks/useUserInfo";
+import cancelIcon from "../../../assets/Task/cancelicon.png";
+import scramble from "./ScrambleaWord";
+
 const gameData = [
   {
     word: "DOLPHIN",
@@ -1598,8 +1601,29 @@ const ScrambleaWordPlay = ({ day }) => {
     setShowAnswer(false);
   };
 
+  const toogleMenu = () => {
+    updateUserInfo((prev) => ({
+      ...prev,
+      isPlay: false,
+      currentComponent: scramble,
+      currentComponentText: "scramble",
+      lastComponent: userDetails?.userDetails.currentComponent,
+      lastComponentText: userDetails?.userDetails.currentComponentText,
+      isMenu: true,
+      menuCount: userDetails?.userDetails?.menuCount + 1,
+    }));
+  };
+
   return (
     <div className="quiz-play-task">
+      <img
+        onClick={() => {
+          toogleMenu();
+        }}
+        src={cancelIcon}
+        className="cancel-imgpoints"
+        style={{ cursor: "pointer" }}
+      />
       <div className="ScrambleaWordPlay">
         <h1 className="text-heading">WORD SCRAMBLE</h1>
         <h3 className="scramble-count">

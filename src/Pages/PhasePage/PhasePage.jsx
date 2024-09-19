@@ -46,6 +46,15 @@ const PhasePage = () => {
 
   useEffect(() => {
     getWeeklyRewardsData();
+    localStorage.setItem(
+      "pointDetails",
+      JSON.stringify({
+        tapPoints: 0,
+        watchSec: 0,
+        boosterPoints: 0,
+        booster: [0],
+      })
+    );
   }, []);
 
   useEffect(() => {

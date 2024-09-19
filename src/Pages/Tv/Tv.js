@@ -91,6 +91,9 @@ const Tv = () => {
 
   useEffect(() => {
     const storedData = localStorage.getItem("energyDetails");
+    const storedData1 = localStorage.getItem("watchStreak");
+    const parsedData1 = storedData1 ? JSON.parse(storedData1) : 0;
+
     if (storedData) {
       try {
         const parsedData = JSON.parse(storedData);
@@ -122,6 +125,17 @@ const Tv = () => {
           watchSec: secsOnlyRef.current,
           boosterPoints: boosterPointsRef.current,
           booster: [watchScreenRef.current.boosterDetails.name],
+        })
+      );
+
+      localStorage.setItem(
+        "watchStreak",
+        JSON.stringify({
+          // totalReward: totalRewardPoints,
+          watchSec:
+            parsedData1 && parsedData1 !== 0
+              ? parsedData1?.watchSec + secsOnlyRef.current
+              : secsOnlyRef.current,
         })
       );
 
@@ -254,6 +268,7 @@ const Tv = () => {
   };
 
   const addWatchSecapiTotal = async (data) => {
+    clearInterval(intervalRef.current);
     const res = await addWatchSeconds(data);
     localStorage.setItem(
       "pointDetails",
@@ -266,7 +281,7 @@ const Tv = () => {
     );
     updatewatchScreenInfo((prev) => ({
       ...prev,
-      totalReward: res.totalRewards,
+      // totalReward: res.totalRewards,
       tapPoints: 0,
       booster: false,
       boosterSec: 0,
@@ -274,6 +289,7 @@ const Tv = () => {
       boosterDetails: {},
       watchSec: 0,
       updatedWatchPoints: res?.watchRewards,
+      allrewards: res.totalRewards,
     }));
     if (res) {
       setTimeout(() => {
@@ -435,16 +451,7 @@ const Tv = () => {
       style={{ height: "100%", width: "100%" }}
     >
       <div className="line arrow"></div>
-      <div className="row level-div text-center"
-      style={
-        {
-          marginTop:"55px",
-          marginRight:"35px",
-          marginBottom:"55px",
-          marginLeft:"35px"
-
-        }
-      }>
+      <div className="row level-div text-center">
         <div className="col-6">
           <div className="level-h2">
             <h2

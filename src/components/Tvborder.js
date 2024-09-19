@@ -1,7 +1,11 @@
 import React from "react";
-import border from "../assets/images/Frame 21.png";
+import border1 from "../assets/images/Frame 21.png";
+import border2 from "../assets/images/doNothingimg.png";
+import useUserInfo from "../Hooks/useUserInfo";
 
 function Tvborder() {
+  const { userDetails, watchScreen, updatewatchScreenInfo, updateUserInfo } =
+    useUserInfo();
   return (
     <div
       style={{
@@ -20,7 +24,7 @@ function Tvborder() {
       </div> */}
 
       <img
-        src={border}
+        src={watchScreen.booster ? border2 : border1}
         alt="border"
         style={{ height: "100%", width: "100%" }}
       />

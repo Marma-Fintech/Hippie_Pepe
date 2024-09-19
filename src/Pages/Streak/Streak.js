@@ -1,16 +1,15 @@
-
 import React, { useState, useEffect, useRef, useMemo } from "react";
 import "./Streak.css";
 import questionMarkIcon from "../../assets/Task/ReferImg.png";
-import StreakBreakPoints from "../StreakBreakPoints/StreakBreakPoints";import useUserInfo from "../../Hooks/useUserInfo";
+import StreakBreakPoints from "../StreakBreakPoints/StreakBreakPoints";
+import useUserInfo from "../../Hooks/useUserInfo";
 import logo from "../../assets/images/meme-logo.svg";
 import twitter from "../../assets/images/twitter.svg";
 import Tv from "../Tv/Tv";
 import ReferPage from "../ReferPage/ReferPage";
 import Task from "../Task/Task";
-import Spinner from "./Spinner";
-import fire from "../../assets/images/fire.svg"; // Import the spinner component
-
+import Spinner from "./Spinner"; // Import the spinner component
+import cancelIcon from "../../assets/Task/cancelicon.png";
 import {
   UserDeatils,
   addWatchSeconds,
@@ -38,18 +37,25 @@ const Streak = () => {
   const [claimedMultiDays, setClaimedMultiDays] = useState([]);
   const { userDetails, watchScreen, updatewatchScreenInfo, updateUserInfo } =
     useUserInfo();
-  const [streakData, setStreakData] = useState(
-    userDetails.userDetails.streakData
-  );
-  const [streakOfStreakData, setStreakOfStreakData] = useState(
-    userDetails.userDetails.streakOfStreakData
-  );
+  const [streakData, setStreakData] = useState(null);
+  const [streakOfStreakData, setStreakOfStreakData] = useState(null);
+
+  useEffect(() => {
+    if (userDetails.userDetails?.streakData) {
+      setStreakData(userDetails.userDetails.streakData);
+    }
+
+    if (userDetails.userDetails?.streakOfStreakData) {
+      setStreakOfStreakData(userDetails.userDetails.streakOfStreakData);
+    }
+  }, [userDetails]);
   const [loginStreakReward, setLoginStreakReward] = useState(0);
   const [watchStreakReward, setWatchStreakReward] = useState(0);
   const [referStreakReward, setReferStreakReward] = useState(0);
   const [taskStreakReward, setTaskStreakReward] = useState(0);
   const [multiStreakReward, setMultiStreakReward] = useState(0);
   const [streakOfStreakReward, setStreakOfStreakReward] = useState(0);
+  const [streakOfStreakRewardPopUp, setStreakOfStreakRewardPopUp] = useState(0);
 
   //loader
   const [isLoginClaimLoading, setIsLoginClaimLoading] = useState(false);
@@ -57,6 +63,28 @@ const Streak = () => {
   const [isReferClaimLoading, setIsReferClaimLoading] = useState(false);
   const [isTaskClaimLoading, setIsTaskClaimLoading] = useState(false);
   const [isMultiClaimLoading, setIsMultiClaimLoading] = useState(false);
+
+  const [showPopup, setShowPopup] = useState(false); // Make sure this is initialized to false
+  const closePopup = () => {
+    setShowPopup(false); // Close the popup
+    setStreakOfStreakRewardPopUp(0);
+  };
+
+  const dayRefs = useRef([]);
+  const scrollToActiveDay = (dayIndex) => {
+    if (dayRefs.current[dayIndex]) {
+      dayRefs.current[dayIndex].scrollIntoView({
+        behavior: "smooth",
+        block: "nearest",
+        inline: "start",
+      });
+    }
+  };
+
+  // Scroll to the active day on page load
+  useEffect(() => {
+    scrollToActiveDay(normalDay - 1);
+  }, [normalDay]);
 
   const goToThePage = (component, name) => {
     updateUserInfo((prev) => {
@@ -161,6 +189,16 @@ const Streak = () => {
     }));
   };
 
+  const memoizedStartDay = useMemo(() => {
+    // Some calculation that uses startDay
+    return startDay; // Could be any complex calculation
+  }, [startDay]);
+
+  const memoizedCurrentDay = useMemo(() => {
+    // Some calculation that uses currentDay
+    return currentDay; // Could be any complex calculation
+  }, [currentDay]);
+
   //function to check day cnd change the day, if they start in a middle day
   const dayCheck = async (n) => {
     setNormalDay(n);
@@ -195,7 +233,7 @@ const Streak = () => {
     // Fetch streak data
     const [calculatedStreakData, getStreakData] = await Promise.all([
       calculateStreak(data),
-      getUserStreaks(data.telegramId)
+      getUserStreaks(data.telegramId),
     ]);
 
     // Update basic streak data
@@ -284,7 +322,11 @@ const Streak = () => {
 
   // Memoize multi streak reward
   const memoizedMultiStreakReward = useMemo(() => {
-    return streakData?.multiStreak?.multiStreakReward[dayRef.current - 1] || 0;
+    return (
+      streakOfStreakData?.streakOfStreak?.multiStreakReward[
+        dayRef.current - 1
+      ] || 0
+    );
   }, [streakData, dayRef.current]);
 
   useEffect(() => {
@@ -296,17 +338,19 @@ const Streak = () => {
     setLoginStreakReward(
       streakData.loginStreak.loginStreakReward[dayRef.current - 1]
     );
-  
+
     const data = {
       telegramId: userDetails.userDetails.telegramId, // Assuming telegramId is in userDetails
       index: day - 1, // Adjust index based on current day
     };
-  
+
     // Check if the login streak reward is not undefined
-    if (streakData.loginStreak.loginStreakReward[dayRef.current - 1] !== undefined) {
+    if (
+      streakData.loginStreak.loginStreakReward[dayRef.current - 1] !== undefined
+    ) {
       try {
         setIsLoginClaimLoading(true); // Start loading
-  
+
         // Call the loginStreakRewardClaim function and pass the data
         const response = await loginStreakRewardClaim(data);
 
@@ -317,7 +361,6 @@ const Streak = () => {
         // Reset the reward or perform other actions
         setLoginStreakReward(0);
         calculateReward();
-        
       } catch (error) {
         console.error("Error during claim:", error);
       } finally {
@@ -331,17 +374,19 @@ const Streak = () => {
     setWatchStreakReward(
       streakData.watchStreak.watchStreakReward[dayRef.current - 1]
     );
-  
+
     const data = {
       telegramId: userDetails.userDetails.telegramId, // Assuming telegramId is in userDetails
       index: day - 1, // Adjust index based on current day
     };
-  
+
     // Check if the watch streak reward is not undefined
-    if (streakData.watchStreak.watchStreakReward[dayRef.current - 1] !== undefined) {
+    if (
+      streakData.watchStreak.watchStreakReward[dayRef.current - 1] !== undefined
+    ) {
       try {
         setIsWatchClaimLoading(true); // Start loading
-    
+
         // Call the watchStreakRewardClaim function and pass the data
         const response = await watchStreakRewardClaim(data);
         // Update claimedWatchDays immediately
@@ -352,7 +397,6 @@ const Streak = () => {
         // Reset the reward or perform other actions
         setWatchStreakReward(0);
         calculateReward(); // Update any further reward calculations
-          
       } catch (error) {
         console.error("Error during watch claim:", error);
       } finally {
@@ -360,24 +404,25 @@ const Streak = () => {
       }
     }
   };
-  
 
   const handleReferClaimClick = async () => {
     // Set the refer streak reward from the current streak data
     setReferStreakReward(
       streakData.referStreak.referStreakReward[dayRef.current - 1]
     );
-  
+
     const data = {
       telegramId: userDetails.userDetails.telegramId, // Assuming telegramId is in userDetails
       index: day - 1, // Adjust index based on current day
     };
-  
+
     // Check if the refer streak reward is not undefined
-    if (streakData.referStreak.referStreakReward[dayRef.current - 1] !== undefined) {
+    if (
+      streakData.referStreak.referStreakReward[dayRef.current - 1] !== undefined
+    ) {
       try {
         setIsReferClaimLoading(true); // Start loading
-    
+
         // Call the referStreakRewardClaim function and pass the data
         const response = await referStreakRewardClaim(data);
         // Update claimedReferDays immediately
@@ -388,7 +433,6 @@ const Streak = () => {
         // Reset the reward or perform other actions
         setReferStreakReward(0);
         calculateReward(); // Update any further reward calculations
-          
       } catch (error) {
         console.error("Error during refer claim:", error);
       } finally {
@@ -396,24 +440,25 @@ const Streak = () => {
       }
     }
   };
-  
 
   const handleGameClaimClick = async () => {
     // Set the task streak reward from the current streak data
     setTaskStreakReward(
       streakData.taskStreak.taskStreakReward[dayRef.current - 1]
     );
-  
+
     const data = {
       telegramId: userDetails.userDetails.telegramId, // Assuming telegramId is in userDetails
       index: day - 1, // Adjust index based on current day
     };
-  
+
     // Check if the task streak reward is not undefined
-    if (streakData.taskStreak.taskStreakReward[dayRef.current - 1] !== undefined) {
+    if (
+      streakData.taskStreak.taskStreakReward[dayRef.current - 1] !== undefined
+    ) {
       try {
         setIsTaskClaimLoading(true); // Start loading
-  
+
         // Call the taskStreakRewardClaim function and pass the data
         const response = await taskStreakRewardClaim(data);
         // Update claimedTaskDays immediately
@@ -431,48 +476,55 @@ const Streak = () => {
       }
     }
   };
-  
 
   const handleMultiClaimClick = async () => {
-  // Check if all necessary streak data is available
-  if (streakData.login && streakData.watch && streakData.refer && streakData.task) {
-    // Set the multi streak reward from the current streak data
-    setMultiStreakReward(
-      streakOfStreakData.streakOfStreak.multiStreakReward[dayRef.current - 1]
-    );
+    // Check if all necessary streak data is available
+    if (
+      streakData.login &&
+      streakData.watch &&
+      streakData.refer &&
+      streakData.task
+    ) {
+      // Set the multi streak reward from the current streak data
+      setMultiStreakReward(
+        streakOfStreakData.streakOfStreak.multiStreakReward[dayRef.current - 1]
+      );
 
-    const data = {
-      telegramId: userDetails.userDetails.telegramId, // Assuming telegramId is in userDetails
-      index: day - 1, // Adjust index based on current day
-    };
+      const data = {
+        telegramId: userDetails.userDetails.telegramId, // Assuming telegramId is in userDetails
+        index: day - 1, // Adjust index based on current day
+      };
 
-    // Check if the multi streak reward is not undefined
-    if (streakOfStreakData.streakOfStreak.multiStreakReward[dayRef.current - 1] !== undefined) {
-      try {
-        setIsMultiClaimLoading(true); // Start loading
+      // Check if the multi streak reward is not undefined
+      if (
+        streakOfStreakData.streakOfStreak.multiStreakReward[
+          dayRef.current - 1
+        ] !== undefined
+      ) {
+        try {
+          setIsMultiClaimLoading(true); // Start loading
 
-        // Call the multiStreakRewardClaim function and pass the data
-        const response = await multiStreakRewardClaim(data);
-        // Update claimedMultiDays immediately
-        const updatedClaimedMultiDays = [...claimedMultiDays];
-        updatedClaimedMultiDays[dayRef.current - 1] = true; // Mark the current day as claimed
-        setClaimedMultiDays(updatedClaimedMultiDays); // Update the state immediately
+          // Call the multiStreakRewardClaim function and pass the data
+          const response = await multiStreakRewardClaim(data);
+          // Update claimedMultiDays immediately
+          const updatedClaimedMultiDays = [...claimedMultiDays];
+          updatedClaimedMultiDays[dayRef.current - 1] = true; // Mark the current day as claimed
+          setClaimedMultiDays(updatedClaimedMultiDays); // Update the state immediately
 
-        // Reset the reward or perform other actions
-        setMultiStreakReward(0);
-        calculateReward(); // Update any further reward calculations
-
-      } catch (error) {
-        console.error("Error during multi claim:", error);
-      } finally {
-        setIsMultiClaimLoading(false); // End loading
+          // Reset the reward or perform other actions
+          setMultiStreakReward(0);
+          calculateReward(); // Update any further reward calculations
+        } catch (error) {
+          console.error("Error during multi claim:", error);
+        } finally {
+          setIsMultiClaimLoading(false); // End loading
+        }
       }
     }
-  }
-};
-
+  };
 
   const handleSOSClaimClick = async () => {
+    console.log("Inside SOS claim click");
     if (
       streakData.login &&
       streakData.watch &&
@@ -499,8 +551,11 @@ const Streak = () => {
         ] != undefined
       ) {
         const response = await streakOfStreakRewardClaim(data);
-        setMultiStreakReward(0);
         calculateReward();
+        setStreakOfStreakRewardPopUp(rewardAmount);
+        setStreakOfStreakReward(0);
+        // Show the popup after reward is claimed and set any UI state needed
+        setShowPopup(true); // Show the popup here
       }
     }
   };
@@ -577,38 +632,41 @@ const Streak = () => {
           />
         </div>
         <div
-          class="container-fluid"
+          className="container-fluid"
           style={{ maxWidth: "300px", marginBottom: "10px" }}
         >
-          <div class="scrolling-wrapper row flex-row flex-nowrap">
-            <div class="col-4">
-              <div
-                class={
-                  startDay > 1
-                    ? "card-block1 card card-1 com-days"
-                    : currentDay === 1
-                    ? "card card-block2 card-1"
-                    : "card card-block card-1"
-                }
-              >
-                <button
-                  className="btn-none"
-                  onClick={() => {
-                    dayCheck(1);
-                  }}
-                  disabled={startDay > 1 ? true : false}
+          <div className="scrolling-wrapper row flex-row flex-nowrap">
+            {Array.from({ length: 7 }).map((_, index) => (
+              <div key={index} className="col-4">
+                <div
+                  ref={(el) => (dayRefs.current[index] = el)}
+                  className={
+                    memoizedStartDay > index + 1
+                      ? "card-block1 card card-1 com-days"
+                      : normalDay === index + 1
+                      ? "card card-block2 card-1"
+                      : "card card-block card-1"
+                  }
                 >
-                  {" "}
-                  DAY 1{" "}
-                </button>
+                  <button
+                    className="btn-none"
+                    onClick={() => {
+                      dayCheck(index + 1);
+                    }}
+                    disabled={memoizedStartDay > index + 1 ? true : false}
+                  >
+                    {" "}
+                    DAY {index + 1}{" "}
+                  </button>
+                </div>
               </div>
-            </div>
-            <div class="col-4">
+            ))}
+            {/* <div className="col-4">
               <div
-                class={
-                  startDay > 2
+                className={
+                  memoizedStartDay > 2
                     ? "card-block1 card card-1 com-days"
-                    : currentDay === 2
+                    :normalDay === 2
                     ? "card card-block2 card-1"
                     : "card card-block card-1"
                 }
@@ -618,19 +676,19 @@ const Streak = () => {
                   onClick={() => {
                     dayCheck(2);
                   }}
-                  disabled={startDay > 2 ? true : false}
+                  disabled={memoizedStartDay > 2 ? true : false}
                 >
                   {" "}
                   DAY 2{" "}
                 </button>
               </div>
             </div>
-            <div class="col-4">
+            <div className="col-4">
               <div
-                class={
-                  startDay > 3
+                className={
+                  memoizedStartDay > 3
                     ? "card-block1 card card-1 com-days"
-                    : currentDay === 3
+                    : normalDay === 3
                     ? "card card-block2 card-1"
                     : "card card-block card-1"
                 }
@@ -641,19 +699,19 @@ const Streak = () => {
                   onClick={() => {
                     dayCheck(3);
                   }}
-                  disabled={startDay > 3 ? true : false}
+                  disabled={memoizedStartDay > 3 ? true : false}
                 >
                   {" "}
                   DAY 3{" "}
                 </button>
               </div>
             </div>
-            <div class="col-4">
+            <div className="col-4">
               <div
-                class={
-                  startDay > 4
+                className={
+                  memoizedStartDay > 4
                     ? "card-block1 card card-1 com-days"
-                    : currentDay === 4
+                    : normalDay === 4
                     ? "card card-block2 card-1"
                     : "card card-block card-1"
                 }
@@ -664,19 +722,19 @@ const Streak = () => {
                   onClick={() => {
                     dayCheck(4);
                   }}
-                  disabled={startDay > 4 ? true : false}
+                  disabled={memoizedStartDay > 4 ? true : false}
                 >
                   {" "}
                   DAY 4{" "}
                 </button>
               </div>
             </div>
-            <div class="col-4">
+            <div className="col-4">
               <div
-                class={
-                  startDay > 5
+                className={
+                  memoizedStartDay > 5
                     ? "card-block1 card card-1 com-days"
-                    : currentDay === 5
+                    : normalDay === 5
                     ? "card card-block2 card-1"
                     : "card card-block card-1"
                 }
@@ -687,19 +745,19 @@ const Streak = () => {
                   onClick={() => {
                     dayCheck(5);
                   }}
-                  disabled={startDay > 5 ? true : false}
+                  disabled={memoizedStartDay > 5 ? true : false}
                 >
                   {" "}
                   DAY 5{" "}
                 </button>
               </div>
             </div>
-            <div class="col-4">
+            <div className="col-4">
               <div
-                class={
-                  startDay > 6
+                className={
+                  memoizedStartDay > 6
                     ? "card-block1 card card-1 com-days"
-                    : currentDay === 6
+                    : normalDay === 6
                     ? "card card-block2 card-1"
                     : "card card-block card-1"
                 }
@@ -709,19 +767,19 @@ const Streak = () => {
                   onClick={() => {
                     dayCheck(6);
                   }}
-                  disabled={startDay > 6 ? true : false}
+                  disabled={memoizedStartDay > 6 ? true : false}
                 >
                   {" "}
                   DAY 6{" "}
                 </button>
               </div>
             </div>
-            <div class="col-4">
+            <div className="col-4">
               <div
-                class={
-                  startDay > 7
+                className={
+                  memoizedStartDay > 7
                     ? "card-block1 card card-1 com-days"
-                    : currentDay === 7
+                    : normalDay === 7
                     ? "card card-block2 card-1"
                     : "card card-block card-1"
                 }
@@ -731,13 +789,13 @@ const Streak = () => {
                   onClick={() => {
                     dayCheck(7);
                   }}
-                  disabled={startDay > 7 ? true : false}
+                  disabled={memoizedStartDay > 7 ? true : false}
                 >
                   {" "}
                   DAY 7{" "}
                 </button>{" "}
               </div>
-            </div>
+            </div> */}
           </div>
         </div>
         <div className="scrollableContainer">
@@ -764,26 +822,32 @@ const Streak = () => {
               {/* If loading is true, show the loader */}
               {isLoginClaimLoading ? (
                 <Spinner />
-              ) :(<button
-                className={`stuff-claim ${
-                  claimedLoginDays[normalDay - 1] ||
-                  currentDay < day + startDay - 1
-                    ? "claimed"
-                    : ""
-                }`}
-                onClick={handleLoginClaimClick}
-                style={{ cursor: "pointer" }}
-                disabled={claimedLoginDays[normalDay - 1]}
-              >
-                {claimedLoginDays[normalDay - 1]
-                  ? "CLAIMED"
-                  : loginStreakReward > 0
-                  ? "CLAIM"
-                  : currentDay < day + startDay - 1
-                  ? "LOCKED"
-                  : "GO"}
-              </button>)}
-              
+              ) : (
+                <button
+                  className={`stuff-claim ${
+                    claimedLoginDays[normalDay - 1] ||
+                    memoizedCurrentDay < day + memoizedStartDay - 1
+                      ? "claimed"
+                      : memoizedLoginStreakReward > 0
+                      ? ""
+                      : "claimed"
+                  }`}
+                  onClick={handleLoginClaimClick}
+                  style={{ cursor: "pointer" }}
+                  disabled={claimedLoginDays[normalDay - 1]}
+                >
+                  {claimedLoginDays[normalDay - 1]
+                    ? "CLAIMED"
+                    : memoizedCurrentDay < day + memoizedStartDay - 1 // Before the current day
+                    ? "LOCKED"
+                    : memoizedCurrentDay === day + memoizedStartDay - 1 // On the current day
+                    ? "CLAIM"
+                    : memoizedLoginStreakReward > 0
+                    ? "CLAIM"
+                    : "LOCKED"}{" "}
+                  {/* Adjust logic for next steps */}
+                </button>
+              )}
             </div>
           </div>
           <div className="row mt10 cheap-stuff">
@@ -806,38 +870,46 @@ const Streak = () => {
               </p>
             </div>
             <div className="col-3">
-            {isWatchClaimLoading ? (
+              {isWatchClaimLoading ? (
                 <Spinner />
-              ) :(
-              <button
-                className={`stuff-claim ${
-                  claimedWatchDays[normalDay - 1] ||
-                  currentDay < day + startDay - 1
-                    ? "claimed"
-                    : ""
-                }`}
-                onClick={() => {
-                  if (watchStreakReward > 0) {
-                    handleWatchClaimClick();
-                  } else if (currentDay >= day + startDay - 1) {
-                    const userDetails = getUserDetails(data);
-                    if (userDetails != undefined) {
-                      goToThePage(Tv, "TV");
+              ) : (
+                <button
+                  className={`stuff-claim ${
+                    claimedWatchDays[normalDay - 1] ||
+                    memoizedCurrentDay < day + memoizedStartDay - 1
+                      ? "claimed"
+                      : memoizedWatchStreakReward > 0
+                      ? ""
+                      : "claimed"
+                  }`}
+                  onClick={() => {
+                    if (watchStreakReward > 0) {
+                      handleWatchClaimClick();
+                    } else if (
+                      memoizedCurrentDay >=
+                      day + memoizedStartDay - 1
+                    ) {
+                      const userDetails = getUserDetails(data);
+                      if (userDetails != undefined) {
+                        goToThePage(Tv, "TV");
+                      }
                     }
-                  }
-                }}
-                style={{ cursor: "pointer" }}
-                disabled={claimedWatchDays[normalDay - 1]}
-              >
-                {claimedWatchDays[normalDay - 1]
-                  ? "CLAIMED"
-                  : watchStreakReward > 0
-                  ? "CLAIM"
-                  : currentDay < day + startDay - 1
-                  ? "LOCKED"
-                  : "GO"}
-              </button>)
-            }
+                  }}
+                  style={{ cursor: "pointer" }}
+                  disabled={claimedWatchDays[normalDay - 1]}
+                >
+                  {claimedWatchDays[normalDay - 1]
+                    ? "CLAIMED"
+                    : memoizedCurrentDay < day + memoizedStartDay - 1
+                    ? "LOCKED"
+                    : memoizedCurrentDay === day + memoizedStartDay - 1
+                    ? memoizedWatchStreakReward > 0
+                      ? "CLAIM"
+                      : "GO"
+                    : "CLAIM"}
+                  {/* Catch-all to ensure fallback */}
+                </button>
+              )}
             </div>
           </div>
           <div className="row mt10 cheap-stuff">
@@ -853,42 +925,53 @@ const Streak = () => {
               <h4>Refer streak</h4>
               <p className="stuff-p">
                 <img src={logo} />{" "}
-                {memoizedReferStreakReward  === undefined
+                {memoizedReferStreakReward === undefined
                   ? "+0"
                   : claimedReferDays[normalDay - 1]
                   ? `+${referStreakRewardArray[day - 1]}`
-                  : `+${referStreakReward}`}{" "}
+                  : `+${memoizedReferStreakReward}`}{" "}
               </p>
             </div>
             <div className="col-3">
-            {isReferClaimLoading ? (
+              {isReferClaimLoading ? (
                 <Spinner />
-              ) :(
-              <button
-                className={`stuff-claim ${
-                  claimedReferDays[normalDay - 1] ||
-                  currentDay < day + startDay - 1
-                    ? "claimed"
-                    : ""
-                }`}
-                onClick={() => {
-                  if (referStreakReward > 0) {
-                    handleReferClaimClick();
-                  } else if (currentDay >= day + startDay - 1) {
-                    goToThePage(ReferPage, "ReferPage");
-                  }
-                }}
-                style={{ cursor: "pointer" }}
-                disabled={claimedReferDays[normalDay - 1]}
-              >
-                {claimedReferDays[normalDay - 1]
-                  ? "CLAIMED"
-                  : referStreakReward > 0
-                  ? "CLAIM"
-                  : currentDay < day + startDay - 1
-                  ? "LOCKED"
-                  : "GO"}
-              </button>)}
+              ) : (
+                <button
+                  className={`stuff-claim ${
+                    claimedReferDays[normalDay - 1] ||
+                    memoizedCurrentDay < day + memoizedStartDay - 1
+                      ? "claimed"
+                      : memoizedReferStreakReward > 0
+                      ? ""
+                      : "claimed"
+                  }`}
+                  onClick={() => {
+                    if (referStreakReward > 0) {
+                      handleReferClaimClick();
+                    } else if (
+                      memoizedCurrentDay >=
+                      day + memoizedStartDay - 1
+                    ) {
+                      goToThePage(ReferPage, "ReferPage");
+                    }
+                  }}
+                  style={{ cursor: "pointer" }}
+                  disabled={claimedReferDays[normalDay - 1]}
+                >
+                  {claimedReferDays[normalDay - 1]
+                    ? "CLAIMED"
+                    : memoizedCurrentDay < day + memoizedStartDay - 1
+                    ? "LOCKED"
+                    : memoizedCurrentDay === day + memoizedStartDay - 1
+                    ? memoizedReferStreakReward > 0
+                      ? "CLAIM"
+                      : "GO"
+                    : memoizedReferStreakReward > 0
+                    ? "CLAIM"
+                    : "LOCKED"}
+                  {/* Catch-all to ensure fallback */}
+                </button>
+              )}
             </div>
           </div>
           <div className="row mt10 cheap-stuff">
@@ -910,45 +993,56 @@ const Streak = () => {
                   ? "+0"
                   : claimedTaskDays[normalDay - 1]
                   ? `+${login_watch_taskStreakRewardArray[day - 1]}`
-                  : `+${taskStreakReward}`}{" "}
+                  : `+${memoizedTaskStreakReward}`}{" "}
               </p>
             </div>
             <div className="col-3">
-            {isTaskClaimLoading ? (
+              {isTaskClaimLoading ? (
                 <Spinner />
-              ) :(
-              <button
-                className={`stuff-claim ${
-                  claimedTaskDays[normalDay - 1] ||
-                  currentDay < day + startDay - 1
-                    ? "claimed"
-                    : ""
-                }`}
-                onClick={() => {
-                  if (taskStreakReward > 0) {
-                    handleGameClaimClick();
-                  } else if (currentDay >= day + startDay - 1) {
-                    goToThePage(Task, "Task");
-                  }
-                }}
-                style={{ cursor: "pointer" }}
-                disabled={claimedTaskDays[normalDay - 1]}
-              >
-                {claimedTaskDays[normalDay - 1]
-                  ? "CLAIMED"
-                  : taskStreakReward > 0
-                  ? "CLAIM"
-                  : currentDay < day + startDay - 1
-                  ? "LOCKED"
-                  : "GO"}
-              </button>)}
+              ) : (
+                <button
+                  className={`stuff-claim ${
+                    claimedTaskDays[normalDay - 1] ||
+                    memoizedCurrentDay < day + memoizedStartDay - 1
+                      ? "claimed"
+                      : memoizedTaskStreakReward > 0
+                      ? ""
+                      : "claimed"
+                  }`}
+                  onClick={() => {
+                    if (taskStreakReward > 0) {
+                      handleGameClaimClick();
+                    } else if (
+                      memoizedCurrentDay >=
+                      day + memoizedStartDay - 1
+                    ) {
+                      goToThePage(Task, "Task");
+                    }
+                  }}
+                  style={{ cursor: "pointer" }}
+                  disabled={claimedTaskDays[normalDay - 1]}
+                >
+                  {claimedTaskDays[normalDay - 1]
+                    ? "CLAIMED"
+                    : memoizedCurrentDay < day + memoizedStartDay - 1
+                    ? "LOCKED"
+                    : memoizedCurrentDay === day + memoizedStartDay - 1
+                    ? memoizedTaskStreakReward > 0
+                      ? "CLAIM"
+                      : "GO"
+                    : memoizedTaskStreakReward > 0
+                    ? "CLAIM"
+                    : "LOCKED"}
+                </button>
+              )}
             </div>
           </div>
-          <div className="row mt10 cheap-stuff mb12">
+          <div className="row mt10 cheap-stuff">
             <div className="col-2">
               <img
                 loading="lazy"
-                src={fire}
+                src="https://cdn.builder.io/api/v1/image/assets/TEMP/0eb953a6da27d088a419ecf530736727ca1f124475b9460d890398ef1438fc31?apiKey=da9eb044cac44bb1ab1471c98df94a03&&apiKey=da9eb044cac44bb1ab1471c98df94a03"
+                className="image"
                 alt=""
               />
             </div>
@@ -956,44 +1050,53 @@ const Streak = () => {
               <h4>Multi Streak</h4>
               <p className="stuff-p">
                 <img src={logo} />{" "}
-                {multiStreakReward === undefined
+                {memoizedMultiStreakReward === undefined
                   ? "+0"
                   : claimedMultiDays[normalDay - 1]
                   ? `+${multiStreakRewardArray[day - 1]}`
-                  : multiStreakReward === 0
-                  ? `${multiStreakReward}`
-                  : `+${multiStreakReward}`}{" "}
+                  : `+${memoizedMultiStreakReward}`}{" "}
               </p>
             </div>
             <div className="col-3">
-            {isMultiClaimLoading ? (
+              {isMultiClaimLoading ? (
                 <Spinner />
-              ) :(
-              <button
-                className={`stuff-claim ${
-                  claimedMultiDays[normalDay - 1] ||
-                  currentDay < day + startDay - 1
-                    ? "claimed"
-                    : ""
-                }`}
-                onClick={handleMultiClaimClick}
-                style={{ cursor: "pointer" }}
-                disabled={claimedMultiDays[normalDay - 1]}
-              >
-                {claimedMultiDays[normalDay - 1]
-                  ? "CLAIMED"
-                  : multiStreakReward > 0
-                  ? "CLAIM"
-                  : currentDay < day + startDay - 1
-                  ? "LOCKED"
-                  : "GO"}
-              </button>)}
+              ) : (
+                <button
+                  className={`stuff-claim ${
+                    claimedMultiDays[normalDay - 1] ||
+                    memoizedCurrentDay < day + memoizedStartDay - 1
+                      ? "claimed"
+                      : memoizedMultiStreakReward > 0
+                      ? ""
+                      : "claimed"
+                  }`}
+                  onClick={handleMultiClaimClick}
+                  style={{ cursor: "pointer" }}
+                  disabled={claimedMultiDays[normalDay - 1]}
+                >
+                  {claimedMultiDays[normalDay - 1]
+                    ? "CLAIMED"
+                    : memoizedCurrentDay < day + memoizedStartDay - 1
+                    ? "LOCKED"
+                    : memoizedCurrentDay === day + memoizedStartDay - 1
+                    ? memoizedMultiStreakReward > 0
+                      ? "CLAIM"
+                      : "GO"
+                    : memoizedMultiStreakReward > 0
+                    ? "CLAIM"
+                    : "LOCKED"}
+                </button>
+              )}
             </div>
           </div>
+          {/* Popup Screen */}
+          {/* Popup Screen */}
         </div>
       </div>
+
+      {/* SOS Button */}
       <div
-        class={
+        className={
           streakOfStreakReward === 0 || streakOfStreakReward === undefined
             ? "invite-fri-sos"
             : "invite-fri"
@@ -1016,6 +1119,25 @@ const Streak = () => {
           STREAK OF STREAK
         </button>
       </div>
+      {showPopup && (
+        <div className="popup">
+          <div className="popup-content">
+            <h2 className="epic">STREAK OF STREAK REWARDS!</h2>
+            <img src={cancelIcon} className="cancel-img" onClick={closePopup} />
+            <div className="row text-center">
+              <div className="col-12">
+                <div className="epic-div">
+                  {/* Display the correct streak reward */}
+                  <h3 className="rw-popup">{streakOfStreakRewardPopUp}!</h3>
+                </div>
+              </div>
+            </div>
+            <button className="btn-reward" onClick={closePopup}>
+              DONE
+            </button>
+          </div>
+        </div>
+      )}
     </>
   );
 };

@@ -2,7 +2,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  /* margin-top: 20px; */
+  margin-top: 20px;
 }
 .quiz-task h1,
 .quiz-task h2,
