@@ -1,6 +1,6 @@
 .tv-body {
   pointer-events: fill;
-  width: 100%;
+  /* width: 100%; */
 }
 .streakBreakPointsContainer {
   display: flex;
@@ -8,6 +8,7 @@
   align-items: center;
   justify-content: center;
   height: 100vh;
+  max-width: 380px;
   padding: 10%;
 }
 .streakBreakText {
@@ -121,7 +122,7 @@
 .containerbox {
   border-radius: 4px;
   display: flex;
-  max-width: 301px;
+  /* max-width: 301px; */
   flex-direction: row;
   align-items: center;
   background: rgba(28, 29, 28, 1);
@@ -228,6 +229,6 @@
 .scrollableContainer {
   max-height: 400px;
   overflow-y: auto;
-  width: 100%;
+  /* width: 100%; */
   margin-bottom: 10%;
 }

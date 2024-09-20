@@ -76,7 +76,7 @@ const ReferPage = () => {
                 goToTheMilstonePage(Milestone, "Milestone");
               }}
             >
-              HoW IT’S WORK
+              HoW IT WORK'S
             </p>
           </div>
         </div>

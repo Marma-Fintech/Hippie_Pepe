@@ -6,6 +6,9 @@
   font-family: press;
   src: url("../../assets/FontFamily/PressStart.ttf");
 }
+.mb10 {
+  margin-bottom: 15%;
+}
 .tvContainer {
   background-position: center;
   background-size: 100% 100%;

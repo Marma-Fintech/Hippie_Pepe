@@ -92,7 +92,7 @@ const Streak = () => {
         ...prev,
         ...{
           currentComponent: component,
-          currentComponentText: "TVPage",
+          currentComponentText: name,
           lastComponent: userDetails.currentComponent,
           lastComponentText: userDetails.currentComponentText,
           centerCount: userDetails.centerCount + 1,
@@ -620,7 +620,7 @@ const Streak = () => {
   return (
     <>
       <div className=" menupointer">
-        <div className="streakContainer">
+        <div className="streakContainer mt-15">
           <h1 className="streaktext">STREAK</h1>
           <img
             onMouseEnter={() => {
@@ -1037,7 +1037,7 @@ const Streak = () => {
               )}
             </div>
           </div>
-          <div className="row mt10 cheap-stuff">
+          <div className="row mt10 cheap-stuff mb10">
             <div className="col-2">
               <img
                 loading="lazy"

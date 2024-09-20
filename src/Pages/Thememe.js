@@ -68,24 +68,24 @@ const Thememe = () => {
         telegramDetails: userData,
       }));
     }
-    // const data1 = {
-    //   name: "Karthikeyan",
-    //   telegramId: "62655jln9lugkyu18",
-    // };
-    // getUserDetails(data1);
+    const data1 = {
+      name: "Karthikeyan",
+      telegramId: "62655jln9lugkyu18",
+    };
+    getUserDetails(data1);
 
     const storedData1 = localStorage.getItem("watchStreak");
     const parsedData1 = storedData1 ? JSON.parse(storedData1) : 0;
 
     if (parsedData1 && parsedData1 !== 0 && parsedData1.watchSec > 180) {
-      postWatchStreak(String(userData?.id));
-      // postWatchStreak(data1.telegramId);
+      // postWatchStreak(String(userData?.id));
+      postWatchStreak(data1.telegramId);
     }
 
     const calculateReward = async () => {
       const data24 = {
-        telegramId: String(userData?.id),
-        // telegramId: data1.telegramId,
+        // telegramId: String(userData?.id),
+        telegramId: data1.telegramId,
         userWatchSeconds: 0,
       };
       // Calculate streak data and update the state
@@ -434,24 +434,27 @@ const Thememe = () => {
 
   const addWatchSecMenu = async () => {
     // if (latestUserDetails.current.currentComponentText !== "TVPage") {
+    const values = JSON.parse(localStorage.getItem("pointDetails"));
+    var data = {
+      telegramId: userDetails.userDetails.telegramId,
+      userWatchSeconds: values.watchSec + 1,
+      boosterPoints: String(values.tapPoints),
+    };
     var data = {};
-    if (watchScreen.booster) {
-      data = {
-        telegramId: userDetails.userDetails.telegramId,
-        userWatchSeconds: latestWatchScreen.current.watchSec,
-        boosterPoints: String(
-          latestWatchScreen.current.boosterPoints +
-            latestWatchScreen.current.tapPoints
-        ),
-        boosters: [latestWatchScreen.current.boosterDetails.name],
-      };
-    } else {
-      data = {
-        telegramId: userDetails.userDetails.telegramId,
-        userWatchSeconds: latestWatchScreen.current.watchSec,
-        boosterPoints: String(latestWatchScreen.current.tapPoints),
-      };
-    }
+    // if (watchScreen.booster) {÷
+    data = {
+      telegramId: userDetails.userDetails.telegramId,
+      userWatchSeconds: values.watchSec + 1,
+      boosterPoints: String(values.tapPoints),
+      // boosters: [latestWatchScreen.current.boosterDetails.name],
+    };
+    // } else {
+    //   data = {
+    //     telegramId: userDetails.userDetails.telegramId,
+    //     userWatchSeconds: latestWatchScreen.current.watchSec,
+    //     boosterPoints: String(latestWatchScreen.current.tapPoints),
+    //   };
+    // }
 
     return await addWatchSecapi(data);
     // }
