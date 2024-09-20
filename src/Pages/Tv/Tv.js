@@ -23,6 +23,8 @@ import LeaderBoard from "../LeaderBoard/LeaderBoard";
 import beatAudio from "../../assets/audio/MemetvAudio.mp3";
 import inviteFriends from "../../assets/images/invitetv.svg";
 import ReferPage from "../ReferPage/ReferPage";
+import ConnectWalletImg from "../../assets/images/ConnectWalletImg.png";
+import ConnectWallet from "../ConnectWallet/ConnectWallet";
 
 const Tv = () => {
   const { userDetails, watchScreen, updatewatchScreenInfo, updateUserInfo } =
@@ -553,8 +555,19 @@ const Tv = () => {
             </div>
           </div>
 
-          <div className="col-2 text-center">
-            <img src={settings} alt="Settings" />
+          <div
+            onClick={() => {
+              if (!watchScreen.booster) {
+                goToThePage(ConnectWallet, "ConnectWallet");
+              }
+            }}
+            className="col-2 text-center"
+          >
+            <img
+              src={ConnectWalletImg}
+              alt="ConnectWallet"
+              className="wallet-image"
+            />
           </div>
         </div>
         <div className="row">

@@ -272,6 +272,18 @@ export const cheapStuff = async (data) => {
   }
 };
 
+export const userWalletAddress = async (telegramId, data) => {
+  try {
+    const response = await axios.post(
+      `${Base_Url.base_url}/addWalletAddress/${telegramId}`,
+      data
+    );
+    return response.data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 export default {
   UserDeatils,
   addWatchSeconds,
@@ -293,4 +305,5 @@ export default {
   streakOfStreakRewardClaim,
   cheapStuff,
   getUserDetails1,
+  userWalletAddress,
 };
