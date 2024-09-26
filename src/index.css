@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -8,14 +9,19 @@
   src: url("../public//fonts/VCR_OSD_MONO_1.001.ttf") format("truetype");
 }
 
+=======
+>>>>>>> 3a65bb74a765b6fc90059c3827e78a8d8551a38d
 body {
   margin: 0;
-  /*font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif; */
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+<<<<<<< HEAD
   font-family: myFirstFont;
+=======
+>>>>>>> 3a65bb74a765b6fc90059c3827e78a8d8551a38d
 }
 
 code {
