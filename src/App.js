@@ -1,16 +1,16 @@
-import logo from "./logo.svg";
-import "./App.css";
-import Thememe from "./Pages/Thememe";
-import { UserInfoProvider } from "../src/Providers/theData";
+import logo from './logo.svg';
+import './App.css';
+import Coin from './component/Coin';
+import Glitch from './component/glitch';
 
 function App() {
   return (
-    <UserInfoProvider>
-      <Thememe />
-    </UserInfoProvider>
+    <div>
+      <Coin />
+      {/* <Glitch/>
+      <h1>Welcome to the Glitched Experience</h1> */}
+    </div>
   );
 }
 
 export default App;
-
-
