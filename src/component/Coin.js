@@ -184,19 +184,19 @@ const Coin = () => {
     }, 3000); // Match the animation duration
   };
 
-  document.addEventListener("visibilitychange", function () {
-    if (document.hidden) {
-      console.log("Browser tab is hidden");
-      // togglePlayPause();
-      videoRef.current.pause();
-      setButton("play");
-      setIsActive(false);
-    } else {
-      // console.log("Browser tab is visible")
-      //     togglePlayPause();
-      // setIsActive(true);
-    }
-  });
+  // document.addEventListener("visibilitychange", function () {
+  //   if (document.hidden) {
+  //     console.log("Browser tab is hidden");
+  //     // togglePlayPause();
+  //     videoRef.current.pause();
+  //     setButton("play");
+  //     setIsActive(false);
+  //   } else {
+  //     // console.log("Browser tab is visible")
+  //     //     togglePlayPause();
+  //     // setIsActive(true);
+  //   }
+  // });
 
   const [activeUsers, setActiveUsers] = useState(0);
 
@@ -438,6 +438,7 @@ const Coin = () => {
   const togglePlayPause = () => {
     if (videoRef.current) {
       if (videoRef.current.paused) {
+        console.log("Runnningg");
         videoRef.current
           .play()
           .then(() => {
@@ -473,11 +474,12 @@ const Coin = () => {
 
   // When connecting the wallet
 
-  useEffect(() => {
-    const isConnected = localStorage.getItem("walletConnected") === "true";
-    console.log("Wallet connected from storage:", isConnected); // Check what is being read from local storage
-    setWalletConnected(isConnected);
-  }, []);
+  // !No wallet
+  // useEffect(() => {
+  //   const isConnected = localStorage.getItem("walletConnected") === "true";
+  //   console.log("Wallet connected from storage:", isConnected); // Check what is being read from local storage
+  //   setWalletConnected(isConnected);
+  // }, []);
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -902,7 +904,7 @@ const Coin = () => {
 
   return (
     <div>
-      <div>
+      <div className="body1">
         {isLandscape ? (
           <div className="landscape-warning" style={styles.warning}>
             Please switch back to portrait mode for the best experience.
@@ -971,7 +973,7 @@ const Coin = () => {
 
                       <li>
                         <a
-                          href="https://www.instagram.com/thememe.tv_/"
+                          href="https://x.com/thememe_tv"
                           target="_blank"
                           rel="noopener noreferrer"
                         >
@@ -1270,6 +1272,10 @@ const Coin = () => {
 
                         <video
                           className={showVideo ? "playvideo" : "hidevideo"}
+                          onWaiting={() => console.log("Buffering...")}
+                          onCanPlay={() =>
+                            console.log("Playback can continue.")
+                          }
                           ref={videoRef}
                           // width={showVideo ? "100%" : "0%"}
                           // height={showVideo ? "100%" : "0%"}
