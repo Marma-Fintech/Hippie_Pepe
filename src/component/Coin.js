@@ -17,6 +17,7 @@ import roadmap2 from "../assets/c.png";
 import roadmap3 from "../assets/W.png";
 import sociallinks from "../assets/social-links.png";
 import glitch from "../assets/757Y.gif";
+import { isMobile, isTablet, isDesktop } from "react-device-detect";
 
 import twitter from "../assets/x.png";
 import snap from "../assets/instagram.png";
@@ -45,8 +46,8 @@ import phase3 from "../assets/phase3.svg";
 import phase4 from "../assets/phase4.svg";
 import leftArrow from "../assets/leftarrow.png";
 import rightArrow from "../assets/rightarrow.png";
-import token1 from "../assets/mobtoken1.svg";
-import token2 from "../assets/mobtoken2.svg";
+import token1 from "../assets/mobtoken1.png";
+import token2 from "../assets/mobtoken2.png";
 import tvgif from "../assets/animation.gif";
 
 import clickSound from "../assets/clicksound.mp3";
@@ -108,7 +109,18 @@ const Coin = () => {
   const tokenSlider = [token2, token1];
 
   const sliderDesk = [phase1, phase2, phase3, phase4];
-  const [isLandscape, setIsLandscape] = useState(false);
+  const [isLandscape, setIsLandscape] = useState(
+    window.innerWidth > window.innerHeight
+  );
+  const updateOrientation = () => {
+    setIsLandscape(window.innerWidth > window.innerHeight);
+  };
+  useEffect(() => {
+    window.addEventListener("resize", updateOrientation);
+    return () => {
+      window.removeEventListener("resize", updateOrientation);
+    };
+  }, []);
 
   const styles = {
     warning: {
@@ -245,7 +257,7 @@ const Coin = () => {
       setIsActive(false);
     }
     if (!address) {
-      savePlaybackPosition(videoRef.current.currentTime);
+      savePlaybackPosition(videoRef?.current?.currentTime);
     }
   }, [address]);
 
@@ -278,6 +290,7 @@ const Coin = () => {
       handlePause();
     }
   }
+
   // useEffect(() => {
   //   togglePlayPause();
   // }, [button]);
@@ -435,36 +448,36 @@ const Coin = () => {
     setIsVideoPlaying(false);
   };
 
-  const togglePlayPause = () => {
-    if (videoRef.current) {
-      if (videoRef.current.paused) {
-        console.log("Runnningg");
-        videoRef.current
-          .play()
-          .then(() => {
-            setIsVideoPlaying(true); // Ensure the state is correctly set when video plays
-            handleClick();
-            setButton("pause"); // Change button text to "pause"
-          })
-          .catch((error) => console.error("Error playing the video:", error));
-        if (isFirstTime) {
-          setTimeout(() => {
-            if (!address) {
-              setIsFirstTime(false);
-              videoRef.current.pause();
-              setIsVideoPlaying(false); // Ensure the state is correctly set when video is paused
-              setButton("play"); // Change button text to "play"
-              setShowConnectWalletMessage(true);
-            }
-          }, 30000);
-        }
-      } else {
-        videoRef.current.pause();
-        setIsVideoPlaying(false); // Ensure the state is correctly set when video is paused
-        setButton("play"); // Change button text to "play"
-      }
-    }
-  };
+  // const togglePlayPause = () => {
+  //   if (videoRef.current) {
+  //     if (videoRef.current.paused) {
+  //       console.log("Runnningg");
+  //       videoRef.current
+  //         .play()
+  //         .then(() => {
+  //           setIsVideoPlaying(true); // Ensure the state is correctly set when video plays
+  //           handleClick();
+  //           setButton("pause"); // Change button text to "pause"
+  //         })
+  //         .catch((error) => console.error("Error playing the video:", error));
+  //       if (isFirstTime) {
+  //         // setTimeout(() => {
+  //         if (!address) {
+  //           setIsFirstTime(false);
+  //           videoRef.current.pause();
+  //           setIsVideoPlaying(false); // Ensure the state is correctly set when video is paused
+  //           setButton("play"); // Change button text to "play"
+  //           setShowConnectWalletMessage(true);
+  //         }
+  //         // }, 30000);
+  //       }
+  //     } else {
+  //       videoRef.current.pause();
+  //       setIsVideoPlaying(false); // Ensure the state is correctly set when video is paused
+  //       setButton("play"); // Change button text to "play"
+  //     }
+  //   }
+  // };
 
   // const handleConnectWallet = () => {
   //   setWalletConnected(true);
@@ -481,15 +494,53 @@ const Coin = () => {
   //   setWalletConnected(isConnected);
   // }, []);
 
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      if (isVideoPlaying && !walletConnected) {
-        setShowConnectWalletMessage(true);
-      }
-    }, 5000);
+  //****************** */
+  // useEffect(() => {
+  //   const timer = setTimeout(() => {
+  //     if (isVideoPlaying && !walletConnected) {
+  //       setShowConnectWalletMessage(true);
+  //     }
+  //   }, 5000);
 
-    return () => clearTimeout(timer);
-  }, [isVideoPlaying, walletConnected]);
+  //   return () => clearTimeout(timer);
+  // }, [isVideoPlaying, walletConnected]);
+
+  const togglePlayPause = () => {
+    if (videoRef.current) {
+      if (videoRef.current.paused) {
+        // Play the video
+        videoRef.current
+          .play()
+          .then(() => {
+            setIsVideoPlaying(true); // Update the state to indicate the video is playing
+          })
+          .catch((error) => console.error("Error playing the video:", error));
+      } else {
+        // Pause the video
+        videoRef.current.pause();
+        setIsVideoPlaying(false); // Update the state to indicate the video is paused
+      }
+    }
+  };
+
+  // To ensure the video pauses when navigating away and resumes when returning:
+  useEffect(() => {
+    const handleVisibilityChange = () => {
+      if (document.hidden && videoRef.current && !videoRef.current.paused) {
+        videoRef.current.pause();
+        setIsVideoPlaying(false);
+      } else if (!document.hidden && videoRef.current && isVideoPlaying) {
+        videoRef.current.play().catch((error) => {
+          console.error("Error resuming video:", error);
+        });
+      }
+    };
+
+    document.addEventListener("visibilitychange", handleVisibilityChange);
+    return () => {
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
+    };
+  }, [isVideoPlaying]);
 
   const claimToken = async () => {
     const url = "https://hippie-pepe-be.onrender.com/setUserdetail";
@@ -558,7 +609,7 @@ const Coin = () => {
   };
 
   const handlePlayClick = () => {
-    // console.log('Play clicked');
+    console.log("Play clicked");
     playClickSound();
     // alert("all")
     setActiveButton("play");
@@ -590,6 +641,7 @@ const Coin = () => {
       setShowConnectScreen(false);
     }
   };
+
   const handleAboutClick = () => {
     // setShowConnectWalletMessage(false);
     playClickSound();
@@ -755,6 +807,7 @@ const Coin = () => {
     }, 1000);
   };
 
+  //********************************* */
   useEffect(() => {
     if (currentIndex !== undefined && [currentIndex]) {
       handleVideoLoadAndPlay(currentIndex);
@@ -905,7 +958,7 @@ const Coin = () => {
   return (
     <div>
       <div className="body1">
-        {isLandscape ? (
+        {isLandscape && isMobile ? (
           <div className="landscape-warning" style={styles.warning}>
             Please switch back to portrait mode for the best experience.
           </div>
@@ -1940,7 +1993,7 @@ const Coin = () => {
                                             marginLeft: "8px",
                                           }}
                                         >
-                                          <h3
+                                          {/* <h3
                                             className="claim-h3"
                                             onClick={
                                               chain.chain == "BSC" &&
@@ -1950,7 +2003,7 @@ const Coin = () => {
                                             }
                                           >
                                             claim token
-                                          </h3>
+                                          </h3> */}
                                           {/* <p> */}
                                           <h6>Live Users: {activeUsers}</h6>
                                           {/* </p> */}
