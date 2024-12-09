@@ -784,6 +784,7 @@
   .trasition-1 {
     /* transform: translate(0%, 10%); */
     text-align: -webkit-center;
+    text-align: -moz-center;
     padding: 0px 100px 0px 100px;
   }
   .trasition-3 {
@@ -1918,6 +1919,7 @@
   .trasition-1 {
     transform: translate(0%, 6%);
     text-align: -webkit-center;
+    text-align: -moz-center;
     padding: 0px 50px 0px 50px;
   }
   .trasition-3 {
@@ -3313,6 +3315,7 @@
   .trasition-1 {
     /* transform: translate(0%, 10%); */
     text-align: -webkit-center;
+    text-align: -moz-center;
     padding: 0px 150px 0px 150px;
   }
   .trasition-3 {
