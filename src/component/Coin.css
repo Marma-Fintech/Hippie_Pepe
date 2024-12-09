@@ -6,6 +6,15 @@
   font-family: mySirstFont;
   src: url("../assets/PressStart.ttf");
 }
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  overflow: hidden;
+}
+
 .welcome-para {
   font-size: 40px;
   padding-bottom: 10px;
@@ -1261,10 +1270,10 @@
     overflow-x: hidden; /* Disable horizontal scrolling */
     width: 100vw; /* Ensure it stays within the viewport width */
     box-sizing: border-box; /* Include padding and borders within the element's width */
-    height: 100vh;
+    height: 100dvh;
   }
   .body1 {
-    height: 100vh;
+    height: 100dvh;
     display: flex;
     justify-content: center;
     align-items: center;
