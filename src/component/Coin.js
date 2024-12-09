@@ -122,6 +122,22 @@ const Coin = () => {
     };
   }, []);
 
+  useEffect(() => {
+    const updateVh = () => {
+      const vh = window.innerHeight * 0.01;
+      document.documentElement.style.setProperty("--vh", `${vh}px`);
+    };
+
+    // Initial calculation
+    updateVh();
+
+    // Update the height on window resize
+    window.addEventListener("resize", updateVh);
+
+    // Cleanup the event listener on unmount
+    return () => window.removeEventListener("resize", updateVh);
+  }, []);
+
   const styles = {
     warning: {
       textAlign: "center",
@@ -963,7 +979,14 @@ const Coin = () => {
             Please switch back to portrait mode for the best experience.
           </div>
         ) : (
-          <div className="memetv">
+          <div
+            className="memetv"
+            style={{
+              height: "calc(var(--vh, 1vh) * 100)",
+              display: "flex",
+              flexDirection: "column",
+            }}
+          >
             <div className="row right-align small-d">
               <div className="col-6 col-sm-8">
                 <div
