@@ -979,91 +979,79 @@ const Coin = () => {
 
   return (
     <div>
-      <div className="body1">
-        {isLandscape && isMobile ? (
-          <div className="landscape-warning" style={styles.warning}>
-            Please switch back to portrait mode for the best experience.
-          </div>
-        ) : (
-          <div
-            className="memetv"
-            style={{
-              height: "calc(var(--vh, 1vh) * 100)",
-              display: "flex",
-              flexDirection: "column",
-            }}
-          >
-            <div className="row right-align small-d">
-              <div className="col-6 col-sm-8">
+      {isLandscape && isMobile ? (
+        <div className="landscape-warning" style={styles.warning}>
+          Please switch back to portrait mode for the best experience.
+        </div>
+      ) : (
+        <div className="memetv">
+          <div className="row right-align small-d">
+            <div className="col-6 col-sm-8">
+              <div
+                className="mob-desk"
+                style={{ position: "relative", float: "left" }}
+              >
                 <div
-                  className="mob-desk"
-                  style={{ position: "relative", float: "left" }}
+                  style={{
+                    position: "relative",
+                    height: "100%",
+                    width: "100%",
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                  }}
                 >
-                  <div
-                    style={{
-                      position: "relative",
-                      height: "100%",
-                      width: "100%",
-                      display: "flex",
-                      justifyContent: "center",
-                      alignItems: "center",
-                    }}
-                  >
-                    <img draggable="false" src={meme} />
-                  </div>
+                  <img draggable="false" src={meme} />
                 </div>
               </div>
-              <div className="col-6 col-sm-4 navbar-1">
-                <nav className="navbar navbar-light">
-                  <div className="container-fluid">
-                    <button
-                      className="navbar-toggler"
-                      type="button"
-                      onClick={toggleMenu}
-                    >
-                      <span className="navbar-toggler-icon"></span>
-                    </button>
-                  </div>
-                </nav>
-              </div>
-              <div className="tv">
-                <div className="col-3 social-mob col-sm-3 col-md-12 col-xl-12">
-                  <div className="social-links">
-                    <ul>
-                      <li>
-                        <a
-                          href="https://t.me/thememetvcommunity"
-                          target="_blank"
-                          rel="noopener noreferrer"
-                        >
-                          <img
-                            draggable="false"
-                            src={telegram}
-                            alt="telegram"
-                          />
-                        </a>{" "}
-                      </li>
-                      <li>
-                        <a
-                          href="https://www.instagram.com/thememe.tv_/"
-                          target="_blank"
-                          rel="noopener noreferrer"
-                        >
-                          <img draggable="false" src={snap} alt="instagram" />
-                        </a>
-                      </li>
+            </div>
+            <div className="col-6 col-sm-4 navbar-1">
+              <nav className="navbar navbar-light">
+                <div className="container-fluid">
+                  <button
+                    className="navbar-toggler"
+                    type="button"
+                    onClick={toggleMenu}
+                  >
+                    <span className="navbar-toggler-icon"></span>
+                  </button>
+                </div>
+              </nav>
+            </div>
+            <div className="tv">
+              <div className="col-3 social-mob col-sm-3 col-md-12 col-xl-12">
+                <div className="social-links">
+                  <ul>
+                    <li>
+                      <a
+                        href="https://t.me/thememetvcommunity"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        <img draggable="false" src={telegram} alt="telegram" />
+                      </a>{" "}
+                    </li>
+                    <li>
+                      <a
+                        href="https://www.instagram.com/thememe.tv_/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        <img draggable="false" src={snap} alt="instagram" />
+                      </a>
+                    </li>
 
-                      <li>
-                        <a
-                          href="https://x.com/thememe_tv"
-                          target="_blank"
-                          rel="noopener noreferrer"
-                        >
-                          <img draggable="false" src={twitter} alt="Twitter" />
-                        </a>
-                      </li>
+                    <li>
+                      <a
+                        href="https://x.com/thememe_tv"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        <img draggable="false" src={twitter} alt="Twitter" />
+                      </a>
+                    </li>
 
-                      {/* <li>
+                    {/* <li>
                   <a
                     href="https://www.youtube.com/@HippiePepe"
                     target="_blank"
@@ -1072,104 +1060,104 @@ const Coin = () => {
                     <img draggable="false"draggable="false"src={youtube} alt="youtube" />
                   </a>
                 </li> */}
-                    </ul>
-                  </div>
+                  </ul>
                 </div>
               </div>
             </div>
-            <div className="col-3 col-sm-2 navbar-1">
-              {isOpen && (
-                <div className="overlay">
-                  <div style={{ display: "flex", flexDirection: "column" }}>
-                    <div className="overlay-content">
-                      <div
+          </div>
+          <div className="col-3 col-sm-2 navbar-1">
+            {isOpen && (
+              <div className="overlay">
+                <div style={{ display: "flex", flexDirection: "column" }}>
+                  <div className="overlay-content">
+                    <div
+                      style={{
+                        display: "flex",
+                        flexDirection: "column",
+                        gap: 10,
+                      }}
+                    >
+                      <ul
+                        className="ul-button"
                         style={{
-                          display: "flex",
-                          flexDirection: "column",
-                          gap: 10,
+                          zIndex: 100000,
                         }}
                       >
-                        <ul
-                          className="ul-button"
-                          style={{
-                            zIndex: 100000,
+                        <li
+                          style={getButtonDetails("play").style}
+                          onClick={() => {
+                            handlePlayClick();
+                            toggleMenu();
                           }}
                         >
-                          <li
-                            style={getButtonDetails("play").style}
-                            onClick={() => {
-                              handlePlayClick();
-                              toggleMenu();
-                            }}
-                          >
-                            <img
-                              src={getButtonDetails("play").icon}
-                              alt="Play Icon"
-                            />
-                            <span onClick={ButtonTextChange}>
-                              &nbsp;&nbsp;{button}
-                            </span>
-                          </li>
-                          <li
-                            style={getButtonDetails("about").style}
-                            onClick={() => {
-                              handleAboutClick();
-                              toggleMenu();
-                            }}
-                          >
-                            <img
-                              src={getButtonDetails("about").icon}
-                              alt="About Icon"
-                            />
-                            <span>&nbsp;&nbsp;About</span>
-                          </li>
-                          <li
-                            style={getButtonDetails("roadmap").style}
-                            onClick={() => {
-                              handleRoadmapClick();
-                              toggleMenu();
-                            }}
-                          >
-                            <img
-                              src={getButtonDetails("roadmap").icon}
-                              alt="Roadmap Icon"
-                            />
-                            <span>&nbsp;&nbsp;Roadmap</span>
-                          </li>
-                          <li
-                            style={getButtonDetails("token").style}
-                            onClick={() => {
-                              handleTokenClick();
-                              toggleMenu();
-                            }}
-                          >
-                            <img
-                              src={getButtonDetails("token").icon}
-                              alt="Token Icon"
-                            />
-                            <span>&nbsp;&nbsp;Token</span>
-                          </li>
-                          <li
-                            style={getButtonDetails("social").style}
-                            onClick={() => {
-                              handleSocialClick();
-                              toggleMenu();
-                            }}
-                          >
-                            <img
-                              src={getButtonDetails("social").icon}
-                              alt="Social Icon"
-                            />
-                            <span>&nbsp;&nbsp;Social</span>
-                          </li>
-                        </ul>
-                      </div>
+                          <img
+                            src={getButtonDetails("play").icon}
+                            alt="Play Icon"
+                          />
+                          <span onClick={ButtonTextChange}>
+                            &nbsp;&nbsp;{button}
+                          </span>
+                        </li>
+                        <li
+                          style={getButtonDetails("about").style}
+                          onClick={() => {
+                            handleAboutClick();
+                            toggleMenu();
+                          }}
+                        >
+                          <img
+                            src={getButtonDetails("about").icon}
+                            alt="About Icon"
+                          />
+                          <span>&nbsp;&nbsp;About</span>
+                        </li>
+                        <li
+                          style={getButtonDetails("roadmap").style}
+                          onClick={() => {
+                            handleRoadmapClick();
+                            toggleMenu();
+                          }}
+                        >
+                          <img
+                            src={getButtonDetails("roadmap").icon}
+                            alt="Roadmap Icon"
+                          />
+                          <span>&nbsp;&nbsp;Roadmap</span>
+                        </li>
+                        <li
+                          style={getButtonDetails("token").style}
+                          onClick={() => {
+                            handleTokenClick();
+                            toggleMenu();
+                          }}
+                        >
+                          <img
+                            src={getButtonDetails("token").icon}
+                            alt="Token Icon"
+                          />
+                          <span>&nbsp;&nbsp;Token</span>
+                        </li>
+                        <li
+                          style={getButtonDetails("social").style}
+                          onClick={() => {
+                            handleSocialClick();
+                            toggleMenu();
+                          }}
+                        >
+                          <img
+                            src={getButtonDetails("social").icon}
+                            alt="Social Icon"
+                          />
+                          <span>&nbsp;&nbsp;Social</span>
+                        </li>
+                      </ul>
                     </div>
-                    <div
-                      className="social-links"
-                      style={{ marginTop: "50px", zIndex: 10000000 }}
-                    >
-                      {/* <ul>
+                  </div>
+                  <div
+                    className="social-links"
+                    style={{ marginTop: "50px", zIndex: 10000000 }}
+                  >
+                    {/* <ul>
                   <li>
                     <a
                       href="https://x.com/thememe_tv"
@@ -1199,26 +1187,26 @@ const Coin = () => {
                   </li>
                   
                 </ul> */}
-                    </div>
                   </div>
-                  <div className="overlay-close" onClick={toggleMenu}></div>
                 </div>
-              )}
-            </div>
-            <div id="tv" className="memetv">
-              <div id="screen">
-                <div id="glass">
-                  <div className="inner-glass">
-                    <div class="noise"></div>
-                    {/* <div className="nav-1">
+                <div className="overlay-close" onClick={toggleMenu}></div>
+              </div>
+            )}
+          </div>
+          <div id="tv" className="memetv">
+            <div id="screen">
+              <div id="glass">
+                <div className="inner-glass">
+                  <div class="noise"></div>
+                  {/* <div className="nav-1">
                   <img draggable="false"draggable="false"src={meme} />
                 </div> */}
-                    <div
-                      className={
-                        showWelcomeMessage ? " inner-text1" : "inner-text"
-                      }
-                    >
-                      {/* {showGlitchGif && (
+                  <div
+                    className={
+                      showWelcomeMessage ? " inner-text1" : "inner-text"
+                    }
+                  >
+                    {/* {showGlitchGif && (
                   <img
                     src={glitch}
                     alt="Glitch Effect"
@@ -1230,64 +1218,18 @@ const Coin = () => {
                   />
                 )} */}
 
-                      {infoIcon && (
-                        <div
-                          // className="card"
-                          id="glitch-background"
-                          style={{
-                            zIndex: 1000000,
-                            position: "absolute",
-                            backgroundColor: "black",
-                            height: "100%",
-                            width: "100%",
-                          }}
-                        >
-                          <div className="row img-res">
-                            <div className="col-md-12 ">
-                              <div className="row justify-items-center">
-                                <div className="col-md-12 wel-trasition-1 ">
-                                  <div className="col-md-8">
-                                    <h2 className="text-head text-left pb-4">
-                                      RULES FOR PARTICIPATION
-                                    </h2>
-                                    <p className="text-head text-left pb-0">
-                                      1.Connect the wallet
-                                    </p>
-                                    <p className="text-head  text-left pb-0">
-                                      2.Start watching the video by clicking
-                                      start button
-                                    </p>
-                                    <p className="text-head  text-left pb-0">
-                                      3.Receive TheMEMETv tokens for every
-                                      second you watch
-                                    </p>
-                                    <p className="text-head  text-left pb-0">
-                                      MOST IMPORTANT: doNothing else while
-                                      watching the Meme Lords.{" "}
-                                    </p>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      )}
-                      {showWelcomeMessage && (
-                        <div className="row img-res">
-                          <div className="col-md-12 ">
-                            <div>
-                              <img
-                                draggable="false"
-                                className="animation-logo"
-                                src={welcome}
-                              />{" "}
-                            </div>
-                          </div>
-                          {/*<span className='shadow'>About HippiePepeMemeTV</span>  */}
-                          <div className="text-head pt-1"></div>
-                        </div>
-                      )}
-                      {showConnectScreen && (
+                    {infoIcon && (
+                      <div
+                        // className="card"
+                        id="glitch-background"
+                        style={{
+                          zIndex: 1000000,
+                          position: "absolute",
+                          backgroundColor: "black",
+                          height: "100%",
+                          width: "100%",
+                        }}
+                      >
                         <div className="row img-res">
                           <div className="col-md-12 ">
                             <div className="row justify-items-center">
@@ -1316,26 +1258,72 @@ const Coin = () => {
                             </div>
                           </div>
                         </div>
-                      )}
-                      <div>
-                        {!showConnectWalletMessage &&
-                          activeButton == "play" &&
-                          !address && (
-                            <div
-                              style={{
-                                zIndex: 10000,
-                              }}
-                            >
-                              <div className="intro-wallet">
-                                <div class="welcome-info1">
-                                  {/* <div class="text-head pt-2">
+                      </div>
+                    )}
+                    {showWelcomeMessage && (
+                      <div className="row img-res">
+                        <div className="col-md-12 ">
+                          <div>
+                            <img
+                              draggable="false"
+                              className="animation-logo"
+                              src={welcome}
+                            />{" "}
+                          </div>
+                        </div>
+                        {/*<span className='shadow'>About HippiePepeMemeTV</span>  */}
+                        <div className="text-head pt-1"></div>
+                      </div>
+                    )}
+                    {showConnectScreen && (
+                      <div className="row img-res">
+                        <div className="col-md-12 ">
+                          <div className="row justify-items-center">
+                            <div className="col-md-12 wel-trasition-1 ">
+                              <div className="col-md-8">
+                                <h2 className="text-head text-left pb-4">
+                                  RULES FOR PARTICIPATION
+                                </h2>
+                                <p className="text-head text-left pb-0">
+                                  1.Connect the wallet
+                                </p>
+                                <p className="text-head  text-left pb-0">
+                                  2.Start watching the video by clicking start
+                                  button
+                                </p>
+                                <p className="text-head  text-left pb-0">
+                                  3.Receive TheMEMETv tokens for every second
+                                  you watch
+                                </p>
+                                <p className="text-head  text-left pb-0">
+                                  MOST IMPORTANT: doNothing else while watching
+                                  the Meme Lords.{" "}
+                                </p>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    )}
+                    <div>
+                      {!showConnectWalletMessage &&
+                        activeButton == "play" &&
+                        !address && (
+                          <div
+                            style={{
+                              zIndex: 10000,
+                            }}
+                          >
+                            <div className="intro-wallet">
+                              <div class="welcome-info1">
+                                {/* <div class="text-head pt-2">
                               <h2 id="textcolorabout" class="welcome-para">
                               </h2>
                               <p class="about-para2 pb-2">
                               </p>
                             </div> */}
-                                  <div className="">
-                                    {/* <button
+                                <div className="">
+                                  {/* <button
                                   className="btn-outline"
                                 >
                                 </button> &nbsp;
@@ -1345,211 +1333,204 @@ const Coin = () => {
                                   className="cnt-wallet"
                                 >
                                 </button> */}
-                                  </div>
-                                </div>
-                                <div></div>
-                              </div>
-                            </div>
-                          )}
-
-                        <video
-                          className={showVideo ? "playvideo" : "hidevideo"}
-                          onWaiting={() => console.log("Buffering...")}
-                          onCanPlay={() =>
-                            console.log("Playback can continue.")
-                          }
-                          ref={videoRef}
-                          // width={showVideo ? "100%" : "0%"}
-                          // height={showVideo ? "100%" : "0%"}
-                          style={{ objectFit: "cover" }}
-                          loop
-                        >
-                          <source
-                            className=""
-                            src="https://res.cloudinary.com/dhebiyrep/video/upload/v1715257036/kbld2jankfvu2d8wvixj.mp4"
-                            type="video/mp4"
-                          />
-                          Your browser does not support the video tag.
-                        </video>
-                      </div>
-
-                      {showAbout && (
-                        <div id="glitch-background" className=" center-content">
-                          <div className="about-trasition-1">
-                            {/*<span className='shadow'>About HippiePepeMemeTV</span>  */}
-                            <div className="pt-3 pb-5 about-pad">
-                              <h3
-                                id="textcolorabout"
-                                className="about-para1 header-line  mb-2"
-                              >
-                                About TheMemeTV{" "}
-                              </h3>
-                              <p className="about-para2 pb-0 text-head">
-                                We were all born Memes. We were all born to
-                                Memes. We were all born to meme.The world seems
-                                to have forgotten this and taken itself too
-                                seriously. TheMemeTV is here to spread joy and
-                                to spread other things also, I think but
-                                mostimportantly to
-                              </p>
-                              <p className="pb-0 f18"> #doNothing</p>
-                              <div className="rope-img">
-                                <img draggable="false" src={aboutgif} />
-                              </div>
-                              <p className="text-1">
-                                So, you also watch{" "}
-                                <span className="bg-span">TheMemeTv</span> and
-                                #doNothing. Okay??
-                              </p>
-                            </div>
-                            {/* <div className="about-gif-part">
-                        <img draggable="false"draggable="false"src={aboutgif} />{" "}
-                      </div> */}
-                          </div>
-                        </div>
-                      )}
-
-                      {showDonothingMessage && (
-                        <div id="glitch-background" className=" center-content">
-                          <div className="about-trasition-1">
-                            {/*<span className='shadow'>About HippiePepeMemeTV</span>  */}
-                            <div className="pt-2 pb-1 about-pad">
-                              <h3
-                                id="textcolorabout"
-                                className="about-para1 header-line  mb-2"
-                              >
-                                Welcome to TheMeme Tv{" "}
-                              </h3>
-                              <p className="about-para2 pb-0 text-head p50 pt-2 pb-1">
-                                Get ready to watch hilarious stuff, play some
-                                silly games and earn tokens while you
-                                #doNothing.
-                              </p>
-                              <p className="text-ab pb0">
-                                Click on the button below to be notified when
-                                its time
-                              </p>
-
-                              <div className="row justify-content pt-2">
-                                <div className="col-md-4 col-8 col-lg-3">
-                                  <div id="donothing" className="do-nothing">
-                                    <a
-                                      href="https://t.me/the_meme_tv_bot"
-                                      target="blank"
-                                    >
-                                      <button className="donothing">
-                                        #doNothing
-                                      </button>
-                                    </a>
-                                  </div>
                                 </div>
                               </div>
-                            </div>
-                            {/* <div className="about-gif-part">
-                        <img draggable="false"draggable="false"src={aboutgif} />{" "}
-                      </div> */}
-                          </div>
-                        </div>
-                      )}
-                      {showToken && (
-                        <div id="glitch-background" className=" center-content">
-                          <div className="trasition-2">
-                            <div className="row">
-                              <div className="col-md-12">
-                                <div className="supply-part">
-                                  <h2
-                                    id="textcolortoken"
-                                    className="header-line text-center pb-3"
-                                  >
-                                    Total supply
-                                    {/* <span>(coz is’s a formality)</span> */}
-                                  </h2>
-                                  {/* <img draggable="false"draggable="false"src={supplygif} />{" "} */}
-                                </div>
-                                <h2
-                                  id="textcolorsocial"
-                                  className="supply-p txt-white"
-                                >
-                                  100,000,000,021 TMTV
-                                </h2>
-                              </div>
-                            </div>
-
-                            <div>
-                              <div className="mob-res row justify-content-center">
-                                <div className="col-12 ">
-                                  <img
-                                    draggable="false"
-                                    src={tokenSlider[currentIndexSlider]}
-                                  />
-                                </div>
-                                <div className="col-12">
-                                  <button
-                                    onClick={handlePreviousToken}
-                                    className="slider-arrow left-arrow"
-                                  ></button>
-                                </div>
-                                <div className="col-12">
-                                  <button
-                                    onClick={handleNextToken}
-                                    className="slider-arrow right-arrow"
-                                  >
-                                    <div className="slider">
-                                      <img
-                                        draggable="false"
-                                        src={leftArrow}
-                                        alt="Previous"
-                                      />
-                                      <img
-                                        draggable="false"
-                                        src={rightArrow}
-                                        alt="Next"
-                                      />
-                                    </div>
-                                  </button>
-                                </div>
-                              </div>
-
-                              <div className="desk row justify-content-center">
-                                <div className="col-md-3 col-6 ">
-                                  <img draggable="false" src={one} />
-                                </div>
-                                <div className="col-md-3 col-6">
-                                  {" "}
-                                  <img draggable="false" src={two} />
-                                </div>
-                                <div className="col-md-3 col-6">
-                                  {" "}
-                                  <img draggable="false" src={three} />
-                                </div>
-                                <div className="col-md-3 col-6">
-                                  {" "}
-                                  <img draggable="false" src={four} />
-                                </div>
-                              </div>
+                              <div></div>
                             </div>
                           </div>
-                        </div>
-                      )}
-                      {tokenButtonText && (
-                        <div className="row token-read1">
-                          <div className="rope-img"></div>
+                        )}
+
+                      <video
+                        className={showVideo ? "playvideo" : "hidevideo"}
+                        onWaiting={() => console.log("Buffering...")}
+                        onCanPlay={() => console.log("Playback can continue.")}
+                        ref={videoRef}
+                        // width={showVideo ? "100%" : "0%"}
+                        // height={showVideo ? "100%" : "0%"}
+                        style={{ objectFit: "cover" }}
+                        loop
+                      >
+                        <source
+                          className=""
+                          src="https://res.cloudinary.com/dhebiyrep/video/upload/v1715257036/kbld2jankfvu2d8wvixj.mp4"
+                          type="video/mp4"
+                        />
+                        Your browser does not support the video tag.
+                      </video>
+                    </div>
+
+                    {showAbout && (
+                      <div id="glitch-background" className=" center-content">
+                        <div className="about-trasition-1">
                           {/*<span className='shadow'>About HippiePepeMemeTV</span>  */}
-                          <div
-                            className="col-md-12"
-                            style={{ zIndex: 1000000 }}
-                          >
-                            <span
-                              className="text-right text-head fnt-back"
-                              style={{ cursor: "pointer" }}
-                              onClick={() => {
-                                handleOffclickinToken();
-                              }}
+                          <div className="pt-3 pb-5 about-pad">
+                            <h3
+                              id="textcolorabout"
+                              className="about-para1 header-line  mb-2"
                             >
-                              <img draggable="false" src={tokenarrow} />
-                            </span>
+                              About TheMemeTV{" "}
+                            </h3>
+                            <p className="about-para2 pb-0 text-head">
+                              We were all born Memes. We were all born to Memes.
+                              We were all born to meme.The world seems to have
+                              forgotten this and taken itself too seriously.
+                              TheMemeTV is here to spread joy and to spread
+                              other things also, I think but mostimportantly to
+                            </p>
+                            <p className="pb-0 f18"> #doNothing</p>
+                            <div className="rope-img">
+                              <img draggable="false" src={aboutgif} />
+                            </div>
+                            <p className="text-1">
+                              So, you also watch{" "}
+                              <span className="bg-span">TheMemeTv</span> and
+                              #doNothing. Okay??
+                            </p>
                           </div>
-                          {/* <div className=" col-md-12 text-head pt-2">
+                          {/* <div className="about-gif-part">
+                        <img draggable="false"draggable="false"src={aboutgif} />{" "}
+                      </div> */}
+                        </div>
+                      </div>
+                    )}
+
+                    {showDonothingMessage && (
+                      <div id="glitch-background" className=" center-content">
+                        <div className="about-trasition-1">
+                          {/*<span className='shadow'>About HippiePepeMemeTV</span>  */}
+                          <div className="pt-2 pb-1 about-pad">
+                            <h3
+                              id="textcolorabout"
+                              className="about-para1 header-line  mb-2"
+                            >
+                              Welcome to TheMeme Tv{" "}
+                            </h3>
+                            <p className="about-para2 pb-0 text-head p50 pt-2 pb-1">
+                              Get ready to watch hilarious stuff, play some
+                              silly games and earn tokens while you #doNothing.
+                            </p>
+                            <p className="text-ab pb0">
+                              Click on the button below to be notified when its
+                              time
+                            </p>
+
+                            <div className="row justify-content pt-2">
+                              <div className="col-md-4 col-8 col-lg-3">
+                                <div id="donothing" className="do-nothing">
+                                  <a
+                                    href="https://t.me/the_meme_tv_bot"
+                                    target="blank"
+                                  >
+                                    <button className="donothing">
+                                      #doNothing
+                                    </button>
+                                  </a>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          {/* <div className="about-gif-part">
+                        <img draggable="false"draggable="false"src={aboutgif} />{" "}
+                      </div> */}
+                        </div>
+                      </div>
+                    )}
+                    {showToken && (
+                      <div id="glitch-background" className=" center-content">
+                        <div className="trasition-2">
+                          <div className="row">
+                            <div className="col-md-12">
+                              <div className="supply-part">
+                                <h2
+                                  id="textcolortoken"
+                                  className="header-line text-center pb-3"
+                                >
+                                  Total supply
+                                  {/* <span>(coz is’s a formality)</span> */}
+                                </h2>
+                                {/* <img draggable="false"draggable="false"src={supplygif} />{" "} */}
+                              </div>
+                              <h2
+                                id="textcolorsocial"
+                                className="supply-p txt-white"
+                              >
+                                100,000,000,021 TMTV
+                              </h2>
+                            </div>
+                          </div>
+
+                          <div>
+                            <div className="mob-res row justify-content-center">
+                              <div className="col-12 ">
+                                <img
+                                  draggable="false"
+                                  src={tokenSlider[currentIndexSlider]}
+                                />
+                              </div>
+                              <div className="col-12">
+                                <button
+                                  onClick={handlePreviousToken}
+                                  className="slider-arrow left-arrow"
+                                ></button>
+                              </div>
+                              <div className="col-12">
+                                <button
+                                  onClick={handleNextToken}
+                                  className="slider-arrow right-arrow"
+                                >
+                                  <div className="slider">
+                                    <img
+                                      draggable="false"
+                                      src={leftArrow}
+                                      alt="Previous"
+                                    />
+                                    <img
+                                      draggable="false"
+                                      src={rightArrow}
+                                      alt="Next"
+                                    />
+                                  </div>
+                                </button>
+                              </div>
+                            </div>
+
+                            <div className="desk row justify-content-center">
+                              <div className="col-md-3 col-6 ">
+                                <img draggable="false" src={one} />
+                              </div>
+                              <div className="col-md-3 col-6">
+                                {" "}
+                                <img draggable="false" src={two} />
+                              </div>
+                              <div className="col-md-3 col-6">
+                                {" "}
+                                <img draggable="false" src={three} />
+                              </div>
+                              <div className="col-md-3 col-6">
+                                {" "}
+                                <img draggable="false" src={four} />
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    )}
+                    {tokenButtonText && (
+                      <div className="row token-read1">
+                        <div className="rope-img"></div>
+                        {/*<span className='shadow'>About HippiePepeMemeTV</span>  */}
+                        <div className="col-md-12" style={{ zIndex: 1000000 }}>
+                          <span
+                            className="text-right text-head fnt-back"
+                            style={{ cursor: "pointer" }}
+                            onClick={() => {
+                              handleOffclickinToken();
+                            }}
+                          >
+                            <img draggable="false" src={tokenarrow} />
+                          </span>
+                        </div>
+                        {/* <div className=" col-md-12 text-head pt-2">
                       <h5 id="textcolorabout" className="about-para1">
                         It is a little complicated. If you are not so smart,
                         just skip it.It’s cool{" "}
@@ -1586,118 +1567,117 @@ const Coin = () => {
                         read the whole thing, you love us.
                       </p>
                     </div> */}
-                          {activeButton == "token" && (
-                            <>
-                              <section class="intro text-head">
-                                It is a little complicated. If you are not so
-                                smart, just skip it.It’s cool
-                              </section>
-                              <div id="scroller" key={key}>
-                                <div id="content">
-                                  <p id="title"></p>
-                                  <br />
-                                  <p className="text-head">
-                                    So, some % of all the tokens are kept aside
-                                    for you all to watch the HippiePepe TV and
-                                    earn. A total of ’we don’t know yet’ seconds
-                                    of total watch time is available across ‘x’
-                                    Phases of ‘some beautiful’ seconds each. In
-                                    the first phase, for every second you watch,
-                                    you will receive a ‘large number’ of HPTV
-                                    tokens. After you all have cumulatively
-                                    watched those ‘beautiful’ seconds, the first
-                                    Reward halving will happen. Then it becomes
-                                    half of ‘a large number’ HPTV tokens per
-                                    second. And then....so on and so forth. You
-                                    get the drift. This was Reward Halving.
-                                  </p>
-                                  <p className="text-head">
-                                    Now, time for reward doubling. During the
-                                    ’we don’t know yet’ seconds of the Watch and
-                                    Earn phase, the content owners of the videos
-                                    that are played on the HippiePepe TV will be
-                                    paid from the some% kept aside for them. In
-                                    the initial phases we believe it is us that
-                                    wil mostly put up the content. So, the
-                                    creator royalty starts at a ‘very low’ HPTV
-                                    tokens per second in Phase 1 of Watch and
-                                    Earn.It keeps doubling till it Phase M when
-                                    the reward would have increased to a ‘large
-                                    number’ of HPTV tokens per second.The deal
-                                    is that every time you watch the the
-                                    HippiePepe TV, the creator of what you are
-                                    watching will also be rewarded.
-                                  </p>
-                                  <p className="text-head">
-                                    If you read the whole thing, we love you.
-                                    And if you read the whole thing, you love
-                                    us.
-                                  </p>
-                                </div>
+                        {activeButton == "token" && (
+                          <>
+                            <section class="intro text-head">
+                              It is a little complicated. If you are not so
+                              smart, just skip it.It’s cool
+                            </section>
+                            <div id="scroller" key={key}>
+                              <div id="content">
+                                <p id="title"></p>
+                                <br />
+                                <p className="text-head">
+                                  So, some % of all the tokens are kept aside
+                                  for you all to watch the HippiePepe TV and
+                                  earn. A total of ’we don’t know yet’ seconds
+                                  of total watch time is available across ‘x’
+                                  Phases of ‘some beautiful’ seconds each. In
+                                  the first phase, for every second you watch,
+                                  you will receive a ‘large number’ of HPTV
+                                  tokens. After you all have cumulatively
+                                  watched those ‘beautiful’ seconds, the first
+                                  Reward halving will happen. Then it becomes
+                                  half of ‘a large number’ HPTV tokens per
+                                  second. And then....so on and so forth. You
+                                  get the drift. This was Reward Halving.
+                                </p>
+                                <p className="text-head">
+                                  Now, time for reward doubling. During the ’we
+                                  don’t know yet’ seconds of the Watch and Earn
+                                  phase, the content owners of the videos that
+                                  are played on the HippiePepe TV will be paid
+                                  from the some% kept aside for them. In the
+                                  initial phases we believe it is us that wil
+                                  mostly put up the content. So, the creator
+                                  royalty starts at a ‘very low’ HPTV tokens per
+                                  second in Phase 1 of Watch and Earn.It keeps
+                                  doubling till it Phase M when the reward would
+                                  have increased to a ‘large number’ of HPTV
+                                  tokens per second.The deal is that every time
+                                  you watch the the HippiePepe TV, the creator
+                                  of what you are watching will also be
+                                  rewarded.
+                                </p>
+                                <p className="text-head">
+                                  If you read the whole thing, we love you. And
+                                  if you read the whole thing, you love us.
+                                </p>
                               </div>
-                            </>
-                          )}
-                        </div>
-                      )}
-                      {showSocial && (
-                        <div id="glitch-background" className=" center-content">
-                          <div className="trasition-1">
-                            <img
-                              draggable="false"
-                              className="pb-2 gif-img"
-                              src={socialimg}
-                            />
-                            <h3>Watch TheMemeTv and doNothing</h3>
+                            </div>
+                          </>
+                        )}
+                      </div>
+                    )}
+                    {showSocial && (
+                      <div id="glitch-background" className=" center-content">
+                        <div className="trasition-1">
+                          <img
+                            draggable="false"
+                            className="pb-2 gif-img"
+                            src={socialimg}
+                          />
+                          <h3>Watch TheMemeTv and doNothing</h3>
 
-                            <div className="text-head">
-                              <h2
-                                id="textcolorsocial"
-                                className="header-line h-size"
-                              >
-                                Ashte,Go now!!!
-                              </h2>
-                              <div className="img-social">
-                                <ul>
-                                  <li>
-                                    <a
-                                      href="https://x.com/thememe_tv"
-                                      target="_blank"
-                                      rel="noopener noreferrer"
-                                    >
-                                      <img
-                                        src={twitter}
-                                        alt="Twitter"
-                                        className="img-z"
-                                      />
-                                    </a>
-                                  </li>
-                                  <li>
-                                    <a
-                                      href="https://www.instagram.com/thememe.tv_/"
-                                      target="_blank"
-                                      rel="noopener noreferrer"
-                                    >
-                                      <img
-                                        draggable="false"
-                                        src={snap}
-                                        alt="instagram"
-                                      />
-                                    </a>
-                                  </li>
-                                  <li>
-                                    <a
-                                      href="https://t.me/thememetvcommunity"
-                                      target="_blank"
-                                      rel="noopener noreferrer"
-                                    >
-                                      <img
-                                        draggable="false"
-                                        src={telegram}
-                                        alt="telegram"
-                                      />
-                                    </a>{" "}
-                                  </li>
-                                  {/* <li>
+                          <div className="text-head">
+                            <h2
+                              id="textcolorsocial"
+                              className="header-line h-size"
+                            >
+                              Ashte,Go now!!!
+                            </h2>
+                            <div className="img-social">
+                              <ul>
+                                <li>
+                                  <a
+                                    href="https://x.com/thememe_tv"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                  >
+                                    <img
+                                      src={twitter}
+                                      alt="Twitter"
+                                      className="img-z"
+                                    />
+                                  </a>
+                                </li>
+                                <li>
+                                  <a
+                                    href="https://www.instagram.com/thememe.tv_/"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                  >
+                                    <img
+                                      draggable="false"
+                                      src={snap}
+                                      alt="instagram"
+                                    />
+                                  </a>
+                                </li>
+                                <li>
+                                  <a
+                                    href="https://t.me/thememetvcommunity"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                  >
+                                    <img
+                                      draggable="false"
+                                      src={telegram}
+                                      alt="telegram"
+                                    />
+                                  </a>{" "}
+                                </li>
+                                {/* <li>
                               <a
                                 href="https://www.youtube.com/@HippiePepe"
                                 target="_blank"
@@ -1706,323 +1686,319 @@ const Coin = () => {
                                 <img draggable="false"src={youtube} alt="youtube" />
                               </a>
                             </li> */}
-                                </ul>
-                              </div>
-                              <span className="hippe text-head">TheMemeTV</span>
-                              <p className="social-tag pb-5">
-                                <p>
-                                  TheMemeTv is a meme coin with no intrinsic
-                                  value or expectation of financial return. The
-                                  road map is only indicative beyond Phase 3.
-                                  The platform is for entertainment purposes
-                                  only.
-                                </p>
-                              </p>
+                              </ul>
                             </div>
-                          </div>
-                        </div>
-                      )}
-                      {showclaimedText && (
-                        <div className="trasition-3">
-                          <img draggable="false" src={claimTokenn} />
-                          {responce.message ==
-                          ("User has Reached the Maximum WatchSeconds Limit" ||
-                            "All Phases have been completed") ? (
-                            <p className="text-head1 pt-2 claim-reward">
-                              {responce.message}
+                            <span className="hippe text-head">TheMemeTV</span>
+                            <p className="social-tag pb-5">
+                              <p>
+                                TheMemeTv is a meme coin with no intrinsic value
+                                or expectation of financial return. The road map
+                                is only indicative beyond Phase 3. The platform
+                                is for entertainment purposes only.
+                              </p>
                             </p>
-                          ) : (
-                            <>
-                              <p className="text-head1 pt-2 claim-reward">
-                                Collect Your Reward
-                              </p>
-                              <p className="text-head1">
-                                You earned {responce.user.yourReward} MEMETV
-                                Token
-                              </p>
-                              <p className="text-head2">
-                                {" "}
-                                {responce.phaseMessage}{" "}
-                              </p>
-                            </>
-                          )}
-                        </div>
-                      )}
-                      {showRoadmap && (
-                        <div id="glitch-background" className="road-map-text">
-                          <h2
-                            id="textcolorroadmap"
-                            className="header-line text-left pb-3"
-                          >
-                            Road map
-                            {/* <span>(coz is’s a formality)</span> */}
-                          </h2>
-                          <div className="mob-res">
-                            <div className="row road1 trasition-4">
-                              <div className="col-12 col-lg-4 pb-2 col-md-4 road-min ">
-                                <img
-                                  draggable="false"
-                                  className="w100"
-                                  src={slider[currentIndexSlider]}
-                                  alt="Slider Image"
-                                />
-                              </div>
-                              <div className="col-12 col-lg-4 col-md-4 pb-2 road-min"></div>
-                              <div className="col-12 col-lg-4 col-md-4 pb-2">
-                                <button className="slider-arrow right-arrow">
-                                  <div className="slider">
-                                    <img
-                                      draggable="false"
-                                      onClick={handlePreviousSlider}
-                                      src={leftArrow}
-                                      alt="Previous"
-                                    />
-                                    <img
-                                      draggable="false"
-                                      onClick={handleNextSlider}
-                                      src={rightArrow}
-                                      alt="Next"
-                                    />
-                                  </div>
-                                </button>
-                              </div>
-                            </div>
                           </div>
-
-                          <div className="desk">
-                            <div className="row road1 trasition-4">
-                              <div
-                                className="slider-track"
-                                style={{
-                                  transform: `translateX(-${
-                                    currentIndexDesk * 15
-                                  }%)`,
-                                }}
-                              >
-                                <div className="col-12 col-lg-4 col-md-4 pb-2 road-min">
-                                  <img
-                                    className="img-desk"
-                                    src={sliderDesk[0]}
-                                    alt="Image 1"
-                                  />
-                                </div>
-                                <div className="col-12 col-lg-4 pb-2 col-md-4 road-min">
-                                  <img
-                                    className="img-desk"
-                                    src={sliderDesk[1]}
-                                    alt="Image 2"
-                                  />
-                                </div>
-                                <div className="col-12 col-lg-4 col-md-4 pb-2">
-                                  <img
-                                    className="img-desk"
-                                    src={sliderDesk[2]}
-                                    alt="Image 3"
-                                  />
-                                </div>
-                                <div className="col-12 col-lg-4 col-md-4 pb-2">
-                                  <img
-                                    className="img-desk"
-                                    src={sliderDesk[3]}
-                                    alt="Image 4"
-                                  />
-                                </div>
-                              </div>
+                        </div>
+                      </div>
+                    )}
+                    {showclaimedText && (
+                      <div className="trasition-3">
+                        <img draggable="false" src={claimTokenn} />
+                        {responce.message ==
+                        ("User has Reached the Maximum WatchSeconds Limit" ||
+                          "All Phases have been completed") ? (
+                          <p className="text-head1 pt-2 claim-reward">
+                            {responce.message}
+                          </p>
+                        ) : (
+                          <>
+                            <p className="text-head1 pt-2 claim-reward">
+                              Collect Your Reward
+                            </p>
+                            <p className="text-head1">
+                              You earned {responce.user.yourReward} MEMETV Token
+                            </p>
+                            <p className="text-head2">
+                              {" "}
+                              {responce.phaseMessage}{" "}
+                            </p>
+                          </>
+                        )}
+                      </div>
+                    )}
+                    {showRoadmap && (
+                      <div id="glitch-background" className="road-map-text">
+                        <h2
+                          id="textcolorroadmap"
+                          className="header-line text-left pb-3"
+                        >
+                          Road map
+                          {/* <span>(coz is’s a formality)</span> */}
+                        </h2>
+                        <div className="mob-res">
+                          <div className="row road1 trasition-4">
+                            <div className="col-12 col-lg-4 pb-2 col-md-4 road-min ">
+                              <img
+                                draggable="false"
+                                className="w100"
+                                src={slider[currentIndexSlider]}
+                                alt="Slider Image"
+                              />
                             </div>
-                            <div className="row">
-                              <div className="col-12">
-                                <button
-                                  onClick={handlePreviousDeskSlider}
-                                  className="slider-arrow left-arrow"
-                                >
+                            <div className="col-12 col-lg-4 col-md-4 pb-2 road-min"></div>
+                            <div className="col-12 col-lg-4 col-md-4 pb-2">
+                              <button className="slider-arrow right-arrow">
+                                <div className="slider">
                                   <img
                                     draggable="false"
+                                    onClick={handlePreviousSlider}
                                     src={leftArrow}
                                     alt="Previous"
                                   />
-                                </button>
-                                <button
-                                  onClick={handleNextDeskSlider}
-                                  className="slider-arrow right-arrow"
-                                >
                                   <img
                                     draggable="false"
+                                    onClick={handleNextSlider}
                                     src={rightArrow}
                                     alt="Next"
                                   />
-                                </button>
-                              </div>
+                                </div>
+                              </button>
                             </div>
                           </div>
                         </div>
-                      )}
-                    </div>
+
+                        <div className="desk">
+                          <div className="row road1 trasition-4">
+                            <div
+                              className="slider-track"
+                              style={{
+                                transform: `translateX(-${
+                                  currentIndexDesk * 15
+                                }%)`,
+                              }}
+                            >
+                              <div className="col-12 col-lg-4 col-md-4 pb-2 road-min">
+                                <img
+                                  className="img-desk"
+                                  src={sliderDesk[0]}
+                                  alt="Image 1"
+                                />
+                              </div>
+                              <div className="col-12 col-lg-4 pb-2 col-md-4 road-min">
+                                <img
+                                  className="img-desk"
+                                  src={sliderDesk[1]}
+                                  alt="Image 2"
+                                />
+                              </div>
+                              <div className="col-12 col-lg-4 col-md-4 pb-2">
+                                <img
+                                  className="img-desk"
+                                  src={sliderDesk[2]}
+                                  alt="Image 3"
+                                />
+                              </div>
+                              <div className="col-12 col-lg-4 col-md-4 pb-2">
+                                <img
+                                  className="img-desk"
+                                  src={sliderDesk[3]}
+                                  alt="Image 4"
+                                />
+                              </div>
+                            </div>
+                          </div>
+                          <div className="row">
+                            <div className="col-12">
+                              <button
+                                onClick={handlePreviousDeskSlider}
+                                className="slider-arrow left-arrow"
+                              >
+                                <img
+                                  draggable="false"
+                                  src={leftArrow}
+                                  alt="Previous"
+                                />
+                              </button>
+                              <button
+                                onClick={handleNextDeskSlider}
+                                className="slider-arrow right-arrow"
+                              >
+                                <img
+                                  draggable="false"
+                                  src={rightArrow}
+                                  alt="Next"
+                                />
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    )}
                   </div>
                 </div>
               </div>
-              <div id="controls">
-                <ul className="social-1">
-                  <li>{/* <img draggable="false"src={sociallinks} /> */}</li>
-                </ul>
-                <div id="panel">
-                  <div
-                    style={{
-                      display: "flex",
-                      flexDirection: "column",
-                      gap: 10,
-                    }}
-                  >
-                    <ul className="ul-button">
-                      <li
-                        style={getButtonDetails("play").style}
-                        onClick={handlePlayClick}
-                      >
-                        <img
-                          draggable="false"
-                          src={getButtonDetails("play").icon}
-                          alt="Play Icon"
-                        />
-                        <span onClick={ButtonTextChange}>
-                          &nbsp;&nbsp;{button}
-                        </span>
-                      </li>
-                      <li
-                        style={getButtonDetails("about").style}
-                        onClick={handleAboutClick}
-                      >
-                        <img
-                          draggable="false"
-                          src={getButtonDetails("about").icon}
-                          alt="About Icon"
-                        />
-                        <span>&nbsp;&nbsp;About</span>
-                      </li>
-                      <li
-                        style={getButtonDetails("roadmap").style}
-                        onClick={handleRoadmapClick}
-                      >
-                        <img
-                          src={getButtonDetails("roadmap").icon}
-                          alt="Roadmap Icon"
-                        />
-                        <span>&nbsp;&nbsp;Roadmap</span>
-                      </li>
-                      <li
-                        style={getButtonDetails("token").style}
-                        onClick={handleTokenClick}
-                      >
-                        <img
-                          draggable="false"
-                          src={getButtonDetails("token").icon}
-                          alt="Token Icon"
-                        />
-                        <span>&nbsp;&nbsp;Token</span>
-                      </li>
-                      <li
-                        style={getButtonDetails("social").style}
-                        onClick={handleSocialClick}
-                      >
-                        <img
-                          src={getButtonDetails("social").icon}
-                          alt="Social Icon"
-                        />
-                        <span>&nbsp;&nbsp;Social</span>
-                      </li>
-                    </ul>
-                  </div>
+            </div>
+            <div id="controls">
+              <ul className="social-1">
+                <li>{/* <img draggable="false"src={sociallinks} /> */}</li>
+              </ul>
+              <div id="panel">
+                <div
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: 10,
+                  }}
+                >
+                  <ul className="ul-button">
+                    <li
+                      style={getButtonDetails("play").style}
+                      onClick={handlePlayClick}
+                    >
+                      <img
+                        draggable="false"
+                        src={getButtonDetails("play").icon}
+                        alt="Play Icon"
+                      />
+                      <span onClick={ButtonTextChange}>
+                        &nbsp;&nbsp;{button}
+                      </span>
+                    </li>
+                    <li
+                      style={getButtonDetails("about").style}
+                      onClick={handleAboutClick}
+                    >
+                      <img
+                        draggable="false"
+                        src={getButtonDetails("about").icon}
+                        alt="About Icon"
+                      />
+                      <span>&nbsp;&nbsp;About</span>
+                    </li>
+                    <li
+                      style={getButtonDetails("roadmap").style}
+                      onClick={handleRoadmapClick}
+                    >
+                      <img
+                        src={getButtonDetails("roadmap").icon}
+                        alt="Roadmap Icon"
+                      />
+                      <span>&nbsp;&nbsp;Roadmap</span>
+                    </li>
+                    <li
+                      style={getButtonDetails("token").style}
+                      onClick={handleTokenClick}
+                    >
+                      <img
+                        draggable="false"
+                        src={getButtonDetails("token").icon}
+                        alt="Token Icon"
+                      />
+                      <span>&nbsp;&nbsp;Token</span>
+                    </li>
+                    <li
+                      style={getButtonDetails("social").style}
+                      onClick={handleSocialClick}
+                    >
+                      <img
+                        src={getButtonDetails("social").icon}
+                        alt="Social Icon"
+                      />
+                      <span>&nbsp;&nbsp;Social</span>
+                    </li>
+                  </ul>
                 </div>
+              </div>
+              <div>
                 <div>
-                  <div>
-                    <div id="navi-video" className="wallet-desk">
-                      <button
-                        onClick={handleDonothingClick}
-                        className="donothing"
-                      >
-                        #doNothing
-                      </button>
-                    </div>
+                  <div id="navi-video" className="wallet-desk">
+                    <button
+                      onClick={handleDonothingClick}
+                      className="donothing"
+                    >
+                      #doNothing
+                    </button>
                   </div>
                 </div>
+              </div>
 
-                <div className="control-1">
-                  <div>
-                    <div id="speaker">
-                      <div className="navi">
-                        {address ? (
-                          // Conditional rendering based on whether the rewards have been claimed
-                          hasClaimed ? (
-                            // Display "Congratulations" message if rewards have been claimed
-                            <button
-                              className="btn-color flex flex-col justify-center items-center gap-1"
-                              onClick={claimRewards}
+              <div className="control-1">
+                <div>
+                  <div id="speaker">
+                    <div className="navi">
+                      {address ? (
+                        // Conditional rendering based on whether the rewards have been claimed
+                        hasClaimed ? (
+                          // Display "Congratulations" message if rewards have been claimed
+                          <button
+                            className="btn-color flex flex-col justify-center items-center gap-1"
+                            onClick={claimRewards}
+                          >
+                            <h3 className="text-sm">
+                              {" You claimed your token & restart the minting."}
+                            </h3>
+                          </button>
+                        ) : (
+                          <div className="row">
+                            <div className="text-right icon-1 col-12">
+                              <img
+                                className="h-8 img-icon"
+                                src={info}
+                                alt="My GIF"
+                                onMouseEnter={() => setInfoicon(true)}
+                                onMouseLeave={() => setInfoicon(false)}
+                              />
+                              {infoIcon}
+                            </div>
+                            <div className="handgif text-c">
+                              <img draggable="false" src={handgif} />
+                            </div>
+                            <div
+                              className="row"
+                              style={{
+                                marginLeft: "0",
+                              }}
                             >
-                              <h3 className="text-sm">
-                                {
-                                  " You claimed your token & restart the minting."
-                                }
-                              </h3>
-                            </button>
-                          ) : (
-                            <div className="row">
-                              <div className="text-right icon-1 col-12">
-                                <img
-                                  className="h-8 img-icon"
-                                  src={info}
-                                  alt="My GIF"
-                                  onMouseEnter={() => setInfoicon(true)}
-                                  onMouseLeave={() => setInfoicon(false)}
-                                />
-                                {infoIcon}
-                              </div>
-                              <div className="handgif text-c">
-                                <img draggable="false" src={handgif} />
-                              </div>
-                              <div
-                                className="row"
-                                style={{
-                                  marginLeft: "0",
-                                }}
-                              >
-                                <div className="col-5 col-xl-12 col-lg-12 col-sm-6 col-xl-12">
-                                  <div>
-                                    <button className="btn-color">
-                                      <h3>
-                                        <div>Time </div>
-                                        {formatTime(seconds)}
-                                      </h3>
-                                    </button>
-                                  </div>
-                                </div>
-                                <div className="col-5 col-xl-12 col-sm-6 col-lg-12">
-                                  <div>
-                                    <button className="btn-color">
-                                      {/* <h3> {seconds * 50} MMT Tokens</h3> */}
-                                    </button>
-                                  </div>
+                              <div className="col-5 col-xl-12 col-lg-12 col-sm-6 col-xl-12">
+                                <div>
+                                  <button className="btn-color">
+                                    <h3>
+                                      <div>Time </div>
+                                      {formatTime(seconds)}
+                                    </h3>
+                                  </button>
                                 </div>
                               </div>
+                              <div className="col-5 col-xl-12 col-sm-6 col-lg-12">
+                                <div>
+                                  <button className="btn-color">
+                                    {/* <h3> {seconds * 50} MMT Tokens</h3> */}
+                                  </button>
+                                </div>
+                              </div>
+                            </div>
 
-                              <div className="col-12 col-xl-12 col-md-12">
-                                <button className="btn-color mar-top">
-                                  <div className="w-[160.50px] h-10 relative">
-                                    <div className="left-[15px] top-[12px] absolute text-center text-green-600 text-base font-normal font-['VCR OSD Mono'] ">
+                            <div className="col-12 col-xl-12 col-md-12">
+                              <button className="btn-color mar-top">
+                                <div className="w-[160.50px] h-10 relative">
+                                  <div className="left-[15px] top-[12px] absolute text-center text-green-600 text-base font-normal font-['VCR OSD Mono'] ">
+                                    <div
+                                      className="cardd text-center"
+                                      style={{ position: "relative" }}
+                                    >
+                                      <img
+                                        className="h-10"
+                                        src={btn}
+                                        alt="My button"
+                                      />
                                       <div
-                                        className="cardd text-center"
-                                        style={{ position: "relative" }}
+                                        className="claim-1"
+                                        style={{
+                                          position: "absolute",
+                                          marginLeft: "8px",
+                                        }}
                                       >
-                                        <img
-                                          className="h-10"
-                                          src={btn}
-                                          alt="My button"
-                                        />
-                                        <div
-                                          className="claim-1"
-                                          style={{
-                                            position: "absolute",
-                                            marginLeft: "8px",
-                                          }}
-                                        >
-                                          {/* <h3
+                                        {/* <h3
                                             className="claim-h3"
                                             onClick={
                                               chain.chain == "BSC" &&
@@ -2033,57 +2009,57 @@ const Coin = () => {
                                           >
                                             claim token
                                           </h3> */}
-                                          {/* <p> */}
-                                          <h6>Live Users: {activeUsers}</h6>
-                                          {/* </p> */}
-                                        </div>
+                                        {/* <p> */}
+                                        <h6>Live Users: {activeUsers}</h6>
+                                        {/* </p> */}
                                       </div>
                                     </div>
                                   </div>
-                                </button>
+                                </div>
+                              </button>
+                            </div>
+                          </div>
+                        )
+                      ) : (
+                        <>
+                          <button
+                            onClick={handleDonothingClick}
+                            className="mob-res btn-color flex flex-col justify-center items-center"
+                          >
+                            <img
+                              draggable="false"
+                              className="h-20 cnt-gif"
+                              src={arrow}
+                              alt="My GIF"
+                            />
+                            <h3 className="mob-res donothing">#doNothing</h3>
+                          </button>
+                          {isGifOn ? (
+                            <div className="flex flex-col justify-center items-center">
+                              <div className="container">
+                                <img
+                                  onClick={handleTap}
+                                  src={tvgif}
+                                  className="gif-size"
+                                  alt="Clickable GIF"
+                                />
+                                {tapAnimations.map((animation) => (
+                                  <div
+                                    key={animation.id}
+                                    className="tap-point"
+                                    style={{
+                                      left: animation.x,
+                                      top: animation.y,
+                                    }}
+                                  >
+                                    +5
+                                  </div>
+                                ))}
                               </div>
                             </div>
-                          )
-                        ) : (
-                          <>
-                            <button
-                              onClick={handleDonothingClick}
-                              className="mob-res btn-color flex flex-col justify-center items-center"
-                            >
-                              <img
-                                draggable="false"
-                                className="h-20 cnt-gif"
-                                src={arrow}
-                                alt="My GIF"
-                              />
-                              <h3 className="mob-res donothing">#doNothing</h3>
-                            </button>
-                            {isGifOn ? (
-                              <div className="flex flex-col justify-center items-center">
-                                <div className="container">
-                                  <img
-                                    onClick={handleTap}
-                                    src={tvgif}
-                                    className="gif-size"
-                                    alt="Clickable GIF"
-                                  />
-                                  {tapAnimations.map((animation) => (
-                                    <div
-                                      key={animation.id}
-                                      className="tap-point"
-                                      style={{
-                                        left: animation.x,
-                                        top: animation.y,
-                                      }}
-                                    >
-                                      +5
-                                    </div>
-                                  ))}
-                                </div>
-                              </div>
-                            ) : (
-                              <>
-                                {/* <button
+                          ) : (
+                            <>
+                              {/* <button
                                   onClick={handleDonothingClick}
                                   className="mob-res btn-color flex flex-col justify-center items-center"
                                 >
@@ -2097,51 +2073,50 @@ const Coin = () => {
                                     #doNothing
                                   </h3>
                                 </button> */}
-                                <button
-                                  onClick={() => {
-                                    setIsGifOn(true);
-                                  }}
-                                  className="desk btn-color flex flex-col justify-center items-center"
-                                >
-                                  <img
-                                    draggable="false"
-                                    className="h-20 cnt-gif"
-                                    src={arrow}
-                                    alt="My GIF"
-                                  />
-                                  <h3> Watch,Tap,Play Repeat</h3>
-                                  <h3 className="mob-res donothing">
-                                    #doNothing
-                                  </h3>
-                                </button>
-                              </>
-                            )}
-                            {/* */}
-                          </>
-                        )}
-                        <div
-                          className="video-play"
-                          id="imagetext"
-                          style={{
-                            display: "flex",
-                            justifyContent: "center",
-                            gap: "10px",
-                            marginTop: "2px",
-                          }}
-                        ></div>
-                      </div>
+                              <button
+                                onClick={() => {
+                                  setIsGifOn(true);
+                                }}
+                                className="desk btn-color flex flex-col justify-center items-center"
+                              >
+                                <img
+                                  draggable="false"
+                                  className="h-20 cnt-gif"
+                                  src={arrow}
+                                  alt="My GIF"
+                                />
+                                <h3> Watch,Tap,Play Repeat</h3>
+                                <h3 className="mob-res donothing">
+                                  #doNothing
+                                </h3>
+                              </button>
+                            </>
+                          )}
+                          {/* */}
+                        </>
+                      )}
+                      <div
+                        className="video-play"
+                        id="imagetext"
+                        style={{
+                          display: "flex",
+                          justifyContent: "center",
+                          gap: "10px",
+                          marginTop: "2px",
+                        }}
+                      ></div>
                     </div>
                   </div>
+                </div>
 
-                  <div class="meme-img">
-                    <img draggable="false" src={image1} />
-                  </div>
+                <div class="meme-img">
+                  <img draggable="false" src={image1} />
                 </div>
               </div>
             </div>
           </div>
-        )}
-      </div>
+        </div>
+      )}
     </div>
   );
 };
