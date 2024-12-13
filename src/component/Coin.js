@@ -28,7 +28,7 @@ import supplygif from "../assets/supply-gif.gif";
 import supplygif1 from "../assets/supply-gif1.gif";
 import socialimg from "../assets/social-gif.gif";
 import aboutimg from "../assets/Rope.png";
-import welcome from "../assets/logo-welcome.png";
+import welcome from "../assets/logo-welcome.svg";
 import info from "../assets/info.png";
 import btn from "../assets/btn.png";
 import yo from "../assets/yo.gif";
@@ -621,7 +621,7 @@ const Coin = () => {
       setshowDonothingMessage(false);
       setShowSocial(false);
       setShowToken(false);
-    }, 1000);
+    }, 200);
   };
 
   const handlePlayClick = () => {
@@ -631,6 +631,7 @@ const Coin = () => {
     setActiveButton("play");
     setShowClaimedText(false);
     setShowAbout(false);
+    setIsGifOn(false);
     ButtonTextChange();
     // setShowVideo(false);
     // setIsVideoPlaying(false);
@@ -662,6 +663,7 @@ const Coin = () => {
     // setShowConnectWalletMessage(false);
     playClickSound();
     setShowClaimedText(false);
+    setIsGifOn(true);
     setActiveButton("about");
     // Immediately hide the content and start the glitch effect
     setShowAbout(false);
@@ -690,12 +692,13 @@ const Coin = () => {
       setShowToken(false);
       setshowDonothingMessage(false);
       setTokenButtonText(false);
-    }, 1000);
+    }, 200);
   };
 
   const handleOffclickinToken = () => {
     setTokenButtonText(false);
     setShowToken(true);
+    setIsGifOn(true);
     setshowDonothingMessage(false);
   };
   const handleTokenClick = () => {
@@ -704,6 +707,7 @@ const Coin = () => {
     setShowClaimedText(false);
     setshowDonothingMessage(false);
     setIsActive(false);
+    setIsGifOn(true);
     // setShowConnectWalletMessage(false);
     // Hide all content and trigger the glitch effect
     setShowAbout(false);
@@ -727,11 +731,12 @@ const Coin = () => {
       setShowAbout(false);
       setShowSocial(false);
       setShowRoadmap(false);
-    }, 1000);
+    }, 200);
   };
   const handleSocialClick = () => {
     playClickSound();
     setActiveButton("social");
+    setIsGifOn(true);
     setShowClaimedText(false);
     setshowDonothingMessage(false);
     setShowAbout(false);
@@ -756,12 +761,13 @@ const Coin = () => {
       setShowAbout(false);
       setShowRoadmap(false);
       setShowToken(false);
-    }, 1000);
+    }, 200);
   };
 
   const handleRoadmapClick = () => {
     playClickSound();
     setActiveButton("roadmap");
+    setIsGifOn(true);
     setshowDonothingMessage(false);
     setShowAbout(false);
     setShowClaimedText(false);
@@ -786,7 +792,7 @@ const Coin = () => {
       setShowAbout(false);
       setShowSocial(false);
       setShowToken(false);
-    }, 1000);
+    }, 200);
   };
 
   const handleDonothingClick = () => {
@@ -820,7 +826,7 @@ const Coin = () => {
       setShowSocial(false);
       setShowToken(false);
       setTokenButtonText(false);
-    }, 1000);
+    }, 200);
   };
 
   //********************************* */
