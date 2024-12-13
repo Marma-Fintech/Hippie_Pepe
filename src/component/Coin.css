@@ -2208,6 +2208,7 @@ body {
     height: 100%;
     text-align: -webkit-center;
     text-align: -moz-center;
+    scale: 0.8;
   }
   .playvideo {
     width: 100%;
@@ -2216,6 +2217,7 @@ body {
   }
   .img-res img {
     width: 250px;
+    scale: 1 !important;
   }
   .about-para {
     margin-bottom: 10px;
