@@ -6,6 +6,9 @@
   font-family: mySirstFont;
   src: url("../assets/PressStart.ttf");
 }
+:root {
+  --vh: 100vh; /* Default for browsers that don't support JS */
+}
 
 html,
 body {
