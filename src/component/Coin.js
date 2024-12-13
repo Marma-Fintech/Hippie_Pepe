@@ -2046,6 +2046,18 @@ const Coin = () => {
                           )
                         ) : (
                           <>
+                            <button
+                              onClick={handleDonothingClick}
+                              className="mob-res btn-color flex flex-col justify-center items-center"
+                            >
+                              <img
+                                draggable="false"
+                                className="h-20 cnt-gif"
+                                src={arrow}
+                                alt="My GIF"
+                              />
+                              <h3 className="mob-res donothing">#doNothing</h3>
+                            </button>
                             {isGifOn ? (
                               <div className="flex flex-col justify-center items-center">
                                 <div className="container">
@@ -2071,7 +2083,7 @@ const Coin = () => {
                               </div>
                             ) : (
                               <>
-                                <button
+                                {/* <button
                                   onClick={handleDonothingClick}
                                   className="mob-res btn-color flex flex-col justify-center items-center"
                                 >
@@ -2084,7 +2096,7 @@ const Coin = () => {
                                   <h3 className="mob-res donothing">
                                     #doNothing
                                   </h3>
-                                </button>
+                                </button> */}
                                 <button
                                   onClick={() => {
                                     setIsGifOn(true);
