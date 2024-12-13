@@ -33,6 +33,11 @@ body {
   overflow: hidden;
 }
 
+.memetv {
+  height: calc(var(--vh, 1vh) * 100);
+  width: 100%;
+}
+
 .animation-logo {
   animation: zoom-in 1s forwards;
   scale: 1.8;
@@ -1274,7 +1279,7 @@ body {
     overflow-x: hidden; /* Disable horizontal scrolling */
     width: 100vw; /* Ensure it stays within the viewport width */
     box-sizing: border-box; /* Include padding and borders within the element's width */
-    height: 100vh;
+    height: calc(var(--vh, 1vh) * 100);
   }
   .body1 {
     height: 100%;

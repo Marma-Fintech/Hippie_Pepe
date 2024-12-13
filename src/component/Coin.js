@@ -124,18 +124,16 @@ const Coin = () => {
 
   useEffect(() => {
     const updateVh = () => {
-      const vh = window.innerHeight * 0.01;
+      const vh = window.innerHeight * 0.01; // 1% of the viewport height
       document.documentElement.style.setProperty("--vh", `${vh}px`);
     };
 
-    // Initial calculation
-    updateVh();
+    updateVh(); // Initial calculation
+    window.addEventListener("resize", updateVh); // Update on resize
 
-    // Update the height on window resize
-    window.addEventListener("resize", updateVh);
-
-    // Cleanup the event listener on unmount
-    return () => window.removeEventListener("resize", updateVh);
+    return () => {
+      window.removeEventListener("resize", updateVh);
+    };
   }, []);
 
   const styles = {
