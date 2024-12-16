@@ -3153,7 +3153,7 @@ body {
 
   #controls {
     border-radius: 10px;
-    width: 18%;
+    width: 15%;
     /* height: 100%; */
     margin-left: 20px;
   }
@@ -3726,7 +3726,7 @@ body {
     text-align: center;
     align-items: center;
     /*border: 2px solid #0e7616;*/
-    padding: 20px;
+    padding: 12px;
     gap: 10;
     justify-content: center;
   }
