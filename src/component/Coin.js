@@ -123,6 +123,28 @@ const Coin = () => {
   }, []);
 
   useEffect(() => {
+    const disableContextMenu = (e) => e.preventDefault();
+    document.addEventListener("contextmenu", disableContextMenu);
+    return () =>
+      document.removeEventListener("contextmenu", disableContextMenu);
+  }, []);
+
+  useEffect(() => {
+    const blockDevTools = (e) => {
+      if (
+        e.key === "F12" ||
+        (e.ctrlKey &&
+          e.shiftKey &&
+          ["I", "J", "C"].includes(e.key.toUpperCase()))
+      ) {
+        e.preventDefault();
+      }
+    };
+    document.addEventListener("keydown", blockDevTools);
+    return () => document.removeEventListener("keydown", blockDevTools);
+  }, []);
+
+  useEffect(() => {
     const updateVh = () => {
       const vh = window.innerHeight * 0.01; // 1% of the viewport height
       document.documentElement.style.setProperty("--vh", `${vh}px`);
