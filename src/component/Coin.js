@@ -1173,11 +1173,11 @@ const Coin = () => {
                       </ul>
                     </div>
                   </div>
-                  <div
+                  {/* <div
                     className="social-links"
                     style={{ marginTop: "50px", zIndex: 10000000 }}
-                  >
-                    {/* <ul>
+                  > */}
+                  {/* <ul>
                   <li>
                     <a
                       href="https://x.com/thememe_tv"
@@ -1207,7 +1207,7 @@ const Coin = () => {
                   </li>
                   
                 </ul> */}
-                  </div>
+                  {/* </div> */}
                 </div>
                 <div className="overlay-close" onClick={toggleMenu}></div>
               </div>
