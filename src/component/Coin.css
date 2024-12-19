@@ -1542,7 +1542,7 @@ body {
     position: relative;
     /* padding: 10px; */
     width: 100%;
-    height: 70vh !important;
+    height: 65vh !important;
     z-index: 0;
     overflow: hidden;
     -webkit-overflow-scrolling: touch;
@@ -1594,7 +1594,7 @@ body {
     );
     /*box-shadow: inset 0 4px 5px #444, inset 4px 0 5px #666, inset -2px 0 5px #888, inset 0 0px 5px #888; */
     width: 100%;
-    height: 70vh;
+    height: 65vh;
     background-image: url("../assets/Frame 21.png");
     background-repeat: no-repeat;
     background-size: 100% 100%;
