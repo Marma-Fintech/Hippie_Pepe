@@ -1749,11 +1749,11 @@ body {
     /*background:#212121;*/
     border-radius: 10px;
     /*width: 20%;*/
-    height: 15vh;
+    /* height: 15vh; */
     /*margin-left: 10px;*/
     position: fixed;
     width: 100%;
-    bottom: 10px;
+    bottom: 0px;
   }
   .header-line {
     font-size: 22px !important;
