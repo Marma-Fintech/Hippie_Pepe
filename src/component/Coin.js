@@ -1,6 +1,6 @@
 import React, { useEffect, useCallback, useRef, useState } from "react";
 import "../component/Coin.css";
-import videoSource from "../assets/video.mp4";
+import videoSource from "../assets/trip.mp4";
 // import dogevideo from "../assets/dogevideo.MP4";
 import frogvideo from "../assets/frog.mp4";
 import shibuvideo from "../assets/shibu.mp4";
@@ -122,27 +122,27 @@ const Coin = () => {
     };
   }, []);
 
-  useEffect(() => {
-    const disableContextMenu = (e) => e.preventDefault();
-    document.addEventListener("contextmenu", disableContextMenu);
-    return () =>
-      document.removeEventListener("contextmenu", disableContextMenu);
-  }, []);
+  // useEffect(() => {
+  //   const disableContextMenu = (e) => e.preventDefault();
+  //   document.addEventListener("contextmenu", disableContextMenu);
+  //   return () =>
+  //     document.removeEventListener("contextmenu", disableContextMenu);
+  // }, []);
 
-  useEffect(() => {
-    const blockDevTools = (e) => {
-      if (
-        e.key === "F12" ||
-        (e.ctrlKey &&
-          e.shiftKey &&
-          ["I", "J", "C"].includes(e.key.toUpperCase()))
-      ) {
-        e.preventDefault();
-      }
-    };
-    document.addEventListener("keydown", blockDevTools);
-    return () => document.removeEventListener("keydown", blockDevTools);
-  }, []);
+  // useEffect(() => {
+  //   const blockDevTools = (e) => {
+  //     if (
+  //       e.key === "F12" ||
+  //       (e.ctrlKey &&
+  //         e.shiftKey &&
+  //         ["I", "J", "C"].includes(e.key.toUpperCase()))
+  //     ) {
+  //       e.preventDefault();
+  //     }
+  //   };
+  //   document.addEventListener("keydown", blockDevTools);
+  //   return () => document.removeEventListener("keydown", blockDevTools);
+  // }, []);
 
   useEffect(() => {
     const updateVh = () => {
@@ -998,7 +998,7 @@ const Coin = () => {
   };
 
   return (
-    <div>
+    <>
       {isLandscape && isMobile ? (
         <div className="landscape-warning" style={styles.warning}>
           Please switch back to portrait mode for the best experience.
@@ -1370,12 +1370,16 @@ const Coin = () => {
                         style={{ objectFit: "cover" }}
                         loop
                       >
-                        <source
+                        {/* <source
                           className=""
                           src="https://res.cloudinary.com/dhebiyrep/video/upload/v1715257036/kbld2jankfvu2d8wvixj.mp4"
                           type="video/mp4"
+                        /> */}
+                        <source
+                          className=""
+                          src={videoSource}
+                          type="video/mp4"
                         />
-                        Your browser does not support the video tag.
                       </video>
                     </div>
 
@@ -2137,7 +2141,7 @@ const Coin = () => {
           </div>
         </div>
       )}
-    </div>
+    </>
   );
 };
 
