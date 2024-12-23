@@ -2302,7 +2302,7 @@ body {
 
   .social-tag {
     font-size: 14px;
-    padding: 15px;
+    padding: 5px;
     background: var(
       --Gradent,
       linear-gradient(
@@ -2643,7 +2643,7 @@ body {
     color: #fff;
   }
   .social-tag {
-    font-size: 13px !important;
+    font-size: 12px !important;
   }
   .header-line {
     font-size: 20px !important;
@@ -2651,8 +2651,14 @@ body {
   .gif-img {
     width: 60px !important;
   }
+  .img-social {
+    padding: 5px !important;
+  }
+  .pb-2 {
+    padding-bottom: 5px !important;
+  }
   #scroller {
-    font-weight: bo ld;
+    font-weight: bold;
     font-size: 350%;
     text-align: justify;
     overflow: hidden;
