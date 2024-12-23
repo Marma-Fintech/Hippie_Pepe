@@ -2416,10 +2416,10 @@ body {
 } */
 @media screen and (max-height: 667px) {
   #screen {
-    height: 65vh !important;
+    height: 60vh !important;
   }
   #tv {
-    height: 65vh !important;
+    height: 60vh !important;
   }
 }
 
