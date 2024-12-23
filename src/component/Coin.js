@@ -1387,7 +1387,7 @@ const Coin = () => {
                       <div id="glitch-background" className=" center-content">
                         <div className="about-trasition-1">
                           {/*<span className='shadow'>About HippiePepeMemeTV</span>  */}
-                          <div className="pt-3 pb-5 about-pad">
+                          <div className="about-pad">
                             <h3
                               id="textcolorabout"
                               className="about-para1 header-line  mb-2"
@@ -1761,7 +1761,7 @@ const Coin = () => {
                         </h2>
                         <div className="mob-res">
                           <div className="row road1 trasition-4">
-                            <div className="col-12 col-lg-4 pb-2 col-md-4 road-min ">
+                            <div className="col-12 col-lg-4 pb-2 col-md-12 road-min ">
                               <img
                                 draggable="false"
                                 className="w100"
@@ -1769,8 +1769,8 @@ const Coin = () => {
                                 alt="Slider Image"
                               />
                             </div>
-                            <div className="col-12 col-lg-4 col-md-4 pb-2 road-min"></div>
-                            <div className="col-12 col-lg-4 col-md-4 pb-2">
+                            <div className="col-12 col-lg-4 col-md-12 pb-2 road-min"></div>
+                            <div className="col-12 col-lg-4 col-md-12 pb-2">
                               <button className="slider-arrow right-arrow">
                                 <div className="slider">
                                   <img
@@ -1801,28 +1801,28 @@ const Coin = () => {
                                 }%)`,
                               }}
                             >
-                              <div className="col-12 col-lg-4 col-md-4 pb-2 road-min">
+                              <div className="col-12 col-lg-4 col-md-12 pb-2 road-min">
                                 <img
                                   className="img-desk"
                                   src={sliderDesk[0]}
                                   alt="Image 1"
                                 />
                               </div>
-                              <div className="col-12 col-lg-4 pb-2 col-md-4 road-min">
+                              <div className="col-12 col-lg-4 pb-2 col-md-12 road-min">
                                 <img
                                   className="img-desk"
                                   src={sliderDesk[1]}
                                   alt="Image 2"
                                 />
                               </div>
-                              <div className="col-12 col-lg-4 col-md-4 pb-2">
+                              <div className="col-12 col-lg-4 col-md-12 pb-2">
                                 <img
                                   className="img-desk"
                                   src={sliderDesk[2]}
                                   alt="Image 3"
                                 />
                               </div>
-                              <div className="col-12 col-lg-4 col-md-4 pb-2">
+                              <div className="col-12 col-lg-4 col-md-12 pb-2">
                                 <img
                                   className="img-desk"
                                   src={sliderDesk[3]}

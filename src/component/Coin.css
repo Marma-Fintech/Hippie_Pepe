@@ -2401,7 +2401,6 @@ body {
   }
   .rope-img img {
     width: 120px;
-    display: none;
   }
 }
 
@@ -2635,12 +2634,15 @@ body {
   }
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 767px) {
   .text-1 {
     color: #43b736;
   }
   .text-ab {
     color: #fff;
+  }
+  .rope-img img {
+    display: none;
   }
   .social-tag {
     font-size: 12px !important;
@@ -3418,7 +3420,7 @@ body {
     font-size: 55px;
     color: #fff;
     margin-top: 20px;
-    margin-bottom: 35px;
+    margin-bottom: 15px;
   }
 
   #playbutton {
