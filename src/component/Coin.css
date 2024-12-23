@@ -2414,6 +2414,14 @@ body {
   }
 
 } */
+@media screen and (max-height: 667px) {
+  #screen {
+    height: 75vh !important;
+  }
+  #tv {
+    height: 75vh !important;
+  }
+}
 
 @media screen and (min-width: 993px) and (max-width: 1199px) {
   .tv {
