@@ -18,12 +18,14 @@ import roadmap3 from "../assets/W.png";
 import sociallinks from "../assets/social-links.png";
 import glitch from "../assets/757Y.gif";
 import { isMobile, isTablet, isDesktop } from "react-device-detect";
+import { Carousel } from "react-bootstrap";
 
 import twitter from "../assets/x.png";
 import snap from "../assets/instagram.png";
 import telegram from "../assets/telegram.png";
 // import youtube from "../assets/yt.png";
-import aboutgif from "../assets/about-gif.gif";
+// import aboutgif from "../assets/about-gif.gif";
+import aboutgif from "../assets/image-modi.png";
 import supplygif from "../assets/supply-gif.gif";
 import supplygif1 from "../assets/supply-gif1.gif";
 import socialimg from "../assets/social-gif.gif";
@@ -112,6 +114,64 @@ const Coin = () => {
   const [isLandscape, setIsLandscape] = useState(
     window.innerWidth > window.innerHeight
   );
+  const items = [
+    {
+      id: 1,
+      percentage: "25%",
+      heading: "Activation",
+      description: "( Just vibe & earn. Do nothing, get tokens.)",
+    },
+    {
+      id: 2,
+      percentage: "15%",
+      heading: "Cultivation",
+      description: "Post, share, shill = more tokens",
+    },
+    {
+      id: 3,
+      percentage: "20%",
+      heading: "Liquidity",
+      description: "Smooth trades, no rug, just vibes. ",
+    },
+    {
+      id: 4,
+      percentage: "10%",
+      heading: "Ecosystem Development",
+      description:
+        "Fueling TheMemeTV’s future. AI, features, all the degen stuff.",
+    },
+    {
+      id: 5,
+      percentage: "10%",
+      heading: "Team",
+      description: "Builders gotta eat. HODL & grind",
+    },
+    {
+      id: 6,
+      percentage: "10%",
+      heading: "Company",
+      description: "Bosses need their cut. CEO won’t wage cuck.",
+    },
+    {
+      id: 7,
+      percentage: "5%",
+      heading: "Strategic Partnerships",
+      description: "Listings, collabs, moon missions.",
+    },
+    {
+      id: 8,
+      percentage: "10%",
+      heading: "Smart Future Reserves",
+      description: "Future-proofing for when we go intergalactic.",
+    },
+  ];
+
+  // Group items into chunks of 4
+  const groupedItems = [];
+  for (let i = 0; i < items.length; i += 4) {
+    groupedItems.push(items.slice(i, i + 4));
+  }
+
   const updateOrientation = () => {
     setIsLandscape(window.innerWidth > window.innerHeight);
   };
@@ -121,6 +181,41 @@ const Coin = () => {
       window.removeEventListener("resize", updateOrientation);
     };
   }, []);
+
+  const colors = ["#FF5733", "#33FF57", "#3357FF"];
+
+  const currentIndex0 = 1;
+
+  const phases = [
+    {
+      title: "Phase 1",
+      description:
+        "Unlock memes on TheMemeTV, play games, stake and earn Tokens",
+    },
+    {
+      title: "Phase 2",
+      description: "Exchange listing Community expansion",
+    },
+    {
+      title: "Phase 3",
+      description:
+        "Launch of Meme generator \n Meme minting \n Meme marketplace",
+    },
+  ];
+
+  console.log(phases[currentIndex].description.split("\n"));
+
+  const handlePreviousSlider1 = () => {
+    setCurrentIndex((prevIndex) =>
+      prevIndex === 0 ? phases.length - 1 : prevIndex - 1
+    );
+  };
+
+  const handleNextSlider1 = () => {
+    setCurrentIndex((prevIndex) =>
+      prevIndex === phases.length - 1 ? 0 : prevIndex + 1
+    );
+  };
 
   // useEffect(() => {
   //   const disableContextMenu = (e) => e.preventDefault();
@@ -1392,42 +1487,37 @@ const Coin = () => {
                               id="textcolorabout"
                               className="about-para1 header-line  mb-2"
                             >
-                              About TheMemeTV{" "}
+                              TheMemeTV{" "}
                             </h3>
-                            <p className="about-para2 pb-0 text-head">
-                              We were all born Memes. We were all born to Memes.
-                              We were all born to meme.The world seems to have
-                              forgotten this and taken itself too seriously.
-                              TheMemeTV is here to spread joy and to spread
-                              other things also, I think but mostimportantly to
+                            <p className="about-para2 pb-0 textPath">
+                              Hey you, MemeLord. Please stop scrolling memes for
+                              free.
                             </p>
-                            <p className="pb-0 f18"> #doNothing</p>
-                            <div className="rope-img">
-                              <img draggable="false" src={aboutgif} />
-                            </div>
-                            <p className="text-1">
-                              So, you also watch{" "}
-                              <span className="bg-span">TheMemeTv</span> and
-                              #doNothing. Okay??
+
+                            <p className="text-head">
+                              Enjoy memes on TheMemeTV and earn MemeTV Tokens!
                             </p>
                           </div>
                           {/* <div className="about-gif-part">
                         <img draggable="false"draggable="false"src={aboutgif} />{" "}
                       </div> */}
+                          <div className="rope-img">
+                            <img draggable="false" src={aboutgif} />
+                          </div>
                         </div>
                       </div>
                     )}
 
                     {showDonothingMessage && (
                       <div id="glitch-background" className=" center-content">
-                        <div className="about-trasition-1">
+                        <div className="about-trasition">
                           {/*<span className='shadow'>About HippiePepeMemeTV</span>  */}
                           <div className="pt-2 pb-1 about-pad">
                             <h3
                               id="textcolorabout"
                               className="about-para1 header-line  mb-2"
                             >
-                              Welcome to TheMeme Tv{" "}
+                              Welcome to TheMemeTv{" "}
                             </h3>
                             <p className="about-para2 pb-0 text-head p50 pt-2 pb-1">
                               Get ready to watch hilarious stuff, play some
@@ -1478,62 +1568,108 @@ const Coin = () => {
                                 id="textcolorsocial"
                                 className="supply-p txt-white"
                               >
-                                100,000,000,021 TMTV
+                                100,000,000,000 TMTV
                               </h2>
                             </div>
                           </div>
 
                           <div>
-                            <div className="mob-res row justify-content-center">
-                              <div className="col-12 ">
-                                <img
-                                  draggable="false"
-                                  src={tokenSlider[currentIndexSlider]}
-                                />
+                            <div className="mob-res">
+                              <div className="row road1 trasition-4">
+                                <div className="col-12 col-lg-4 pb-2 col-md-12 road-min d-flex">
+                                  <div className="road-min bordersec flex-fill">
+                                    <h3>{phases[currentIndex].title}</h3>
+                                    <p>
+                                      {phases[currentIndex].description
+                                        .split("\n")
+                                        .map((line, index) => (
+                                          <React.Fragment key={index}>
+                                            {line}
+                                            {index !==
+                                              phases[
+                                                currentIndex
+                                              ].description.split("\n").length -
+                                                1 && <br />}
+                                          </React.Fragment>
+                                        ))}
+                                    </p>
+                                  </div>
+                                </div>
+
+                                <div className="col-12 col-lg-4 col-md-12 pb-2">
+                                  <button className="slider-arrow right-arrow">
+                                    <div className="slider">
+                                      <img
+                                        draggable="false"
+                                        onClick={handlePreviousSlider1}
+                                        src={leftArrow}
+                                        alt="Previous"
+                                      />
+                                      <img
+                                        draggable="false"
+                                        onClick={handleNextSlider1}
+                                        src={rightArrow}
+                                        alt="Next"
+                                      />
+                                    </div>
+                                  </button>
+                                </div>
                               </div>
-                              <div className="col-12">
-                                <button
-                                  onClick={handlePreviousToken}
-                                  className="slider-arrow left-arrow"
-                                ></button>
-                              </div>
-                              <div className="col-12">
-                                <button
-                                  onClick={handleNextToken}
-                                  className="slider-arrow right-arrow"
+                            </div>
+
+                            <div className="desk">
+                              <div className="row road1 trasition-4">
+                                <Carousel
+                                  interval={null}
+                                  indicators={true}
+                                  className="custom-carousel"
                                 >
-                                  <div className="slider">
+                                  {groupedItems.map((group, index) => (
+                                    <Carousel.Item key={index}>
+                                      <div className="row">
+                                        {group.map((item) => (
+                                          <div
+                                            key={item.id}
+                                            className="col-12 col-lg-3 col-md-6 pb-2 d-flex justify-content-center"
+                                          >
+                                            <div className="bordersec1 flex-fill text-center">
+                                              <h3>{item.percentage}</h3>
+                                              <div style={{ padding: "10px" }}>
+                                                <h6>{item.heading}</h6>
+                                                <p>{item.description}</p>
+                                              </div>
+                                            </div>
+                                          </div>
+                                        ))}
+                                      </div>
+                                    </Carousel.Item>
+                                  ))}
+                                </Carousel>
+                              </div>
+                              {/* <div className="row">
+                                <div className="col-12">
+                                  <button
+                                    onClick={handlePreviousDeskSlider}
+                                    className="slider-arrow left-arrow"
+                                  >
                                     <img
                                       draggable="false"
                                       src={leftArrow}
                                       alt="Previous"
                                     />
+                                  </button>
+                                  <button
+                                    onClick={handleNextDeskSlider}
+                                    className="slider-arrow right-arrow"
+                                  >
                                     <img
                                       draggable="false"
                                       src={rightArrow}
                                       alt="Next"
                                     />
-                                  </div>
-                                </button>
-                              </div>
-                            </div>
-
-                            <div className="desk row justify-content-center">
-                              <div className="col-md-3 col-6 ">
-                                <img draggable="false" src={one} />
-                              </div>
-                              <div className="col-md-3 col-6">
-                                {" "}
-                                <img draggable="false" src={two} />
-                              </div>
-                              <div className="col-md-3 col-6">
-                                {" "}
-                                <img draggable="false" src={three} />
-                              </div>
-                              <div className="col-md-3 col-6">
-                                {" "}
-                                <img draggable="false" src={four} />
-                              </div>
+                                  </button>
+                                </div>
+                              </div> */}
                             </div>
                           </div>
                         </div>
@@ -1658,7 +1794,8 @@ const Coin = () => {
                               id="textcolorsocial"
                               className="header-line h-size"
                             >
-                              Ashte,Go now!!!
+                              Ashte,
+                              <br /> Now go & unlock some Memes!!
                             </h2>
                             <div className="img-social">
                               <ul>
@@ -1716,7 +1853,7 @@ const Coin = () => {
                             <p className="social-tag pb-5">
                               <p>
                                 TheMemeTv is a meme coin with no intrinsic value
-                                or expectation of financial return. The road map
+                                or expectation of financial return.The road map
                                 is only indicative beyond Phase 3. The platform
                                 is for entertainment purposes only.
                               </p>
@@ -1756,32 +1893,44 @@ const Coin = () => {
                           id="textcolorroadmap"
                           className="header-line text-left pb-3"
                         >
-                          Road map
+                          Roadmap
                           {/* <span>(coz is’s a formality)</span> */}
                         </h2>
                         <div className="mob-res">
                           <div className="row road1 trasition-4">
-                            <div className="col-12 col-lg-4 pb-2 col-md-12 road-min ">
-                              <img
-                                draggable="false"
-                                className="w100"
-                                src={slider[currentIndexSlider]}
-                                alt="Slider Image"
-                              />
+                            <div className="col-12 col-lg-4 pb-2 col-md-12 road-min d-flex">
+                              <div className="road-min bordersec flex-fill">
+                                <h3>{phases[currentIndex].title}</h3>
+                                <p>
+                                  {phases[currentIndex].description
+                                    .split("\n")
+                                    .map((line, index) => (
+                                      <React.Fragment key={index}>
+                                        {line}
+                                        {index !==
+                                          phases[
+                                            currentIndex
+                                          ].description.split("\n").length -
+                                            1 && <br />}
+                                      </React.Fragment>
+                                    ))}
+                                </p>
+                              </div>
                             </div>
+
                             <div className="col-12 col-lg-4 col-md-12 pb-2 road-min"></div>
                             <div className="col-12 col-lg-4 col-md-12 pb-2">
                               <button className="slider-arrow right-arrow">
                                 <div className="slider">
                                   <img
                                     draggable="false"
-                                    onClick={handlePreviousSlider}
+                                    onClick={handlePreviousSlider1}
                                     src={leftArrow}
                                     alt="Previous"
                                   />
                                   <img
                                     draggable="false"
-                                    onClick={handleNextSlider}
+                                    onClick={handleNextSlider1}
                                     src={rightArrow}
                                     alt="Next"
                                   />
@@ -1801,38 +1950,66 @@ const Coin = () => {
                                 }%)`,
                               }}
                             >
-                              <div className="col-12 col-lg-4 col-md-12 pb-2 road-min">
-                                <img
-                                  className="img-desk"
-                                  src={sliderDesk[0]}
-                                  alt="Image 1"
-                                />
+                              <div className="col-12 col-lg-4 col-md-4 pb-2 road-min d-flex">
+                                <div className="bordersec flex-fill ">
+                                  <h3>Phase 1</h3>
+                                  <p>
+                                    Unlock memes on TheMemeTV, play games, stake
+                                    and earn Tokens
+                                  </p>
+                                </div>
+                                {/* <img
+                                    className="img-desk"
+                                    src={sliderDesk[0]}
+                                    alt="Image 1"
+                                  /> */}
                               </div>
-                              <div className="col-12 col-lg-4 pb-2 col-md-12 road-min">
-                                <img
-                                  className="img-desk"
-                                  src={sliderDesk[1]}
-                                  alt="Image 2"
-                                />
+                              <div className="col-12 col-lg-4 pb-2 col-md-4 road-min d-flex">
+                                {/* <img
+                                    className="img-desk"
+                                    src={sliderDesk[1]}
+                                    alt="Image 2"
+                                  /> */}
+
+                                <div className="bordersec flex-fill ">
+                                  <h3>Phase 2</h3>
+                                  <p>Exchange listing Community expansion</p>
+                                </div>
+                                {/* <img
+                                    className="img-desk"
+                                    src={sliderDesk[0]}
+                                    alt="Image 1"
+                                  /> */}
                               </div>
-                              <div className="col-12 col-lg-4 col-md-12 pb-2">
-                                <img
-                                  className="img-desk"
-                                  src={sliderDesk[2]}
-                                  alt="Image 3"
-                                />
+                              <div className="col-12 col-lg-4 col-md-4 pb-2 d-flex">
+                                {/* <img
+                                    className="img-desk"
+                                    src={sliderDesk[2]}
+                                    alt="Image 3"
+                                  /> */}
+
+                                <div className="bordersec flex-fill ">
+                                  <h3>Phase 3</h3>
+                                  <p>
+                                    Launch of Meme generator
+                                    <br /> Meme minting <br />
+                                    Meme marketplace
+                                  </p>
+                                </div>
                               </div>
-                              <div className="col-12 col-lg-4 col-md-12 pb-2">
-                                <img
-                                  className="img-desk"
-                                  src={sliderDesk[3]}
-                                  alt="Image 4"
-                                />
-                              </div>
+                              {/* <div className="col-12 col-lg-4 col-md-4 pb-2">
+                                  <div className="bordersec ">
+                                    <h3>Phase 4</h3>
+                                    <p>
+                                      Unlock memes on TheMemeTV, play games,
+                                      stake and earn Tokens
+                                    </p>
+                                  </div>
+                                </div> */}
                             </div>
                           </div>
                           <div className="row">
-                            <div className="col-12">
+                            {/* <div className="col-12 ">
                               <button
                                 onClick={handlePreviousDeskSlider}
                                 className="slider-arrow left-arrow"
@@ -1853,7 +2030,7 @@ const Coin = () => {
                                   alt="Next"
                                 />
                               </button>
-                            </div>
+                            </div> */}
                           </div>
                         </div>
                       </div>
