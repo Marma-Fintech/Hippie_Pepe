@@ -172,6 +172,11 @@ const Coin = () => {
     groupedItems.push(items.slice(i, i + 4));
   }
 
+  const groupedItems1 = [];
+  for (let i = 0; i < items.length; i += 1) {
+    groupedItems1.push(items.slice(i, i + 1));
+  }
+
   const updateOrientation = () => {
     setIsLandscape(window.innerWidth > window.innerHeight);
   };
@@ -188,20 +193,28 @@ const Coin = () => {
 
   const phases = [
     {
+      id: 1,
       title: "Phase 1",
       description:
         "Unlock memes on TheMemeTV, play games, stake and earn Tokens",
     },
     {
+      id: 2,
       title: "Phase 2",
       description: "Exchange listing Community expansion",
     },
     {
+      id: 3,
       title: "Phase 3",
       description:
         "Launch of Meme generator \n Meme minting \n Meme marketplace",
     },
   ];
+
+  const phasesItem = [];
+  for (let i = 0; i < phases.length; i += 1) {
+    phasesItem.push(phases.slice(i, i + 1));
+  }
 
   console.log(phases[currentIndex].description.split("\n"));
 
@@ -252,16 +265,6 @@ const Coin = () => {
       window.removeEventListener("resize", updateVh);
     };
   }, []);
-
-  const styles = {
-    warning: {
-      textAlign: "center",
-      padding: "20px",
-      backgroundColor: "#f44336",
-      color: "black",
-      fontSize: "18px",
-    },
-  };
 
   const handleNextDeskSlider = () => {
     if (currentIndexDesk < sliderDesk.length - 1) {
@@ -1095,8 +1098,8 @@ const Coin = () => {
   return (
     <>
       {isLandscape && isMobile ? (
-        <div className="landscape-warning" style={styles.warning}>
-          Please switch back to portrait mode for the best experience.
+        <div className="landscape-warning warning">
+          Please switch to Desktop mode for the best experience.
         </div>
       ) : (
         <div className="memetv">
@@ -1576,44 +1579,32 @@ const Coin = () => {
                           <div>
                             <div className="mob-res">
                               <div className="row road1 trasition-4">
-                                <div className="col-12 col-lg-4 pb-2 col-md-12 road-min d-flex">
-                                  <div className="road-min bordersec flex-fill">
-                                    <h3>{phases[currentIndex].title}</h3>
-                                    <p>
-                                      {phases[currentIndex].description
-                                        .split("\n")
-                                        .map((line, index) => (
-                                          <React.Fragment key={index}>
-                                            {line}
-                                            {index !==
-                                              phases[
-                                                currentIndex
-                                              ].description.split("\n").length -
-                                                1 && <br />}
-                                          </React.Fragment>
+                                <Carousel
+                                  interval={null}
+                                  indicators={true}
+                                  className="custom-carousel"
+                                >
+                                  {groupedItems1.map((group, index) => (
+                                    <Carousel.Item key={index}>
+                                      <div className="row">
+                                        {group.map((item) => (
+                                          <div
+                                            key={item.id}
+                                            className="col-11 col-lg-3 col-md-6 pb-2 d-flex justify-content-center"
+                                          >
+                                            <div className="bordersec1 flex-fill text-center">
+                                              <h3>{item.percentage}</h3>
+                                              <div style={{ padding: "10px" }}>
+                                                <h6>{item.heading}</h6>
+                                                <p>{item.description}</p>
+                                              </div>
+                                            </div>
+                                          </div>
                                         ))}
-                                    </p>
-                                  </div>
-                                </div>
-
-                                <div className="col-12 col-lg-4 col-md-12 pb-2">
-                                  <button className="slider-arrow right-arrow">
-                                    <div className="slider">
-                                      <img
-                                        draggable="false"
-                                        onClick={handlePreviousSlider1}
-                                        src={leftArrow}
-                                        alt="Previous"
-                                      />
-                                      <img
-                                        draggable="false"
-                                        onClick={handleNextSlider1}
-                                        src={rightArrow}
-                                        alt="Next"
-                                      />
-                                    </div>
-                                  </button>
-                                </div>
+                                      </div>
+                                    </Carousel.Item>
+                                  ))}
+                                </Carousel>
                               </div>
                             </div>
 
@@ -1898,7 +1889,7 @@ const Coin = () => {
                         </h2>
                         <div className="mob-res">
                           <div className="row road1 trasition-4">
-                            <div className="col-12 col-lg-4 pb-2 col-md-12 road-min d-flex">
+                            {/* <div className="col-12 col-lg-4 pb-2 col-md-12 road-min d-flex">
                               <div className="road-min bordersec flex-fill">
                                 <h3>{phases[currentIndex].title}</h3>
                                 <p>
@@ -1916,10 +1907,36 @@ const Coin = () => {
                                     ))}
                                 </p>
                               </div>
-                            </div>
+                            </div> */}
+
+                            <Carousel
+                              interval={null}
+                              indicators={true}
+                              className="custom-carousel"
+                            >
+                              {phasesItem.map((group, index) => (
+                                <Carousel.Item key={index}>
+                                  <div className="row">
+                                    {group.map((phases) => (
+                                      <div
+                                        key={phases.id}
+                                        className="col-11 col-lg-3 col-md-6 pb-2 d-flex justify-content-center"
+                                      >
+                                        <div className="bordersec flex-fill text-center">
+                                          <h3>{phases.title}</h3>
+                                          <div style={{ padding: "10px" }}>
+                                            <p>{phases.description}</p>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    ))}
+                                  </div>
+                                </Carousel.Item>
+                              ))}
+                            </Carousel>
 
                             <div className="col-12 col-lg-4 col-md-12 pb-2 road-min"></div>
-                            <div className="col-12 col-lg-4 col-md-12 pb-2">
+                            {/* <div className="col-12 col-lg-4 col-md-12 pb-2">
                               <button className="slider-arrow right-arrow">
                                 <div className="slider">
                                   <img
@@ -1936,7 +1953,7 @@ const Coin = () => {
                                   />
                                 </div>
                               </button>
-                            </div>
+                            </div> */}
                           </div>
                         </div>
 

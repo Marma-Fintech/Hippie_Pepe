@@ -24,6 +24,21 @@ body {
   font-size: 40px;
   padding-bottom: 10px;
 }
+.carousel-indicators [data-bs-target] {
+  background-color: #41ff3f !important;
+}
+.warning {
+  text-align: center;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  background-color: #000;
+  color: #4df038;
+  font-size: 1.2rem;
+  justify-content: center;
+  height: 100vh;
+}
+
 .bordersec1 {
   display: inline-block;
   /* margin: 5px; */
@@ -2766,6 +2781,58 @@ body {
 @media screen and (max-width: 767px) {
   .text-1 {
     color: #43b736;
+  }
+  .bordersec1 p {
+    /* padding: 25px 10px; */
+    font-size: 1.2rem;
+    text-align: center;
+    color: #747474;
+    text-transform: capitalize;
+    height: 12vh;
+    display: flex;
+    align-items: center;
+  }
+  .bordersec1 h3 {
+    padding: 35px 0px;
+    font-family: mySirstFont;
+    border-bottom: 3px DASHED #c75cd8;
+    background: linear-gradient(
+      264deg,
+      #fd8d23 34.66%,
+      #fae61c 49.31%,
+      #eef73b 60.95%,
+      #4cf038 77.23%,
+      #33c6f6 84.04%,
+      #559cfb 94.14%,
+      #7475ff 75.74%,
+      #d457ff 100%
+    );
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-size: 1.8rem !important;
+  }
+  .bordersec h3 {
+    padding: 35px 0px;
+    text-transform: uppercase;
+    font-family: mySirstFont;
+    border-bottom: 3px DASHED #c75cd8;
+    color: rgba(250, 230, 29, 1);
+  }
+  .bordersec p {
+    /* padding: 25px 10px; */
+    font-size: 1.2rem;
+    text-align: center;
+    color: #747474;
+    text-transform: capitalize;
+    height: 16vh;
+    display: flex;
+    align-items: center;
+  }
+  .bordersec1 h6 {
+    color: rgba(250, 230, 29, 1);
+    text-transform: uppercase;
+    font-size: 1.4rem;
   }
   .text-ab {
     color: #fff;
