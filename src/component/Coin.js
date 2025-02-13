@@ -1590,7 +1590,7 @@ const Coin = () => {
                                         {group.map((item) => (
                                           <div
                                             key={item.id}
-                                            className="col-11 col-lg-3 col-md-6 pb-2 d-flex justify-content-center"
+                                            className="col-11 col-lg-3 col-md-11 pb-2 d-flex justify-content-center"
                                           >
                                             <div className="bordersec1 flex-fill text-center">
                                               <h3>{item.percentage}</h3>
@@ -1920,12 +1920,16 @@ const Coin = () => {
                                     {group.map((phases) => (
                                       <div
                                         key={phases.id}
-                                        className="col-11 col-lg-3 col-md-6 pb-2 d-flex justify-content-center"
+                                        className="col-11 col-lg-3 col-md-11 pb-2 d-flex justify-content-center"
                                       >
                                         <div className="bordersec flex-fill text-center">
                                           <h3>{phases.title}</h3>
                                           <div style={{ padding: "10px" }}>
-                                            <p>{phases.description}</p>
+                                            <p
+                                              style={{ whiteSpace: "pre-line" }}
+                                            >
+                                              {phases.description}
+                                            </p>
                                           </div>
                                         </div>
                                       </div>

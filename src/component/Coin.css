@@ -17,6 +17,9 @@ body {
   height: 100%;
   overflow: hidden;
 }
+li:active {
+  box-shadow: none !important;
+}
 .textPath {
   color: yellow;
 }
@@ -1395,6 +1398,16 @@ body {
   .gif-size {
     display: none !important;
   }
+  .bordersec p {
+    /* padding: 25px 10px; */
+    font-size: 1rem;
+    text-align: center;
+    color: #747474;
+    text-transform: capitalize;
+    height: 16vh;
+    display: flex;
+    align-items: center;
+  }
   .memetv {
     overflow: hidden !important; /* Disable horizontal scrolling */
     width: 100vw; /* Ensure it stays within the viewport width */
@@ -2544,7 +2557,7 @@ body {
     justify-content: center;
   }
   .rope-img img {
-    width: 65%;
+    width: 60%;
   }
 }
 
@@ -2784,11 +2797,11 @@ body {
   }
   .bordersec1 p {
     /* padding: 25px 10px; */
-    font-size: 1.2rem;
+    font-size: 1rem;
     text-align: center;
     color: #747474;
     text-transform: capitalize;
-    height: 12vh;
+    height: 10vh;
     display: flex;
     align-items: center;
   }
@@ -2821,7 +2834,7 @@ body {
   }
   .bordersec p {
     /* padding: 25px 10px; */
-    font-size: 1.2rem;
+    font-size: 1rem;
     text-align: center;
     color: #747474;
     text-transform: capitalize;
@@ -2832,7 +2845,7 @@ body {
   .bordersec1 h6 {
     color: rgba(250, 230, 29, 1);
     text-transform: uppercase;
-    font-size: 1.4rem;
+    font-size: 1.1rem;
   }
   .text-ab {
     color: #fff;
@@ -2877,7 +2890,7 @@ body {
   .about-trasition-1 {
     /* transform: translate(0%, 15%); */
     padding: 0px 50px 0px 50px;
-    margin-bottom: 100px;
+    margin-bottom: 40%;
   }
   .about-trasition {
     /* transform: translate(0%, 15%); */
@@ -2901,6 +2914,7 @@ body {
   .about-trasition-1 {
     /* transform: translate(0%, 50%); */
     padding: 0px 100px 0px 100px;
+    margin-bottom: 40%;
   }
   .about-trasition {
     /* transform: translate(0%, 15%); */
@@ -2915,13 +2929,11 @@ body {
     text-align: center;
     font-family: mySirstFont;
   }
-  .rope-img {
+  /* .rope-img {
     transform: translateX(0%);
     bottom: -40%;
-    /* width: 100%; */
-    /* left: 0; */
     position: fixed;
-  }
+  } */
   .header-line {
     /* font-size: 25px !important; */
     text-align: center;
