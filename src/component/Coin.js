@@ -1151,7 +1151,7 @@ const Coin = () => {
                     </li>
                     <li>
                       <a
-                        href="https://www.instagram.com/thememe.tv_/"
+                        href="https://www.instagram.com/thememe_tv/"
                         target="_blank"
                         rel="noopener noreferrer"
                       >
@@ -1571,7 +1571,7 @@ const Coin = () => {
                                 id="textcolorsocial"
                                 className="supply-p txt-white"
                               >
-                                100,000,000,000 TMTV
+                                100,000,000,000 $MTV
                               </h2>
                             </div>
                           </div>
@@ -1805,7 +1805,7 @@ const Coin = () => {
                                 </li>
                                 <li>
                                   <a
-                                    href="https://www.instagram.com/thememe.tv_/"
+                                    href="https://www.instagram.com/thememe_tv/"
                                     target="_blank"
                                     rel="noopener noreferrer"
                                   >

@@ -1307,7 +1307,7 @@ li:active {
   .about-trasition-1 {
     /* transform: translate(0%, 10%); */
     padding: 7px 100px 0px 100px;
-    margin-bottom: 100px;
+    margin-bottom: 50%;
   }
   .token-read1 {
     /* transform: translate(0%, 20%); */
@@ -2557,7 +2557,7 @@ li:active {
     justify-content: center;
   }
   .rope-img img {
-    width: 60%;
+    width: 50%;
   }
 }
 
@@ -2794,6 +2794,9 @@ li:active {
 @media screen and (max-width: 767px) {
   .text-1 {
     color: #43b736;
+  }
+  .rope-img img {
+    width: 60%;
   }
   .bordersec1 p {
     /* padding: 25px 10px; */
@@ -4031,6 +4034,7 @@ li:active {
   .about-trasition-1 {
     /* transform: translate(0%, 10%); */
     padding: 7px 150px 0px 150px;
+    margin-bottom: 25%;
   }
   .token-read1 {
     /* transform: translate(0%, 20%); */
